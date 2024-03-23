@@ -46,7 +46,7 @@ function App() {
 
   
  return (
- <div style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
+ <div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
      <Router>
         <div className="App">
           <NavBar/>
