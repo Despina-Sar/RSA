@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/RSA/static/css/main.a0801d30.css",
-    "main.js": "/RSA/static/js/main.af70aa73.js",
+    "main.css": "/RSA/static/css/main.6a0457d2.css",
+    "main.js": "/RSA/static/js/main.da697892.js",
     "static/js/787.e447063f.chunk.js": "/RSA/static/js/787.e447063f.chunk.js",
     "static/media/UPlogo.png": "/RSA/static/media/UPlogo.c711fdad02b4528ddc67.png",
     "static/media/pp.jpg": "/RSA/static/media/pp.9f50c18ed87d3cbc376c.jpg",
     "index.html": "/RSA/index.html",
-    "main.a0801d30.css.map": "/RSA/static/css/main.a0801d30.css.map",
-    "main.af70aa73.js.map": "/RSA/static/js/main.af70aa73.js.map",
+    "main.6a0457d2.css.map": "/RSA/static/css/main.6a0457d2.css.map",
+    "main.da697892.js.map": "/RSA/static/js/main.da697892.js.map",
     "787.e447063f.chunk.js.map": "/RSA/static/js/787.e447063f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a0801d30.css",
-    "static/js/main.af70aa73.js"
+    "static/css/main.6a0457d2.css",
+    "static/js/main.da697892.js"
   ]
 }
