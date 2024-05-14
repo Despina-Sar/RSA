@@ -101,9 +101,7 @@ function Algorithm(){
             readOnly
            />
              
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+             const[form, setForm] = useState({})
           {formData.name !== null && (
           <div className="mt-3">
           <h4>Result:</h4>

@@ -1,7 +1,7 @@
 import React from 'react';
  import './index.css';
 import NavBar from './Components/NavBar'
-import Footer from './Components/Footer'
+//import Footer from './Components/Footer'
 import Home from './Components/Home'
 import {
   BrowserRouter as Router,
@@ -10,10 +10,8 @@ import {
 } from "react-router-dom";
 import Educational from './Components/Educational';
 import Algorithm from './Components/Algorithm';
-import Why from './Components/Pages/Why';
-import Where from './Components/Pages/Where';
-import Security from './Components/Pages/Security';
-import RSAHistory from './Components/Pages/RSAHistory';
+import Demo from './Components/Demo';
+import Training from './Components/Training';
 import background from "./pp.jpg";
 
 
@@ -53,19 +51,16 @@ function App() {
             <div className="content">
               <Routes>
                 <Route path="/" element={<Home/>}/> 
+                <Route path="/Demo" element={<Demo/>}/>
+                <Route path="/Training" element={<Training/>}/>
                 <Route path="/Educational" element={<Educational/>}/> 
                 <Route path="/Algorithm" element={<Algorithm/>}/> 
-               
-                <Route path="/Why" element={<Why/>}/>     
-                <Route path="/Where" element={<Where/>}/>     
-                <Route path="/Security" element={<Security/>}/>     
-                <Route path="/RSAHistory" element={<RSAHistory/>}/>    
+                
              </Routes>
             </div>
-        </div>
-       
+        </div>       
      </Router>
-      <Footer/>
+   
   </div>
 
        
