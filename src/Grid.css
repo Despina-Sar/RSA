@@ -1,0 +1,61 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .firstColumn {
+    grid-row: 1 / 3; /* Span the entire height */
+    background-color: lightblue;
+  }
+  
+  .secondColumnTop {
+    grid-row: 1 / 2; /* Top row */
+    background-color: lightgreen;
+  }
+  
+  .secondColumnBottom {
+    grid-row: 2 / 3; /* Bottom row */
+    background-color: lightcoral;
+  }
+  
+
+
+  /* -------------- Locked Card --------------*/
+
+ /* LockableCard.css */
+ .lockable-card {
+    transition: filter 0.5s ease-in-out;
+  }
+  
+  .lockable-card.blurred {
+    filter: blur(5px);
+    pointer-events: none; /* Prevent interaction while locked */
+  }
+  
+  .unlock-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+
+
+
+
+  /* WinningButton.css */
+
+/* Custom styles for the celebration container */
+.celebration-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Styles for the celebration message */
+  .celebration-message {
+    font-size: 36px;
+    font-weight: bold;
+    color: #f39c12; /* Bright orange color */
+  }

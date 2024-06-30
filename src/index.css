@@ -108,10 +108,18 @@ p {
  background-color:rgb(33,37,41);
   margin: 30px;
   color: #ffffff;
-  width: 40rem;
+  width: 35rem;
   font-size: 14px;
 }
 
+.card.customcardAlice{
+  background-color:rgb(33,37,41);
+   margin: 30px;
+   color: #ffffff;
+   width: 35rem;
+   font-size: 14px;
+ }
+ 
 .card.customcard2{
   background-color:rgb(33,37,41);
    margin: 30px;
@@ -119,9 +127,21 @@ p {
    width: 36rem;
    font-size: 14px;
  }
+
 .customform{
   color: #fcfcfc;
   font-size: 15px;
+}
+
+
+
+.customcardBlur.blurred {
+  filter: blur(5px);
+  pointer-events: none; /* Prevent interaction */
+}
+
+.customcardBlur {
+  transition: filter 0.3s ease;
 }
 
 .navbar {
@@ -233,3 +253,4 @@ p {
     padding: 10px;
   }
 }
+
