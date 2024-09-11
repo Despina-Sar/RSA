@@ -34,6 +34,9 @@ function Training(){
 
 );
 */
+
+
+/*   ----------------Correct on 11.09-------------------------------------
 const [isAliceBlurred, setIsAliceBlurred] = useState(true);
 const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
 
@@ -46,6 +49,7 @@ const handleAliceUnlockClick = () => {
   console.log('Alice unlock button clicked');
   setIsBobDecrBlurred(false);
 };
+
 
 
 return (
@@ -78,8 +82,69 @@ return (
 }
 export default Training;
 
+-=------------------------------------ end correct on 11.09-----------------------------------------------------------------
+*/ 
+
+
+const [isAliceBlurred, setIsAliceBlurred] = useState(true);
+const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
+
+const handleBobSendClick = () => {
+  console.log('Bob send button clicked');
+  setIsAliceBlurred(false);
+};
+
+const handleAliceUnlockClick = () => {
+  console.log('Alice unlock button clicked');
+  setIsBobDecrBlurred(false);
+};
+
+ // State to store RSA values
+ const [rsaValuess, setRSAValues] = useState({
+  p: null,
+  q: null,
+  n: null,
+  fn: null,
+  E: null,
+  D: null,
+});
 
 
 
+  // Function to update RSA values from Bob component
+  const updateRSAValues = (newValues) => {
+    setRSAValues((prevValues) => ({
+      ...prevValues,
+      ...newValues,
+    }));
+  };
 
+return (
+  <RSAProvider>
+    <Container fluid>
+        <Row>
+          <Col md={6} style={{  height: '100vh' }}>
+            /
+            <Bob onSendClick={handleBobSendClick} rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
+          </Col>
+          <Col md={6}>
+            <Row style={{  height: '50vh' }}>
+              <Col>
+                /
+                <Alice isBlurred={isAliceBlurred} onUnlockClick={handleAliceUnlockClick} rsaValuess={rsaValuess}/>
+              </Col>
+            </Row>
+            <Row style={{ height: '50vh' }}>
+              <Col>
+              /
+                <BobDecr isBlurred={isBobDecrBlurred} rsaValuess={rsaValuess}/>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+  </RSAProvider>
+);
 
+}
+export default Training;

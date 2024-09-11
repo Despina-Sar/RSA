@@ -6,7 +6,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RSAContext } from './RSAContext';
 
 // ----------------------------------------------CORRCT START -------------------------------------
-function BobDecr({isBlurred} ){
+function BobDecr({isBlurred, rsaValuess} ){
 
 //------------------offcanvas-------------
 const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
@@ -15,10 +15,11 @@ const [show, setShow] = useState(false);
 
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
-
+const[errors, setErrors] = useState({})
 //------------------validation----------------
  // const[form, setForm] = useState({})
-  const[errors, setErrors] = useState({})
+ /* 11109
+ const[errors, setErrors] = useState({})
   const setField = (field,value) => {
     setForm({
       ...form,
@@ -31,85 +32,65 @@ const handleShow = () => setShow(true);
        [field]:null  
     })
   }
+*/
+const setField = (field, value) => {
+  setForm(prevForm => {
+    const newForm = { ...prevForm, [field]: value };
+    validateM(field, value, newForm); // validate with the updated form state
+    return newForm;
+  });
 
 
+  setRSAValues(prev => ({
+    ...prev,
+    [field]: value
+  }));
+
+  if (!!errors[field]) {
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [field]: null
+    }));
+  }
+};
  
 //----------------------------------------handle submit only for M---------------------------------------------
-  const handleSubmitM = e =>{
-    e.preventDefault()
-    let{M}= form
-    const newErrors ={}
-        if (M === undefined || M === '') {newErrors.M = 'M empty'}
-    else{ 
-        // Check if E and phi(N) are positive integers
-        M=Number(M);
-        if(M < 0){
-          newErrors.E = 'M should be greater than 0'
-          console.log('inside final error');
-      }}
- 
-    if(Object.keys(newErrors).length>0){
-      setErrors(newErrors)
-      console.log('inside set M error');
-    }
-    else{
-      console.log("Successfull Submittion");}
-
-
-    }
-
-//----------------------------------------handle submit only for CT---------------------------------------------
-const handleSubmitCT = e =>{
-  e.preventDefault()
-  let{M,CT}= form
-  console.log(form)
-  const newErrors ={}
-      if (CT === undefined || CT === '') {newErrors.CT = 'CT empty'}
-  else{ 
-      // Check if E and phi(N) are positive integers
-      const E = Number(rsaValues.E);
-      const n = Number(rsaValues.n);
-      M=Number(M);
-      console.log( M )
-      console.log( E )
-      console.log(n)
-      let encryptedMessage = rsaEncrypt(M , E ,n);
-      console.log("Encrypted Message (C):", encryptedMessage);
-
-      if (encryptedMessage !== Number(CT)) 
-        { newErrors.CT = 'Wrong CT' }
-   }
-
-  if(Object.keys(newErrors).length>0){
-    setErrors(newErrors)
-    console.log('inside set CT error');
-  }
-  else{console.log("Successfull Submittion");}
+const validateM = (field, value, form) =>{
   
-  }
-
-
-function modExp(base, exp, mod) {
-  if (mod === 1) return 0;
-  let result = 1;
-  base = base % mod;
-  while (exp > 0) {
-      if (exp % 2 === 1) {
-          result = (result * base) % mod;
+  //1109  const handleSubmitM = e =>{
+      //e.preventDefault()
+      let{M}= form
+      const newErrors ={}
+          if (M === undefined || M === '') {newErrors.M = 'M empty'}
+      else{ 
+          // Check if E and phi(N) are positive integers
+          M=Number(M);
+          if(M < 0){
+            newErrors.E = 'M should be greater than 0'
+            console.log('inside final error');
+        }}
+   
+      if(Object.keys(newErrors).length>0){
+        setErrors(newErrors)
+        console.log('inside set M error');
       }
-      exp = exp >> 1;
-      base = (base * base) % mod;
-  }
-  return result;
-}
-
-// RSA Encrypt function
-function rsaEncrypt(M, E, N) {
-  return modExp(M, E, N);
-}
-
-
-
+      else{console.log("Successfull Submittion");}
+      console.log(form)
+      
+    
+ 
+        const { d, n } = rsaValues;
+    
+        // Decrypting ciphertext using RSA (CT ^ d) % n
+        /*1109
+          const decryptedMessage = cipherTextInput
+          .split(' ')
+          .map((ct) => String.fromCharCode((parseInt(ct) ** d) % n))
+          .join('');
+        setDecryptedMessage(decryptedMessage);
+            */
+    }
+  
 
 
   return ( 
@@ -173,7 +154,7 @@ function rsaEncrypt(M, E, N) {
                       </Col>                                    
                      
                       <Col xs={6}>
-                        <Button type='submit' onClick={handleSubmitM} className='my-2' variant="outline-info">
+                        <Button type='submit' onClick={validateM} className='my-2' variant="outline-info">
                           Next Step
                         </Button>
                       </Col>                     

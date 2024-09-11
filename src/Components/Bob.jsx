@@ -6,7 +6,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RSAContext } from './RSAContext';
 
 //-----------------------------------------------CORRECT START------------------------------------------------------- 
-function Bob({ onSendClick  }){
+function Bob({ onSendClick, rsaValuess, updateRSAValues  }){
 
 //------------------offcanvas-------------
 const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
@@ -29,6 +29,7 @@ const setField = (field, value) => {
     return newForm;
   });
 
+  
   setRSAValues(prev => ({
     ...prev,
     [field]: value
@@ -71,6 +72,11 @@ const setField = (field, value) => {
   
 
 
+    const handleSubmit = () => {
+      // Update the RSA values in the parent component
+      const { p, q, n, fn, E, D } = form;
+      updateRSAValues({ p, q, n, fn, e: E, d: D });
+    };
   
 //-----------------------------------handle submit only for P-------------------------------------------
 
@@ -281,9 +287,12 @@ const validateD = (field, value, form) =>{
     else{ 
       console.log('E, Fn' +E + '  - '+fn);
       let y=modInverse(E, fn);
-      console.log(y);
-      D=Number(D);
-      if(D !== y){newErrors.D = 'Wrong D' }
+      console.log('D= '+D+ ' and y=' +y);
+    //  const D=Number(D);
+      if(D !== y){
+        console.log('D is diff from y');
+        newErrors.D = 'Wrong D' 
+        }
     }
 
     if(Object.keys(newErrors).length>0){
@@ -293,7 +302,7 @@ const validateD = (field, value, form) =>{
     else{
       console.log('Successful Submission');
       setRSAValues(prev => ({ ...prev, D }));
-      setField('D', value);
+     // setField('D', value);
       console.log('rsaValues:', rsaValues);
     }
 
@@ -560,12 +569,17 @@ function modInversee(a, m) {
                     <Form.Control                          
                          type="number" 
                          value={form.D} 
-                         onChange={(e) => handleInputChangeD('D', e.target.value)} 
+                       //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
+                         onChange={(e) => setField('D', e.target.value)}
+                         isInvalid={!!errors.D}
                          placeholder="D" 
                         style={{ width: '70px', padding: '5px', fontSize: '16px', textAlign: 'center', marginLeft: '1px' }} 
                        />                   
                     <span style={{ fontSize: '16px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>
                     </div>
+                    <Form.Control.Feedback type= 'invalid'>
+                          {errors.D}
+                        </Form.Control.Feedback>
                     </Col>
                     {/*}
                       <Col>
@@ -595,6 +609,9 @@ function modInversee(a, m) {
                        
                       <Col xs={7}>
                         <Button onClick={onSendClick} variant="outline-info">Send E to Alice</Button>
+                     </Col>  
+                     <Col xs={7}>
+                        <Button onClick={handleSubmit} variant="outline-info">Send E to Alice</Button>
                      </Col>  
                      
 

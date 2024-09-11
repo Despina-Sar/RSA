@@ -5,10 +5,10 @@ import { Form,Button, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RSAContext } from './RSAContext';
 // ----------------------------------------------CORRCT START -------------------------------------
-function Alice({ isBlurred, onUnlockClick }){
+function Alice({ isBlurred, onUnlockClick ,rsaValuess }){
 
 //------------------offcanvas-------------
-const { rsaValues } = useContext(RSAContext);///////////////
+const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
 //const [form, setForm] = useState(rsaValues);////////////////
 const [form, setForm] = useState({ M: '', CT: '' });
 const [show, setShow] = useState(false);
@@ -19,6 +19,8 @@ const handleShow = () => setShow(true);
 //------------------validation----------------
   //const[form, setForm] = useState({})
   const[errors, setErrors] = useState({})
+
+  /*1109
   const setField = (field,value) => {
     setForm({
       ...form,
@@ -31,12 +33,47 @@ const handleShow = () => setShow(true);
        [field]:null  
     })
   }
+*/
+
+const setField = (field, value) => {
+  setForm(prevForm => {
+    const newForm = { ...prevForm, [field]: value };
+    validateField(field, value, newForm); // validate with the updated form state
+    return newForm;
+  });
 
 
- 
+  setRSAValues(prev => ({
+    ...prev,
+    [field]: value
+  }));
+
+  if (!!errors[field]) {
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [field]: null
+    }));
+  }
+};
+
+  const validateField = (field, value, updatedForm) => {
+    switch (field) {
+      case 'M':
+        handleSubmitM(field, value,updatedForm);
+        break;
+      case 'CT':
+        handleSubmitCT(field, value,updatedForm);
+        break;
+        default:
+        break;
+    }
+  };
 //----------------------------------------handle submit only for M---------------------------------------------
-  const handleSubmitM = e =>{
-    e.preventDefault()
+
+const handleSubmitM = (field, value, form) =>{
+  
+//1109  const handleSubmitM = e =>{
+    //e.preventDefault()
     let{M}= form
     const newErrors ={}
         if (M === undefined || M === '') {newErrors.M = 'M empty'}
@@ -54,14 +91,17 @@ const handleShow = () => setShow(true);
     }
     else{console.log("Successfull Submittion");}
     console.log(form)
+
+    
     }
 
 //----------------------------------------handle submit only for CT---------------------------------------------
-const handleSubmitCT = e =>{
-  e.preventDefault()
+const handleSubmitCT = (field, value, form) =>{
+  const { E, n } = rsaValues;
+  console.log('Soo lets check bob values ..E= '+ E+' N= '+n);
+
   console.log('rsaValues:', rsaValues);
   let{M,CT}= form
-  console.log(form)
   const newErrors ={}
       if (CT === undefined || CT === '') {newErrors.CT = 'CT empty'}
   else{ 

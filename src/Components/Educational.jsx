@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 //import { Form, Button, Row, Col } from 'react-bootstrap';
 
 
@@ -266,60 +266,121 @@ export default LockableCard;
 
 
 //-------------------------------------WIN BUTTON START---------------------------------------------
-/*
 
-import { Modal } from 'react-bootstrap';
-import Confetti from 'react-confetti/dist/react-confetti';  // Import Confetti for celebration effect
-import '../Grid.css'; // Custom CSS for styling
-const WinningButton = () => {
+import React, { useState } from 'react';
+import { Modal, Button, Card } from 'react-bootstrap';
+import Confetti from 'react-confetti';
+
+function GameComponent() {
+  const [gameState, setGameState] = useState({ score: 0, hasWon: false });
   const [showModal, setShowModal] = useState(false);
 
-  const handleButtonClick = () => {
-    // Logic to check if the user has won (replace with your actual game logic)
-    const isWinner = true; // Replace with your condition to determine if the user wins
-
-    if (isWinner) {
-      setShowModal(true); // Show the celebration message modal
-    }
+  // Function to be called when user wins the game
+  const handleWin = () => {
+    console.log('User has won the game!');
+    setGameState((prevState) => ({ ...prevState, hasWon: true }));
+    setShowModal(true);
   };
 
-  const handleClose = () => setShowModal(false);
+  // Example function to simulate game progress
+  const increaseScore = () => {
+    setGameState((prevState) => {
+      const newScore = prevState.score + 10;
+      if (newScore >= 100) {
+        handleWin(); // Trigger the win condition if the score reaches 100
+      }
+      return { ...prevState, score: newScore };
+    });
+  };
+
+  // Reset the game
+  const resetGame = () => {
+    setGameState({ score: 0, hasWon: false });
+    setShowModal(false);
+  };
 
   return (
-    <>
-      <Button variant="success" onClick={handleButtonClick}>
-        Click to Win!
-      </Button>
+    <div className="game-container">
+      <h1 className="game-score">Score: {gameState.score}</h1>
 
-      <Modal show={showModal} onHide={handleClose} centered>
+      {!gameState.hasWon && (
+        <Button onClick={increaseScore} variant="info" className="increase-button">
+          Increase Score
+        </Button>
+      )}
+
+      {gameState.hasWon && <h2 className="win-message">You've won the game!</h2>}
+
+      {/* Confetti Effect when user wins */}
+      {gameState.hasWon && <Confetti />}
+
+      {/* Winning Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Congratulations!</Modal.Title>
+          <Modal.Title>🏆 Congratulations!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="celebration-container">
-            <Confetti
-              width={window.innerWidth}
-              height={window.innerHeight}
-              numberOfPieces={200}
-              recycle={false}
-              colors={['#ffffff']}
-            />
-            <h2 className="celebration-message">🎉 You are the WINNER! 🎉</h2>
-          </div>
+          <Card className="text-center p-3 shadow-lg" style={{ borderRadius: '15px', backgroundColor: '#333', color: '#fff' }}>
+            <Card.Body>
+              <Card.Title as="h2" className="text-light">Victory Achieved!</Card.Title>
+              <Card.Text as="h4" className="mb-4">
+                You've completed the challenge with a score of <strong>{gameState.score}</strong>.
+              </Card.Text>
+              <Button variant="outline-light" onClick={resetGame}>
+                Play Again
+              </Button>
+            </Card.Body>
+          </Card>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
-    </>
+
+      <style jsx="true">{`
+        .game-container {
+          text-align: center;
+          margin-top: 50px;
+          background-color: #000; /* Set the background to black */
+          color: #fff; /* White text for contrast */
+          min-height: 100vh;
+          font-family: 'Georgia', serif; /* Formal font */
+          padding-top: 50px;
+        }
+        .game-score {
+          font-size: 3rem;
+          margin-bottom: 30px;
+          color: #f5f5f5;
+        }
+        .increase-button {
+          font-size: 1.5rem;
+          padding: 10px 30px;
+          background-color: #444; /* Subtle button color */
+          border-color: #444;
+        }
+        .win-message {
+          font-size: 2rem;
+          color: #28a745;
+          margin-top: 20px;
+        }
+        .modal-header, .modal-body {
+          background-color: #222; /* Dark modal background */
+          color: white; /* White text */
+        }
+        .modal-title {
+          font-family: 'Georgia', serif; /* Formal font */
+          font-size: 1.75rem;
+        }
+        .btn-outline-light {
+          border-color: #fff;
+          color: #fff;
+        }
+      `}</style>
+    </div>
   );
-};
+}
 
-export default WinningButton;
+export default GameComponent;
 
-*/
+
+
 //-------------------------------------WIN BUTTON END----------------------------------------
 
 
@@ -399,8 +460,7 @@ export default FactorsCard;
 
 //---------------------------D calculation start ---------------------
 
-
-
+/*
 const ModularInverseChecker = () => {
   const [E, setE] = useState('');
   const [x, setX] = useState('');
@@ -489,3 +549,4 @@ const App = () => {
 };
 
 export default App;
+*/

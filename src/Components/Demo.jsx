@@ -142,10 +142,10 @@ function Demo() {
                      &nbsp;&nbsp;&nbsp;
                      <Col xs={3}>
                       <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> &nbsp;
-                        <Form.Label>CT: </Form.Label>
+                        <Form.Label>CT = </Form.Label>
                         </Col>
                         <Col xs={8}>
-                          <Form.Control placeholder="M^E mod N = " disabled style={{width:"100%"}} />
+                          <Form.Control placeholder="M^E mod N" disabled style={{width:"100%"}} />
                        </Col>
                      </Row>                               
                     </Form.Label>                  
@@ -169,10 +169,10 @@ function Demo() {
                      &nbsp;&nbsp;&nbsp;&nbsp;
                      <Col xs={3}>
                       <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                        <Form.Label>M: </Form.Label>
+                        <Form.Label>M = </Form.Label>
                         </Col>
                         <Col xs={8}>
-                          <Form.Control placeholder="CT^D mod N = M" disabled style={{width:"100%"}} />
+                          <Form.Control placeholder="CT^D mod N" disabled style={{width:"100%"}} />
                        </Col>
                      </Row>
                                
