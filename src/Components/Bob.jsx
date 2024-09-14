@@ -76,6 +76,7 @@ const setField = (field, value) => {
       // Update the RSA values in the parent component
       const { p, q, n, fn, E, D } = form;
       updateRSAValues({ p, q, n, fn, e: E, d: D });
+      onSendClick();
     };
   
 //-----------------------------------handle submit only for P-------------------------------------------
@@ -394,7 +395,7 @@ function modInversee(a, m) {
            
               <Row className="align-items-center">
                <Col>
-               <Card.Title>Bob: Key Calculation    &nbsp;
+               <Card.Title>Bob: Key Generation     &nbsp;
               <Button variant="outline-info" onClick={handleShow}>
                    <i class="bi bi-lightbulb"></i>
                 </Button>
@@ -565,7 +566,8 @@ function modInversee(a, m) {
 
                   <Row className="mb-3">
                   <Col xs={5}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>                
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>         
+                  <span style={{ fontSize: '16px' }}>D:</span>       
                     <Form.Control                          
                          type="number" 
                          value={form.D} 
@@ -581,40 +583,15 @@ function modInversee(a, m) {
                           {errors.D}
                         </Form.Control.Feedback>
                     </Col>
-                    {/*}
-                      <Col>
-                      <Form.Label>D: </Form.Label>
-                      </Col>
-                      <Col xs={4}>
-                        <Form.Control
-                            type="number"
-                            size="sm"
-                            value={form.D}
-                            onChange={(e) => setField('D', e.target.value)}
-                            isInvalid={!!errors.D}
-                          />
-                        <Form.Control.Feedback type= 'invalid'>
-                          {errors.D}
-                        </Form.Control.Feedback>
-                      </Col>   
-                      */}
-
-                     {/*
-                      <Col xs={6}>
-                        <Button type='submit' onClick={validateD} className='my-2' variant="outline-danger">
-                          Next Step
-                        </Button>
-                      </Col>      
-                       */}
-                       
+                    {/*                     
                       <Col xs={7}>
                         <Button onClick={onSendClick} variant="outline-info">Send E to Alice</Button>
                      </Col>  
+                    */}
                      <Col xs={7}>
                         <Button onClick={handleSubmit} variant="outline-info">Send E to Alice</Button>
                      </Col>  
-                     
-
+                 
                     </Row> 
                                       
                  </Form>

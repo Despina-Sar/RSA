@@ -6,6 +6,7 @@ import { RSAProvider } from './RSAContext.jsx';
 import Bob from './Bob';
 import BobDecr from './BobDecr.jsx';
 import Alice from './Alice';
+import EndModal from './EndModal';  // Import Component B
 
 
 
@@ -85,7 +86,6 @@ export default Training;
 -=------------------------------------ end correct on 11.09-----------------------------------------------------------------
 */ 
 
-
 const [isAliceBlurred, setIsAliceBlurred] = useState(true);
 const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
 
@@ -119,6 +119,18 @@ const handleAliceUnlockClick = () => {
     }));
   };
 
+  const [showModal, setShowModal] = useState(false); // Manage modal state
+
+  const handleWin = () => {
+    setShowModal(true); // Trigger the modal
+  };
+
+  const resetModal = () => {
+    setShowModal(false); // Close the modal
+  };
+
+  
+
 return (
   <RSAProvider>
     <Container fluid>
@@ -128,7 +140,7 @@ return (
             <Bob onSendClick={handleBobSendClick} rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           </Col>
           <Col md={6}>
-            <Row style={{  height: '50vh' }}>
+            <Row style={{  height: '40vh' }}>
               <Col>
                 /
                 <Alice isBlurred={isAliceBlurred} onUnlockClick={handleAliceUnlockClick} rsaValuess={rsaValuess}/>
@@ -137,11 +149,12 @@ return (
             <Row style={{ height: '50vh' }}>
               <Col>
               /
-                <BobDecr isBlurred={isBobDecrBlurred} rsaValuess={rsaValuess}/>
+                <BobDecr isBlurred={isBobDecrBlurred} rsaValuess={rsaValuess} triggerWin={handleWin}/>
               </Col>
             </Row>
           </Col>
         </Row>
+        <EndModal showModal={showModal}  resetModal={resetModal}  />
       </Container>
   </RSAProvider>
 );

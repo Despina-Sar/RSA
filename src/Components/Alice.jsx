@@ -127,7 +127,7 @@ const handleSubmitCT = (field, value, form) =>{
     console.log('inside set CT error');
   }
   else{console.log("Successfull Submittion");}
-  
+  console.log(rsaValues.E)
   }
 
 
@@ -188,8 +188,8 @@ function rsaEncrypt(M, E, N) {
                
                
               <Form className="customform">                    
-                  <Form.Label>
-                  1. Select message you want to send to Bob &nbsp;
+                  <Form.Label> Alice wants to send an encrypted message to Bob.</Form.Label>
+                  <Form.Label>1. Select message you want to send to Bob &nbsp;
                   <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp;
                      M using Bob's public key  
                                       
@@ -232,9 +232,22 @@ function rsaEncrypt(M, E, N) {
                   </Form.Label>
 
                   <Row >
-                      <Col xs={1}>
-                      <Form.Label>CT: </Form.Label>
-                      </Col>
+                {/*  -----new 12 09-----  */}  
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>                         
+                      <span style={{ fontSize: '16px' }}>CT = M^E mod n =  {rsaValues.M || 'M'} ^ {rsaValues.E || 'E'} mod {rsaValues.n || 'n'} =</span>
+                      <Form.Control                          
+                          type="number" 
+                          value={form.CT} 
+                        //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
+                          onChange={(e) => setField('CT', e.target.value)}
+                          isInvalid={!!errors.CT}
+                          placeholder="CT" 
+                          style={{ width: '70px', padding: '5px', fontSize: '16px', textAlign: 'center', marginLeft: '1px' }} 
+                        />                   
+                    </div>
+                 {/*  -----new 12 09-----  */}  
+
+                  {/*
                       <Col xs={4}>
                         <Form.Control
                             type="integer"
@@ -247,7 +260,8 @@ function rsaEncrypt(M, E, N) {
                           {errors.CT}
                         </Form.Control.Feedback>
                       </Col>                                    
-                     
+                     */}
+                 
                       <Col xs={6}>
                          <Button onClick={onUnlockClick} variant="outline-danger">Send CT to Bob</Button>
                       </Col>                     

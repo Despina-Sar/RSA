@@ -304,8 +304,8 @@ function GameComponent() {
       <h1 className="game-score">Score: {gameState.score}</h1>
 
       {!gameState.hasWon && (
-        <Button onClick={increaseScore} variant="info" className="increase-button">
-          Increase Score
+        <Button onClick={handleWin()} variant="info" className="increase-button">
+          Winnnn
         </Button>
       )}
 
