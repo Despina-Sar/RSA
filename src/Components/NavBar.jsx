@@ -21,8 +21,8 @@ function ColorSchemesExample() {
          <img
               alt=""
               src= {require('../images/favicon.png')}
-              width="30"
-              height="30"
+              width="40"
+              height="40"
               className="d-inline-block align-top"
             />{' '}
             Home
@@ -30,8 +30,9 @@ function ColorSchemesExample() {
             <Nav id = "menu">
             <Nav.Link as={Link} to="/Demo">Demo</Nav.Link>
             <Nav.Link as={Link} to="/Training">Training</Nav.Link>
-            <Nav.Link as={Link} to="/Educational">TestEducational</Nav.Link>
-           <Nav.Link as={Link} to="/Algorithm">Real Life Example</Nav.Link>
+         {/*}  <Nav.Link as={Link} to="/Educational">TestEducational</Nav.Link> */}
+           <Nav.Link as={Link} to="/Real">Real Card</Nav.Link>
+           <Nav.Link as={Link} to="/Algorithm">Real Old</Nav.Link>
                   
             </Nav>            
         </Container>

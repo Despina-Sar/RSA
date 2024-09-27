@@ -160,15 +160,15 @@ function rsaEncrypt(M, E, N) {
            
               <Row className="align-items-center">
                <Col>
-                <Card.Title>Alice: Encryption  &nbsp;
-                  <Button variant="outline-danger" onClick={handleShow}>
-                      <i class="bi bi-lightbulb"></i>
-                    </Button>
+                <Card.Title style={{ fontWeight: 'bold' }}>Alice: Encryption  &nbsp;
+                   <Button variant="outline-danger" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
+                       <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
+                   </Button>
                 </Card.Title>
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.25rem' }}>Step 2</div>
+            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 2</div>
             </Col>
           </Row>
               
@@ -263,7 +263,11 @@ function rsaEncrypt(M, E, N) {
                      */}
                  
                       <Col xs={6}>
-                         <Button onClick={onUnlockClick} variant="outline-danger">Send CT to Bob</Button>
+                         <Button onClick={onUnlockClick}
+                          variant="outline-danger" 
+                          style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
+                          >Send CT to Bob
+                          </Button>
                       </Col>                     
                     </Row> 
                                       

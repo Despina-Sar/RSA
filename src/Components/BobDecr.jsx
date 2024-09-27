@@ -67,17 +67,17 @@ const validateM = (field, value, form) =>{
   return ( 
                 
     <div className={`customcardBlur ${isBlurred  ? 'blurred' : ''}`}>                       
-          <Card border="info" className="customcard">
+          <Card border="info" className="customcardBobDecr">
             <Card.Body>
                       
               <Row className="align-items-center">
                <Col>
-               <Card.Title>Bob: Decryption  &nbsp;
+               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Decryption  &nbsp;
                </Card.Title>
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.25rem' }}>Step 3</div>
+            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 3</div>
             </Col>
           </Row>
          

@@ -12,6 +12,7 @@ import Educational from './Components/Educational';
 import Algorithm from './Components/Algorithm';
 import Demo from './Components/Demo';
 import Training from './Components/Training';
+import Real from './Components/Real';
 import background from "./pp.jpg";
 
 
@@ -54,6 +55,7 @@ function App() {
                 <Route path="/Demo" element={<Demo/>}/>
                 <Route path="/Training" element={<Training/>}/>
                 <Route path="/Educational" element={<Educational/>}/> 
+                <Route path="/Real" element={<Real/>}/> 
                 <Route path="/Algorithm" element={<Algorithm/>}/> 
                 
              </Routes>

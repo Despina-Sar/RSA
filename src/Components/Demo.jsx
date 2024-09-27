@@ -12,7 +12,7 @@ function Demo() {
           <Col>          
             <Card border="light" className="customcard2">
               <Card.Body>
-                <Card.Title>Algorithm Calculations</Card.Title>
+                <Card.Title style={{ fontWeight: 'bold' }}>Algorithm Calculations</Card.Title>
                      
                   <Form className="customform">                    
                     <Form.Label>
@@ -98,7 +98,7 @@ function Demo() {
           <Col>
             <Card border="light" className="customcard2">              
                 <Card.Body>
-                  <Card.Title>Encryption Process</Card.Title>
+                  <Card.Title style={{ fontWeight: 'bold' }}>Encryption Process</Card.Title>
                                
                   <Form className="customform">                    
                     <Form.Label>

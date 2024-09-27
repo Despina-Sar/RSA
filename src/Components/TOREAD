@@ -1,12 +1,19 @@
-/*
+/* 
+TO DO
+
+Update reallife card
+Reset state on modal close
+Lock buttons in case of empty values
+Check error messages
+Edit to Greek
+Update Offcanvas text 
+Check pdf 
+
+*/
+
+/* 
+COMPLETED:
+
 Check alignment
 Update font
-Check error messages
-Lock buttons in case of empty values
-Reset state on modal close
-Update direction on demoand training
-Update reallife card
-Check pdf 
-Update Offcanvas text 
-
 */

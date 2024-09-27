@@ -95,7 +95,7 @@ p {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   color: #ffffff;
-  margin-left: 60px;
+  margin-left: 70px;
   margin-bottom: 10px;
 
 }
@@ -112,25 +112,57 @@ p {
   font-size: 14px;
 }
 
-.card.customcardAlice{
+.card.customcardBob{
   background-color:rgb(33,37,41);
-   margin: 30px;
+  border-width: 3.5px;
+  margin-top: 10%;
+  margin-right: 30%;
+  margin-left: 10%;
+  padding: 10px;
    color: #ffffff;
-   width: 35rem;
-   font-size: 14px;
- }
- 
-.card.customcard2{
-  background-color:rgb(33,37,41);
-   margin: 30px;
-   color: #ffffff;
-   width: 36rem;
+   width: 80%;
    font-size: 14px;
  }
 
+ .card.customcardBobDecr {
+  background-color: rgb(33, 37, 41);
+  border-width: 3.5px;
+  margin-top: 10%;
+  padding: 10px;
+  color: #ffffff;
+  width: 80%;
+  font-size: 14px;
+}
+
+.card.customcardAlice {
+  background-color: rgb(33, 37, 41);
+  border-width: 3.5px;
+  margin-top: 8%; /* Large top margin for testing vertical spacing */
+  padding: 10px;
+  color: #ffffff;
+  width: 80%;
+  font-size: 14px;
+}
+ 
+.card.customcard2{
+  background-color:rgb(33,37,41);
+  margin-top: 14%;
+   color: #ffffff;
+   width: 95%;
+   font-size: 14px;
+ }
+
+
+ .card.customcardReal{
+  background-color:rgb(33,37,41);
+  margin-top: 2%;
+   color: #ffffff;
+   width: 100%;
+   font-size: 14px;
+ }
 .customform{
   color: #fcfcfc;
-  font-size: 15px;
+  font-size: 19px;
 }
 
 
@@ -147,7 +179,8 @@ p {
 .navbar {
   color: #ffffff;
   background-color: rgb(33,37,41);
-  font-size: 15px;
+  font-size: 21px;
+  font-weight: bold;
 }
 
 .navbar a {

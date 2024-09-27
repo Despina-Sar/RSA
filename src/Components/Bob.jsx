@@ -390,22 +390,22 @@ function modInversee(a, m) {
 
   return ( 
                 
-          <Card border="info" className="customcard">
+          <Card border="info" className="customcardBob">
             <Card.Body>
            
               <Row className="align-items-center">
                <Col>
-               <Card.Title>Bob: Key Generation     &nbsp;
-              <Button variant="outline-info" onClick={handleShow}>
-                   <i class="bi bi-lightbulb"></i>
+               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Key Generation     &nbsp;
+                <Button variant="outline-info" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
+                       <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
                 </Button>
               </Card.Title>
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.25rem' }}>Step 1</div>
-            
+              <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 1</div>
             </Col>
+       
           </Row>
               
 
@@ -589,7 +589,11 @@ function modInversee(a, m) {
                      </Col>  
                     */}
                      <Col xs={7}>
-                        <Button onClick={handleSubmit} variant="outline-info">Send E to Alice</Button>
+                          <Button onClick={handleSubmit}
+                          variant="outline-info" 
+                          style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
+                          >Send E to Alice
+                          </Button>
                      </Col>  
                  
                     </Row> 
