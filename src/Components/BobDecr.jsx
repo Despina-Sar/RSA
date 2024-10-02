@@ -72,7 +72,7 @@ const validateM = (field, value, form) =>{
                       
               <Row className="align-items-center">
                <Col>
-               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Decryption  &nbsp;
+               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Αποκρυπτογράφιση Μηνύματος &nbsp;
                </Card.Title>
             </Col>
             

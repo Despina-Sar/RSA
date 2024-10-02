@@ -125,9 +125,6 @@ const handleAliceUnlockClick = () => {
     setShowModal(true); // Trigger the modal
   };
 
-  const resetModal = () => {
-    setShowModal(false); // Close the modal
-  };
 
   
 
@@ -154,7 +151,7 @@ return (
             </Row>
           </Col>
         </Row>
-        <EndModal showModal={showModal}  resetModal={resetModal}  />
+        <EndModal showModal={showModal} />
       </Container>
   </RSAProvider>
 );

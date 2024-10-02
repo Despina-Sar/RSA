@@ -1,7 +1,7 @@
 
 import React, { useState,useContext  } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Form,Button, Row, Col } from 'react-bootstrap';
+import { Modal, Form,Button, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RSAContext } from './RSAContext';
 
@@ -12,10 +12,11 @@ function Bob({ onSendClick, rsaValuess, updateRSAValues  }){
 const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
 const [form, setForm] = useState(rsaValues);////////////////
 const [show, setShow] = useState(false);
+const [showModal, setShowModal] = useState(false); // Controls modal visibility
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
-const [number, setNumber] = useState('');
+//const [number, setNumber] = useState('');
 const [factors, setFactors] = useState('');
 
 
@@ -69,14 +70,23 @@ const setField = (field, value) => {
       }
     };
 
-  
-
+    
+  // Function to close the modal
+  const handleCloseMod = () => setShowModal(false);
 
     const handleSubmit = () => {
       // Update the RSA values in the parent component
+      const newErrors ={}
       const { p, q, n, fn, E, D } = form;
       updateRSAValues({ p, q, n, fn, e: E, d: D });
+      if (!p || !q || !n || !fn || !E || !D) {
+        // Show an alert if any field is empty
+        console.log('errors ' +newErrors);
+        setShowModal(true); // Show modal if fields are empty
+        return; // Exit the function, preventing the rest of the code from running
+      }
       onSendClick();
+           
     };
   
 //-----------------------------------handle submit only for P-------------------------------------------
@@ -88,10 +98,10 @@ const setField = (field, value) => {
      console.log(p);
      console.log(isPrime(p));
       //-validation for p == prime
-      if (p === undefined || p === '' ){newErrors.p = 'p empty'}
+      if (p === undefined || p === '' ){newErrors.p = 'Το πεδίο είναι κενό'}
       else{
        if (!isPrime(p)) {
-         newErrors.p = 'P is not a prime number';
+         newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
        }
      }
         
@@ -111,10 +121,10 @@ const setField = (field, value) => {
      const{ q }= form
      const newErrors ={}
           //validation for q == prime
-       if (q === undefined || q === '') {newErrors.q = 'q empty'}
+       if (q === undefined || q === '') {newErrors.q = 'Το πεδίο είναι κενό'}
        else{ 
          if (!isPrime(q)) {
-           newErrors.q = 'Q is not a prime number';
+           newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';
          } 
     
      }     
@@ -137,11 +147,11 @@ const setField = (field, value) => {
     const newErrors ={}
     
      // n validation
-    if (n === undefined || n === '') {newErrors.n = 'n empty'}
+    if (n === undefined || n === '') {newErrors.n = 'Το πεδίο είναι κενό'}
     else{ 
     if (n != p*q) 
         {
-        newErrors.n = 'Wrong n' 
+        newErrors.n = 'Το '+n+' δεν ισούται με  P x Q';
         console.log(n + " not p x q");
         } 
     }    
@@ -162,11 +172,11 @@ const setField = (field, value) => {
      const newErrors ={}
   
     //fn validation
-    if (fn === undefined || fn === '') {newErrors.fn = 'Φn empty'}
+    if (fn === undefined || fn === '') {newErrors.fn = 'Το πεδίο είναι κενό'}
     else{ 
     if (fn != ((q-1)*(p-1))) 
          {
-             newErrors.fn = 'Wrong fn'
+             newErrors.fn = 'Το '+fn+' δεν ισούται με (P - 1) x (Q - 1)';
              console.log(fn + " invalid");
          }
     }     
@@ -189,7 +199,7 @@ const setField = (field, value) => {
     let{fn,E}= form
     const newErrors ={}
     let Einput;
-        if (E === undefined || E === '') {newErrors.E = 'E empty'}
+        if (E === undefined || E === '') {newErrors.E = 'Το πεδίο είναι κενό'}
     else{ 
         // Check if E and phi(N) are positive integers
         E=Number(E);
@@ -207,7 +217,7 @@ const setField = (field, value) => {
        console.log('E= '+Einput);
        console.log((Einput != 1));
         if(Einput != 1){
-            newErrors.E = 'Wrong E'
+            newErrors.E = 'Λάθος επιλογή κλειδιού'
             console.log('inside final error');
         }
     }
@@ -284,7 +294,7 @@ const validateD = (field, value, form) =>{
     console.log(D);
     const newErrors ={}
 
-    if (D === undefined || D === '') {newErrors.D = 'D empty'}
+    if (D === undefined || D === '') {newErrors.D = 'Το πεδίο είναι κενό'}
     else{ 
       console.log('E, Fn' +E + '  - '+fn);
       let y=modInverse(E, fn);
@@ -292,7 +302,7 @@ const validateD = (field, value, form) =>{
     //  const D=Number(D);
       if(D !== y){
         console.log('D is diff from y');
-        newErrors.D = 'Wrong D' 
+        newErrors.D = 'Λάθος επιλογή κλειδιού' 
         }
     }
 
@@ -395,7 +405,7 @@ function modInversee(a, m) {
            
               <Row className="align-items-center">
                <Col>
-               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Key Generation     &nbsp;
+               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Δημιουργία κλειδιών  &nbsp;
                 <Button variant="outline-info" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
                        <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
                 </Button>
@@ -411,18 +421,32 @@ function modInversee(a, m) {
 
               <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                  <Offcanvas.Title>Help: Bob Calculations</Offcanvas.Title>
+                  <Offcanvas.Title> <h2 style={{ fontSize: '1.5rem' }}>Bob: Δημιουργία κλειδιών</h2></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                <ul>
-                          <li>n: P x Q </li>
-                          <li>Φ(n): (P-1)x(Q-1) </li>
-                          <li>E: it should not multiply by factors of Φ(n) and also not divide by Φ(n) </li>
-                          <li>D:  (DxE)mod(Φ(n))=1 </li>
-                       </ul>     
-                 
-                </Offcanvas.Body>
+                     <ul style={{ fontSize: '1.2rem' }}>
+                        <li><strong>Επιλογή Πρώτων Αριθμών:</strong> Επιλέγουμε δύο μεγάλους πρώτους αριθμούς P και Q.</li>
+                        <li><strong>Υπολογισμός του n:</strong> n: P x Q</li>
+                        <li><strong>Υπολογισμός της Συνάρτησης Euler:</strong> Φ(n): (P - 1) x (Q - 1)</li>
+                        <li>
+                          <strong>Επιλογή Public Key:</strong> 
+                          <ul>
+                            <li>E: πρέπει να μην είναι πολλαπλάσιο των παραγόντων της Φ(n) και επίσης να μην διαιρεί τη Φ(n)</li>
+                          </ul>
+                        </li>
+                        <li>
+                          <strong>Υπολογισμός Private Key:</strong> 
+                          <ul>
+                            <li>D: (D x E) mod (Φ(n)) = 1</li>
+                          </ul>
+                        </li>
+                        <li><strong>Public & Private Keys:</strong> Το Public Key είναι το ζεύγος (E, n) και το Private Keys είναι το ζεύγος (D, n).</li>
+                        
+                      </ul>
+                    </Offcanvas.Body>
               </Offcanvas>
+
+              
 
                
                 <Form className="customform">                    
@@ -574,7 +598,7 @@ function modInversee(a, m) {
                        //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                          onChange={(e) => setField('D', e.target.value)}
                          isInvalid={!!errors.D}
-                         placeholder="D" 
+                         //placeholder="D" 
                         style={{ width: '70px', padding: '5px', fontSize: '16px', textAlign: 'center', marginLeft: '1px' }} 
                        />                   
                     <span style={{ fontSize: '16px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>
@@ -599,7 +623,22 @@ function modInversee(a, m) {
                     </Row> 
                                       
                  </Form>
+                 
 
+                {/* Bootstrap Modal for displaying empty field alert */}
+                <Modal show={showModal} onHide={handleCloseMod} centered>
+                  <Modal.Header>
+                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                     Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseMod}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
 
             </Card.Body>
           </Card>

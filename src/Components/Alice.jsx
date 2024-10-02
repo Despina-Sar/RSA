@@ -1,7 +1,7 @@
 
 import React, { useState,useContext  } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Form,Button, Row, Col } from 'react-bootstrap';
+import { Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RSAContext } from './RSAContext';
 // ----------------------------------------------CORRCT START -------------------------------------
@@ -12,7 +12,7 @@ const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
 //const [form, setForm] = useState(rsaValues);////////////////
 const [form, setForm] = useState({ M: '', CT: '' });
 const [show, setShow] = useState(false);
-
+const [showModal, setShowModal] = useState(false); // Controls modal visibility
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
@@ -34,6 +34,22 @@ const handleShow = () => setShow(true);
     })
   }
 */
+
+
+const handleButtonClick = () => {
+  let{M,CT}= form
+
+  // Check if any fields are empty
+  if (!M || !CT ) {
+    setShowModal(true); // Show modal if fields are empty
+  } else {
+    // Call the onUnlockClick function since fields are filled
+    onUnlockClick();
+    console.log('CT sent to Bob!'); // Placeholder for any additional functionality
+  }
+};
+
+const handleCloseMod = () => setShowModal(false);
 
 const setField = (field, value) => {
   setForm(prevForm => {
@@ -76,18 +92,16 @@ const handleSubmitM = (field, value, form) =>{
     //e.preventDefault()
     let{M}= form
     const newErrors ={}
-        if (M === undefined || M === '') {newErrors.M = 'M empty'}
+        if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
     else{ 
         // Check if E and phi(N) are positive integers
         M=Number(M);
         if(M < 0){
-          newErrors.E = 'M should be greater than 0'
-          console.log('inside final error');
-      }}
+          newErrors.M = 'M πρέπει να είναι μεγαλύτερο του 0'
+       }}
  
     if(Object.keys(newErrors).length>0){
       setErrors(newErrors)
-      console.log('inside set M error');
     }
     else{console.log("Successfull Submittion");}
     console.log(form)
@@ -103,7 +117,7 @@ const handleSubmitCT = (field, value, form) =>{
   console.log('rsaValues:', rsaValues);
   let{M,CT}= form
   const newErrors ={}
-      if (CT === undefined || CT === '') {newErrors.CT = 'CT empty'}
+      if (CT === undefined || CT === '') {newErrors.CT = 'Το πεδίο είναι κενό'}
   else{ 
       // Check if E and phi(N) are positive integers
      /*E=Number(E);
@@ -119,12 +133,11 @@ const handleSubmitCT = (field, value, form) =>{
       console.log("Encrypted Message (C):", encryptedMessage);
 
       if (encryptedMessage !== Number(CT)) 
-        { newErrors.CT = 'Wrong CT' }
+        { newErrors.CT = 'Λάθος υπολογισμός CT' }
    }
 
   if(Object.keys(newErrors).length>0){
     setErrors(newErrors)
-    console.log('inside set CT error');
   }
   else{console.log("Successfull Submittion");}
   console.log(rsaValues.E)
@@ -160,7 +173,7 @@ function rsaEncrypt(M, E, N) {
            
               <Row className="align-items-center">
                <Col>
-                <Card.Title style={{ fontWeight: 'bold' }}>Alice: Encryption  &nbsp;
+                <Card.Title style={{ fontWeight: 'bold' }}>Alice: Κρυπτογράφηση Μηνύματος  &nbsp;
                    <Button variant="outline-danger" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
                        <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
                    </Button>
@@ -174,15 +187,25 @@ function rsaEncrypt(M, E, N) {
               
               <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                  <Offcanvas.Title>Help: Alice Calculations</Offcanvas.Title>
+                  <Offcanvas.Title><h2 style={{ fontSize: '1.5rem' }}>Alice: Βήματα Kρυπτογράφισης</h2></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                <ul>
-                          <li> CT:M^Emod N</li>
-                        
-                       </ul>     
-                 
-                </Offcanvas.Body>
+                      <ul style={{ fontSize: '1.2rem' }}>
+                       <li>
+                          <strong>Κρυπτογράφηση:</strong> 
+                          <ul>
+                            <li>Για ένα μήνυμα M (M &lt; n), CT ≡ M^E mod n</li>
+                          </ul>
+                        </li>
+                        <li>
+                          <strong>Αποκρυπτογράφηση:</strong> 
+                          <ul>
+                            <li>Για το κρυπτογραφημένο μήνυμα M ≡ C^D mod n</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </Offcanvas.Body>
+
               </Offcanvas>
     
                
@@ -263,7 +286,7 @@ function rsaEncrypt(M, E, N) {
                      */}
                  
                       <Col xs={6}>
-                         <Button onClick={onUnlockClick}
+                         <Button onClick={handleButtonClick }
                           variant="outline-danger" 
                           style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
                           >Send CT to Bob
@@ -272,6 +295,20 @@ function rsaEncrypt(M, E, N) {
                     </Row> 
                                       
                  </Form>
+
+                 <Modal show={showModal} onHide={handleCloseMod} centered>
+                  <Modal.Header>
+                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseMod}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
 
 
             </Card.Body>

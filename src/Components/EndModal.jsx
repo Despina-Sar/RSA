@@ -2,14 +2,19 @@ import React from 'react';
 import { Modal, Button, Card } from 'react-bootstrap';
 import Confetti from 'react-confetti';
 
-function EndModal({ showModal, resetModal }) {
-  return (
+function EndModal({ showModal }) {
+
+  // Function to refresh the browser
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+ return (
     <>
       {showModal && <Confetti colors={['#1E90FF','#87CEFA', '#000000']} />} {/* Blue and Black Confetti */}
 
       <Modal
         show={showModal}
-        onHide={resetModal}
         centered
         dialogClassName="custom-modal" // Add custom class for styling
       >
@@ -17,11 +22,11 @@ function EndModal({ showModal, resetModal }) {
         <Modal.Body className="modal-body-custom">
           <Card className="text-center p-3 shadow-lg" style={{ borderRadius: '15px', backgroundColor: '#333', color: '#fff' }}>
             <Card.Body>
-            <Card.Title as="h2" className="text-light">Congratulations</Card.Title>
-              <Card.Text as="h4" className="mb-4">
-              You've Successfully Completed the RSA Encryption!
+            <Card.Title as="h3" className="text-light">Συγχαρητήρια</Card.Title>
+              <Card.Text as="h5" className="mb-4">
+                Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφισης RSA!
               </Card.Text>
-              <Button variant="outline-light" onClick={resetModal}>
+              <Button variant="outline-light" onClick={refreshPage}>
                 Close
               </Button>
             </Card.Body>

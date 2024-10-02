@@ -11,6 +11,7 @@ import {
 import Educational from './Components/Educational';
 import Algorithm from './Components/Algorithm';
 import Demo from './Components/Demo';
+import Demo2 from './Components/Demo2';
 import Training from './Components/Training';
 import Real from './Components/Real';
 import background from "./pp.jpg";
@@ -53,6 +54,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home/>}/> 
                 <Route path="/Demo" element={<Demo/>}/>
+                <Route path="/Demo2" element={<Demo2/>}/>
                 <Route path="/Training" element={<Training/>}/>
                 <Route path="/Educational" element={<Educational/>}/> 
                 <Route path="/Real" element={<Real/>}/> 

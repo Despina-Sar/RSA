@@ -144,11 +144,21 @@ p {
   font-size: 14px;
 }
  
-.card.customcard2{
+.card.customcardDemo1{
   background-color:rgb(33,37,41);
-  margin-top: 14%;
+  margin-top: 6%;
+  margin-right: 10%;
    color: #ffffff;
-   width: 95%;
+   width: 110%;
+   font-size: 14px;
+ }
+.card.customcardDemo2{
+  background-color:rgb(33,37,41);
+  margin-top: 6%;
+  margin-left: 12%;
+  margin-right: 80%;
+   color: #ffffff;
+   width:103%;
    font-size: 14px;
  }
 
@@ -156,8 +166,9 @@ p {
  .card.customcardReal{
   background-color:rgb(33,37,41);
   margin-top: 2%;
+  margin-right: 3%;
    color: #ffffff;
-   width: 100%;
+   width: 110%;
    font-size: 14px;
  }
 .customform{
@@ -174,6 +185,22 @@ p {
 
 .customcardBlur {
   transition: filter 0.3s ease;
+}
+.dark-modal {
+  background-color: #343a40; /* Dark grey background for modal */
+  color: white; /* White text for contrast */
+}
+.dark-header {
+  background-color: #495057; /* Darker header */
+  color: white; /* White text */
+}
+.dark-body {
+  background-color: #343a40; /* Dark grey body */
+  color: white; /* White text */
+}
+.dark-footer {
+  background-color: #495057; /* Darker footer */
+  color: white; /* White text */
 }
 
 .navbar {

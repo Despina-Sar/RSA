@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 
 
-function Demo() {
+function Demo2() {
   return (
 
       <Container>
@@ -12,11 +12,11 @@ function Demo() {
           <Col>          
             <Card border="light" className="customcardDemo1">
               <Card.Body>
-                <Card.Title style={{ fontWeight: 'bold' }}>Υπολογισμοί Αλγορίθμου</Card.Title>
+                <Card.Title style={{ fontWeight: 'bold' }}>Algorithm Calculations</Card.Title>
                      
                   <Form className="customform">                    
                     <Form.Label>
-                      1. Επιλέγουμε δύο πρωτογενείς αριθμούς p και q. Αυτοί οι αριθμοί πρέπει να είναι μεγάλοι και τυχαίοι, ώστε να διασφαλίζεται η ασφάλεια του συστήματος.
+                      1.  Choose two prime numbers P and Q
                     </Form.Label>
                     <Row className="mb-3">
                         <Col>
@@ -41,7 +41,7 @@ function Demo() {
 
                    <Form className="customform">                    
                     <Form.Label>
-                    2.  Υπολογίζουμε το n ως το γινόμενο των δύο πρώτων αριθμών καθώς και το Φ(n) με ον παρακάτω τρόπο:
+                    2.  Calculate n and Φ(n)
                     </Form.Label>
                     <Row className="mb-3">
                         <Col xs={1}>
@@ -65,27 +65,28 @@ function Demo() {
 
                     <Form className="customform">
                       <Form.Label>
-                        3.  Επιλέγουμε το Public Key &nbsp;
+                        3.  Choose public key &nbsp;
                       <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i> 
-                     , έτσι ώστε να είναι σχετικά πρώτο με το Φ(n).  Αυτό σημαίνει ότι το 
-                     E δεν πρέπει να διαιρεί το Φ(n) και δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n)
+                     E such that it is not element of Φ(n).  
+                        Means  it should not multiply by factors of Φ(n) and also not divide by Φ(n) .
                       </Form.Label>
                       <ul>
-                          <li>Παράγοντες του Φ(n) 20 = 5 x 4 = 5 x 2 x 2</li>
-                          <li>Συνεπώς το E δεν πρέπει να είναι πολλαπλάσιο των 5 & 2 και να μην διαιρείται από Το 20</li>
-                          <li> <u>Επιλέγουμε E = 7 </u></li>
+                          <li>Factors of Φ(n) 20 = 5 x 4 = 5 x 2 x 2</li>
+                          <li>So E should not multiply by 5 & 2 and should not be divide by 20</li>
+                          <li> <u>We choose E = 7 </u></li>
                        </ul>               
                     </Form>
 
                     <Form className="customform">
                       <Form.Label>
-                      4.  Υπολογίζουμε το Private Key  &nbsp;
+                      4.  Choose private key  &nbsp;
                       <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
-                     D έτσι ώστε (DxE)mod(Φ(n))=1
+                     D such that (DxE)mod(Φ(n))=1
                       </Form.Label>
                       <ul>
                           <li>(D x 7) mod 20 = 1</li>
-                          <li> <u>Επιλέγουμε D = 3 καθώς (3 x 7) mod 20 = 1</u></li>
+                          <li> For D = 3 : (3 x 7) mod 20 = 1</li>
+                          <li> <u>We choose D = 3 </u></li>
                        </ul>               
                     </Form>             
               </Card.Body>
@@ -97,17 +98,17 @@ function Demo() {
           <Col>
             <Card border="light" className="customcardDemo2">              
                 <Card.Body>
-                  <Card.Title style={{ fontWeight: 'bold' }}>Διαδικασία Κρυπρογράφισης</Card.Title>
+                  <Card.Title style={{ fontWeight: 'bold' }}>Encryption Process</Card.Title>
                                
                   <Form className="customform">                    
                     <Form.Label>
                      1.&nbsp;
                      <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                      Ο Bob δημιουργεί το Public Key &nbsp;
+                      Bob generates  &nbsp;
                      <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i>
-                     (E,n) και το Private Key&nbsp;
+                     E and &nbsp;
                      <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
-                     (D,n) 
+                     D 
                     </Form.Label> 
                     </Form>
 
@@ -115,11 +116,11 @@ function Demo() {
                     <Form.Label>
                      2.&nbsp;
                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                     Ο Bob στέλνει το Public Key  &nbsp;
+                      Bob share   &nbsp;
                       <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i>
-                      (E,n) στην  &nbsp;
+                     E with  &nbsp;
                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                      Alice. Αυτό επιτρέπει στην Alice να κρυπτογραφεί μηνύματα που προορίζονται για τον Bob.
+                      Alice
                     </Form.Label>                  
                     </Form>
 
@@ -127,12 +128,11 @@ function Demo() {
                     <Form.Label>
                      3.&nbsp;
                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                     Η Alice επιθυμεί να στείλει ένα μήνυμα M στον Bob. Χρησιμοποιεί το Public Key &nbsp;
-                      <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i>
-                      (E,n) του Bob ώστε να κρυπτογραφήσει το μήνυμα &nbsp;
+                      Alice encrypts her message  &nbsp;
                       <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                      M της και να δημιουργήσει το κρυπτογραφημένο μήνυμα &nbsp;
-                      <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> CT.
+                      M using Bob's Public Key&nbsp;
+                      <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i> 
+                     E                       
                     </Form.Label>                  
                     </Form>
 
@@ -141,7 +141,7 @@ function Demo() {
                     <Row className="mb-3">
                      &nbsp;&nbsp;&nbsp;
                      <Col xs={3}>
-                      <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> 
+                      <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> &nbsp;
                         <Form.Label>CT = </Form.Label>
                         </Col>
                         <Col xs={8}>
@@ -154,32 +154,12 @@ function Demo() {
                     <Form className="customform"> 
                     <Form.Label>
                      4.&nbsp;
-                     <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                     Η Alice  στέλνει το κρυπτογραφημένο μήνυμα &nbsp;
-                     <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> CT στον &nbsp;
-                     <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> Bob.
-             
-                    </Form.Label>                  
-                    </Form>
-
-                    <Form className="customform"> 
-                    <Form.Label>
-                     5.&nbsp;
                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                     Ο Bob λαμβάνει το κρυπτογραφημένο μήνυμα  &nbsp;
-                     <i class="bi bi-lock-fill"style={{fontSize: '20px'}} ></i> CT. Χρησιμοποιεί το Private Key του &nbsp;
-                     <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
-                     (D,n) για να αποκρυπτογραφήσει το μήνυμα.
-�                    </Form.Label>                  
-                    </Form>
-
-                    <Form className="customform"> 
-                    <Form.Label>
-                     6.&nbsp;
-                     <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                     Ο Bob  ανακτά το αρχικό μήνυμα  &nbsp;
-                     <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                     Μ και μπορεί να το διαβάσει.
+                      Bob decrypts &nbsp;
+                      <i class="bi bi-lock-fill" style={{fontSize: '20px'}} ></i>
+                      CT using his Private Key &nbsp;
+                      <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
+                     D                       
                     </Form.Label>                  
                     </Form>
 
@@ -212,5 +192,5 @@ function Demo() {
   );
 }
 
-export default Demo;
+export default Demo2;
 

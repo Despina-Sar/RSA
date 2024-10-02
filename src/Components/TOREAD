@@ -1,19 +1,23 @@
 /* 
 TO DO
 
-Update reallife card
-Reset state on modal close
-Lock buttons in case of empty values
-Check error messages
-Edit to Greek
-Update Offcanvas text 
+!!STARTED Edit to Greek
+Check Bob 84:  console.log('errors ' +newErrors);
+Check when i edit previous value, recalculate everything
 Check pdf 
+FINAL
 
 */
 
 /* 
 COMPLETED:
 
+Check error messages to greek
 Check alignment
 Update font
+Update reallife card
+Reset state on modal close
+Lock buttons in case of empty values
+Update Offcanvas text 
+
 */

@@ -266,7 +266,7 @@ export default LockableCard;
 
 
 //-------------------------------------WIN BUTTON START---------------------------------------------
-
+/*
 import React, { useState } from 'react';
 import { Modal, Button, Card } from 'react-bootstrap';
 import Confetti from 'react-confetti';
@@ -311,10 +311,10 @@ function GameComponent() {
 
       {gameState.hasWon && <h2 className="win-message">You've won the game!</h2>}
 
-      {/* Confetti Effect when user wins */}
+ 
       {gameState.hasWon && <Confetti />}
 
-      {/* Winning Modal */}
+
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>🏆 Congratulations!</Modal.Title>
@@ -338,10 +338,10 @@ function GameComponent() {
         .game-container {
           text-align: center;
           margin-top: 50px;
-          background-color: #000; /* Set the background to black */
-          color: #fff; /* White text for contrast */
+          background-color: #000; 
+          color: #fff; 
           min-height: 100vh;
-          font-family: 'Georgia', serif; /* Formal font */
+          font-family: 'Georgia', serif; 
           padding-top: 50px;
         }
         .game-score {
@@ -352,7 +352,7 @@ function GameComponent() {
         .increase-button {
           font-size: 1.5rem;
           padding: 10px 30px;
-          background-color: #444; /* Subtle button color */
+          background-color: #444; 
           border-color: #444;
         }
         .win-message {
@@ -361,11 +361,11 @@ function GameComponent() {
           margin-top: 20px;
         }
         .modal-header, .modal-body {
-          background-color: #222; /* Dark modal background */
-          color: white; /* White text */
+          background-color: #222; 
+          color: white; 
         }
         .modal-title {
-          font-family: 'Georgia', serif; /* Formal font */
+          font-family: 'Georgia', serif; 
           font-size: 1.75rem;
         }
         .btn-outline-light {
@@ -379,9 +379,80 @@ function GameComponent() {
 
 export default GameComponent;
 
-
+*/
 
 //-------------------------------------WIN BUTTON END----------------------------------------
+
+
+
+
+//-------------------Close validation start-----------------
+
+
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+
+function ExampleForm() {
+  const [formValues, setFormValues] = useState({ name: '', email: '' });
+
+  // Function to handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if any fields are empty
+    if (!formValues.name || !formValues.email) {
+      alert('Please fill out all fields.');
+    } else {
+      // Perform your submission logic here (e.g., API call)
+      alert('Form submitted successfully!');
+    }
+  };
+
+  return (
+    <div>
+      <h3>Example Form</h3>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            value={formValues.name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={formValues.email}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+}
+
+export default ExampleForm;
+
+
+//-------------------Close validation end----------------
+
 
 
 
