@@ -77,21 +77,17 @@ const validateM = (field, value, form) =>{
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 3</div>
+            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 3</div>
             </Col>
           </Row>
          
                
                
               <Form className="customform">  
-              <Form.Label> Use Bob's private key D to decrypt Alice's message and read it.</Form.Label>                  
-                  <Form.Label>
-                  Calculate M and find decreipted Message. &nbsp;
-                  <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp;
-                     M using Bob's public key                   
-                  </Form.Label>
-
-                  <Row>
+              <Form.Label> Χρησιμοποίησε το private key D του Bob, έτσι ώστε να αποκρυπτογραφήσεις και να διαβάσεις το μήνυμα &nbsp;
+                 <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp;της Alice.
+              </Form.Label>                  
+               <Row>
 
        
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>         

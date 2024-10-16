@@ -181,7 +181,7 @@ function rsaEncrypt(M, E, N) {
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 2</div>
+            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 2</div>
             </Col>
           </Row>
               
@@ -211,10 +211,9 @@ function rsaEncrypt(M, E, N) {
                
                
               <Form className="customform">                    
-                  <Form.Label> Alice wants to send an encrypted message to Bob.</Form.Label>
-                  <Form.Label>1. Select message you want to send to Bob &nbsp;
-                  <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp;
-                     M using Bob's public key  
+                  <Form.Label> Η Alice θέλει να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob.</Form.Label>
+                  <Form.Label>1. Επίλεξε το Μήνυμα <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp; που θέλεις να στείλεις στον Bob, 
+                   χρησιμοποιώντας το Public key του 
                                       
                   </Form.Label>
 
@@ -249,9 +248,9 @@ function rsaEncrypt(M, E, N) {
 
                  <Form className="customform">                    
                   <Form.Label>
-                  2. Encrypt the above message using Bob's public key&nbsp;
+                  2. Κρυπτογράφησε το παραπάνω μήνυμα χρησιμοποιώντας το public key&nbsp;
                      <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i>&nbsp;
-                     E                  
+                     E του Bob.                
                   </Form.Label>
 
                   <Row >
@@ -289,7 +288,7 @@ function rsaEncrypt(M, E, N) {
                          <Button onClick={handleButtonClick }
                           variant="outline-danger" 
                           style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
-                          >Send CT to Bob
+                          >Στείλε το CT στον Bob
                           </Button>
                       </Col>                     
                     </Row> 

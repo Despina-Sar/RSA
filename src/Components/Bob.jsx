@@ -413,7 +413,7 @@ function modInversee(a, m) {
             </Col>
             
             <Col className="text-end">
-              <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Step 1</div>
+              <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 1</div>
             </Col>
        
           </Row>
@@ -451,7 +451,7 @@ function modInversee(a, m) {
                
                 <Form className="customform">                    
                   <Form.Label>
-                    1.  Choose two prime numbers P and Q
+                    1. Επίλεξε δύο πρώτους αριθμούς P και Q
                   </Form.Label>
 
                   <Row className="mb-3">
@@ -493,7 +493,7 @@ function modInversee(a, m) {
 
                  <Form className="customform">                    
                   <Form.Label>
-                    2. Calculate n and Φ(n)
+                    2. Υπολόγησε τα n και Φ(n)
                   </Form.Label>
 
                   <Row className="mb-3">
@@ -538,16 +538,17 @@ function modInversee(a, m) {
 
                  <Form className="customform">                    
                   <Form.Label>
-                  3.  Choose public key &nbsp;
+                  3.  Επίλεξε το public key &nbsp;
                       <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i> 
-                     E. It should not multiply by factors of Φ(n) and also not divide by Φ(n) .
+                     E. 
+                     Προσοχη! Δεν πρέπει να διαιρεί το Φ(n) και δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n)
                   </Form.Label>
 
 
                 {factors && ( 
                 <Row className="mb-3"> 
-                      <Col xs={3}>
-                      <Form.Label>Φ(n) factors are: </Form.Label>
+                      <Col xs={6}>
+                      <Form.Label>Οι παράγοντες του Φ(n) είναι: </Form.Label>
                       </Col>
                       <Col xs={4}>
                       <Form.Control
@@ -583,7 +584,7 @@ function modInversee(a, m) {
 
                  <Form className="customform">                    
                   <Form.Label>
-                  4.  Choose private key  &nbsp;
+                  4.  Επίλεξε το private key  &nbsp;
                       <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
                      D
                   </Form.Label>
@@ -616,7 +617,7 @@ function modInversee(a, m) {
                           <Button onClick={handleSubmit}
                           variant="outline-info" 
                           style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
-                          >Send E to Alice
+                          >Στείλε το E στην Alice
                           </Button>
                      </Col>  
                  

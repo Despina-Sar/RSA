@@ -1,7 +1,6 @@
 /* 
 TO DO
 
-!!STARTED Edit to Greek
 Check Bob 84:  console.log('errors ' +newErrors);
 Check when i edit previous value, recalculate everything
 Check pdf 
@@ -12,6 +11,8 @@ FINAL
 /* 
 COMPLETED:
 
+
+!!STARTED Edit to Greek
 Check error messages to greek
 Check alignment
 Update font
