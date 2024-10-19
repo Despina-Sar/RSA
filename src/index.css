@@ -112,39 +112,64 @@ p {
   font-size: 14px;
 }
 
+
 .card.customcardBob{
   background-color:rgb(33,37,41);
   border-width: 3.5px;
-  margin-top: 10%;
+ 
   margin-right: 30%;
   margin-left: 10%;
   padding: 10px;
    color: #ffffff;
    width: 80%;
-   font-size: 14px;
+   max-width: 600px;
+   min-width: 400px;
+   font-size: 9px;
  }
 
+ 
  .card.customcardBobDecr {
   background-color: rgb(33, 37, 41);
   border-width: 3.5px;
-  margin-top: 10%;
+  margin-top: 19%;
   padding: 10px;
   color: #ffffff;
-  width: 80%;
+  width: 95%;
+  max-width: 600px;
+  min-width: 400px;
   font-size: 14px;
+  box-sizing: border-box;
+
+  /* Prevent overlap by ensuring space from the top card */
+  margin-top: 80px; /* A fixed margin to space it from the top card */
+  min-height: 150px; /* Ensure enough height to display content */
+  position: relative; /* Maintain control over its position */
 }
+
 
 .card.customcardAlice {
   background-color: rgb(33, 37, 41);
   border-width: 3.5px;
-  margin-top: 8%; /* Large top margin for testing vertical spacing */
+  margin-top: 0%; /* Large top margin for testing vertical spacing */
   padding: 10px;
   color: #ffffff;
-  width: 80%;
+  width: 95%;
+  max-width: 600px;
+  min-width: 400px;
   font-size: 14px;
+
+  /* Ensure the top card has a minimum height to avoid compression */
+  min-height: 100px; /* Adjust this as needed */
+  position: relative; /* Use relative positioning for better control */
+  margin-top: 0; /* No margin needed for the top card */
 }
  
-.card.customcardDemo1{
+
+*/
+
+
+
+.card.customcardDemo3{
   background-color:rgb(33,37,41);
   margin-top: 6%;
   margin-right: 10%;
@@ -152,28 +177,68 @@ p {
    width: 110%;
    font-size: 14px;
  }
-.card.customcardDemo2{
+ .card.customcardDemo1{
   background-color:rgb(33,37,41);
-  margin-top: 6%;
-  margin-left: 12%;
-  margin-right: 80%;
-   color: #ffffff;
-   width:103%;
+  color: #ffffff;
+   width:100%;
    font-size: 14px;
+
  }
 
+ .card.customcardDemo2 {
+  background-color:rgb(33,37,41);
+  color: #ffffff;
+   width:100%;
+   font-size: 14px;
+}
 
+
+/*---------------------------------------------*/
+.card.customcardAlgBob1{
+  background-color:rgb(33,37,41);
+  color: #ffffff;
+  width:110%;
+  border-width: 3.5px;
+  font-size: 14px;
+
+}
+.card.customcardAlgAlice{
+  background-color:rgb(33,37,41);
+  color: #ffffff;
+  width:110%;
+  font-size: 14px;
+  border-width: 3.5px;
+  margin-top: 20%;
+}
+
+.card.customcardAlgBob2{
+  background-color:rgb(33,37,41);
+  color: #ffffff;
+  width:110%;
+  border-width: 3.5px;
+  font-size: 14px;
+  }
+
+  .card.customcardAlg4{
+  background-color:rgb(33,37,41);
+  color: #ffffff;
+  width:100%;
+  font-size: 14px;
+  margin-top: 1%;
+  }
+/*--------------------------------------------*/
  .card.customcardReal{
   background-color:rgb(33,37,41);
   margin-top: 2%;
-  margin-right: 3%;
+  margin-right: 7%;
+  margin-left: 5%;
    color: #ffffff;
-   width: 110%;
+   width: 90%;
    font-size: 14px;
  }
 .customform{
   color: #fcfcfc;
-  font-size: 19px;
+  font-size: 13px;
 }
 
 
@@ -206,8 +271,14 @@ p {
 .navbar {
   color: #ffffff;
   background-color: rgb(33,37,41);
-  font-size: 21px;
+  font-size: 15px;
   font-weight: bold;
+  height: 40px; /* Set the desired height */
+}
+
+#nav-menu{
+  font-size: 15px;
+  color: #ffffff
 }
 
 .navbar a {

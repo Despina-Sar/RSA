@@ -71,13 +71,15 @@ const validateM = (field, value, form) =>{
             <Card.Body>
                       
               <Row className="align-items-center">
-               <Col>
-               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Αποκρυπτογράφιση Μηνύματος &nbsp;
+              <Col xs={8}>
+               <Card.Title style={{ fontWeight: 'bold',fontSize: '1.0rem' }}>
+               <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
+                Bob: Αποκρυπτογράφιση Μηνύματος &nbsp;
                </Card.Title>
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 3</div>
+            <div style={{ fontSize: '1.0rem', fontWeight: 'bold'}}>Βήμα 3</div>
             </Col>
           </Row>
          
@@ -91,7 +93,7 @@ const validateM = (field, value, form) =>{
 
        
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>         
-                  <span style={{ fontSize: '16px' }}>M = CT^D mod n =  {rsaValues.CT || 'CT'} ^ {rsaValues.D || 'D'} mod {rsaValues.n || 'n'} = </span>
+                  <span style={{ fontSize: '13px' }}>M = CT^D mod n =  {rsaValues.CT || 'CT'} ^ {rsaValues.D || 'D'} mod {rsaValues.n || 'n'} = </span>
                       <Form.Control                          
                           type="number" 
                           value={form.MD} 

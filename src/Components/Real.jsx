@@ -58,11 +58,11 @@ function Real() {
       <Card border="light" className="customcardReal">
         <Card.Body>
           <Card.Title style={{ fontWeight: 'bold' }}>Key....... Generation</Card.Title>
-          <Button onClick={generateKeys} disabled={loading}  variant="outline-info" className="mb-3">
+          <Button onClick={generateKeys} disabled={loading}  variant="outline-info" className="mb-2"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
             {loading ? 'Loading...' : 'Δημιουργία Κλειδιών'}
           </Button>
 
-        <Form className="customform mb-3">
+        <Form className="customform mb-2">
               <Form.Label>Public Key:</Form.Label>
               <Form.Control
                 as="textarea"
@@ -75,12 +75,14 @@ function Real() {
                   borderRadius: '10px',
                   color: '#333', // Dark text color for visibility
                   padding: '10px',
-                  resize: 'none'
+                  resize: 'none',
+                  fontSize: '0.8rem'
+              
                 }}
               />
             </Form>
       
-            <Form className="customform mb-3">
+            <Form className="customform mb-2">
               <Form.Label>Private Key:</Form.Label>
               <Form.Control
                 as="textarea"
@@ -93,28 +95,39 @@ function Real() {
                   borderRadius: '10px',
                   color: '#333', // Dark text color for visibility
                   padding: '10px',
-                  resize: 'none'
+                  resize: 'none',
+                  fontSize: '0.8rem'
+              
                 }}
               />
             </Form>
          
 
 
-          <Form className="customform mb-3">
-            <Form.Label>Enter Message to encrypt:</Form.Label>
+          <Form className="customform mb-2">
+            <Form.Label> Γράψε τη φράση που θέλεις να κρυπτογραφίσεις με την βοήθεια του RSA:</Form.Label>
             <Form.Control
               type="text"
              // placeholder="Enter Message"
               onChange={(e) => setMessage(e.target.value)}
+              style={{
+                background: '#f8f9fa', // Light gray background for better contrast
+                borderRadius: '10px',
+                color: '#333', // Dark text color for visibility
+                padding: '10px',
+                resize: 'none',
+                fontSize: '0.8rem'
+            
+              }}
             />
           </Form>
 
-          <Button  onClick={handleEncrypt} variant="outline-info"  className="mb-3">
+          <Button  onClick={handleEncrypt} variant="outline-info"  className="mb-3"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
             Κρυπτογράφιση
           </Button>
 
 
-          <Form className="customform mb-3">
+          <Form className="customform mb-2">
             <Form.Label>Κρυπτογραφημένο Μήνυμα:</Form.Label>
             <Form.Control
                 as="textarea"
@@ -127,18 +140,20 @@ function Real() {
                   borderRadius: '10px',
                   color: '#333', // Dark text color for visibility
                   padding: '10px',
-                  resize: 'none'
+                  resize: 'none',
+                  fontSize: '0.8rem'
+              
                 }}
               />
           </Form>
           
 
-          <Button onClick={handleDecrypt} variant="outline-info"  className="mb-3">
+          <Button onClick={handleDecrypt} variant="outline-info"  className="mb-2"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
           Αποκρυπτογράφιση
           </Button>
 
 
-          <Form className="customform mb-3">
+          <Form className="customform mb-2">
             <Form.Label>Αποκρυπτογραφημένο Μήνυμα:</Form.Label>
             <Form.Control
                 as="textarea"
@@ -151,7 +166,9 @@ function Real() {
                   borderRadius: '10px',
                   color: '#333', // Dark text color for visibility
                   padding: '10px',
-                  resize: 'none'
+                  resize: 'none',
+                  fontSize: '0.8rem'
+              
                 }}
               />
           </Form>

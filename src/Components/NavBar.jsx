@@ -21,19 +21,18 @@ function ColorSchemesExample() {
          <img
               alt=""
               src= {require('../images/favicon.png')}
-              width="40"
-              height="40"
+              width="25"
+              height="25"
               className="d-inline-block align-top"
             />{' '}
             Home
            </Navbar.Brand>    
             <Nav id = "menu">
             <Nav.Link as={Link} to="/Demo">Demo</Nav.Link>
-            <Nav.Link as={Link} to="/Demo2">Demo2</Nav.Link>
             <Nav.Link as={Link} to="/Training">Training</Nav.Link>
-         {/* <Nav.Link as={Link} to="/Educational">TestEducational</Nav.Link>  */} 
+          {/* <Nav.Link as={Link} to="/Educational">EducationalTest</Nav.Link>  */}
            <Nav.Link as={Link} to="/Real">Real Card</Nav.Link>
-          {/* <Nav.Link as={Link} to="/Algorithm">Real Old</Nav.Link>  */}
+         {/*  <Nav.Link as={Link} to="/Algorithm">AlgorithmTest</Nav.Link>  */}
                   
             </Nav>            
         </Container>

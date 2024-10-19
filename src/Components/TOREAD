@@ -1,18 +1,19 @@
+//Check Bob 84:  console.log('errors ' +newErrors);
+
 /* 
 TO DO
-
-Check Bob 84:  console.log('errors ' +newErrors);
-Check when i edit previous value, recalculate everything
+End Demo section until 20.10
+Edit training, create mock up plan
+Check when I edit previous value, recalculate everything
 Check pdf 
 FINAL
-
 */
+
 
 /* 
 COMPLETED:
-
-
 !!STARTED Edit to Greek
+restart button
 Check error messages to greek
 Check alignment
 Update font
@@ -20,5 +21,4 @@ Update reallife card
 Reset state on modal close
 Lock buttons in case of empty values
 Update Offcanvas text 
-
 */

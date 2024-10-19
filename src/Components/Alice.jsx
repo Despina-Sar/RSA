@@ -172,25 +172,27 @@ function rsaEncrypt(M, E, N) {
             <Card.Body>
            
               <Row className="align-items-center">
-               <Col>
-                <Card.Title style={{ fontWeight: 'bold' }}>Alice: Κρυπτογράφηση Μηνύματος  &nbsp;
-                   <Button variant="outline-danger" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
-                       <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
-                   </Button>
-                </Card.Title>
+               <Col xs={8}>
+                <Card.Title style={{ fontWeight: 'bold',fontSize: '1.0rem' }}>
+                <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
+                  Alice: Κρυπτογράφηση Μηνύματος  &nbsp;
+               </Card.Title>
             </Col>
             
             <Col className="text-end">
-            <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 2</div>
+               <div style={{ fontSize: '1.0rem', fontWeight: 'bold'}}>Βήμα 2</div>
+               <Button variant="outline-danger" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
+                       <i class="bi bi-question-lg" style={{ fontSize: '1.rem' }}></i>
+                   </Button>
             </Col>
           </Row>
               
               <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                  <Offcanvas.Title><h2 style={{ fontSize: '1.5rem' }}>Alice: Βήματα Kρυπτογράφισης</h2></Offcanvas.Title>
+                  <Offcanvas.Title><h2 style={{ fontSize: '1.0rem' }}>Alice: Βήματα Kρυπτογράφισης</h2></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                      <ul style={{ fontSize: '1.2rem' }}>
+                      <ul style={{ fontSize: '0.9rem' }}>
                        <li>
                           <strong>Κρυπτογράφηση:</strong> 
                           <ul>
@@ -211,10 +213,9 @@ function rsaEncrypt(M, E, N) {
                
                
               <Form className="customform">                    
-                  <Form.Label> Η Alice θέλει να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob.</Form.Label>
+                 
                   <Form.Label>1. Επίλεξε το Μήνυμα <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px'}}></i>&nbsp; που θέλεις να στείλεις στον Bob, 
-                   χρησιμοποιώντας το Public key του 
-                                      
+                   χρησιμοποιώντας το Public key του.                  
                   </Form.Label>
 
                   <Row>
@@ -233,14 +234,7 @@ function rsaEncrypt(M, E, N) {
                           {errors.M}
                         </Form.Control.Feedback>
                       </Col>                                    
-                     
-                     {/*
-                      <Col xs={6}>
-                        <Button type='submit' onClick={handleSubmitM} className='my-2' variant="outline-danger">
-                          Next Step
-                        </Button>
-                      </Col>      
-                      */}               
+                              
                     </Row> 
                                       
                  </Form>
@@ -248,7 +242,7 @@ function rsaEncrypt(M, E, N) {
 
                  <Form className="customform">                    
                   <Form.Label>
-                  2. Κρυπτογράφησε το παραπάνω μήνυμα χρησιμοποιώντας το public key&nbsp;
+                  2. Κρυπτογράφησε το μήνυμα χρησιμοποιώντας το public key&nbsp;
                      <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i>&nbsp;
                      E του Bob.                
                   </Form.Label>
@@ -256,7 +250,7 @@ function rsaEncrypt(M, E, N) {
                   <Row >
                 {/*  -----new 12 09-----  */}  
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>                         
-                      <span style={{ fontSize: '16px' }}>CT = M^E mod n =  {rsaValues.M || 'M'} ^ {rsaValues.E || 'E'} mod {rsaValues.n || 'n'} =</span>
+                      <span style={{ fontSize: '13px' }}>CT = M^E mod n =  {rsaValues.M || 'M'} ^ {rsaValues.E || 'E'} mod {rsaValues.n || 'n'} =</span>
                       <Form.Control                          
                           type="number" 
                           value={form.CT} 
@@ -264,30 +258,14 @@ function rsaEncrypt(M, E, N) {
                           onChange={(e) => setField('CT', e.target.value)}
                           isInvalid={!!errors.CT}
                           placeholder="CT" 
-                          style={{ width: '70px', padding: '5px', fontSize: '16px', textAlign: 'center', marginLeft: '1px' }} 
+                          style={{ width: '70px', padding: '5px', fontSize: '13px', textAlign: 'center', marginLeft: '1px' }} 
                         />                   
                     </div>
-                 {/*  -----new 12 09-----  */}  
-
-                  {/*
-                      <Col xs={4}>
-                        <Form.Control
-                            type="integer"
-                            size="sm"
-                            value={form.CT}
-                            onChange={(e) => setField('CT', e.target.value)}
-                            isInvalid={!!errors.CT}
-                          />
-                        <Form.Control.Feedback type= 'invalid'>
-                          {errors.CT}
-                        </Form.Control.Feedback>
-                      </Col>                                    
-                     */}
-                 
+                                  
                       <Col xs={6}>
                          <Button onClick={handleButtonClick }
                           variant="outline-danger" 
-                          style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
+                          style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}
                           >Στείλε το CT στον Bob
                           </Button>
                       </Col>                     

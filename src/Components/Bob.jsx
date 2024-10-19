@@ -42,14 +42,17 @@ const setField = (field, value) => {
       [field]: null
     }));
   }
+
 };
 
     // Validation function for individual fields
     const validateField = (field, value, updatedForm) => {
+      const{p,q,n,fn,E,D}= updatedForm;
       switch (field) {
         case 'p':
           validateP(field, value,updatedForm);
-          break;
+   
+           break;
         case 'q':
           validateQ(field, value,updatedForm);
           break;
@@ -355,76 +358,36 @@ const validateD = (field, value, form) =>{
     return t;
   }
   
-/*
-  function extendedEuclidean(a, b) {
-    if (b === 0) {
-        return [1, 0, a];
-    }
-    const [x, y, gcd] = extendedEuclidean(b, a % b);
-    return [y, x - Math.floor(a / b) * y, gcd];
-}
-
-
-function modInversee(a, m) {
-  let m0 = m, t, q;
-  let x0 = 0, x1 = 1;
-
-  if (m === 1) {
-      return 0;
-  }
-
-  while (a > 1) {
-      // q is the quotient
-      q = Math.floor(a / m);
-      t = m;
-
-      // m is the remainder now, process same as Euclid's algorithm
-      m = a % m;
-      a = t;
-      t = x0;
-
-      x0 = x1 - q * x0;
-      x1 = t;
-  }
-
-  // Make x1 positive
-  if (x1 < 0) {
-      x1 += m0;
-  }
-
-  return x1;
-}
-
-
-*/
 
   return ( 
                 
           <Card border="info" className="customcardBob">
             <Card.Body>
            
-              <Row className="align-items-center">
-               <Col>
-               <Card.Title style={{ fontWeight: 'bold' }}>Bob: Δημιουργία κλειδιών  &nbsp;
-                <Button variant="outline-info" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
-                       <i class="bi bi-question-lg" style={{ fontSize: '1.3rem' }}></i>
-                </Button>
-              </Card.Title>
+              <Row>
+               <Col xs={7}>
+               <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem' }}>
+                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
+                    Bob:  Δημιουργία κλειδιών  &nbsp;
+               </Card.Title>
             </Col>
             
             <Col className="text-end">
-              <div style={{ fontSize: '1.7rem' , fontWeight: 'bold'}}>Βήμα 1</div>
+              <div style={{ fontSize: '1.0rem' , fontWeight: 'bold'}}>Βήμα 1</div>
+              <Button variant="outline-info" onClick={handleShow} style={{ padding: '0.05rem 0.3rem' }}>
+                       <i class="bi bi-question-lg" style={{ fontSize: '1.0rem' }}></i>
+                </Button>
             </Col>
-       
-          </Row>
+
+            </Row>
               
 
               <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                  <Offcanvas.Title> <h2 style={{ fontSize: '1.5rem' }}>Bob: Δημιουργία κλειδιών</h2></Offcanvas.Title>
+                  <Offcanvas.Title> <h2 style={{ fontSize: '1.0rem' }}>Bob: Δημιουργία κλειδιών</h2></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                     <ul style={{ fontSize: '1.2rem' }}>
+                     <ul style={{ fontSize: '0.9rem' }}>
                         <li><strong>Επιλογή Πρώτων Αριθμών:</strong> Επιλέγουμε δύο μεγάλους πρώτους αριθμούς P και Q.</li>
                         <li><strong>Υπολογισμός του n:</strong> n: P x Q</li>
                         <li><strong>Υπολογισμός της Συνάρτησης Euler:</strong> Φ(n): (P - 1) x (Q - 1)</li>
@@ -454,7 +417,7 @@ function modInversee(a, m) {
                     1. Επίλεξε δύο πρώτους αριθμούς P και Q
                   </Form.Label>
 
-                  <Row className="mb-3">
+                  <Row className="mb-2">
                       <Col xs={1}>
                       <Form.Label>P: </Form.Label>
                       </Col>
@@ -496,7 +459,7 @@ function modInversee(a, m) {
                     2. Υπολόγησε τα n και Φ(n)
                   </Form.Label>
 
-                  <Row className="mb-3">
+                  <Row className="mb-2">
                       <Col xs={1}>
                       <Form.Label>n: </Form.Label>
                       </Col>
@@ -546,7 +509,7 @@ function modInversee(a, m) {
 
 
                 {factors && ( 
-                <Row className="mb-3"> 
+                <Row className="mb-2"> 
                       <Col xs={6}>
                       <Form.Label>Οι παράγοντες του Φ(n) είναι: </Form.Label>
                       </Col>
@@ -555,12 +518,13 @@ function modInversee(a, m) {
                             type="text"
                             readOnly
                             value={factors}
+                            style={{ width: '160px', padding: '5px', fontSize: '13px', textAlign: 'center', marginLeft: '1px' }} 
                           />
                         </Col>                                
                     </Row> 
                   )}
 
-                  <Row className="mb-3"> 
+                  <Row className="mb-2"> 
                       <Col xs={1}>
                       <Form.Label>E: </Form.Label>
                       </Col>
@@ -571,6 +535,7 @@ function modInversee(a, m) {
                             value={form.E}
                             onChange={(e) => setField('E', e.target.value)}
                             isInvalid={!!errors.E}
+                            style={{ width: '70px', padding: '5px', fontSize: '12px', textAlign: 'center', marginLeft: '1px' }} 
                           />
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.E}
@@ -589,10 +554,10 @@ function modInversee(a, m) {
                      D
                   </Form.Label>
 
-                  <Row className="mb-3">
-                  <Col xs={5}>
+                  <Row className="mb-2">
+                  <Col xs={6}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>         
-                  <span style={{ fontSize: '16px' }}>D:</span>       
+                  <span style={{ fontSize: '13px' }}>D:</span>       
                     <Form.Control                          
                          type="number" 
                          value={form.D} 
@@ -600,9 +565,9 @@ function modInversee(a, m) {
                          onChange={(e) => setField('D', e.target.value)}
                          isInvalid={!!errors.D}
                          //placeholder="D" 
-                        style={{ width: '70px', padding: '5px', fontSize: '16px', textAlign: 'center', marginLeft: '1px' }} 
+                        style={{ width: '70px', padding: '5px', fontSize: '12px', textAlign: 'center', marginLeft: '1px' }} 
                        />                   
-                    <span style={{ fontSize: '16px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>
+                    <span style={{ fontSize: '13px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>
                     </div>
                     <Form.Control.Feedback type= 'invalid'>
                           {errors.D}
@@ -613,10 +578,10 @@ function modInversee(a, m) {
                         <Button onClick={onSendClick} variant="outline-info">Send E to Alice</Button>
                      </Col>  
                     */}
-                     <Col xs={7}>
+                     <Col xs={6}>
                           <Button onClick={handleSubmit}
                           variant="outline-info" 
-                          style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' }}
+                          style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem', marginLeft: '30px'  }}
                           >Στείλε το E στην Alice
                           </Button>
                      </Col>  

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col,Button } from 'react-bootstrap';
 import { RSAProvider } from './RSAContext.jsx';
 import Bob from './Bob';
 import BobDecr from './BobDecr.jsx';
@@ -13,78 +13,6 @@ import EndModal from './EndModal';  // Import Component B
 
 function Training(){
 
-/*   
-  return (
-<Container>
-    <Row>
-      <Col>
-          <Bob/>
-        </Col>    
-      <Col>
-        <Alice/>    
-      </Col>
-    </Row>
-
-    <Row>
-    <Col>
-      <BobDecr/>    
-    </Col>
-  </Row>
-  </Container>
-    
-
-);
-*/
-
-
-/*   ----------------Correct on 11.09-------------------------------------
-const [isAliceBlurred, setIsAliceBlurred] = useState(true);
-const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
-
-const handleBobSendClick = () => {
-  console.log('Bob send button clicked');
-  setIsAliceBlurred(false);
-};
-
-const handleAliceUnlockClick = () => {
-  console.log('Alice unlock button clicked');
-  setIsBobDecrBlurred(false);
-};
-
-
-
-return (
-  <RSAProvider>
-    <Container fluid>
-        <Row>
-          <Col md={6} style={{  height: '100vh' }}>
-            /
-            <Bob onSendClick={handleBobSendClick}/>
-          </Col>
-          <Col md={6}>
-            <Row style={{  height: '50vh' }}>
-              <Col>
-                /
-                <Alice isBlurred={isAliceBlurred} onUnlockClick={handleAliceUnlockClick}/>
-              </Col>
-            </Row>
-            <Row style={{ height: '50vh' }}>
-              <Col>
-              /
-                <BobDecr isBlurred={isBobDecrBlurred}/>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-  </RSAProvider>
-);
-
-}
-export default Training;
-
--=------------------------------------ end correct on 11.09-----------------------------------------------------------------
-*/ 
 
 const [isAliceBlurred, setIsAliceBlurred] = useState(true);
 const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
@@ -125,16 +53,25 @@ const handleAliceUnlockClick = () => {
     setShowModal(true); // Trigger the modal
   };
 
-
+  // Function to refresh the browser
+  const refreshPage = () => {
+    window.location.reload();
+  };
   
 
 return (
   <RSAProvider>
     <Container fluid>
         <Row>
-          <Col md={6} style={{  height: '100vh' }}>
+           <Col md={6} style={{  height: '100vh' }}>
+
+                 <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '30px' }}>
+                    Restart <i class="bi bi-arrow-clockwise"></i>
+                 </Button>
+
+
             /
-            <Bob onSendClick={handleBobSendClick} rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
+          <Bob onSendClick={handleBobSendClick} rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           </Col>
           <Col md={6}>
             <Row style={{  height: '40vh' }}>
