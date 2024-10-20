@@ -177,7 +177,7 @@ p {
    width: 110%;
    font-size: 14px;
  }
- .card.customcardDemo1{
+ .card.customcardDemoAlgorithm{
   background-color:rgb(33,37,41);
   color: #ffffff;
    width:100%;
@@ -194,24 +194,23 @@ p {
 
 
 /*---------------------------------------------*/
-.card.customcardAlgBob1{
+.card.customcardProcessBob1{
   background-color:rgb(33,37,41);
   color: #ffffff;
   width:110%;
   border-width: 3.5px;
   font-size: 14px;
-
 }
-.card.customcardAlgAlice{
+.card.customcardProcessAlice{
   background-color:rgb(33,37,41);
   color: #ffffff;
   width:110%;
   font-size: 14px;
   border-width: 3.5px;
-  margin-top: 20%;
+  margin-top: 13%;
 }
 
-.card.customcardAlgBob2{
+.card.customcardProcessBob2{
   background-color:rgb(33,37,41);
   color: #ffffff;
   width:110%;
@@ -219,12 +218,16 @@ p {
   font-size: 14px;
   }
 
-  .card.customcardAlg4{
+  .card.customcardProcessTop{
   background-color:rgb(33,37,41);
   color: #ffffff;
   width:100%;
   font-size: 14px;
-  margin-top: 1%;
+  }
+
+  .text-item {
+    margin: 0 10px; /* Adds horizontal space of 10px between each text item */
+    font-weight: bold;
   }
 /*--------------------------------------------*/
  .card.customcardReal{

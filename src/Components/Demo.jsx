@@ -228,11 +228,11 @@ const Demo = () => {
 
     return (
         <Container>
-            <Row className="justify-content-center mt-2">
+            <Row className="justify-content-center mt-1">
                 <Col xs={12} md={6} className="text-center">
                     <Button 
                         variant="dark" 
-                        onClick={() => handleButtonClick('card1')}
+                        onClick={() => handleButtonClick('algorithm')}
                         className="me-2"
                         style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem', marginLeft: '30px'  }}
                     >
@@ -240,18 +240,18 @@ const Demo = () => {
                     </Button>
                     <Button 
                         variant="dark" 
-                        onClick={() => handleButtonClick('card2')}
+                        onClick={() => handleButtonClick('process')}
                         style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem', marginLeft: '30px'  }}
                     >
-                       Κρυπρογράφιση
+                       Διαδικασία Κρυπρογράφισης
                     </Button>
                 </Col>
             </Row>
 
             <Row className="justify-content-center mt-1">
                 <Col xs={11}>
-                    {activeCard === 'card1' && (
-                      <Card border="info" className="customcardDemo1">
+                    {activeCard === 'algorithm' && (
+                      <Card border="info" className="customcardDemoAlgorithm">
                       <Card.Body>
                                                    
                           <Form className="customform">                    
@@ -282,7 +282,7 @@ const Demo = () => {
         
                            <Form className="customform">                    
                             <Form.Label>
-                            <b><u>2. n & Φ(n)</u></b> <br /> Υπολογίζουμε το n ως το γινόμενο των δύο πρώτων αριθμών καθώς και το Φ(n) με ον παρακάτω τρόπο:
+                            <b><u>2. n & Φ(n)</u></b> <br /> Υπολογίζουμε το n ως το γινόμενο των δύο πρώτων αριθμών καθώς και το Φ(n) με τον παρακάτω τρόπο:
                             </Form.Label>
                             <Row className="mb-2">
                                 <Col xs={1}>
@@ -332,21 +332,35 @@ const Demo = () => {
                       </Card.Body>
                     </Card>
                     )}
-                    {activeCard === 'card2' && (
+                    {activeCard === 'process' && (
            <Col>
                         <Row>
                            <Col>          
-                             <Card border="info" className="customcardAlg4">
+                             <Card border="info" className="customcardProcessTop">
                                <Card.Body>
                                                                                                            
                                  <Form className="customform">                    
                                      <Form.Label>
-                                       Ο Bob δημιουργεί το Public Key &nbsp;
-                                      <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>
-                                      (E,n) και το Private Key&nbsp;
-                                      <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i> 
-                                      (D,n) 
+                                        Στo προηγούμενο βήμα υπολογίσαμε τα βασικά στοιχεία που χρειάζεται ο Bob για να μπορέσει να κρυπτογραφήσει και να αποκρυπτογραφήσει μηνύματα.
+                                        Τώρα θα χρησιμοποιήσουμε αυτά τα αποτελέσματα στη διαδικασία της κρυπτογράφησης.
                                      </Form.Label> 
+
+                                     <Form.Label style={{ display: 'block', textAlign: 'center', fontSize: '13px' }}>
+                                        <span class="text-item">P = 3</span>
+                                        <span class="text-item">Q = 11</span>
+                                        <span class="text-item">n = 33</span>
+                                        <span class="text-item">Φ(n) = 20</span>
+
+                                        <span class="text-item">
+                                            <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>
+                                            Public Key:  (7,33)
+                                        </span>
+
+                                        <span class="text-item">
+                                        <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i> 
+                                        Private Key: (3,33) 
+                                        </span>
+                                     </Form.Label>
                                      </Form>
                  
                                   
@@ -362,7 +376,7 @@ const Demo = () => {
 
                            <Row>
                            <Col>          
-                             <Card border="info"className="customcardAlgBob1">
+                             <Card border="info"className="customcardProcessBob1">
                                <Card.Body>
                                  <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem'}}>
                                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;Bob</Card.Title>
@@ -371,11 +385,10 @@ const Demo = () => {
                                  <Form className="customform">                    
                                      <Form.Label>
                                      <b>1.</b>&nbsp;
-                                      <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                                       Ο Bob δημιουργεί το Public Key &nbsp;
-                                      <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>
-                                      (E,n) και το Private Key&nbsp;
-                                      <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i> 
+                                       Ο Bob δημιουργεί το &nbsp;
+                                       <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>Public Key 
+                                      (E,n) και το &nbsp;
+                                      <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i>  Private Key
                                       (D,n) 
                                      </Form.Label> 
                                      </Form>
@@ -383,9 +396,8 @@ const Demo = () => {
                                    <Form className="customform">  
                                      <Form.Label>
                                      <b>2.</b>&nbsp;
-                                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                                      Ο Bob στέλνει το Public Key  &nbsp;
-                                       <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>
+                                      Στέλνει το &nbsp;
+                                      <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>Public Key  
                                        (E,n) στην  &nbsp;
                                       <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
                                        Alice. Αυτό επιτρέπει στην Alice να κρυπτογραφεί μηνύματα που προορίζονται για τον Bob.
@@ -399,7 +411,7 @@ const Demo = () => {
                            </Col>
                  
                            <Col>
-                             <Card Card border="danger"  className="customcardAlgAlice">              
+                             <Card Card border="danger"  className="customcardProcessAlice">              
                                  <Card.Body>
                                    <Card.Title style={{ fontWeight: 'bold',fontSize: '1.0rem' }}> 
                                     <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;Alice
@@ -408,9 +420,8 @@ const Demo = () => {
                                      <Form className="customform"> 
                                      <Form.Label>
                                      <b>3.</b>&nbsp;
-                                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                                      Η Alice επιθυμεί να στείλει ένα μήνυμα M στον Bob. Χρησιμοποιεί το Public Key &nbsp;
-                                       <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>
+                                       Η Alice επιθυμεί να στείλει ένα μήνυμα <b>M = 15</b> στον Bob. Χρησιμοποιεί το  &nbsp;
+                                      <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i> Public Key
                                        (E,n) του Bob ώστε να κρυπτογραφήσει το μήνυμα &nbsp;
                                        <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
                                        M της και να δημιουργήσει το κρυπτογραφημένο μήνυμα &nbsp;
@@ -419,26 +430,33 @@ const Demo = () => {
                                      </Form>
                  
                                      <Form className="customform"> 
-                                     <Form.Label>
-                                     <Row className="mb-2">
-                                      &nbsp;&nbsp;&nbsp;
-                                      <Col xs={3}>
-                                       <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i> 
-                                         <Form.Label>CT = </Form.Label>
-                                         </Col>
-                                         <Col xs={8}>
-                                           <Form.Control placeholder="M^E mod N" disabled style={{width:"100%", fontSize: '13px'}} />
-                                        </Col>
-                                      </Row>                               
-                                     </Form.Label>                  
-                                     </Form>
+                                        <Form.Label>
+                                          <Row className="align-items-center">                                       
+                                            <Col xs={6}>
+                                              <Form.Label style={{ marginLeft: '5px', display: 'flex', alignItems: 'center' }}> 
+                                                <i className="bi bi-lock-fill" style={{ fontSize: '15px', marginRight: '5px' }}></i> 
+                                                CT = M^E mod n
+                                              </Form.Label>                              
+                                            </Col>
+
+                                            <Col xs={6}>
+                                              <Form.Control 
+                                                placeholder="27 = 15^7 mod 33" 
+                                                disabled 
+                                                style={{ width: "100%", fontSize: '13px' }} 
+                                              />
+                                            </Col>
+                                          </Row>
+                                        </Form.Label>
+                                      </Form>
+
                  
                                      <Form className="customform"> 
                                      <Form.Label>
                                      <b>4.</b>&nbsp;
-                                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                                      Η Alice  στέλνει το κρυπτογραφημένο μήνυμα &nbsp;
-                                      <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i> CT στον &nbsp;
+                                       Στέλνει το κρυπτογραφημένο μήνυμα &nbsp;
+                                      <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i>
+                                      <b>CT = 27</b> στον &nbsp;
                                       <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> Bob.
                               
                                      </Form.Label>                  
@@ -450,7 +468,7 @@ const Demo = () => {
                            </Col>
 
                            <Col>          
-                             <Card border="info"className="customcardAlgBob2">
+                             <Card border="info"className="customcardProcessBob2">
                                <Card.Body>
                                  <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem'}}>
                                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;Bob</Card.Title>
@@ -458,39 +476,42 @@ const Demo = () => {
                                  <Form className="customform"> 
                                   <Form.Label>
                                   <b>5.</b>&nbsp;
-                                  <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
                                   Ο Bob λαμβάνει το κρυπτογραφημένο μήνυμα  &nbsp;
                                   <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i> CT. Χρησιμοποιεί το Private Key του &nbsp;
                                   <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i> 
                                   (D,n) για να αποκρυπτογραφήσει το μήνυμα.
-              �                    </Form.Label>                  
+                                 </Form.Label>                  
                                   </Form>
 
+                                                                
                                   <Form className="customform"> 
-                                  <Form.Label>
-                                  <b>6.</b>&nbsp;
-                                  <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                                  Ο Bob  ανακτά το αρχικό μήνυμα  &nbsp;
-                                  <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                                  Μ και μπορεί να το διαβάσει.
-                                  </Form.Label>                  
-                                  </Form>
+                                        <Form.Label>
+                                          <Row className="align-items-center">                                       
+                                            <Col xs={6}>
+                                              <Form.Label style={{ marginLeft: '5px', display: 'flex', alignItems: 'center' }}> 
+                                              <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
+                                              M = CT^D mod n
+                                              </Form.Label>                              
+                                            </Col>
 
-                                  <Form className="customform"> 
-                                  <Form.Label>
-                                  <Row className="mb-2">
-                                  &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <Col xs={3}>
-                                    <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                                      <Form.Label>M = </Form.Label>
-                                      </Col>
-                                      <Col xs={8}>
-                                        <Form.Control placeholder="CT^D mod N" disabled style={{width:"100%", fontSize: '13px'}} />
-                                    </Col>
-                                  </Row>
-                                            
-                                  </Form.Label>                  
-                                  </Form>
+                                            <Col xs={6}>
+                                              <Form.Control 
+                                                placeholder="15 = 27^3 mod 33" 
+                                                disabled 
+                                                style={{ width: "100%", fontSize: '13px' }} 
+                                              />
+                                            </Col>
+                                          </Row>
+                                        </Form.Label>
+                                      </Form>
+
+                                      <Form className="customform"> 
+                                          <Form.Label style={{ display: 'block', textAlign: 'center', fontSize: '14px' }}>
+                                          <u><span class="text-item">Μ = 15</span></u>
+                                       </Form.Label>                  
+                                      </Form>
+                                        
+
                                                         
                                </Card.Body>
                              </Card>
