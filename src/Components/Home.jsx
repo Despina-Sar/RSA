@@ -4,50 +4,39 @@ import React from 'react'
 function Home(){
 return(
   
-  /*
-  <header>
-   <div className = "head-text">
-    <div className = "head-image">
-      <div  className="image-container">
-       <img
-        alt=""
-        src= {require('../images/up_2017_logo_gr.jpg')}
-        height="auto" width="70%"        
-      />       
-      </div>
-      </div>
-          <h3> Welcome to my Blog </h3>
-          <p> FREEEEDOM </p>
-      </div>
-    </header>
-*/
-
-      <header>
+      <header style={{ display: 'block', textAlign: 'center', fontSize: '15px', maxWidth: '95%', marginTop: '60px'}}>
       <div className = "head-text">
+           
+          <h5> Καλώς ήρθατε στην Εφαρμογή RSA   </h5>
+          <p>                
+              Η εφαρμογή αυτή έχει καθαρά εκπαιδευτικό χαρακτήρα, με κύριο στόχο τη διδασκαλία και την εξήγηση του αλγόριθμου RSA στους φοιτητές.
+              Οι χρήστες μπορούν να πλοηγηθούν εύκολα μέσω της γραμμής μενού. Στην ενότητα "Demo" θα βρείτε μια αναλυτική παρουσίαση και επεξήγηση του αλγόριθμου, 
+              ενώ η καρτέλα "Training" προσφέρει βήμα προς βήμα υπολογισμούς για την πληρέστερη κατανόησή του. 
+              Τέλος, η καρτέλα "Real Example" περιλαμβάνει ένα παράδειγμα του RSA σε πραγματική εφαρμογή, δίνοντας τη δυνατότητα στους χρήστες να δουν τον αλγόριθμο σε δράση.
+          </p>
+        <p> Καλή εξερεύνηση της εφαρμογής!</p>
+      </div>
+
       <div  className="image-container">
        <img
         alt=""
         src= {require('../images/ceidlogo.PNG')}
-        height="auto" width="60%"        
+        height="auto" width="35%"        
       />   
       </div>
-         
-          <h3> Welcome to RSA App </h3>
-          <p> This app serves an educational purpose, aiming to teach and explain the RSA algorithm 
-            to students. Users can navigate through the menu bar, where the Main Algorith tab features a
-             real-life example of RSA, while the Educational tab provides step-by-step calculations
-              to enhance understanding of the algorithm. Additional educational content, including
-               historical context and contemporary applications of RSA, can be found in the top-right 
-               menu. Enjoy exploring the app!</p>
-      </div>
+
       <div  className="image-container">
        <img
         alt=""
-        src= {require('../images/up_2017_logo_gr.jpg')}
-        height="auto" width="50%"        
+        src= {require('../images/up_2017_logo_gr_grey.jpg')}
+        height="auto" width="20%"        
       />   
       </div>
-      <h1>{'\t'} . </h1>
+
+    
+   
+
+      
     </header>
     
     

@@ -30,7 +30,7 @@ function ColorSchemesExample() {
             <Nav id = "menu">
             <Nav.Link as={Link} to="/Demo">Demo</Nav.Link>
             <Nav.Link as={Link} to="/Training">Training</Nav.Link>
-          {/* <Nav.Link as={Link} to="/Educational">EducationalTest</Nav.Link>  */}
+         <Nav.Link as={Link} to="/Educational">EducationalTest</Nav.Link>
            <Nav.Link as={Link} to="/Real">Real Card</Nav.Link>
          {/*  <Nav.Link as={Link} to="/Algorithm">AlgorithmTest</Nav.Link>  */}
                   

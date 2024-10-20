@@ -622,7 +622,7 @@ const App = () => {
 export default App;
 */
 
-
+/*
 
 import React, { useState } from 'react';
 import { Button, Card, Container, Row, Col, Form } from 'react-bootstrap';
@@ -870,3 +870,7 @@ const CardSwitcher = () => {
 };
 
 export default CardSwitcher;
+
+*/
+
+
