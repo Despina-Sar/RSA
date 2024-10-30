@@ -351,14 +351,14 @@ const Demo = () => {
                         className="me-2"
                         style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem', marginLeft: '30px' }}
                     >
-                        Υπολογισμοί Αλγορίθμου
+                        1. Υπολογισμοί Αλγορίθμου
                     </Button>
                     <Button 
                         variant="dark" 
                         onClick={() => handleButtonClick('process')}
                         style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem', marginLeft: '30px' }}
                     >
-                       Διαδικασία Κρυπτογράφησης
+                       2. Διαδικασία Κρυπτογράφησης
                     </Button>
                 </Col>
             </Row>

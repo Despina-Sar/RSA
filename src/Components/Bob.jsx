@@ -13,23 +13,23 @@ const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
 const [form, setForm] = useState(rsaValues);////////////////
 const [show, setShow] = useState(false);
 const [showModal, setShowModal] = useState(false); // Controls modal visibility
+const [locked, setLocked] = useState(false); // State to lock the form
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
 //const [number, setNumber] = useState('');
 const [factors, setFactors] = useState('');
+const[errors, setErrors] = useState({})
 
-
-  const[errors, setErrors] = useState({})
 
 
 const setField = (field, value) => {
+  if (locked) return; // Prevent changes if locked
   setForm(prevForm => {
     const newForm = { ...prevForm, [field]: value };
     validateField(field, value, newForm); // validate with the updated form state
     return newForm;
   });
-
   
   setRSAValues(prev => ({
     ...prev,
@@ -42,12 +42,12 @@ const setField = (field, value) => {
       [field]: null
     }));
   }
-
 };
+
 
     // Validation function for individual fields
     const validateField = (field, value, updatedForm) => {
-      const{p,q,n,fn,E,D}= updatedForm;
+      //const{p,q,n,fn,E,D}= updatedForm;
       switch (field) {
         case 'p':
           validateP(field, value,updatedForm);
@@ -81,15 +81,23 @@ const setField = (field, value) => {
       // Update the RSA values in the parent component
       const newErrors ={}
       const { p, q, n, fn, E, D } = form;
+
+      const hasEmptyFields = !p || !q || !n || !fn || !E || !D;
+      const hasErrors = Object.values(errors).some((error) => error !== null && error !== '');
+
       updateRSAValues({ p, q, n, fn, e: E, d: D });
-      if (!p || !q || !n || !fn || !E || !D) {
+
+       if (hasEmptyFields || hasErrors) {
         // Show an alert if any field is empty
         console.log('errors ' +newErrors);
         setShowModal(true); // Show modal if fields are empty
         return; // Exit the function, preventing the rest of the code from running
-      }
+        setLocked(false);
+      }else{
+       // Lock the form
+      setLocked(true);
       onSendClick();
-           
+      }  
     };
   
 //-----------------------------------handle submit only for P-------------------------------------------
@@ -118,6 +126,25 @@ const setField = (field, value) => {
      }   
    }
 
+
+   /*
+// Example validation function for `p`
+const validateP = (field, value, form) => {
+  const newErrors = { ...errors };
+  const p = parseInt(value);
+
+  if (!p) {
+    newErrors.p = 'Το πεδίο είναι κενό';
+  } else if (!isPrime(p)) {
+    newErrors.p = `Το ${p} δεν είναι πρώτος αριθμός`;
+  } else {
+    delete newErrors.p; // Clear error if valid
+  }
+
+  setErrors(newErrors);
+};
+
+   */
 //---------------------------------handle submit only for Q --------------------------------------------
 
   const validateQ = (field, value, form) =>{
@@ -239,6 +266,7 @@ const setField = (field, value) => {
 //----------------------------------------------------------------
 const handleInputChange = (e) => {
   const inputValue = e.target.value;
+  if (locked) return; // Prevent changes if locked
 
   if (inputValue === '') {
     setField('fn', '');
@@ -428,6 +456,7 @@ const validateD = (field, value, form) =>{
                             value={form.p}
                             onChange={(e) => setField('p', e.target.value)}
                             isInvalid={!!errors.p}
+                            disabled={locked}
                           />
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.p}
@@ -444,6 +473,7 @@ const validateD = (field, value, form) =>{
                             size="sm"
                             onChange={(e) => setField('q', e.target.value)}
                             isInvalid={!!errors.q}
+                            disabled={locked}
                           />
                        <Form.Control.Feedback type= 'invalid'>
                           {errors.q}
@@ -470,6 +500,7 @@ const validateD = (field, value, form) =>{
                             value={form.n}
                             onChange={(e) => setField('n', e.target.value)}
                             isInvalid={!!errors.n}
+                            disabled={locked}
                           />
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.n}
@@ -488,6 +519,7 @@ const validateD = (field, value, form) =>{
                         //    onChange={(e) => setField('fn', e.target.value)}
                             onChange={handleInputChange}                            
                             isInvalid={!!errors.fn}
+                            disabled={locked}
                           />
                        <Form.Control.Feedback type= 'invalid'>
                           {errors.fn}
@@ -535,6 +567,7 @@ const validateD = (field, value, form) =>{
                             value={form.E}
                             onChange={(e) => setField('E', e.target.value)}
                             isInvalid={!!errors.E}
+                            disabled={locked}
                             style={{ width: '70px', padding: '5px', fontSize: '12px', textAlign: 'center', marginLeft: '1px' }} 
                           />
                         <Form.Control.Feedback type= 'invalid'>
@@ -564,6 +597,7 @@ const validateD = (field, value, form) =>{
                        //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                          onChange={(e) => setField('D', e.target.value)}
                          isInvalid={!!errors.D}
+                         disabled={locked}
                          //placeholder="D" 
                         style={{ width: '70px', padding: '5px', fontSize: '12px', textAlign: 'center', marginLeft: '1px' }} 
                        />                   

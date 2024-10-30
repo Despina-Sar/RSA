@@ -13,6 +13,7 @@ const { rsaValues, setRSAValues } = useContext(RSAContext);///////////////
 const [form, setForm] = useState({ M: '', CT: '' });
 const [show, setShow] = useState(false);
 const [showModal, setShowModal] = useState(false); // Controls modal visibility
+const [locked, setLocked] = useState(false); // State to lock the form
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
@@ -37,21 +38,28 @@ const handleShow = () => setShow(true);
 
 
 const handleButtonClick = () => {
-  let{M,CT}= form
+  const{M,CT}= form
+  console.log('M: '+M +'  ,CT:'+CT);
+  const hasEmptyFields = !M || !CT;
+  const hasErrors = Object.values(errors).some((error) => error !== null && error !== '');
 
-  // Check if any fields are empty
-  if (!M || !CT ) {
+  // Check if any fields are empty or has errors
+  if (hasEmptyFields || hasErrors) {
     setShowModal(true); // Show modal if fields are empty
+    setLocked(false);
   } else {
     // Call the onUnlockClick function since fields are filled
     onUnlockClick();
+    setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
   }
 };
 
+
 const handleCloseMod = () => setShowModal(false);
 
 const setField = (field, value) => {
+  if (locked) return; // Prevent changes if locked
   setForm(prevForm => {
     const newForm = { ...prevForm, [field]: value };
     validateField(field, value, newForm); // validate with the updated form state
@@ -229,6 +237,7 @@ function rsaEncrypt(M, E, N) {
                             value={form.M}
                             onChange={(e) => setField('M', e.target.value)}
                             isInvalid={!!errors.M}
+                            disabled={locked}
                           />
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.M}
@@ -257,13 +266,14 @@ function rsaEncrypt(M, E, N) {
                         //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                           onChange={(e) => setField('CT', e.target.value)}
                           isInvalid={!!errors.CT}
+                          disabled={locked}
                           placeholder="CT" 
                           style={{ width: '70px', padding: '5px', fontSize: '13px', textAlign: 'center', marginLeft: '1px' }} 
                         />                   
                     </div>
                                   
                       <Col xs={6}>
-                         <Button onClick={handleButtonClick }
+                         <Button onClick={handleButtonClick}
                           variant="outline-danger" 
                           style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}
                           >Στείλε το CT στον Bob
