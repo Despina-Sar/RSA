@@ -22,7 +22,7 @@ const [factors, setFactors] = useState('');
 const[errors, setErrors] = useState({})
 
 
-
+/*
 const setField = (field, value) => {
   if (locked) return; // Prevent changes if locked
   setForm(prevForm => {
@@ -43,30 +43,83 @@ const setField = (field, value) => {
     }));
   }
 };
+*/
+
+    // Set field with validation
+    const setField = (field, value) => {
+      if (locked) return;
+      setForm(prevForm => {
+          const updatedForm = { ...prevForm, [field]: value };
+
+          // Validate field on each change
+          validateField(field, value, updatedForm);
+          
+          return updatedForm;
+      });
+
+      // Update RSA values in context
+      setRSAValues(prev => ({
+          ...prev,
+          [field]: value,
+      }));
+
+      // Clear errors for the field if valid
+      if (!!errors[field]) {
+          setErrors(prevErrors => ({
+              ...prevErrors,
+              [field]: null,
+          }));
+      }
+  };
 
 
     // Validation function for individual fields
     const validateField = (field, value, updatedForm) => {
-      //const{p,q,n,fn,E,D}= updatedForm;
+      const{p,q,n,fn,E,D}= updatedForm;
+      let newErrors = { ...errors }; // Start with current errors
       switch (field) {
         case 'p':
-          validateP(field, value,updatedForm);
-   
+          validateP(field, value,updatedForm,newErrors);
+           console.log("before revalidation of N: "+n);
+           if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+           if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+           if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+           if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+          // Finally, update the errors state once with all accumulated errors
+            setErrors(newErrors);
+
            break;
         case 'q':
-          validateQ(field, value,updatedForm);
-          break;
+          validateQ(field, value,updatedForm,newErrors);
+            if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+            if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+            if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+            if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+        // Finally, update the errors state once with all accumulated errors
+         setErrors(newErrors);
+            break;
         case 'n':
-          validateN(field, value, updatedForm);
+          validateN(field, value, updatedForm,newErrors);
+            if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+            if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+          setErrors(newErrors);
+
           break;
         case 'fn':
-          validateFn(field, value, updatedForm);
+          validateFn(field, value, updatedForm,newErrors);
+            if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+            if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+          setErrors(newErrors);
           break;
         case 'E':
-          validateE(field, value, updatedForm);
+        case 'fn':
+          validateE(field, value, updatedForm,newErrors);
+           if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+          setErrors(newErrors);
           break;
         case 'D':
-          validateD(field, value, updatedForm);
+          validateD(field, value, updatedForm,newErrors);
+          setErrors(newErrors);
           break;
         default:
           break;
@@ -103,9 +156,9 @@ const setField = (field, value) => {
 //-----------------------------------handle submit only for P-------------------------------------------
 
 
-  const validateP = (field, value, form) =>{
+  const validateP = (field, value, form,newErrors) =>{
      const{p}= form
-     const newErrors ={}
+
      console.log(p);
      console.log(isPrime(p));
       //-validation for p == prime
@@ -113,69 +166,40 @@ const setField = (field, value) => {
       else{
        if (!isPrime(p)) {
          newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
+       }else {
+        delete newErrors.p; // Clear error if validation passes
        }
-     }
-        
-     if(Object.keys(newErrors).length>0){
-       setErrors(newErrors)
-     }
-     else{
-       console.log("Successfull Submittion");
-       setRSAValues(prev => ({ ...prev, p}));
-       console.log('rsaValues:', rsaValues);
-     }   
-   }
+      }
+    }
 
 
-   /*
-// Example validation function for `p`
-const validateP = (field, value, form) => {
-  const newErrors = { ...errors };
-  const p = parseInt(value);
 
-  if (!p) {
-    newErrors.p = 'Το πεδίο είναι κενό';
-  } else if (!isPrime(p)) {
-    newErrors.p = `Το ${p} δεν είναι πρώτος αριθμός`;
-  } else {
-    delete newErrors.p; // Clear error if valid
-  }
-
-  setErrors(newErrors);
-};
-
-   */
 //---------------------------------handle submit only for Q --------------------------------------------
 
-  const validateQ = (field, value, form) =>{
+  const validateQ = (field, value, form,newErrors) =>{
      const{ q }= form
-     const newErrors ={}
-          //validation for q == prime
+
+     //validation for q == prime
        if (q === undefined || q === '') {newErrors.q = 'Το πεδίο είναι κενό'}
        else{ 
          if (!isPrime(q)) {
            newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';
-         } 
-    
-     }     
-     if(Object.keys(newErrors).length>0){
-       setErrors(newErrors)
-     }
-     else{
-       console.log("Successfull Submittion");
-       setRSAValues(prev => ({ ...prev, q }));
-       console.log('rsaValues:', rsaValues);
-     }   
+         } else {
+          delete newErrors.q; // Clear error if validation passes
+      }
+     }          
    }
  
 
 
 
 //---------------------------------handle submit only for n -------------------------------------------
-  const validateN = (field, value, form) =>{
+/*  
+const validateN = (field, value, form) =>{
     const{p,q,n}= form
-    const newErrors ={}
-    
+    //const newErrors ={}
+    const newErrors = { ...errors }; // Start with current errors
+
      // n validation
     if (n === undefined || n === '') {newErrors.n = 'Το πεδίο είναι κενό'}
     else{ 
@@ -183,7 +207,9 @@ const validateP = (field, value, form) => {
         {
         newErrors.n = 'Το '+n+' δεν ισούται με  P x Q';
         console.log(n + " not p x q");
-        } 
+        } else {
+          delete newErrors.n; // Clear error if validation passes
+      }
     }    
     if(Object.keys(newErrors).length>0){
       setErrors(newErrors)
@@ -192,15 +218,16 @@ const validateP = (field, value, form) => {
       console.log("Successfull Submittion");
       setRSAValues(prev => ({ ...prev, n}));
       console.log('rsaValues:', rsaValues);
-    }
-
+      }
+    setErrors(newErrors); // Update the errors state
   }
 
   //---------------------------------handle submit only for Fn--------------------------------------------
   const validateFn = (field, value, form) =>{
      const{p,q,fn}= form
-     const newErrors ={}
-  
+    //const newErrors ={}
+    const newErrors = { ...errors }; // Start with current errors
+
     //fn validation
     if (fn === undefined || fn === '') {newErrors.fn = 'Το πεδίο είναι κενό'}
     else{ 
@@ -208,7 +235,9 @@ const validateP = (field, value, form) => {
          {
              newErrors.fn = 'Το '+fn+' δεν ισούται με (P - 1) x (Q - 1)';
              console.log(fn + " invalid");
-         }
+         }else {
+          delete newErrors.fn; // Clear error if validation passes
+      }
     }     
      if(Object.keys(newErrors).length>0){
        setErrors(newErrors)
@@ -217,17 +246,55 @@ const validateP = (field, value, form) => {
        console.log("Successfull Submittion");
        setRSAValues(prev => ({ ...prev, fn }));
        console.log('rsaValues:', rsaValues);
+      
      }
- 
+     setErrors(newErrors); // Update the errors state
    }
  
 
+*/
+//-------------------------02.22.2024--------------
+const validateN = (field, value, form,newErrors) =>{
+  const{p,q,n}= form
+  //const newErrors ={}
+  
+   // n validation
+  if (n === undefined || n === '') {newErrors.n = 'Το πεδίο είναι κενό'}
+  else{ 
+  if (n != p*q) 
+      {
+      newErrors.n = 'Το '+n+' δεν ισούται με  P x Q';
+      console.log(n + " not p x q");
+      } else {
+        delete newErrors.n; // Clear error if validation passes
+    }
+  }     
+}
+
+//---------------------------------handle submit only for Fn--------------------------------------------
+const validateFn = (field, value, form,newErrors) =>{
+   const{p,q,fn}= form
+  //const newErrors ={}
+ 
+
+  //fn validation
+  if (fn === undefined || fn === '') {newErrors.fn = 'Το πεδίο είναι κενό'}
+  else{ 
+  if (fn != ((q-1)*(p-1))) 
+       {
+           newErrors.fn = 'Το '+fn+' δεν ισούται με (P - 1) x (Q - 1)';
+           console.log(fn + " invalid");
+       }else {
+        delete newErrors.fn; // Clear error if validation passes
+    }
+  }  
+}
 
 
 //----------------------------------------handle submit only for E---------------------------------------------
-  const validateE = (field, value, form) =>{
+  const validateE = (field, value, form,newErrors) =>{
     let{fn,E}= form
-    const newErrors ={}
+    
     let Einput;
         if (E === undefined || E === '') {newErrors.E = 'Το πεδίο είναι κενό'}
     else{ 
@@ -249,18 +316,11 @@ const validateP = (field, value, form) => {
         if(Einput != 1){
             newErrors.E = 'Λάθος επιλογή κλειδιού'
             console.log('inside final error');
-        }
+        }else {
+          delete newErrors.E; // Clear error if validation passes
+      }
     }
- 
-    if(Object.keys(newErrors).length>0){
-      setErrors(newErrors)
-      console.log('inside set E error');
-    }
-    else{
-      console.log("Successfull Submittion");
-      setRSAValues(prev => ({ ...prev, E }));
-      console.log('rsaValues:', rsaValues);
-    }
+
   
     }
 //----------------------------------------------------------------
@@ -316,14 +376,14 @@ const handleInputChangeD = (field, value) => {
 };
 
 
-const validateD = (field, value, form) =>{
+const validateD = (field, value, form,newErrors) =>{
     //calculate pricate key D
   const D = Number(value);
   const E = Number(rsaValues.E);
   const fn = Number(rsaValues.fn);
 
     console.log(D);
-    const newErrors ={}
+    
 
     if (D === undefined || D === '') {newErrors.D = 'Το πεδίο είναι κενό'}
     else{ 
@@ -334,20 +394,12 @@ const validateD = (field, value, form) =>{
       if(D !== y){
         console.log('D is diff from y');
         newErrors.D = 'Λάθος επιλογή κλειδιού' 
-        }
+        }else {
+          delete newErrors.D; // Clear error if validation passes
+      }
     }
 
-    if(Object.keys(newErrors).length>0){
-      setErrors(newErrors)
-      console.log('inside set D error');
-    }
-    else{
-      console.log('Successful Submission');
-      setRSAValues(prev => ({ ...prev, D }));
-     // setField('D', value);
-      console.log('rsaValues:', rsaValues);
-    }
-
+   
   }
 
   //--------------------------calculation functions--------------------------------------------------------
@@ -650,3 +702,5 @@ const validateD = (field, value, form) =>{
 export default Bob;
 
 //---------------------------------------------CORRECT END--------------------------------------------------
+
+

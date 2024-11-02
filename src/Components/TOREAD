@@ -2,7 +2,6 @@
 
 /* 
 TO DO
-Check when I edit previous value, recalculate everything : only on Bob
 Edit training, create mock up plan
 FINAL
 */
@@ -10,6 +9,7 @@ FINAL
 
 /* 
 COMPLETED:
+Check when I edit previous value, recalculate everything : only on Bob
 on button click-> Lock all form Controls
 End Demo section until 20.10
 !!STARTED Edit to Greek
