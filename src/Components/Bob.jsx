@@ -462,7 +462,7 @@ const validateD = (field, value, form,newErrors) =>{
             </Row>
               
 
-              <Offcanvas show={show} onHide={handleClose}>
+              <Offcanvas show={show} onHide={handleClose}  style={{  backgroundColor: 'rgb(33, 37, 41)' ,color: 'white' }}>
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title> <h2 style={{ fontSize: '1.0rem' }}>Bob: Δημιουργία κλειδιών</h2></Offcanvas.Title>
                 </Offcanvas.Header>

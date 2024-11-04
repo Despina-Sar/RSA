@@ -329,6 +329,7 @@ export default Demo;
 */
 
 
+
 const Demo = () => {
     const [activeCard, setActiveCard] = useState(''); // State to manage active card
     const [open, setOpen] = useState(false);
@@ -343,9 +344,9 @@ const Demo = () => {
 
     return (
         <Container>
-            <Row className="justify-content-center mt-1">
-                <Col xs={12} md={6} className="text-center">
-                    <Button 
+            <Row className="justify-content-center ">
+              <Col xs={12} md={6} className="text-center">
+                  <Button 
                         variant="dark" 
                         onClick={() => handleButtonClick('algorithm')}
                         className="me-2"

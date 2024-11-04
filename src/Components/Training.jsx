@@ -64,12 +64,9 @@ return (
     <Container fluid>
         <Row>
            <Col md={6} style={{  height: '100vh' }}>
-
-                 <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '30px' }}>
+                 <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '60px' }}>
                     Restart <i class="bi bi-arrow-clockwise"></i>
                  </Button>
-
-
             /
           <Bob onSendClick={handleBobSendClick} rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           </Col>

@@ -57,7 +57,7 @@ function Real() {
    
       <Card border="light" className="customcardReal">
         <Card.Body>
-          <Card.Title style={{ fontWeight: 'bold' }}>Key....... Generation</Card.Title>
+          <Card.Title style={{ fontWeight: 'bold' }}>Αλγόριθμος RSA</Card.Title>
           <Button onClick={generateKeys} disabled={loading}  variant="outline-info" className="mb-2"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
             {loading ? 'Loading...' : 'Δημιουργία Κλειδιών'}
           </Button>
@@ -123,7 +123,7 @@ function Real() {
           </Form>
 
           <Button  onClick={handleEncrypt} variant="outline-info"  className="mb-3"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
-            Κρυπτογράφιση
+            Κρυπτογράφηση
           </Button>
 
 
@@ -149,7 +149,7 @@ function Real() {
           
 
           <Button onClick={handleDecrypt} variant="outline-info"  className="mb-2"  style={{ fontSize: '0.8rem', padding: '0.3rem 0.5rem' }}>
-          Αποκρυπτογράφιση
+          Αποκρυπτογράφηση
           </Button>
 
 

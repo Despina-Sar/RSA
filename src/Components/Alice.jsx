@@ -195,7 +195,7 @@ function rsaEncrypt(M, E, N) {
             </Col>
           </Row>
               
-              <Offcanvas show={show} onHide={handleClose}>
+              <Offcanvas show={show} onHide={handleClose} style={{  backgroundColor: 'rgb(33, 37, 41)' ,color: 'white' }}>
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title><h2 style={{ fontSize: '1.0rem' }}>Alice: Βήματα Kρυπτογράφισης</h2></Offcanvas.Title>
                 </Offcanvas.Header>
