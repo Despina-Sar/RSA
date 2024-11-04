@@ -184,6 +184,7 @@ const setField = (field, value) => {
        else{ 
          if (!isPrime(q)) {
            newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';
+           console.log(n + " not p x q");
          } else {
           delete newErrors.q; // Clear error if validation passes
       }
