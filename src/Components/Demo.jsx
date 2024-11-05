@@ -368,11 +368,18 @@ const Demo = () => {
                 <Col xs={11}>
                     <Collapse in={activeCard === 'algorithm' && open}>
                         <div>
+                          
+
                             <Card border="info" className="customcardDemoAlgorithm">
                                 <Card.Body>
-                                    <Form className="customform">                    
+                                    <Form className="customform">  
+                                       <Form.Label>
+                                       Το πρώτο βήμα του αλγορίθμου RSA είναι η δημιουργία των κλειδιών. 
+                                       <br />
+                                       Ο Bob πρέπει να εκτελέσει κάποιους μαθηματικους υπολογισμούς ώστε να παράγει ένα δημόσιο (Public Key) και ένα ιδιωτικό κλειδί (Private Key). 
+                                        </Form.Label>                  
                                         <Form.Label>
-                                            <b><u>1. P & Q</u></b> <br />
+                                            <b>1. P & Q</b> <br />
                                             Επιλέγουμε δύο πρώτους αριθμούς p και q. Αυτοί οι αριθμοί πρέπει να είναι μεγάλοι και τυχαίοι, ώστε να διασφαλίζεται η ασφάλεια του συστήματος.
                                         </Form.Label>
                                         <Row className="mb-2">
@@ -393,7 +400,7 @@ const Demo = () => {
 
                                     <Form className="customform">                    
                                         <Form.Label>
-                                            <b><u>2. n & Φ(n)</u></b> <br /> Υπολογίζουμε το n ως το γινόμενο των δύο πρώτων αριθμών καθώς και το Φ(n) με τον παρακάτω τρόπο:
+                                            <b>2. n & Φ(n)</b> <br /> Υπολογίζουμε το n ως το γινόμενο των δύο πρώτων αριθμών καθώς και το Φ(n) με τη συναρτηση που φαίνεται παρακάτω:
                                         </Form.Label>
                                         <Row className="mb-2">
                                             <Col xs={1}>
@@ -413,23 +420,28 @@ const Demo = () => {
 
                                     <Form className="customform">
                                         <Form.Label>
-                                            <b><u>3. Public Key</u></b> <br />  Επιλέγουμε το Public Key, έτσι ώστε να είναι σχετικά πρώτο με το Φ(n).
-                                        </Form.Label>
-                                        <ul>
-                                            <li>Παράγοντες του Φ(n) 20 = 5 x 4 = 5 x 2 x 2</li>
-                                            <li>Συνεπώς το E δεν πρέπει να είναι πολλαπλάσιο των 5 & 2 και να μην διαιρείται από Το 20</li>
-                                            <li>Επιλέγουμε E = 7</li>
-                                        </ul>               
+                                            <b>3. Public Key</b> <br /> Public Key του Bob αποτελεί το (Ε,n). <br /> 
+                                            To E, που είναι ο εκθέτης του Public Key, πρέπει να είναι ένας ακέραιος που ικανοποιεί τις εξής προϋποθέσεις:
+                                             <ol>
+                                              <li> Να είναι σχετικά πρώτο με το Φ(n). Αυτό σημαίνει ότι το Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), πέρα από το 1</li>
+                                              <li> Να μην είναι πολλαπλάσιο των παραγόντων του Φ(n).</li>  
+                                            </ol>    
+                                            Παράγοντες του Φ(n) 20 = 5 x 4 = 5 x 2 x 2<br /> 
+                                            Επιλέγουμε E = 7, καθώς δεν είναι πολλαπλάσιο των 5 & 2 και να δεν διαιρείται από Το 20     <br />                                     
+                                            &nbsp; &nbsp; &nbsp;<u> Public Key = (7,33)</u>
+                                            
+                                        </Form.Label>                                          
                                     </Form>
 
                                     <Form className="customform">
                                         <Form.Label>
-                                            <b><u>4. Private Key </u></b> <br /> Υπολογίζουμε το Private Key D έτσι ώστε (DxE)mod(Φ(n))=1.
-                                        </Form.Label>
-                                        <ul>
-                                            <li>(D x 7) mod 20 = 1</li>
-                                            <li> Επιλέγουμε D = 3 καθώς (3 x 7) mod 20 = 1</li>
-                                        </ul>               
+                                            <b>4. Private Key</b> <br />  Το Private Key του Bob αποτελεί το (D,n). <br /> 
+                                             Θέλουμε να βρούμε έναν αριθμό D που θα ικανοποιεί την εξίσωση (DxE)mod(Φ(n))=1. <br /> 
+                                              Αυτό σημαίνει οτι το γινόμενο D×E, όταν διαιρεθεί με το Φ(n), αφήνει υπόλοιπο 1.
+                                             <br />  &nbsp;&nbsp; &nbsp;(D x 7) mod 20 = 1 <br /> 
+                                             &nbsp;  &nbsp;&nbsp;<u> Private Key = (3,33)</u>
+                                         
+                                        </Form.Label>                                          
                                     </Form>
                                 </Card.Body>
                             </Card>
@@ -468,6 +480,7 @@ const Demo = () => {
                                <Card.Body>
                                  <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem'}}>
                                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;Bob</Card.Title>
+                                 <Card.Subtitle className="mb-2 text-muted"style={{fontSize: '13px'}} >Αποστολή Public Key στην Alice</Card.Subtitle>
                                       
                                                  
                                  <Form className="customform">                    
@@ -475,7 +488,7 @@ const Demo = () => {
                                      <b>1.</b>&nbsp;
                                        Ο Bob δημιουργεί το &nbsp;
                                        <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>Public Key 
-                                      (E,n) και το &nbsp;
+                                      (E,n) και το <br /> &nbsp;
                                       <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i>  Private Key
                                       (D,n) 
                                      </Form.Label> 
@@ -487,8 +500,8 @@ const Demo = () => {
                                       Στέλνει το &nbsp;
                                       <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i>Public Key  
                                        (E,n) στην  &nbsp;
-                                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-                                       Alice. Αυτό επιτρέπει στην Alice να κρυπτογραφεί μηνύματα που προορίζονται για τον Bob.
+                                      <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i>
+                                       Alice.  <br />Αυτό της επιτρέπει κρυπτογραφεί μηνύματα που προορίζονται για τον Bob.
                                      </Form.Label>                  
                                      </Form>
                                           
@@ -504,6 +517,7 @@ const Demo = () => {
                                    <Card.Title style={{ fontWeight: 'bold',fontSize: '1.0rem' }}> 
                                     <i class="bi bi-person-square"style={{fontSize: '17px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;Alice
                                    </Card.Title>
+                                   <Card.Subtitle className="mb-2 text-muted"style={{fontSize: '13px'}} >Κρυπτογράφηση & Αποστολή Μηνύματος</Card.Subtitle>
                                                               
                                      <Form className="customform"> 
                                      <Form.Label>
@@ -512,7 +526,7 @@ const Demo = () => {
                                       <i class="bi bi-unlock-fill" style={{fontSize: '15px'}}></i> Public Key
                                        (E,n) του Bob ώστε να κρυπτογραφήσει το μήνυμα &nbsp;
                                        <i class="bi bi-chat-left-text-fill" style={{fontSize: '17px', color:'rgb(235, 68, 113)'}}></i>&nbsp;
-                                       M της και να δημιουργήσει το κρυπτογραφημένο μήνυμα &nbsp;
+                                       M και να δημιουργήσει το κρυπτογραφημένο μήνυμα 
                                        <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i> CT.
                                      </Form.Label>                  
                                      </Form>
@@ -529,7 +543,7 @@ const Demo = () => {
 
                                             <Col xs={6}>
                                               <Form.Control 
-                                                placeholder="27 = 15^7 mod 33" 
+                                                placeholder="15^7 mod 33= 27" 
                                                 disabled 
                                                 style={{ width: "100%", fontSize: '13px' }} 
                                               />
@@ -560,11 +574,12 @@ const Demo = () => {
                                <Card.Body>
                                  <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem'}}>
                                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;Bob</Card.Title>
+                                 <Card.Subtitle className="mb-2 text-muted"style={{fontSize: '13px'}} >Αποκυπτογράφηση μηνύματος</Card.Subtitle>
                                       
                                  <Form className="customform"> 
                                   <Form.Label>
                                   <b>5.</b>&nbsp;
-                                  Ο Bob λαμβάνει το κρυπτογραφημένο μήνυμα  &nbsp;
+                                  Ο Bob λαμβάνει το κρυπτογραφημένο μήνυμα  <br />
                                   <i class="bi bi-lock-fill"style={{fontSize: '15px'}} ></i> CT. Χρησιμοποιεί το Private Key του &nbsp;
                                   <i class="bi bi-key-fill"  style={{fontSize: '17px'}} ></i> 
                                   (D,n) για να αποκρυπτογραφήσει το μήνυμα.
@@ -584,7 +599,7 @@ const Demo = () => {
 
                                             <Col xs={6}>
                                               <Form.Control 
-                                                placeholder="15 = 27^3 mod 33" 
+                                                placeholder="27^3 mod 33 = 15" 
                                                 disabled 
                                                 style={{ width: "100%", fontSize: '13px' }} 
                                               />
@@ -595,7 +610,7 @@ const Demo = () => {
 
                                       <Form className="customform"> 
                                           <Form.Label style={{ display: 'block', textAlign: 'center', fontSize: '14px' }}>
-                                          <u><span class="text-item">Μ = 15</span></u>
+                                          <br /><u><span class="text-item">Μ = 15</span></u>
                                        </Form.Label>                  
                                       </Form>
                                         

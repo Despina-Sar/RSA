@@ -15,11 +15,13 @@ import Real from './Components/Real';
 import background from "./pp.jpg";
 
 
+
 function App() { 
  return (
  <div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
     {/* <Router>*/}
-    <HashRouter>
+
+     <HashRouter>
         <div className="App">
           <NavBar/>
             <div className="content">
@@ -31,8 +33,9 @@ function App() {
              </Routes>
             </div>
         </div>       
-  {/*   </Router>  */}
-  </HashRouter>
+   {/*   </Router>  */}
+   </HashRouter>
+
   </div>
 
        

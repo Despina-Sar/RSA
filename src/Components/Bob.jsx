@@ -195,65 +195,7 @@ const setField = (field, value) => {
 
 
 //---------------------------------handle submit only for n -------------------------------------------
-/*  
-const validateN = (field, value, form) =>{
-    const{p,q,n}= form
-    //const newErrors ={}
-    const newErrors = { ...errors }; // Start with current errors
 
-     // n validation
-    if (n === undefined || n === '') {newErrors.n = 'Το πεδίο είναι κενό'}
-    else{ 
-    if (n != p*q) 
-        {
-        newErrors.n = 'Το '+n+' δεν ισούται με  P x Q';
-        console.log(n + " not p x q");
-        } else {
-          delete newErrors.n; // Clear error if validation passes
-      }
-    }    
-    if(Object.keys(newErrors).length>0){
-      setErrors(newErrors)
-    }
-    else{
-      console.log("Successfull Submittion");
-      setRSAValues(prev => ({ ...prev, n}));
-      console.log('rsaValues:', rsaValues);
-      }
-    setErrors(newErrors); // Update the errors state
-  }
-
-  //---------------------------------handle submit only for Fn--------------------------------------------
-  const validateFn = (field, value, form) =>{
-     const{p,q,fn}= form
-    //const newErrors ={}
-    const newErrors = { ...errors }; // Start with current errors
-
-    //fn validation
-    if (fn === undefined || fn === '') {newErrors.fn = 'Το πεδίο είναι κενό'}
-    else{ 
-    if (fn != ((q-1)*(p-1))) 
-         {
-             newErrors.fn = 'Το '+fn+' δεν ισούται με (P - 1) x (Q - 1)';
-             console.log(fn + " invalid");
-         }else {
-          delete newErrors.fn; // Clear error if validation passes
-      }
-    }     
-     if(Object.keys(newErrors).length>0){
-       setErrors(newErrors)
-     }
-     else{
-       console.log("Successfull Submittion");
-       setRSAValues(prev => ({ ...prev, fn }));
-       console.log('rsaValues:', rsaValues);
-      
-     }
-     setErrors(newErrors); // Update the errors state
-   }
- 
-
-*/
 //-------------------------02.22.2024--------------
 const validateN = (field, value, form,newErrors) =>{
   const{p,q,n}= form
@@ -364,7 +306,7 @@ const handleInputChange = (e) => {
     } else {
       setForm({ ...form, fn: inputValue });
       setFactors('');
-      setErrors({ ...errors, fn: 'Please enter a valid positive number.' });
+      setErrors({ ...errors, fn: 'Παρακαλώ εισάγετε το σωστό θετικό αριθμό.' });
     }
   };
 
@@ -408,6 +350,7 @@ const validateD = (field, value, form,newErrors) =>{
 
   const isPrime = (num) => {
     let j;
+    if(num==1 || num==0){return false;}
     for (j = 2; j <= num - 1; j++) {
       if (num % j == 0) {
         return false;
@@ -448,7 +391,7 @@ const validateD = (field, value, form,newErrors) =>{
               <Row>
                <Col xs={7}>
                <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.0rem' }}>
-                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
+                  <i class="bi bi-person-square"style={{fontSize: '16px', color:'rgb(68, 199, 235)'}} ></i> <br /> 
                     Bob:  Δημιουργία κλειδιών  &nbsp;
                </Card.Title>
             </Col>
@@ -469,23 +412,26 @@ const validateD = (field, value, form,newErrors) =>{
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                      <ul style={{ fontSize: '0.9rem' }}>
-                        <li><strong>Επιλογή Πρώτων Αριθμών:</strong> Επιλέγουμε δύο μεγάλους πρώτους αριθμούς P και Q.</li>
-                        <li><strong>Υπολογισμός του n:</strong> n: P x Q</li>
-                        <li><strong>Υπολογισμός της Συνάρτησης Euler:</strong> Φ(n): (P - 1) x (Q - 1)</li>
+                        <li><strong>Επιλογή P & Q:</strong> <br /> Επιλέγουμε δύο πρώτους αριθμούς.</li>
+                        <li><strong>Υπολογισμός n:</strong>  n= P x Q</li>
+                        <li><strong>Υπολογισμός της Συνάρτησης Euler:</strong><br />
+                           Φ(n): (P - 1) x (Q - 1)</li>
                         <li>
-                          <strong>Επιλογή Public Key:</strong> 
-                          <ul>
-                            <li>E: πρέπει να μην είναι πολλαπλάσιο των παραγόντων της Φ(n) και επίσης να μην διαιρεί τη Φ(n)</li>
-                          </ul>
+                          <strong>Public Key (E,n):</strong> <br />
+                          To E πρέπει να είναι ένας ακέραιος που ικανοποιεί τις εξής προϋποθέσεις:
+                          <ol>
+                               <li> Να είναι σχετικά πρώτο με το Φ(n). Αυτό σημαίνει ότι το Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), πέρα από το 1</li>
+                                <li> Να μην είναι πολλαπλάσιο των παραγόντων του Φ(n).</li>  
+                           </ol>    
                         </li>
                         <li>
-                          <strong>Υπολογισμός Private Key:</strong> 
-                          <ul>
-                            <li>D: (D x E) mod (Φ(n)) = 1</li>
-                          </ul>
+                          <strong> Private Key (D,n):</strong> 
+                          <br />
+                          Το D πρέπει να ικανοποιεί την εξίσωση    <br />
+                         (D x E) mod (Φ(n)) = 1
+                      
                         </li>
-                        <li><strong>Public & Private Keys:</strong> Το Public Key είναι το ζεύγος (E, n) και το Private Keys είναι το ζεύγος (D, n).</li>
-                        
+                                       
                       </ul>
                     </Offcanvas.Body>
               </Offcanvas>
@@ -586,10 +532,10 @@ const validateD = (field, value, form,newErrors) =>{
 
                  <Form className="customform">                    
                   <Form.Label>
-                  3.  Επίλεξε το public key &nbsp;
+                  3.  Υπολόγησε Public Κey (E,n). Πρέπει να επιλέξεις το &nbsp;
                       <i class="bi bi-unlock-fill" style={{fontSize: '20px'}}></i> 
                      E. 
-                     Προσοχη! Δεν πρέπει να διαιρεί το Φ(n) και δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n)
+                     Προσοχη! <u>Δεν</u> πρέπει να διαιρεί το Φ(n) <u>και</u> να είναι πολλαπλάσιο των παραγόντων του Φ(n)
                   </Form.Label>
 
 
@@ -635,7 +581,7 @@ const validateD = (field, value, form,newErrors) =>{
 
                  <Form className="customform">                    
                   <Form.Label>
-                  4.  Επίλεξε το private key  &nbsp;
+                  4.   Υπολόγησε Private Κey (D,n). Επίλεξε το &nbsp;
                       <i class="bi bi-key-fill"  style={{fontSize: '20px'}} ></i> 
                      D
                   </Form.Label>
