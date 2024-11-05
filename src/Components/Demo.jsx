@@ -435,7 +435,7 @@ const Demo = () => {
 
                                     <Form className="customform">
                                         <Form.Label>
-                                            <b>4. Private Key</b> <br />  Το Private Key του Bob αποτελεί το (D,n). <br /> 
+                                            <b>4. Private Key</b> <br /> Private Key του Bob αποτελεί το (D,n). <br /> 
                                              Θέλουμε να βρούμε έναν αριθμό D που θα ικανοποιεί την εξίσωση (DxE)mod(Φ(n))=1. <br /> 
                                               Αυτό σημαίνει οτι το γινόμενο D×E, όταν διαιρεθεί με το Φ(n), αφήνει υπόλοιπο 1.
                                              <br />  &nbsp;&nbsp; &nbsp;(D x 7) mod 20 = 1 <br /> 
