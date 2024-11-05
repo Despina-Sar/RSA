@@ -8,6 +8,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import Demo from './Components/Demo';
 import Training from './Components/Training';
 import Real from './Components/Real';
@@ -17,7 +18,8 @@ import background from "./pp.jpg";
 function App() { 
  return (
  <div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
-     <Router>
+    {/* <Router>*/}
+    <HashRouter>
         <div className="App">
           <NavBar/>
             <div className="content">
@@ -29,8 +31,8 @@ function App() {
              </Routes>
             </div>
         </div>       
-     </Router>
-   
+  {/*   </Router>  */}
+  </HashRouter>
   </div>
 
        
