@@ -12,13 +12,14 @@ import {HashRouter} from "react-router-dom";
 import Demo from './Components/Demo';
 import Training from './Components/Training';
 import Real from './Components/Real';
+import EducationalMain from './Components/EducationalMain';
 import background from "./pp.jpg";
 
 
 
 function App() { 
  return (
- <div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
+<div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
     {/* <Router>*/}
 
      <HashRouter>
@@ -28,19 +29,20 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home/>}/> 
                 <Route path="/Demo" element={<Demo/>}/>
+                <Route path="/EducationalMain" element={<EducationalMain/>}/>
                 <Route path="/Training" element={<Training/>}/>
                 <Route path="/Real" element={<Real/>}/>                            
              </Routes>
             </div>
         </div>       
    {/*   </Router>  */}
+
    </HashRouter>
 
-  </div>
+   </div>
 
        
-  );
-  
+  );  
 }
 
 export default App;
