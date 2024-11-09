@@ -425,3 +425,10 @@ p {
 .custom-placeholder::placeholder {
   color: white !important;
 }
+
+#overlay-tooltip {
+  max-width: 100%;
+  white-space: normal; /* Allows wrapping if the message is long */
+  font-size: 0.9rem;
+  z-index: 1000; /* Ensures the tooltip appears on top */
+}

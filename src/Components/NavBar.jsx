@@ -37,6 +37,7 @@ function ColorSchemesExample() {
             <Nav.Link as={Link} to="/Training">Training</Nav.Link>
              <Nav.Link as={Link} to="/EducationalMain">EducationalTest</Nav.Link>
            <Nav.Link as={Link} to="/Real">Real Example</Nav.Link>
+           <Nav.Link as={Link} to="/Test">Test</Nav.Link>
            <Navbar.Brand as={Link} to="/" id="nav-menu">    
            
             </Navbar.Brand>  

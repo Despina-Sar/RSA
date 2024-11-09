@@ -875,9 +875,9 @@ export default CardSwitcher;
 
 
 
-import React, { useState,useContext  } from 'react';
+import React, { useState,useContext,useRef } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Modal,Form,Button, Row, Col } from 'react-bootstrap';
+import {Overlay, Tooltip, Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 
 const Educational = ({rsaValuess, updateRSAValues }) => {
@@ -918,13 +918,23 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
   const { rsaValues, setRSAValues } = useContext(RSAContext);
   const [form, setForm] = useState(rsaValues);
   const[errors, setErrors] = useState({})
-  const [showModal, setShowModal] = useState(false); 
+  const [showModalB, setShowModalB] = useState(false); 
+  const [showModalA, setShowModalA] = useState(false); 
   const [factors, setFactors] = useState('');
   const [isZCorrect, setIsZCorrect] = useState(false);                              //from 7.11
 
-  // Function to close the modal
-  const handleCloseMod = () => setShowModal(false);
 
+
+
+  const [showTooltip, setShowTooltip] = useState(false);
+  const target = useRef(null);
+
+
+
+
+  // Function to close the modal
+  const handleCloseModB = () => setShowModalB(false);
+  const handleCloseModA = () => setShowModalA(false);
 
     // Handle input changes for the bobs's inputs                                   //from 7.11
     const handleInputChange2 = (e, setter) => {
@@ -993,6 +1003,7 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
           if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
           if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
           setErrors(newErrors);
+          setShowTooltip(!!newErrors.n);
         break;
       case 'fn':
         validateFn(field, value, updatedForm,newErrors);
@@ -1007,6 +1018,15 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
         break;
       case 'D':
         validateD(field, value, updatedForm,newErrors);
+        setErrors(newErrors);
+        break;
+      case 'M':
+        console.log("Entered M");
+        handleSubmitM(field, value,updatedForm,newErrors);
+        setErrors(newErrors);
+        break;
+      case 'CT':
+        handleSubmitCT(field, value,updatedForm,newErrors);
         setErrors(newErrors);
         break;
       default:
@@ -1062,7 +1082,7 @@ const validateN = (field, value, form,newErrors) =>{
   else{ 
   if (n != p*q) 
       {
-      newErrors.n = 'Το '+n+' δεν ισούται με  P x Q';
+      newErrors.n = n+' ≠  P x Q';
       console.log(n + " not p x q");
       } else {
         delete newErrors.n; // Clear error if validation passes
@@ -1082,7 +1102,7 @@ const validateFn = (field, value, form,newErrors) =>{
  else{ 
  if (fn != ((q-1)*(p-1))) 
       {
-          newErrors.fn = 'Το '+fn+' δεν ισούται με (P - 1) x (Q - 1)';
+          newErrors.fn = +fn+' ≠ (P - 1) x (Q - 1)';
           console.log(fn + " invalid");
       }else {
        delete newErrors.fn; // Clear error if validation passes
@@ -1092,6 +1112,7 @@ const validateFn = (field, value, form,newErrors) =>{
 
 
 //----------------------------------------handle submit only for E---------------------------------------------
+{/*
 const validateE = (field, value, form,newErrors) =>{
   let{fn,E}= form
   
@@ -1112,42 +1133,83 @@ const validateE = (field, value, form,newErrors) =>{
           Einput = temp;
       }
      console.log('E= '+Einput);
-     console.log((Einput != 1));
-      if(Einput != 1){
+     if(Einput != 1){
           newErrors.E = 'Λάθος επιλογή κλειδιού'
-          console.log('inside final error');
-      }else {
+       }else {
         delete newErrors.E; // Clear error if validation passes
     }
   }
 
 
   }
+*/}
 
 
-  const validateD = (field, value, form,newErrors) =>{
-    //calculate pricate key D
+const validateE = (field, value, form, newErrors) => {
+  let { fn, E } = form;
+  
+  // Μετατροπή των τιμών σε αριθμούς
+  let Einput = Number(E);
+  fn = Number(fn);
+
+  // Έλεγχος αν το πεδίο E είναι κενό
+  if (E === undefined || E === '') {
+    newErrors.E = 'Το πεδίο E είναι κενό. Παρακαλώ εισάγετε έναν αριθμό.';
+    console.log('Validation Error: Το πεδίο E είναι κενό.');
+    return;
+  }
+
+  // Έλεγχος ότι E και fn είναι θετικοί ακέραιοι μεγαλύτεροι του 1
+  if (!Number.isInteger(Einput) || Einput <= 1) {
+    newErrors.E = 'Το E πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
+    console.log('Validation Error: Το E δεν είναι θετικός ακέραιος μεγαλύτερος του 1. E:', Einput);
+    return;
+  }
+
+  if (!Number.isInteger(fn) || fn <= 1) {
+    newErrors.E = 'Το φ(n) (fn) πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
+    console.log('Validation Error: Το φ(n) (fn) δεν είναι θετικός ακέραιος μεγαλύτερος του 1. fn:', fn);
+    return;
+  }
+
+  // Έλεγχος αν το E είναι πρώτος με το φ(n)
+  let a = Einput, b = fn;
+  while (b !== 0) {
+    let temp = b;
+    b = a % b;
+    a = temp;
+  }
+  console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
+
+  if (a !== 1) {
+    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' πέρα από το 1.';
+    console.log('Validation Error: Το E δεν είναι κατάλληλο δημόσιο κλειδί, διότι έχει κοινούς διαιρέτες με το φ(n). GCD:', a);
+  } else {
+    delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
+    console.log('Success: Το E είναι έγκυρο δημόσιο κλειδί.');
+  }
+};
+
+
+const validateD = (field, value, form, newErrors) => {
   const D = Number(value);
   const E = Number(rsaValues.E);
   const fn = Number(rsaValues.fn);
 
-    console.log(D);
-    
+  if (D === undefined || D === '') {
+    newErrors.D = 'Το πεδίο D είναι κενό. Παρακαλούμε εισάγετε μια τιμή.';
+    console.log('Λάθος: Το πεδίο D είναι κενό.');
+  } else { 
+    const expectedD = modInverse(E, fn);
 
-    if (D === undefined || D === '') {newErrors.D = 'Το πεδίο είναι κενό'}
-    else{ 
-      console.log('E, Fn' +E + '  - '+fn);
-      let y=modInverse(E, fn);
-      console.log('D= '+D+ ' and y=' +y);
-    //  const D=Number(D);
-      if(D !== y){
-        console.log('D is diff from y');
-        newErrors.D = 'Λάθος επιλογή κλειδιού' 
-        }else {
-          delete newErrors.D; // Clear error if validation passes
-      }
-    }   
+    if (D !== expectedD) {
+         newErrors.D = '('+D+' * '+rsaValues.E+') mod '+rsaValues.fn+' ≠ 1';
+    } else {
+       delete newErrors.D; // Καθαρισμός του λάθους αν είναι σωστό το D
+    }
   }
+};
+
 
 //----------------------------------------------------------------
 const handleInputChange = (e) => {
@@ -1231,7 +1293,7 @@ function modInverse(e, phiN) {
   return t;
 }
 
-//--------------------------------------------
+//----------------------bob----------------------
 
 const handleSubmit = () => {
   // Update the RSA values in the parent component
@@ -1246,17 +1308,123 @@ const handleSubmit = () => {
    if (hasEmptyFields || hasErrors) {
     // Show an alert if any field is empty
     console.log('errors ' +newErrors);
-    setShowModal(true); // Show modal if fields are empty
+    setShowModalB(true); // Show modal if fields are empty
     return; // Exit the function, preventing the rest of the code from running
     setLocked(false);
   }else{
    // Lock the form
    setIsZCorrect(true);
-  setLocked(true);
+   //setLocked(true);
   //onSendClick();
   }  
 };
 
+//--------------------Alice---------------------------
+const handleButtonClick = () => {
+  const{M,CT}= form
+  console.log('M: '+M +'  ,CT:'+CT);
+  const hasEmptyFields = !M || !CT;
+  const hasErrors = Object.values(errors).some((error) => error !== null && error !== '');
+
+  // Check if any fields are empty or has errors
+  if (hasEmptyFields || hasErrors) {
+    setShowModalB(true); // Show modal if fields are empty
+    setLocked(false);
+  } else {
+    // Call the onUnlockClick function since fields are filled
+   //onUnlockClick();
+    setIsFCorrect(true);
+   //setLocked(true);
+    console.log('CT sent to Bob!'); // Placeholder for any additional functionality
+  }
+};
+
+
+
+//----------------------------------------handle submit only for M---------------------------------------------
+
+const handleSubmitM = (field, value, form,newErrors) =>{
+  
+  //1109  const handleSubmitM = e =>{
+      //e.preventDefault()
+      let{M}= form
+      console.log("Entered M validation");
+              if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
+      else{ 
+          // Check if E and phi(N) are positive integers
+          M=Number(M);
+          if(M < 0){
+            newErrors.M = 'M πρέπει να είναι μεγαλύτερο του 0'
+            console.log("M πρέπει να είναι μεγαλύτερο του 0");
+         }
+         else {
+          delete newErrors.M; // Clear error if validation passes
+         }
+        }     
+      }
+  
+  //----------------------------------------handle submit only for CT---------------------------------------------
+  const handleSubmitCT = (field, value, form,newErrors) =>{
+    const { E, n } = rsaValues;
+    console.log('Soo lets check bob values ..E= '+ E+' N= '+n);
+  
+    console.log('rsaValues:', rsaValues);
+    let{M,CT}= form
+    
+     if (CT === undefined || CT === '') {newErrors.CT = 'Το πεδίο είναι κενό'}
+    else{ 
+        // Check if E and phi(N) are positive integers
+       /*E=Number(E);
+        M=Number(M);
+        n=Number(n);
+        */
+        const E = Number(rsaValues.E);
+        const n = Number(rsaValues.n);
+        console.log( M )
+        console.log( E )
+        console.log(n)
+        let encryptedMessage = rsaEncrypt(Number(M) , E , n);
+        console.log("Encrypted Message (C):", encryptedMessage);
+  
+        if (encryptedMessage !== Number(CT)) 
+          { console.log("x^y = xeʸ");
+            newErrors.CT = CT + ' ≠ ' + M + ' ' + convertToSuperscript(E) + ' mod ' + n;}
+        else {
+            delete newErrors.CT; // Clear error if validation passes
+        }
+     }
+    }
+  
+  
+  
+    function convertToSuperscript(number) {
+      const superscriptMap = {
+          '0': '\u00B0', '1': '\u00B9', '2': '\u00B2', '3': '\u00B3', '4': '\u2074',
+          '5': '\u2075', '6': '\u2076', '7': '\u2077', '8': '\u2078', '9': '\u2079'
+      };
+      return number.toString().split('').map(digit => superscriptMap[digit] || digit).join('');
+  }
+
+  function modExp(base, exp, mod) {
+    if (mod === 1) return 0;
+    let result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp % 2 === 1) {
+            result = (result * base) % mod;
+        }
+        exp = exp >> 1;
+        base = (base * base) % mod;
+    }
+    return result;
+  }
+  
+  // RSA Encrypt function
+  function rsaEncrypt(M, E, N) {
+    return modExp(M, E, N);
+  }
+  
+  
 
   return (
     <div style={styles.pageContainer}>
@@ -1264,35 +1432,35 @@ const handleSubmit = () => {
       <Card border="info" className="customcardBob1">
    
 
-   {/*       
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>x</label>
-          <input
-            type="number"
-            value={x}
-            onChange={(e) => handleInputChange(e, setX)}
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>y</label>
-          <input
-            type="number"
-            value={y}
-            onChange={(e) => handleInputChange(e, setY)}
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>z (x + y)</label>
-          <input
-            type="number"
-            value={z}
-            onChange={(e) => handleInputChange(e, setZ)}
-            style={styles.input}
-          />
-        </div>
- */}
+          {/*       
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>x</label>
+                  <input
+                    type="number"
+                    value={x}
+                    onChange={(e) => handleInputChange(e, setX)}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>y</label>
+                  <input
+                    type="number"
+                    value={y}
+                    onChange={(e) => handleInputChange(e, setY)}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>z (x + y)</label>
+                  <input
+                    type="number"
+                    value={z}
+                    onChange={(e) => handleInputChange(e, setZ)}
+                    style={styles.input}
+                  />
+                </div>
+        */}
           <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.3rem' ,color:'rgb(68, 199, 235)',textAlign: 'center', }}>
                   <i class="bi bi-person-square"style={{fontSize: '70px', color:'rgb(68, 199, 235)'}} ></i> <br /> 
                     Αποστολέας   
@@ -1330,6 +1498,7 @@ const handleSubmit = () => {
 
 
          <Row className="mb-3">
+
          <Col xs={6}>
             <Form.Control
                  className="custom-placeholder"
@@ -1340,10 +1509,36 @@ const handleSubmit = () => {
                 isInvalid={!!errors.n}
                disabled={locked}
              />
-             <Form.Control.Feedback type= 'invalid'>
+             <Form.Control.Feedback type= 'invalid' >
                  {errors.n}
               </Form.Control.Feedback>
           </Col>
+
+{/*
+          <Col xs={6}>
+          <Form.Control
+            ref={target}
+            className="custom-placeholder"
+            value={form.n ? `n=${form.n}` : ''} // Display "n=" prefix
+            placeholder="n"
+            style={{
+              fontSize: '1.5rem',
+              padding: '0.5rem 0.5rem',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(33,37,41)',
+            }}
+            onChange={(e) => setField('n', e.target.value.replace(/^n=/, ''))}
+            disabled={false}
+          />
+          <Overlay target={target.current} show={showTooltip} placement="bottom">
+                {(props) => (
+                  <Tooltip id="overlay-tooltip" {...props}>
+                    {errors.n}
+                  </Tooltip>
+                )}
+          </Overlay>
+          </Col>
+          */}
 
           <Col xs={6}>
               <Form.Control
@@ -1369,7 +1564,7 @@ const handleSubmit = () => {
                    className="custom-placeholder"
                    type="text"
                    readOnly
-                   placeholder="Φ(n) factors"
+                   placeholder="Παράγοντες Φ(n)"
                    value={factors}
                    style={{ width: '160px', 
                     padding: '0.5rem 0.5rem', 
@@ -1399,10 +1594,33 @@ const handleSubmit = () => {
                           {errors.E}
                         </Form.Control.Feedback>
                         
-                      </Col>                               
+                      </Col>      
+                      <Col xs={6}>
+                        <Form.Control
+                          className="custom-placeholder"
+                           type="integer"
+                           placeholder="D"
+                           value={form.D}
+                           onChange={(e) => setField('D', e.target.value)}
+                           isInvalid={!!errors.D}
+                           disabled={locked}                           
+                           style={{ 
+                            fontSize: '1.5rem', 
+                            padding: '0.5rem 0.5rem',
+                            color:'rgb(255, 255, 255)',
+                            backgroundColor: 'rgb(138,4,17)',
+                            fontWeight:'bolder' ,
+                            '::placeholder': {color:'rgb(255, 255, 255)'}
+                          }}
+                          />
+                        <Form.Control.Feedback type= 'invalid'>
+                          {errors.D}
+                        </Form.Control.Feedback>
+                        
+                      </Col>                            
             
 
-
+ {/*
                       <Col xs={6}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>         
                        <Form.Control      
@@ -1417,35 +1635,37 @@ const handleSubmit = () => {
                                 fontSize: '1.5rem', 
                                 padding: '0.5rem 0.5rem',
                                 color:'rgb(255, 255, 255)',
-                                backgroundColor: 'rgb(201,52,52)',
+                                backgroundColor: 'rgb(138,4,17)',
                                 fontWeight:'bolder' ,
                                 '::placeholder': {color:'rgb(255, 255, 255)'}}}
                           />                   
-                        {/*<span style={{ fontSize: '13px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>*/}
+                        {/*<span style={{ fontSize: '13px' }}>* {rsaValues.E || 'E'} mod {rsaValues.fn || 'Φ(n)'} = 1</span>
                         </div>
                         <Form.Control.Feedback type= 'invalid'>
-                              {errors.D}
+                           {errors.D}
                             </Form.Control.Feedback>
                         </Col>
-              
+                        /div>
+  */}             
                         </Row>
                
-
+      {/*
         <Button 
            onClick={handleSendZ}
            variant="outline-info" 
            style={{ fontSize: '1.0rem', padding: '0.3rem 0.5rem'  }}> 
               Send z
         </Button>
+     */}
 
         <Button onClick={handleSubmit}
             variant="outline-info" 
-            style={{ fontSize: '01.0rem', padding: '0.3rem 0.5rem' }}
+            style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' ,fontWeight:'bolder'}}
                 >Στείλε το κλειδί
         </Button>
 
               {/* Bootstrap Modal for displaying empty field alert */}
-              <Modal show={showModal} onHide={handleCloseMod} centered>
+              <Modal show={showModalB} onHide={handleCloseModB} centered>
                   <Modal.Header>
                     <Modal.Title>Μήνυμα λάθους</Modal.Title>
                   </Modal.Header>
@@ -1453,7 +1673,7 @@ const handleSubmit = () => {
                      Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseMod}>
+                    <Button variant="secondary" onClick={handleCloseModB}>
                       Close
                     </Button>
                   </Modal.Footer>
@@ -1482,7 +1702,7 @@ const handleSubmit = () => {
                    <i class="bi bi-arrow-left"style={{fontSize: '100px', color:'rgb(33,37,41)'}} ></i>
               <span style={styles.valueLabel}>
                 <i class="bi bi-file-earmark-lock" style={{fontSize: '60px', color:'rgb(236, 26, 26)'}}></i>
-                 Κρυπτογραφημένο μήνυμα = {p}
+                 Κρυπτογραφημένο μήνυμα = {form.CT}
                 </span>
             </div>
           </div>
@@ -1499,55 +1719,15 @@ const handleSubmit = () => {
            <div style={styles.receivedMessage}>
                {isZCorrect ? `Έλαβε το Ε = ${form.E}` : "Περιμένει το Ε..."}
            </div> <br />
-           <Row>
-                 
-                      <Col xs={6}>
-                        <Form.Control
-                            className="custom-placeholder"
-                            placeholder="M"
-                            value={form.M}
-                           // onChange={(e) => setField('M', e.target.value)}
-                            isInvalid={!!errors.M}
-                            disabled={locked}
-                            style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
-                          />
-                        <Form.Control.Feedback type= 'invalid'>
-                          {errors.M}
-                        </Form.Control.Feedback>
-                      </Col>    
-                      <Col xs={6}>                                
-                      <Form.Control                          
-                          className="custom-placeholder"
-                          placeholder="CT"
-                          value={form.CT} 
-                        //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
-                          onChange={(e) => setField('CT', e.target.value)}
-                          isInvalid={!!errors.CT}
-                          disabled={locked}
-                          style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
-                        />    
-                     </Col>                
-                    </Row> 
-
-                    <Button             
-                        onClick={handleSendP}
-                        variant="outline-danger" 
-                        style={{ fontSize: '1.0rem', padding: '0.3rem 0.5rem'  }}>            
-                          Send p
-                    </Button>
-                    <Button 
-                         //onClick={handleButtonClick}
-                          variant="outline-danger" 
-                          style={{ fontSize: '1.0rem', padding: '0.3rem 0.5rem'  }}> 
-                          Στείλε το CT
-                       </Button>
-                    
-        {/*
-        <div style={styles.receivedMessage}>
-          {isZCorrect ? `Received z = ${z}` : "Waiting for z..."}
-        </div>
+                                 
+           {/*
+           <div style={styles.receivedMessage}>
+             {isZCorrect ? `Received z = ${z}` : "Waiting for z..."}
+            </div>
+            */}
         {isZCorrect && (
           <>
+          {/*
             <div style={styles.inputGroup}>
               <label style={styles.label}>p</label>
               <input
@@ -1566,20 +1746,71 @@ const handleSubmit = () => {
                 style={styles.input}
               />
             </div>
-
+            */}
             
+            <Row className="mb-3">
+                 
+                 <Col xs={6}>
+                   <Form.Control
+                       className="custom-placeholder"
+                       placeholder="M"
+                       value={form.M}
+                        onChange={(e) => setField('M', e.target.value)}
+                       isInvalid={!!errors.M}
+                       disabled={locked}
+                       style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
+                     />
+                   <Form.Control.Feedback type= 'invalid'>
+                     {errors.M}
+                   </Form.Control.Feedback>
+                 </Col>    
+                 <Col xs={6}>                                
+                 <Form.Control                          
+                     className="custom-placeholder"
+                     placeholder="CT"
+                     value={form.CT} 
+                    //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
+                     onChange={(e) => setField('CT', e.target.value)}
+                     isInvalid={!!errors.CT}
+                     disabled={locked}
+                     style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
+                   />   
+                    <Form.Control.Feedback type= 'invalid'>
+                     {errors.CT}
+                   </Form.Control.Feedback> 
+                </Col>                
+               </Row> 
+
+            <Button 
+                  onClick={handleButtonClick}
+                   variant="outline-danger" 
+                   style={{ fontSize: '1.1rem', padding: '0.3rem 0.3rem',fontWeight:'bolder'  }}> 
+                   Στείλε το μήνυμα
+            </Button>
+           {/*
             <Button             
                 onClick={handleSendP}
                 variant="outline-danger" 
                 style={{ fontSize: '1.0rem', padding: '0.3rem 0.5rem'  }}>            
                   Send p
             </Button>
-             
-       
-             
+           */}
           </>
         )}
-        */}
+               <Modal show={showModalA} onHide={handleCloseModA} centered>
+                  <Modal.Header>
+                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModA}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
 
       </Card>
     </div>
