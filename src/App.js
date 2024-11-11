@@ -14,19 +14,24 @@ import Training from './Components/Training';
 import Real from './Components/Real';
 import EducationalMain from './Components/EducationalMain';
 import Test from './Components/Test';
-import background from "./pp.jpg";
+
 
 
 
 function App() { 
  return (
-<div  style={{ backgroundImage: `url(${background})`,backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}}> 
-    {/* <Router>*/}
+ 
+
+  
+<div  className="background-container">
+   
 
      <HashRouter>
         <div className="App">
-          <NavBar/>
+           <NavBar/>
+      
             <div className="content">
+            <Test/>
               <Routes>
                 <Route path="/" element={<Home/>}/> 
                 <Route path="/Demo" element={<Demo/>}/>
@@ -36,12 +41,12 @@ function App() {
                 <Route path="/Test" element={<Test/>}/>                            
              </Routes>
             </div>
-        </div>       
-   {/*   </Router>  */}
+        </div>      
+      </HashRouter>
+    
 
-   </HashRouter>
-
-   </div>
+     </div>
+   
 
        
   );  

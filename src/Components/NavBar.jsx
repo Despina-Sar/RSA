@@ -17,6 +17,13 @@ function ColorSchemesExample() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+    // Function to refresh the browser
+    const refreshPage = () => {
+      window.location.reload();
+    };
+  
+    
   return (
     <>
       <Navbar className = "navbar">
@@ -41,9 +48,16 @@ function ColorSchemesExample() {
            <Navbar.Brand as={Link} to="/" id="nav-menu">    
            
             </Navbar.Brand>  
-            <Button variant="outline-info" onClick={handleShow} style={{ fontSize: '0.8rem', padding: '0.2rem', marginLeft: '30px'  }}>
+
+            <Button variant="outline-info" onClick={refreshPage} style={{ fontSize: '0.8rem',color:'rgb(68, 199, 235)',marginLeft: '15px' }}>
+                    Restart <i class="bi bi-arrow-clockwise"></i>
+                 </Button>
+
+            <Button variant="outline-info" onClick={handleShow} style={{ fontSize: '0.6rem', padding: '0.0rem', marginLeft: '5px' , marginRight: '5px'  }}>
                <i class="bi bi-question-lg" style={{fontSize: '20px', color:'rgb(68, 199, 235)'}}></i>
             </Button>
+
+          
 
              <Offcanvas show={show} onHide={handleClose} style={{  backgroundColor: 'rgb(33, 37, 41)' ,color: 'white' }}>
                 <Offcanvas.Header closeButton style={{  backgroundColor: 'rgb(33, 37, 41)' ,color: 'white' }}>

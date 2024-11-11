@@ -60,10 +60,7 @@ const handleAliceUnlockClick = () => {
 return (
   <RSAProvider>
         
-                 <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '60px' }}>
-                    Restart <i class="bi bi-arrow-clockwise"></i>
-                 </Button>
-            /
+               
           <Educational rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           
              <EndModal showModal={showModal} />

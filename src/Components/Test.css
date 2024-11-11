@@ -1,0 +1,123 @@
+
+
+/* Base styles */
+.clarifications {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* Allow items to wrap for better responsiveness */
+}
+
+.clarification-square h3 {
+    font-size: 0.8rem; /* Default font size for desktop */
+    margin: 0.4rem 0; /* Add some spacing */
+    font-weight: bolder;
+    text-align: center; /* Center title horizontally */
+}
+
+/* Desktop: show squares side by side and content always visible */
+.clarification-square {
+    flex: 1;
+    padding: 0.1rem;
+    background-color: rgb(33, 37, 41);
+    border: 1px solid hsl(0, 0%, 100%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: center; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    width: 350px; /* Set a fixed width for the squares */
+    height: 180px; 
+}
+
+.clarification-square:hover {
+    transform: scale(1.05);
+}
+
+/* Content (p) always visible on larger screens */
+.clarification-square p {
+    display: block;
+    margin-top: 0rem;
+    text-align: left; /* Align content to the left */
+    width: 100%; /* Make sure the content takes full width of the square */
+    padding-left: 0px; /* Optional: add padding to the left for better readability */
+    margin-left: 0px; /* Explicitly ensure content starts from the left */
+    font-size: 0.63rem;
+}
+
+/* Clarifications container */
+.clarifications-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Dropdown toggle for mobile */
+.dropdown-toggle {
+    display: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    background-color: rgb(33, 37, 41);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+/* Mobile: adjust to navbar format, hiding content initially */
+@media (max-width: 768px) {
+    .dropdown-toggle {
+        display: block; /* Show dropdown toggle button on mobile */
+    }
+
+    .clarifications {
+        flex-direction: column;
+    }
+
+    .clarification-square {
+        padding: 0.1rem 1rem;
+        display: flex;
+        flex-direction: column; /* Stack title and content vertically */
+        align-items: center; /* Center title horizontally */
+        justify-content: flex-start; /* Align items to the start vertically */
+    }
+
+    /* Title styles on mobile */
+    .clarification-square h3 {
+        width: 100%; /* Full width */
+        margin-bottom: 0.5rem; /* Add space between title and content */
+        font-size: 0.85rem; /* Adjust font size for mobile */
+    }
+
+    /* Hide content by default on mobile */
+    .clarification-square p {
+        display: none;
+    }
+
+    /* Show content when expanded */
+    .clarification-square.expanded p {
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    /* Hidden clarifications by default on mobile */
+    .clarifications.hidden {
+        display: none;
+    }
+}
+
+/* Desktop: squares are non-clickable */
+@media (min-width: 769px) {
+    .clarification-square {
+        pointer-events: none; /* Disable clicks on desktop */
+    }
+}
+
+/* Mobile: enable click functionality */
+@media (max-width: 768px) {
+    .clarification-square {
+        pointer-events: auto; /* Enable clicks on mobile */
+    }
+}

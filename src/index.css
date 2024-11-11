@@ -95,9 +95,11 @@ p {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   color: #ffffff;
-  margin-left: 70px;
-  margin-bottom: 10px;
+  padding: 0px;
+}
 
+.App {
+  padding: 0px;
 }
 
 
@@ -270,17 +272,47 @@ p {
   color: white; /* White text */
 }
 
-.navbar {
-  color: #ffffff;
-  background-color: rgb(33,37,41);
-  font-size: 15px;
-  font-weight: bold;
-  height: 40px; /* Set the desired height */
+
+
+html, body {
+  margin: 0;  /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  width: 100%; /* Ensure full width */
+  height: 100%; /* Ensure full height */
 }
 
-#nav-menu{
+/* Navbar styling */
+.navbar {
+  color: #ffffff;
+  background-color: rgb(33, 37, 41);
+  font-size: 12px;
+  font-weight: bold;
+  height: 30px; /* Set the desired height */
+  width: 100%;
+  position: fixed; /* Fix the navbar at the top of the page */
+  top: 0; /* Align at the very top */
+  left: 0; /* Align at the left edge */
+  right: 0; /* Align at the right edge */
+  z-index: 1000; /* Ensure the navbar stays on top of other content */
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  padding: 0; /* Remove padding to eliminate space on the left and right */
+  box-sizing: border-box; /* Include padding and borders in the width calculation */
+}
+
+
+
+
+
+/* Menu inside the navbar */
+#nav-menu {
   font-size: 15px;
-  color: #ffffff
+  color: #ffffff;
+  display: flex;
+  gap: 1rem; /* Add space between menu items */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .navbar a {
@@ -313,7 +345,7 @@ p {
 
 .main-content {
   background-color: #fff;
-  padding: 20px;
+  padding: 0px;
   margin-top: 20px;
   border-radius: 5px;
   minHeight: '50px';
@@ -381,13 +413,13 @@ p {
 
 
 
-/* Responsive styles */
+/* Responsive styles 
 @media (max-width: 768px) {
   .container {
     padding: 10px;
   }
 }
-
+*/
 
 /*-----------------------------------playmode----------------*/
 .card.customcardAlice1 {
@@ -398,7 +430,7 @@ p {
   background-color: rgb(33, 37, 41);
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  width: 250px;
   text-align: center;
   font-size: 14px;
   color: #ffffff;
@@ -410,17 +442,16 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  margin: 0px;
+  padding: 20px;
   background-color:rgb(33,37,41);
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 250px;
+  width: 400px;
   text-align: center;
-  font-size: 14px;
   color: #ffffff;
-  border-width: 5px;
-  font-size: 14px;
-}
+  border-width: 3px;
+  }
 
 .custom-placeholder::placeholder {
   color: white !important;
@@ -432,3 +463,111 @@ p {
   font-size: 0.9rem;
   z-index: 1000; /* Ensures the tooltip appears on top */
 }
+
+
+
+
+/*------------------------------------------TTTTTTTTTTTTEEEEEEEEEEEEEEESTTTTTTTTTTTTTTTTTTTTTTTT----------------------------  */
+
+/* Ensuring the background container behaves correctly */
+.background-container {
+  background-image: url('./backround_desktop.jpg'); /* Desktop background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 0; /* Remove padding */
+  margin: 0;  /* Remove margin */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content from top */
+}
+
+
+/* Mobile background */
+@media (max-width: 768px) {
+  .background-container {
+    background-image: url('./backround_mobile.jpg'); /* Mobile background */
+    background-size: cover;
+    background-position: center center; /* Center image to avoid losing key details */
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Full height on mobile to ensure it fills the screen */
+  }
+
+
+  .arrowRight {
+    color: #ffffff;
+    display: flex;
+    alignItems: center;
+    animation-name: slideRightMobile;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+  
+  }
+}
+
+
+
+@keyframes slideRight {
+  from{
+    transform: translateX(0%);
+  }
+  to{
+    transform: translateX(50%);
+  }
+  
+}
+
+@keyframes slideRightMobile {
+  from{
+    transform: translateY(0%);
+  }
+  to{
+    transform: translateY(50%);
+  }
+  
+}
+@keyframes slideLeft {
+  from{
+    transform: translateX(50%);
+  }
+  to{
+    transform: translateX(-20%);
+  }
+  
+}
+
+.arrowRight {
+  color: #ffffff;
+  display: flex;
+  alignItems: center;
+  animation-name: slideRight;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+
+}
+
+.arrowLeft {
+  color: #ffffff;
+  display: flex;
+  alignItems: center;
+  animation-name: slideRight;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-fill-mode: backwards;
+
+}
+

@@ -1,3 +1,11 @@
+
+
+import React, { useState } from 'react';
+import useIsMobile from './TestuseIsMobile'; // Import the custom hook
+import './Test.css';
+
+
+{/*}
 import React, { useState } from 'react';
 
 const Test = () => {
@@ -38,7 +46,7 @@ const Test = () => {
 
   return (
     <div style={styles.pageContainer}>
-      {/* Boy's card with inputs and z calculation */}
+      {/* Boy's card with inputs and z calculation 
       <div style={styles.card}>
         <div style={styles.iconContainer}>👦</div>
         <div style={styles.inputGroup}>
@@ -73,9 +81,9 @@ const Test = () => {
         </button>
       </div>
 
-      {/* Arrows column with two arrows, showing values */}
+      {/* Arrows column with two arrows, showing values 
       <div style={styles.arrowsColumn}>
-        {/* Arrow showing z sent from boy to girl */}
+        {/* Arrow showing z sent from boy to girl 
         {isZCorrect && (
           <div style={styles.arrowContainer}>
             <div style={styles.arrowRight}>
@@ -83,7 +91,7 @@ const Test = () => {
             </div>
           </div>
         )}
-        {/* Arrow showing p sent from girl back to boy */}
+        {/* Arrow showing p sent from girl back to boy 
         {isFCorrect && (
           <div style={styles.arrowContainer}>
             <div style={styles.arrowLeft}>
@@ -93,7 +101,7 @@ const Test = () => {
         )}
       </div>
 
-      {/* Girl's card with inputs and f calculation */}
+      {/* Girl's card with inputs and f calculation 
       <div style={styles.card}>
         <div style={styles.iconContainer}>👧</div>
         <div style={styles.receivedMessage}>
@@ -217,6 +225,98 @@ const styles = {
     fontSize: '14px',
     color: '#4CAF50'
   }
+};
+
+export default Test;
+
+
+*/}
+
+
+
+
+
+const Test = () => {
+  const isMobile = useIsMobile(); // Check if the screen is mobile-sized
+  const [expandedSection, setExpandedSection] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to toggle dropdown
+
+  const clarifications = [
+    { 
+      id: 1, 
+      title: "Υπολογισμός κλειδιών", 
+      content:
+      <ol>
+          <li>Επιλέγουμε δύο πρώτους αριθμούς</li>
+          <li>n= P x Q</li>
+          <li>Φ(n): (P - 1) x (Q - 1)</li>
+          <li>
+             <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(4,145,141)'}}>Δημόσιο κλειδι (E,n):</span> </strong> <br />
+            Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
+              Ε δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n).
+          </li>
+          <li>
+         <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(138,4,17)'}}>Ιδιωτικό κλειδι (D,n):</span> </strong> <br />        
+          (D x E) mod (Φ(n)) = 1    
+          </li>                     
+      </ol> 
+    },
+    { 
+      id: 2, 
+      title: "Διαδικασία Κρυπτογράφησης", 
+      content: 
+       <ul>
+          <li>Η Alice θέλει να στείλει ένα ασφαλές μήνυμα στον Bob</li>
+          <li>O Bob μοιράζεται με την Alice το δημόσιο κλειδί του.</li>
+          <li>Η Alice κρυπτογραφεί το μήνυμα με το δημόσιο κλειδί του Bob</li>
+          <li>Ο Bob αποκρυπτογραφεί το μήνυμα με το ιδιωτικό κλειδί του.</li>               
+     </ul>  
+    },
+    { 
+      id: 3, 
+      title: "", 
+      content: 
+      <div  className="image-container">
+      <img
+        alt=""
+        src= {require('../images/RSA_Visual1.png')}
+        height="auto" width="99%"        
+      />   
+   </div>
+    }
+  ];
+
+  const toggleSection = (id) => {
+    setExpandedSection(expandedSection === id ? null : id);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown menu on mobile
+  };
+
+  return (
+    <div className="clarifications-container">
+      {isMobile && (
+        <button onClick={toggleDropdown} className="dropdown-toggle">
+          Menu
+        </button>
+      )}
+      <div className={`clarifications ${isMobile && !isDropdownOpen ? 'hidden' : ''}`}>
+        {clarifications.map((clarification) => (
+          <div
+            key={clarification.id}
+            className={`clarification-square ${expandedSection === clarification.id ? 'expanded' : ''}`}
+            onClick={() => isMobile && toggleSection(clarification.id)}
+          >
+            <h3>{clarification.title}</h3>
+            <p className={expandedSection === clarification.id || !isMobile ? 'show' : 'hide'}>
+              {clarification.content}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Test;
