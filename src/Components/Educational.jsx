@@ -1,7 +1,7 @@
 
 import React, { useState,useContext,useRef } from 'react';
 import Card from 'react-bootstrap/Card';
-import {Overlay, Tooltip, Modal,Form,Button, Row, Col } from 'react-bootstrap';
+import {OverlayTrigger, Tooltip, Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 
 const Educational = ({rsaValuess, updateRSAValues }) => {
@@ -68,7 +68,54 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
     };
    
 
+    
+    const PREFIX_MAP = {
+      fn: "Φ(n)",
+      p: "P",
+      q: "Q",
+      n: "n",
+      E: "E",
+      D: "D",
+      CT: "CT",
+      M: "M"
 
+  };
+
+
+  const setField = (field, value) => {
+    if (locked) return;
+
+    // Get the prefix for this field from the PREFIX_MAP, default to an empty string if not found
+    const prefix = PREFIX_MAP[field] || "";
+
+    // Remove the prefix from the value if it exists to avoid duplicate prefixes
+    const rawValue = value.startsWith(prefix) ? value.slice(prefix.length + 1) : value;  // Account for the '=' character
+
+    setForm(prevForm => {
+        const updatedForm = { ...prevForm, [field]: rawValue };
+
+        // Validate field on each change
+        validateField(field, rawValue, updatedForm);
+
+        return updatedForm;
+    });
+
+    // Update RSA values in context
+    setRSAValues(prev => ({
+        ...prev,
+        [field]: rawValue,
+    }));
+
+    // Clear errors for the field if valid
+    if (!!errors[field]) {
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [field]: null,
+        }));
+    }
+};
+
+  /*
   const setField = (field, value) => {
     if (locked) return;
     setForm(prevForm => {
@@ -94,72 +141,121 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
         }));
     }
 };
-
+*/
 
 
    // Validation function for individual fields
-   const validateField = (field, value, updatedForm) => {
-    const{p,q,n,fn,E,D,CT,M}= updatedForm;
-    let newErrors = { ...errors }; // Start with current errors
-    switch (field) {
-      case 'p':
-        validateP(field, value,updatedForm,newErrors);
-         console.log("before revalidation of N: "+n);
-         if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-         if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-         if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-         if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-         if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
-         if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-        // Finally, update the errors state once with all accumulated errors
-          setErrors(newErrors);
+     /*
+    if(value !== undefined && value !== '' && !isWholeNumber(value))
+      {console.log('Not whole num'); 
+        console.log(field+ value); 
+      newErrors[field] = 'Δεν είναι ακαίραιος αριθμός';
+      setErrors(newErrors);
+      return;}
+*/
 
-         break;
-      case 'q':
-        validateQ(field, value,updatedForm,newErrors);
-          if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-          if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-          if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-          if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+const validateField = (field, value, updatedForm) => {
+  const{p,q,n,fn,E,D,CT,M}= updatedForm;
+  let newErrors = { ...errors }; // Start with current errors
+  switch (field) {
+    case 'p':
+      validateP(field, value,updatedForm,newErrors);
+       console.log("before revalidation of N: "+n);
+       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
       // Finally, update the errors state once with all accumulated errors
-       setErrors(newErrors);
-          break;
-      case 'n':
-        validateN(field, value, updatedForm,newErrors);
-          if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-          if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-          setErrors(newErrors);
-          setShowTooltip(!!newErrors.n);
-        break;
-      case 'fn':
-        validateFn(field, value, updatedForm,newErrors);
-          if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-          if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
         setErrors(newErrors);
-        break;
-      case 'E':
-         validateE(field, value, updatedForm,newErrors);
-         if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-        setErrors(newErrors);
-        break;
-      case 'D':
-        validateD(field, value, updatedForm,newErrors);
-        setErrors(newErrors);
-        break;
-      case 'M':
-        console.log("Entered M");
-        handleSubmitM(field, value,updatedForm,newErrors);
-        setErrors(newErrors);
-        break;
-      case 'CT':
-        handleSubmitCT(field, value,updatedForm,newErrors);
-        setErrors(newErrors);
-        break;
-      default:
-        break;
-    }
-  };
 
+       break;
+    case 'q':
+      validateQ(field, value,updatedForm,newErrors);
+      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+    // Finally, update the errors state once with all accumulated errors
+     setErrors(newErrors);
+        break;
+    case 'n':
+      validateN(field, value, updatedForm,newErrors);
+      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+        setErrors(newErrors);
+        setShowTooltip(!!newErrors.n);
+      break;
+    case 'fn':
+      validateFn(field, value, updatedForm,newErrors);
+      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+      setErrors(newErrors);
+      break;
+    case 'E':
+       validateE(field, value, updatedForm,newErrors);
+       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+      setErrors(newErrors);
+      break;
+    case 'D':
+      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+      setErrors(newErrors);
+      break;
+    case 'M':
+      console.log("Entered M");
+      handleSubmitM(field, value,updatedForm,newErrors);
+      setErrors(newErrors);
+      break;
+    case 'CT':
+      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+      setErrors(newErrors);
+      break;
+    default:
+      break;
+  }
+};
+
+
+
+
+  const validateAllValues=(updatedForm, newErrors)=> {
+   const n=updatedForm.n;
+   const fn=updatedForm.fn;
+   const E=updatedForm.E;
+   const D=updatedForm.D;
+   const CT=updatedForm.CT;
+   const M=updatedForm.M;;
+
+    if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
+    if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
+    if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+    if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
+    if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
+    if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+
+  };
+  
 
 
 //-----------------------------------handle submit only for P-------------------------------------------
@@ -275,11 +371,11 @@ const validateE = (field, value, form, newErrors) => {
   let { fn, E } = form;
   
   // Μετατροπή των τιμών σε αριθμούς
-  let Einput = Number(E);
-  fn = Number(fn);
+  let Einput = Number(form.E);
+  fn = Number(form.fn);
 
   // Έλεγχος αν το πεδίο E είναι κενό
-  if (E === undefined || E === '') {
+  if (Einput === undefined || Einput === '') {
     newErrors.E = 'Το πεδίο E είναι κενό. Παρακαλώ εισάγετε έναν αριθμό.';
     console.log('Validation Error: Το πεδίο E είναι κενό.');
     return;
@@ -291,6 +387,7 @@ const validateE = (field, value, form, newErrors) => {
     console.log('Validation Error: Το E δεν είναι θετικός ακέραιος μεγαλύτερος του 1. E:', Einput);
     return;
   }
+
 
   if (!Number.isInteger(fn) || fn <= 1) {
     newErrors.E = 'Το φ(n) (fn) πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
@@ -308,7 +405,7 @@ const validateE = (field, value, form, newErrors) => {
   console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
 
   if (a !== 1) {
-    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' πέρα από το 1.';
+    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' εκτός από το 1.';
     console.log('Validation Error: Το E δεν είναι κατάλληλο δημόσιο κλειδί, διότι έχει κοινούς διαιρέτες με το φ(n). GCD:', a);
   } else {
     delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
@@ -319,17 +416,17 @@ const validateE = (field, value, form, newErrors) => {
 
 const validateD = (field, value, form, newErrors) => {
   const D = Number(value);
-  const E = Number(rsaValues.E);
-  const fn = Number(rsaValues.fn);
+  const E = Number(form.E);
+  const fn = Number(form.fn);
 
   if (D === undefined || D === '') {
     newErrors.D = 'Το πεδίο D είναι κενό. Παρακαλούμε εισάγετε μια τιμή.';
     console.log('Λάθος: Το πεδίο D είναι κενό.');
   } else { 
     const expectedD = modInverse(E, fn);
-
+    if(expectedD == -1 ){ newErrors.D = D+' δεν έχει αντίστροφο mod του '+form.E;}
     if (D !== expectedD) {
-         newErrors.D = '('+D+' * '+rsaValues.E+') mod '+rsaValues.fn+' ≠ 1';
+         newErrors.D = '('+D+' * '+E+') mod '+fn+' ≠ 1';
     } else {
        delete newErrors.D; // Καθαρισμός του λάθους αν είναι σωστό το D
     }
@@ -338,49 +435,54 @@ const validateD = (field, value, form, newErrors) => {
 
 
 //----------------------------------------------------------------
-const handleInputChange = (e) => {
-  const inputValue = e.target.value;
+const handleInputChange = (field, value) => {
   if (locked) return; // Prevent changes if locked
 
-  if (inputValue === '') {
-    setField('fn', '');
+  // Remove the prefix if it's present and not needed
+  const cleanedValue = value.replace(`${PREFIX_MAP['fn']}=`, ''); // Remove 'fn=' if present
+  
+  // Handle the case of empty input
+  if (value === '') {
+    setField('fn', '');  // Clear the value completely
     setFactors('');
     setErrors({ ...errors, fn: 'Φn empty' });
     return;
   }
-  
-  const inputNumber = parseInt(inputValue);
 
- if (!isNaN(inputNumber) && inputNumber > 0) {
-      setField('fn', inputValue);
-      
+  // Parse cleaned value to integer
+  const inputNumber = parseInt(cleanedValue);
 
-      // Calculate factors
-      const factorsArray = [];
-      let n = inputNumber;
-      for (let i = 2; i <= Math.sqrt(n); i++) {
-        while (n % i === 0) {
-          factorsArray.push(i);
-          n /= i;
-        }
+  // Check if it's a valid positive number
+  if (!isNaN(inputNumber) && inputNumber > 0) {
+    // Update field with valid input, adding the prefix back
+    setField(field, `${PREFIX_MAP['fn']}=${cleanedValue}`);
+
+    // Calculate factors
+    const factorsArray = [];
+    let n = inputNumber;
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+      while (n % i === 0) {
+        factorsArray.push(i);
+        n /= i;
       }
-      if (n > 1) {
-        factorsArray.push(n);
-      }
-
-   // Format factors as string
-      const factorsString = factorsArray.join(' * ');
-      setFactors(factorsString);
-      
-      // Clear errors
-      setErrors({ ...errors, fn: '' });
-    } else {
-      setForm({ ...form, fn: inputValue });
-      setFactors('');
-      setErrors({ ...errors, fn: 'Παρακαλώ εισάγετε το σωστό θετικό αριθμό.' });
     }
-  };
+    if (n > 1) {
+      factorsArray.push(n);
+    }
 
+    // Format factors as string
+    const factorsString = factorsArray.join(' * ');
+    setFactors(factorsString);
+
+    // Clear any existing error for 'fn'
+    setErrors({ ...errors, fn: '' });
+  } else {
+    // If not a valid number, just set the input value and show error
+    setForm({ ...form, fn: value });
+    setFactors('');
+    setErrors({ ...errors, fn: 'Παρακαλώ εισάγετε το σωστό θετικό αριθμό.' });
+  }
+};
 
 
   // -------------------------------isPrime function---------------------------------//
@@ -396,7 +498,10 @@ const isPrime = (num) => {
   return true;
 };
 
-
+function isWholeNumber(value) {
+  // Check if the value is a string or number and use regex to test if it matches a whole number
+  return /^\d+$/.test(value);
+}
 
 function modInverse(e, phiN) {
   let [t, newT] = [0, 1];
@@ -409,7 +514,8 @@ function modInverse(e, phiN) {
   }
 
   if (r > 1) {
-    throw new Error(`${e} has no modular inverse mod ${phiN}`);
+   // throw new Error(`${e} has no modular inverse mod ${phiN}`);
+   return -1;
   }
 
   if (t < 0) {
@@ -474,7 +580,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   //1109  const handleSubmitM = e =>{
       //e.preventDefault()
       let{M}= form
-      console.log("Entered M validation");
+      console.log("Inside M validation " +M);
               if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
       else{ 
           // Check if E and phi(N) are positive integers
@@ -496,19 +602,20 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   
     console.log('rsaValues:', rsaValues);
     let{M,CT}= form
-    
+    console.log("Inside CT validation " +CT);
      if (CT === undefined || CT === '') {newErrors.CT = 'Το πεδίο είναι κενό'}
+     
     else{ 
         // Check if E and phi(N) are positive integers
        /*E=Number(E);
         M=Number(M);
         n=Number(n);
         */
-        const E = Number(rsaValues.E);
-        const n = Number(rsaValues.n);
-        console.log( M )
-        console.log( E )
-        console.log(n)
+        const E = Number(form.E);
+        const n = Number(form.n);
+        console.log('M: '+ M )
+        console.log( 'E: '+E )
+        console.log('n: '+n)
         let encryptedMessage = rsaEncrypt(Number(M) , E , n);
         console.log("Encrypted Message (C):", encryptedMessage);
   
@@ -589,29 +696,79 @@ const handleSubmitM = (field, value, form,newErrors) =>{
         */}
           <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'rgb(68, 199, 235)',textAlign: 'center', }}>
                   <i class="bi bi-person-square"style={{fontSize: '40px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
-                    Αποστολέας   
+                    Bob   
                </Card.Title><br /> 
 
         <Row className="mb-3">
           <Col xs={3}>
+         {/*
             <Form.Control
                   className="custom-placeholder"
                  placeholder="P"
-                 style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
+                 style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)', fontWeight:'bolder'}}
                  value={form.p}
                  onChange={(e) => setField('p', e.target.value)}
                   isInvalid={!!errors.p}
                  disabled={locked}
-            />
+            />*/}
+
+            
+
+            {/*
+            <Form.Control
+                  className="custom-placeholder"
+                  placeholder="P"
+                  style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color: 'rgb(255, 255, 255)', backgroundColor: 'rgb(33,37,41)', fontWeight: 'bolder' }}
+                  value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+                  onChange={(e) => setField('p', e.target.value)} // Update without the prefix
+                  isInvalid={!!errors.p}
+                  disabled={locked}
+              />
              <Form.Control.Feedback type= 'invalid'>
                   {errors.p}
               </Form.Control.Feedback>
+              */}
+
+
+
+
+              <OverlayTrigger
+                  placement="bottom" // Position the tooltip below the input
+                  overlay={<Tooltip id={`tooltip-${form.p}`}>{errors.p}</Tooltip>} // Show the error message as tooltip
+                  show={!!errors.p} // Show the tooltip only when there's an error
+                >
+                  <Form.Control
+                    className="custom-placeholder"
+                    placeholder="P"
+                    style={{
+                      fontSize: '1.0rem',
+                      padding: '0.5rem 0.5rem',
+                      color: 'rgb(255, 255, 255)',
+                      backgroundColor: 'rgb(33,37,41)',
+                      fontWeight: 'bolder',
+                    }}
+                    value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+                    onChange={(e) => setField('p', e.target.value)} // Update without the prefix
+                    isInvalid={!!errors.p} // Mark the field as invalid if there's an error
+                    disabled={locked}
+                  />
+                </OverlayTrigger>
+                <Form.Control.Feedback type="invalid">
+                  {errors.p}
+                </Form.Control.Feedback> 
+
             </Col>
+              
+
+
+
+
             <Col xs={3}>
             <Form.Control
                className="custom-placeholder"
                 placeholder="Q"
-                style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)'}}
+                style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)', fontWeight:'bolder'}}
+                value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
                 onChange={(e) => setField('q', e.target.value)}
                 isInvalid={!!errors.q}
                 disabled={locked}
@@ -625,9 +782,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
          <Col xs={3}>
             <Form.Control
                  className="custom-placeholder"
-                value={form.n}
+                 value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder="n"
-                style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)'}}
+                style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)', fontWeight:'bolder'}}
                 onChange={(e) => setField('n', e.target.value)}
                 isInvalid={!!errors.n}
                disabled={locked}
@@ -664,19 +821,25 @@ const handleSubmitM = (field, value, form,newErrors) =>{
           */}
 
           <Col xs={3}>
-              <Form.Control
-                  className="custom-placeholder"
-                  value={form.fn}
-                  placeholder="Φ(n)"
-                  style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)'}}
-            //    onChange={(e) => setField('fn', e.target.value)}
-                  onChange={handleInputChange}                            
-                 isInvalid={!!errors.fn}
-                 disabled={locked}
-              />
-              <Form.Control.Feedback type= 'invalid'>
-                  {errors.fn}
-               </Form.Control.Feedback>
+          <Form.Control
+              className="custom-placeholder"
+              placeholder="Φ(n)"
+              value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
+              style={{
+                fontSize: '1.0rem',
+                padding: '0.5rem 0.5rem',
+                color: 'rgb(255, 255, 255)',
+                backgroundColor: 'rgb(33,37,41)',
+                fontWeight: 'bolder'
+              }}
+              onChange={(e) => handleInputChange('fn', e.target.value)}  // Handle input change properly
+              isInvalid={!!errors.fn} // Show invalid feedback if there's an error
+              disabled={locked} // Disable input if locked
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.fn}
+            </Form.Control.Feedback>
+
            </Col>
       </Row>
 
@@ -692,22 +855,24 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    style={{ width: '160px', 
                     padding: '0.5rem 0.5rem', 
                     // ontSize: '1.5rem', 
+                    fontSize: '1.0rem',
                     textAlign: 'center', 
                     marginLeft: '1px' , 
+                    marginTop: '1px' , 
                     color:'rgb(255, 255, 255)',
                     backgroundColor: 'rgb(33,37,41)',
-                    fontWeight:'bolder'
+                    fontWeight:'bold'
                   }} 
                 />                                                 
            </Row> 
    
                  <Row className="mb-3"  style={{ alignItems: 'center'}} > 
-                      <Col xs={4}>
+                      <Col xs={5}>
                         <Form.Control
                           className="custom-placeholder"
                            type="integer"
                            placeholder="E"
-                           value={form.E}
+                           value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
                            disabled={locked}                           
@@ -718,12 +883,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         </Form.Control.Feedback>
                         
                       </Col>      
-                      <Col xs={4}>
+                      <Col xs={5}>
                         <Form.Control
                           className="custom-placeholder"
                            type="integer"
                            placeholder="D"
-                           value={form.D}
+                           value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
                            isInvalid={!!errors.D}
                            disabled={locked}                           
@@ -806,7 +971,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
       <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'rgb(235, 68, 113)',textAlign: 'center', }}>
            <i class="bi bi-person-square"style={{fontSize: '40px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
-           Παραλήπτης 
+           Alice 
            </Card.Title>
 
 
@@ -825,7 +990,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    <Form.Control
                        className="custom-placeholder"
                        placeholder="M"
-                       value={form.M}
+                       value={form.M ? `${PREFIX_MAP['M']}=${form.M}` : ''}
                         onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
                        disabled={locked}
@@ -839,7 +1004,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  <Form.Control                          
                      className="custom-placeholder"
                      placeholder="CT"
-                     value={form.CT} 
+                     value={form.CT ? `${PREFIX_MAP['CT']}=${form.CT}` : ''}
                     //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                      onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
