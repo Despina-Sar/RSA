@@ -447,7 +447,7 @@ html, body {
   background-color:rgb(33,37,41);
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 300px;
   text-align: center;
   color: #ffffff;
   border-width: 3px;
@@ -464,7 +464,12 @@ html, body {
   z-index: 1000; /* Ensures the tooltip appears on top */
 }
 
-
+.tooltip {
+  z-index: 1050 !important; /* Bootstrap tooltip default is 1050, ensure this is high enough */
+}
+.custom-placeholder {
+  position: relative; /* Ensure parent element positioning is correct */
+}
 
 
 /*------------------------------------------TTTTTTTTTTTTEEEEEEEEEEEEEEESTTTTTTTTTTTTTTTTTTTTTTTT----------------------------  */
@@ -485,6 +490,13 @@ html, body {
   justify-content: flex-start; /* Align content from top */
 }
 
+.Main{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 70vh;
+  font-family: Arial, sans-serif; 
+}
 
 /* Mobile background */
 @media (max-width: 768px) {
@@ -493,14 +505,17 @@ html, body {
     background-size: cover;
     background-position: center center; /* Center image to avoid losing key details */
     background-repeat: no-repeat;
-    min-height: 100vh; /* Full height on mobile to ensure it fills the screen */
+    min-height: 185vh; /* Full height on mobile to ensure it fills the screen */
+    min-width: 85vh;
   }
 
 
   .arrowRight {
     color: #ffffff;
     display: flex;
-    alignItems: center;
+    align-items: center;
+    font-size: 50px;
+    margin-top: 20px;
     animation-name: slideRightMobile;
     animation-duration: 1s;
     animation-timing-function: ease-in;
@@ -509,6 +524,57 @@ html, body {
     animation-direction: normal;
     animation-fill-mode: forwards;
   
+  }
+
+  .mobileValueLabel{
+    color: #ffffff;
+    font-size: 30px;
+  }
+
+  .arrowDown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    animation-name: slideRightMobile;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+  
+  }
+  .mobileArrowContainer {
+    display: flex;
+    flex-direction: column; /* Stack the arrow and text vertically */
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #ffffff;
+  }
+
+  .mobileArrowContainer .row {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Add spacing between the arrow and the text */
+  }
+  
+  .Main {
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 1rem; /* Add space between items */
+   
+  }
+
+  .card.customcardAlice1,
+  .card.customcardBob1 {
+    width: 100%; /* Make cards take full width */
+    max-width: 300px; /* Optional: set a max width for better readability */
+    margin: 0 0 1rem 0; /* Add spacing between stacked cards */
+    padding-top:10;  /* Remove margin */
   }
 }
 

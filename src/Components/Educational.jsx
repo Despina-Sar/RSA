@@ -1,15 +1,16 @@
 
-import React, { useState,useContext,useRef } from 'react';
+import React, { useState,useContext,useRef,useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import {OverlayTrigger, Tooltip, Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
+import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 
 const Educational = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
- 
+  const isMobile = useIsMobile();
 
   // Girl's state
   const [p, setP] = useState('');
@@ -49,7 +50,7 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
 
 
 
-
+  const [error, setError] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
   const target = useRef(null);
 
@@ -154,21 +155,21 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
       return;}
 */
 
+
 const validateField = (field, value, updatedForm) => {
   const{p,q,n,fn,E,D,CT,M}= updatedForm;
   let newErrors = { ...errors }; // Start with current errors
+  console.log(newErrors);
   switch (field) {
     case 'p':
+      console.log("before revalidation of P: "+p);
       validateP(field, value,updatedForm,newErrors);
-       console.log("before revalidation of N: "+n);
-       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
-       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-      // Finally, update the errors state once with all accumulated errors
-        setErrors(newErrors);
+
+      const timer = setTimeout(() => setShowTooltip(true), 3000); // Delay of 1 second
+      setErrors(newErrors);
+      clearTimeout(timer); // Clear timeout
+        console.log('Updated Errors in validateP:', newErrors);
+
 
        break;
     case 'q':
@@ -238,7 +239,6 @@ const validateField = (field, value, updatedForm) => {
 
 
 
-
   const validateAllValues=(updatedForm, newErrors)=> {
    const n=updatedForm.n;
    const fn=updatedForm.fn;
@@ -262,14 +262,15 @@ const validateField = (field, value, updatedForm) => {
 const validateP = (field, value, form,newErrors) =>{
   const{p}= form
 
-  console.log(p);
-  console.log(isPrime(p));
+  console.log('P: '+p+' is prime: '+isPrime(p));
+
    //-validation for p == prime
-   if (p === undefined || p === '' ){newErrors.p = 'Το πεδίο είναι κενό'}
+   if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
    else{
     if (!isPrime(p)) {
       newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
-    }else {
+      }
+    else {
      delete newErrors.p; // Clear error if validation passes
     }
    }
@@ -279,11 +280,14 @@ const validateP = (field, value, form,newErrors) =>{
  //---------------------------------handle submit only for Q --------------------------------------------
  const validateQ = (field, value, form,newErrors) =>{
   const{ q }= form
-
+  console.log("Entered Q "+q);
+  console.log(isPrime(q));
+  
   //validation for q == prime
     if (q === undefined || q === '') {newErrors.q = 'Το πεδίο είναι κενό'}
     else{ 
       if (!isPrime(q)) {
+       
         newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';
        
       } else {
@@ -660,7 +664,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   
 
   return (
-    <div style={styles.pageContainer}>
+    <div className="Main" style={styles.pageContainer}>
       {/* Boy's card with inputs and z calculation */}
       <Card border="info" className="customcardBob1">
    
@@ -700,7 +704,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                </Card.Title><br /> 
 
         <Row className="mb-3">
-          <Col xs={3}>
+          <Col xs={4}>
          {/*
             <Form.Control
                   className="custom-placeholder"
@@ -731,12 +735,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 
 
-
-              <OverlayTrigger
-                  placement="bottom" // Position the tooltip below the input
-                  overlay={<Tooltip id={`tooltip-${form.p}`}>{errors.p}</Tooltip>} // Show the error message as tooltip
-                  show={!!errors.p} // Show the tooltip only when there's an error
-                >
+{/*
+                 
                   <Form.Control
                     className="custom-placeholder"
                     placeholder="P"
@@ -752,18 +752,40 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     isInvalid={!!errors.p} // Mark the field as invalid if there's an error
                     disabled={locked}
                   />
-                </OverlayTrigger>
+              
                 <Form.Control.Feedback type="invalid">
                   {errors.p}
                 </Form.Control.Feedback> 
+           */}
+  
+                    <Form.Control
+                      className="custom-placeholder"
+                      placeholder="P"
+                      style={{
+                        fontSize: '1.0rem',
+                        padding: '0.5rem 0.5rem',
+                        color: 'rgb(255, 255, 255)',
+                        backgroundColor: 'rgb(33,37,41)',
+                        fontWeight: 'bolder',
+                      }}
+                      value={form.p}
+                      //value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+                      onChange={(e) => setField('p', e.target.value)} // Update without the prefix
+                      isInvalid={!!errors.p} // Keep the visual invalid state
+                      disabled={locked}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.p}
+                    </Form.Control.Feedback>
+ 
+   
+             
 
-            </Col>
-              
+           </Col>
 
 
 
-
-            <Col xs={3}>
+            <Col xs={4}>
             <Form.Control
                className="custom-placeholder"
                 placeholder="Q"
@@ -779,7 +801,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             </Col>
      
 
-         <Col xs={3}>
+         <Col xs={4}>
             <Form.Control
                  className="custom-placeholder"
                  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
@@ -820,7 +842,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
           </Col>
           */}
 
-          <Col xs={3}>
+
+</Row>
+<Row className="mb-3">    
+          <Col xs={4}>
           <Form.Control
               className="custom-placeholder"
               placeholder="Φ(n)"
@@ -841,18 +866,18 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             </Form.Control.Feedback>
 
            </Col>
-      </Row>
+ 
 
     
                           
-            <Row className="mb-3">                                   
+                                        
               <Form.Control
                    className="custom-placeholder"
                    type="text"
                    readOnly
                    placeholder="Παράγοντες Φ(n)"
                    value={factors}
-                   style={{ width: '160px', 
+                   style={{ width: '170px', 
                     padding: '0.5rem 0.5rem', 
                     // ontSize: '1.5rem', 
                     fontSize: '1.0rem',
@@ -866,8 +891,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 />                                                 
            </Row> 
    
-                 <Row className="mb-3"  style={{ alignItems: 'center'}} > 
-                      <Col xs={5}>
+                 <Row className="mb-4"  style={{ alignItems: 'center'}} > 
+                      <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
                            type="integer"
@@ -883,7 +908,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         </Form.Control.Feedback>
                         
                       </Col>      
-                      <Col xs={5}>
+                      <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
                            type="integer"
@@ -911,7 +936,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                
         <Button onClick={handleSubmit}
             variant="outline-info" 
-            style={{ fontSize: '1.1rem', padding: '0.3rem 0.5rem' ,fontWeight:'bolder'}}
+            style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem' ,fontWeight:'bolder'}}
                 >Στείλε το κλειδί
         </Button>
 
@@ -935,21 +960,45 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       {/* Arrows column with two arrows, showing values */}
       <div style={styles.arrowsColumn}>
         {/* Arrow showing z sent from boy to girl */}
+
+
         {isZCorrect && (
-          <div style={styles.arrowContainer}>
-             {/* <div style={styles.arrowRight}>
-                  <i class="bi bi-arrow-right"style={{fontSize: '100px', color:'white'}} ></i>*/}
-             <Col>
-                <div className="arrowRight">
-                   <i class="bi bi-arrow-right" ></i>
+        <div style={styles.arrowContainer}>
+          {!isMobile ? (
+            // Desktop layout
+            <Col>
+              <div className="arrowRight">
+                <i className="bi bi-arrow-right"></i>
                 <span style={styles.valueLabel}>
-                   <i class="bi bi-unlock-fill"style={{fontSize: '60px', color:'rgb(4,145,141)'}}></i> 
-                    E = {form.E}
+                  <i
+                    className="bi bi-unlock-fill"
+                    style={{ fontSize: '60px', color: 'rgb(4,145,141)' }}
+                  ></i>
+                  E = {form.E}
+                </span>
+              </div>
+            </Col>
+          ) : (
+            // Mobile layout
+            <div className="mobileArrowContainer">
+              <Row>
+              <div className="arrowDown">
+                <i className="bi bi-arrow-down" style={{ fontSize: '60px', color: 'white' }}></i>
+              </div>
+              <span className="mobileValueLabel">
+                <i
+                  className="bi bi-unlock-fill"
+                  style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
+                ></i>
+                E = {form.E}
               </span>
-               </div>
-               </Col>
-          </div>
-        )}
+              </Row>
+            </div>
+          )}
+        </div>
+      )}
+
+
         {/* Arrow showing p sent from girl back to boy */}
         {isFCorrect && (
           <div style={styles.arrowContainer}>
@@ -958,7 +1007,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            <div className="arrowLeft">
            <i class="bi bi-arrow-left"></i>
               <span style={styles.valueLabel}>
-                <i class="bi bi-file-earmark-lock" style={{fontSize: '60px', color:'rgb(236, 26, 26)'}}></i>
+                <i class="bi bi-file-earmark-lock-fill" style={{fontSize: '60px', color:'rgb(138,4,17)'}}></i>
                 CT = {form.CT}
                 </span>
             </div>
@@ -969,8 +1018,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       {/* Girl's card with inputs and f calculation */}
       <Card border="danger" className="customcardAlice1">
 
-      <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'rgb(235, 68, 113)',textAlign: 'center', }}>
-           <i class="bi bi-person-square"style={{fontSize: '40px', color:'rgb(235, 68, 113)'}} ></i> &nbsp;
+      <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'	rgb(192,192,192)',textAlign: 'center', }}>
+           <i class="bi bi-person-square"style={{fontSize: '40px', color:'	rgb(192,192,192)'}} ></i> &nbsp;
            Alice 
            </Card.Title>
 
@@ -1020,7 +1069,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             <Button 
                   onClick={handleButtonClick}
                    variant="outline-danger" 
-                   style={{ fontSize: '1.1rem', padding: '0.3rem 0.3rem',fontWeight:'bolder'  }}> 
+                   style={{ fontSize: '0.9rem', padding: '0.3rem 0.3rem',fontWeight:'bolder'  }}> 
                    Στείλε το μήνυμα
             </Button>
 
@@ -1048,6 +1097,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 // CSS styles for the updated layout
 const styles = {
+  /*
   pageContainer: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -1055,6 +1105,7 @@ const styles = {
     minHeight: '70vh',
     fontFamily: 'Arial, sans-serif'   
   },
+  */
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -1101,12 +1152,15 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s ease'
   },
+
+  /*
   arrowsColumn: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  */
   arrowContainer: {
     display: 'flex',
     alignItems: 'center',

@@ -8,7 +8,7 @@
 }
 
 .clarification-square h3 {
-    font-size: 0.8rem; /* Default font size for desktop */
+    font-size: 0.9rem; /* Default font size for desktop */
     margin: 0.4rem 0; /* Add some spacing */
     font-weight: bolder;
     text-align: center; /* Center title horizontally */
@@ -16,7 +16,6 @@
 
 /* Desktop: show squares side by side and content always visible */
 .clarification-square {
-    flex: 1;
     padding: 0.1rem;
     background-color: rgb(33, 37, 41);
     border: 1px solid hsl(0, 0%, 100%);
@@ -27,8 +26,20 @@
     flex-direction: column; /* Stack title and content vertically */
     align-items: center; /* Center title horizontally */
     justify-content: flex-start; /* Align items to the top vertically */
-    width: 350px; /* Set a fixed width for the squares */
-    height: 180px; 
+    height: 200px; 
+    width: 300px; 
+}
+
+.clarification-square:nth-child(1) {
+    width: 400px; 
+}
+
+.clarification-square:nth-child(2) {
+    width: 250px; 
+}
+
+.clarification-square:nth-child(3) {
+    width: 600px; 
 }
 
 .clarification-square:hover {
@@ -43,7 +54,7 @@
     width: 100%; /* Make sure the content takes full width of the square */
     padding-left: 0px; /* Optional: add padding to the left for better readability */
     margin-left: 0px; /* Explicitly ensure content starts from the left */
-    font-size: 0.63rem;
+    font-size: 0.74rem;
 }
 
 /* Clarifications container */
@@ -67,7 +78,35 @@
 }
 
 /* Mobile: adjust to navbar format, hiding content initially */
-@media (max-width: 768px) {
+@media (max-width: 1290px) {
+
+    .clarification-square {
+        flex: 1;
+         padding: 0.1rem;
+        background-color: rgb(33, 37, 41);
+        border: 1px solid hsl(0, 0%, 100%);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column; /* Stack title and content vertically */
+        align-items: center; /* Center title horizontally */
+        justify-content: flex-start; /* Align items to the top vertically */
+        height: 200px; 
+        width: 250px; 
+    }
+    .clarification-square:nth-child(1) {
+        width: 350px; 
+    }
+    
+    .clarification-square:nth-child(2) {
+        width: 350px; 
+    }
+    
+    .clarification-square:nth-child(3) {
+        width: 350px; 
+         }
+
     .dropdown-toggle {
         display: block; /* Show dropdown toggle button on mobile */
     }
@@ -109,14 +148,14 @@
 }
 
 /* Desktop: squares are non-clickable */
-@media (min-width: 769px) {
+@media (min-width: 1290px) {
     .clarification-square {
         pointer-events: none; /* Disable clicks on desktop */
     }
 }
 
 /* Mobile: enable click functionality */
-@media (max-width: 768px) {
+@media (max-width: 1290px) {
     .clarification-square {
         pointer-events: auto; /* Enable clicks on mobile */
     }
