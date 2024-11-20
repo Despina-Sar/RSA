@@ -12,13 +12,15 @@
     margin: 0.4rem 0; /* Add some spacing */
     font-weight: bolder;
     text-align: center; /* Center title horizontally */
+    color:rgb(243, 219, 219);
 }
 
 /* Desktop: show squares side by side and content always visible */
 .clarification-square {
     padding: 0.1rem;
-    background-color: rgb(33, 37, 41);
-    border: 1px solid hsl(0, 0%, 100%);
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(15, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s;
@@ -55,6 +57,7 @@
     padding-left: 0px; /* Optional: add padding to the left for better readability */
     margin-left: 0px; /* Explicitly ensure content starts from the left */
     font-size: 0.74rem;
+    color:rgb(243, 219, 219);
 }
 
 /* Clarifications container */
@@ -62,6 +65,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 /* Dropdown toggle for mobile */
@@ -83,8 +87,8 @@
     .clarification-square {
         flex: 1;
          padding: 0.1rem;
-        background-color: rgb(33, 37, 41);
-        border: 1px solid hsl(0, 0%, 100%);
+         background-color: rgb(15, 4, 4);
+         border: 1px solid hsl(0, 36%, 88%);
         border-radius: 8px;
         cursor: pointer;
         transition: transform 0.3s;
@@ -104,7 +108,7 @@
     }
     
     .clarification-square:nth-child(3) {
-        width: 350px; 
+        width: 500px; 
          }
 
     .dropdown-toggle {
@@ -113,6 +117,7 @@
 
     .clarifications {
         flex-direction: column;
+        align-items: center; 
     }
 
     .clarification-square {

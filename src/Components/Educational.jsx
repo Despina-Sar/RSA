@@ -759,17 +759,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            */}
   
                     <Form.Control
-                      className="custom-placeholder"
+                      className="custom-placeholderPQ"
                       placeholder="P"
-                      style={{
-                        fontSize: '1.0rem',
-                        padding: '0.5rem 0.5rem',
-                        color: 'rgb(255, 255, 255)',
-                        backgroundColor: 'rgb(33,37,41)',
-                        fontWeight: 'bolder',
-                      }}
-                      value={form.p}
-                      //value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+                      style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+                    //  value={form.p}
+                     value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
                       onChange={(e) => setField('p', e.target.value)} // Update without the prefix
                       isInvalid={!!errors.p} // Keep the visual invalid state
                       disabled={locked}
@@ -787,9 +781,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
             <Col xs={4}>
             <Form.Control
-               className="custom-placeholder"
+               className="custom-placeholderPQ"
                 placeholder="Q"
-                style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)', fontWeight:'bolder'}}
+                style={{ backgroundColor: 'rgb(243, 219, 219)'}}
                 value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
                 onChange={(e) => setField('q', e.target.value)}
                 isInvalid={!!errors.q}
@@ -803,11 +797,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
          <Col xs={4}>
             <Form.Control
-                 className="custom-placeholder"
+                 className="custom-placeholderPQ"
                  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder="n"
-                style={{ fontSize: '1.0rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)', fontWeight:'bolder'}}
-                onChange={(e) => setField('n', e.target.value)}
+                style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+                 onChange={(e) => setField('n', e.target.value)}
                 isInvalid={!!errors.n}
                disabled={locked}
              />
@@ -845,18 +839,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 </Row>
 <Row className="mb-3">    
-          <Col xs={4}>
+          <Col xs={5}>
           <Form.Control
-              className="custom-placeholder"
+              className="custom-placeholderPQ"
               placeholder="Φ(n)"
               value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{
-                fontSize: '1.0rem',
-                padding: '0.5rem 0.5rem',
-                color: 'rgb(255, 255, 255)',
-                backgroundColor: 'rgb(33,37,41)',
-                fontWeight: 'bolder'
-              }}
+              style={{ backgroundColor: 'rgb(243, 219, 219)'}}
               onChange={(e) => handleInputChange('fn', e.target.value)}  // Handle input change properly
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               disabled={locked} // Disable input if locked
@@ -872,21 +860,16 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                           
                                         
               <Form.Control
-                   className="custom-placeholder"
+                   className="custom-placeholderPQ"
                    type="text"
                    readOnly
                    placeholder="Παράγοντες Φ(n)"
                    value={factors}
-                   style={{ width: '170px', 
-                    padding: '0.5rem 0.5rem', 
-                    // ontSize: '1.5rem', 
-                    fontSize: '1.0rem',
+                   style={{ 
+                    width: '160px',                  
                     textAlign: 'center', 
-                    marginLeft: '1px' , 
-                    marginTop: '1px' , 
-                    color:'rgb(255, 255, 255)',
-                    backgroundColor: 'rgb(33,37,41)',
-                    fontWeight:'bold'
+                    backgroundColor: 'rgb(243, 219, 219)',
+                  
                   }} 
                 />                                                 
            </Row> 
@@ -968,11 +951,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             // Desktop layout
             <Col>
               <div className="arrowRight">
-                <i className="bi bi-arrow-right"></i>
+                <i className="bi bi-arrow-right" style={{ fontSize: '60px', color: 'white' }}></i>
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-unlock-fill"
-                    style={{ fontSize: '60px', color: 'rgb(4,145,141)' }}
+                    style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
                   ></i>
                   E = {form.E}
                 </span>
@@ -984,7 +967,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <Row>
               <div className="arrowDown">
                 <i className="bi bi-arrow-down" style={{ fontSize: '60px', color: 'white' }}></i>
-              </div>
+              
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-unlock-fill"
@@ -992,6 +975,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 ></i>
                 E = {form.E}
               </span>
+              </div>
               </Row>
             </div>
           )}
@@ -999,11 +983,50 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       )}
 
 
-        {/* Arrow showing p sent from girl back to boy */}
+  {/* Arrow showing p sent from girl back to boy NOW*/}
+   {isFCorrect && (
+        <div style={styles.arrowContainer}>
+          {!isMobile ? (
+            // Desktop layout
+            <Col>
+              <div className="arrowLeft">
+                <i className="bi bi-arrow-left" ></i>
+                <span style={styles.valueLabel}>
+                  <i
+                    className="bi bi-file-earmark-lock-fill"
+                    style={{ fontSize: '40px', color: 'rgb(138,4,17)' }}
+                  ></i>
+                  CT = {form.CT}
+                </span>
+              </div>
+            </Col>
+          ) : (
+            // Mobile layout
+            <div className="mobileArrowContainer">
+              <Row>
+              <div className="arrowUp">
+                <i className="bi bi-arrow-up" style={{ fontSize: '60px', color: 'white' }}></i>
+             
+              <span className="mobileValueLabel">
+                <i
+                  className="bi bi-file-earmark-lock-fill"
+                  style={{fontSize: '40px', color:'rgb(138,4,17)'}}
+                ></i>
+                 CT = {form.CT}
+              </span>
+              </div>
+              </Row>
+            </div>
+          )}
+        </div>
+      )}
+
+
+        {/* Arrow showing p sent from girl back to boy 
         {isFCorrect && (
           <div style={styles.arrowContainer}>
            {/* <div style={styles.arrowLeft}>
-                   <i class="bi bi-arrow-left"style={{fontSize: '100px', color:'rgb(33,37,41)'}} ></i>*/}
+                   <i class="bi bi-arrow-left"style={{fontSize: '100px', color:'rgb(33,37,41)'}} ></i>
            <div className="arrowLeft">
            <i class="bi bi-arrow-left"></i>
               <span style={styles.valueLabel}>
@@ -1013,6 +1036,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             </div>
           </div>
         )}
+
+        */}
       </div>
 
       {/* Girl's card with inputs and f calculation */}
@@ -1190,7 +1215,7 @@ const styles = {
     marginTop: '10px',
     fontSize: '13px',
     color:'rgb(255, 255, 255)',
-    backgroundColor: 'rgb(33,37,41)',
+    backgroundColor: 'rgb(8, 6, 6)',
    
   }
 };

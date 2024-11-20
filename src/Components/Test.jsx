@@ -246,16 +246,52 @@ const Test = () => {
       id: 1, 
       title: "Υπολογισμός κλειδιών", 
       content:
+
       <ol>
-          <li>Επιλέγουμε δύο πρώτους αριθμούς</li>
-          <li>n= P x Q</li>
-          <li>Φ(n): (P - 1) x (Q - 1)</li>
+        
+          <li>
+            <strong><span  
+              style={{ border:' 0px',
+                       padding:'2px 5px',
+                       width:'55%',
+                       borderRadius: '5px',
+                       backgroundColor: 'rgb(243, 219, 219)',
+                       color:'black'}}>
+              Επιλέγουμε δύο πρώτους αριθμούς
+              </span></strong>
+          </li>
+
+          <li>
+            <strong><span  
+              style={{ border:' 0px',
+                       padding:'2px 5px',
+                       width:'16%',
+                       borderRadius: '5px',
+                       backgroundColor: 'rgb(243, 219, 219)',
+                       color:'black'}}>
+              n= P x Q
+              </span></strong>
+          </li>
+          <li>
+            <strong> <span  
+              style={{ border:' 0px',
+                       padding:'2px 5px',
+                       width:'35%',
+                       borderRadius: '5px',
+                       backgroundColor: 'rgb(243, 219, 219)',
+                       color:'black'}}>
+              Φ(n): (P - 1) x (Q - 1)
+              </span></strong>
+          </li>
+          
+    
           <li>
              <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(4,145,141)'}}>Δημόσιο κλειδι (E,n):</span> </strong> <br />
             Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
               Ε δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n).
           </li>
           <li>
+
          <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(138,4,17)'}}>Ιδιωτικό κλειδι (D,n):</span> </strong> <br />        
           (D x E) mod (Φ(n)) = 1    
           </li>                     
@@ -274,7 +310,7 @@ const Test = () => {
     },
     { 
       id: 3, 
-      title: "", 
+      title: "Visual", 
       content: 
       <div  className="image-container">
       <img
@@ -298,7 +334,7 @@ const Test = () => {
     <div className="clarifications-container">
       {isMobile && (
         <button onClick={toggleDropdown} className="dropdown-toggle">
-          Menu
+          <i class="bi bi-list"></i>
         </button>
       )}
       <div className={`clarifications ${isMobile && !isDropdownOpen ? 'hidden' : ''}`}>

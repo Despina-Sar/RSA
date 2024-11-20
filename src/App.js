@@ -14,8 +14,9 @@ import Training from './Components/Training';
 import Real from './Components/Real';
 import EducationalMain from './Components/EducationalMain';
 import Test from './Components/Test';
+import { Row, Col, Container } from 'react-bootstrap';
 
-
+{/*
 
 
 function App() { 
@@ -32,6 +33,7 @@ function App() {
       
             <div className="content">
             <Test/>
+            
               <Routes>
                 <Route path="/" element={<Home/>}/> 
                 <Route path="/Demo" element={<Demo/>}/>
@@ -51,7 +53,47 @@ function App() {
        
   );  
 }
-
 export default App;
 
+ */}
+
+
+function App() { 
+  return (
+  
+ 
+   
+ <div  className="background-container">
+      <div className="App">    
+           
+       
+          
+           
+                <img
+                  alt=""
+                  src= {require('./images/favicon.png')}
+                  width="60"
+                  height="60"
+                  className="d-inline-block align-top"
+                  backgroundcolor= 'rgb(33, 37, 41)'
+                />{' '}
+                <h2>Home</h2>
+             
+        
+              
+              <Test/>
+              <EducationalMain/>            
+       
+          
+         </div>      
+  
+     
+ 
+      </div>
+    
+ 
+        
+   );  
+ }
+ export default App;
 
