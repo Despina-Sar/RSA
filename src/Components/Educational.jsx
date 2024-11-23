@@ -564,7 +564,7 @@ const handleButtonClick = () => {
 
   // Check if any fields are empty or has errors
   if (hasEmptyFields || hasErrors) {
-    setShowModalB(true); // Show modal if fields are empty
+    setShowModalA(true); // Show modal if fields are empty
     setLocked(false);
   } else {
     // Call the onUnlockClick function since fields are filled
@@ -664,9 +664,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   
 
   return (
-    <div className="Main" style={styles.pageContainer}>
+    <div className="Main">
       {/* Boy's card with inputs and z calculation */}
-      <Card border="info" className="customcardBob1">
+      <Card style={{ borderColor: '#c22748' }}  className="customcardBob1">
    
 
           {/*       
@@ -698,8 +698,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   />
                 </div>
         */}
-          <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'rgb(68, 199, 235)',textAlign: 'center', }}>
-                  <i class="bi bi-person-square"style={{fontSize: '40px', color:'rgb(68, 199, 235)'}} ></i> &nbsp;
+          <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748',textAlign: 'left', }}>
+                  <i class="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
                     Bob   
                </Card.Title><br /> 
 
@@ -761,7 +761,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     <Form.Control
                       className="custom-placeholderPQ"
                       placeholder="P"
-                      style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+                      style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
                     //  value={form.p}
                      value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
                       onChange={(e) => setField('p', e.target.value)} // Update without the prefix
@@ -783,7 +783,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             <Form.Control
                className="custom-placeholderPQ"
                 placeholder="Q"
-                style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
                 value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
                 onChange={(e) => setField('q', e.target.value)}
                 isInvalid={!!errors.q}
@@ -800,7 +800,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  className="custom-placeholderPQ"
                  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder="n"
-                style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
                  onChange={(e) => setField('n', e.target.value)}
                 isInvalid={!!errors.n}
                disabled={locked}
@@ -844,7 +844,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               className="custom-placeholderPQ"
               placeholder="Φ(n)"
               value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{ backgroundColor: 'rgb(243, 219, 219)'}}
+              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
               onChange={(e) => handleInputChange('fn', e.target.value)}  // Handle input change properly
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               disabled={locked} // Disable input if locked
@@ -866,10 +866,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    placeholder="Παράγοντες Φ(n)"
                    value={factors}
                    style={{ 
-                    width: '160px',                  
+                    width: '55%',                  
                     textAlign: 'center', 
                     backgroundColor: 'rgb(243, 219, 219)',
-                  
+                    fontWeight: 'bold'
                   }} 
                 />                                                 
            </Row> 
@@ -884,7 +884,13 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
                            disabled={locked}                           
-                           style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem',color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(4,145,141)',fontWeight:'bolder'}}
+                           style={{ 
+                            fontSize: '1.5rem', 
+                            padding: '0.5rem 0.5rem',
+                            color:'rgb(255, 255, 255)' ,
+                            backgroundColor: 'rgb(4,145,141)',
+                            fontWeight:'bolder',
+                            boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)'}}
                           />
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.E}
@@ -906,6 +912,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             color:'rgb(255, 255, 255)',
                             backgroundColor: 'rgb(138,4,17)',
                             fontWeight:'bolder' ,
+                            boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+                            
                             '::placeholder': {color:'rgb(255, 255, 255)'}
                           }}
                           />
@@ -917,26 +925,52 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         
                         </Row>
                
-        <Button onClick={handleSubmit}
-            variant="outline-info" 
-            style={{ fontSize: '0.9rem', padding: '0.3rem 0.5rem' ,fontWeight:'bolder'}}
-                >Στείλε το κλειδί
-        </Button>
+                        <Button 
+                          onClick={handleSubmit}                         
+                          style={{
+                            fontSize: '1rem', // Slightly larger font for better readability
+                            padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                            fontWeight: 'bolder',
+                            borderColor: '#c22748', // Custom border color
+                            borderWidth: '2px', // Custom border thickness
+                            color: '#c22748', // Ensure text color matches or complements the border
+                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            borderRadius: '5px', // Rounded corners for a modern look
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                            transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                            e.target.style.color = '#fff'; // Make text white on hover
+                            e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.color = '#c22748'; // Reset text color
+                            e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                          }}
+                        >
+                          Στείλε το κλειδί
+                        </Button>
 
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
-                  <Modal.Header>
-                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                     Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModB}>
-                      Close
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                <Modal.Header className="modal-header-dark">
+                  <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="modal-body-dark">
+                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
+                </Modal.Body>
+                <Modal.Footer className="modal-footer-dark">
+                  <Button
+                    className="modal-close-button"
+                    onClick={handleCloseModB}
+                  >
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
 
       </Card>
 
@@ -957,7 +991,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="bi bi-unlock-fill"
                     style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
                   ></i>
-                  E = {form.E}
+                  (E,n)
                 </span>
               </div>
             </Col>
@@ -1041,16 +1075,16 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       </div>
 
       {/* Girl's card with inputs and f calculation */}
-      <Card border="danger" className="customcardAlice1">
+      <Card style={{ borderColor: '#06c3c9' }}  className="customcardAlice1">
 
-      <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1rem' ,color:'	rgb(192,192,192)',textAlign: 'center', }}>
-           <i class="bi bi-person-square"style={{fontSize: '40px', color:'	rgb(192,192,192)'}} ></i> &nbsp;
+      <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#06c3c9',textAlign: 'center', }}>
+           <i class="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
            Alice 
            </Card.Title>
 
 
            <div style={styles.receivedMessage}>
-               {isZCorrect ? `Έλαβε το Δημόσιο κλειδί` : "Περιμένει το Ε..."}
+               {isZCorrect ? `Έλαβε το Δημόσιο κλειδί (${form.E},${form.n})` : "Περιμένει το Ε..."}
            </div> <br />
                                  
 
@@ -1062,18 +1096,20 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  
                  <Col xs={6}>
                    <Form.Control
-                       className="custom-placeholder"
+                      classname='custom-placeholderM'
                        placeholder="M"
                        value={form.M ? `${PREFIX_MAP['M']}=${form.M}` : ''}
                         onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
                        disabled={locked}
-                       style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
+                       style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.5rem',color: 'rgb(0,0,0)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
                      {errors.M}
                    </Form.Control.Feedback>
                  </Col>    
+
+
                  <Col xs={6}>                                
                  <Form.Control                          
                      className="custom-placeholder"
@@ -1083,7 +1119,18 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                      onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
                      disabled={locked}
-                     style={{ fontSize: '1.5rem', padding: '0.5rem 0.5rem', color:'rgb(255, 255, 255)' ,backgroundColor: 'rgb(33,37,41)',fontWeight:'bolder'}}
+                     style={{
+                      fontSize: '1.5rem',
+                      padding: '0.5rem 0.5rem',
+                      color: 'rgb(255, 255, 255)',
+                      backgroundColor: 'rgb(33,37,41)',
+                      fontWeight: 'bolder',
+                      border: '2px solid rgb(255, 255, 255)', // Default border
+                      transition: 'box-shadow 0.3s ease-in-out', // Smooth animation for the glow
+                      boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)'
+                    }}
+                   
+                  
                    />   
                     <Form.Control.Feedback type= 'invalid'>
                      {errors.CT}
@@ -1091,29 +1138,51 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 </Col>                
                </Row> 
 
-            <Button 
-                  onClick={handleButtonClick}
-                   variant="outline-danger" 
-                   style={{ fontSize: '0.9rem', padding: '0.3rem 0.3rem',fontWeight:'bolder'  }}> 
-                   Στείλε το μήνυμα
+           
+               <Button 
+                          onClick={handleButtonClick}
+                          style={{
+                            fontSize: '1rem', // Slightly larger font for better readability
+                            padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                            fontWeight: 'bolder',
+                            borderColor: '#06c3c9', // Custom border color
+                            borderWidth: '2px', // Custom border thickness
+                            color: '#06c3c9', // Ensure text color matches or complements the border
+                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            borderRadius: '5px', // Rounded corners for a modern look
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                            transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                            e.target.style.color = '#fff'; // Make text white on hover
+                            e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.color = '#06c3c9'; // Reset text color
+                            e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                          }}
+                        > 
+                Στείλε το μήνυμα
             </Button>
 
           </>
         )}
                <Modal show={showModalA} onHide={handleCloseModA} centered>
-                  <Modal.Header>
+                  <Modal.Header  className="modal-header-darkB">
                     <Modal.Title>Μήνυμα λάθους</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
+                  <Modal.Body  className="modal-body-dark">
                   Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.
                   </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModA}>
+                  <Modal.Footer className="modal-footer-dark">
+                    <Button className="modal-close-buttonB"
+                    onClick={handleCloseModA}>
                       Close
                     </Button>
                   </Modal.Footer>
                 </Modal>
-
 
       </Card>
     </div>

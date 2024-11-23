@@ -427,14 +427,14 @@ html, body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color:rgb(8, 6, 6);
+  background-color:rgb(8, 4, 4);
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 250px;
   text-align: center;
   font-size: 14px;
   color: #ffffff;
-  border-width: 3.5px;
+  border-width: 1px;
   font-size: 14px;
 }
 
@@ -444,13 +444,12 @@ html, body {
   align-items: center;
   margin: 0px;
   padding: 20px;
-  background-color:rgb(8, 6, 6);
-  border-radius: 12px;
+  background-color: rgb(8, 4, 4);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 340px;
   text-align: center;
   color: #ffffff;
-  border-width: 3px;
+  border-width: 1px;
   }
 
 .custom-placeholder::placeholder {
@@ -459,9 +458,8 @@ html, body {
 
 .custom-placeholderPQ::placeholder {
   color: rgb(5, 2, 2) !important;
-  font-Weight:bold;
+  font-Weight:bolder;
   font-Size: 1.0rem;
-  
 }
 
 .custom-placeholderPQ
@@ -487,6 +485,12 @@ html, body {
   position: relative; /* Ensure parent element positioning is correct */
 }
 
+
+.custom-placeholderM::placeholder {
+  color: rgb(5, 2, 2) !important;
+  font-Weight:bolder;
+  font-Size: 1.5rem;
+}
 
 /*------------------------------------------TTTTTTTTTTTTEEEEEEEEEEEEEEESTTTTTTTTTTTTTTTTTTTTTTTT----------------------------  */
 
@@ -607,15 +611,16 @@ html, body {
     justify-content: center; /* Center items vertically */
     align-items: center; /* Center items horizontally */
     gap: 1rem; /* Add space between items */
-   
+    
   }
 
   .card.customcardAlice1,
   .card.customcardBob1 {
-    width: 100%; /* Make cards take full width */
-    max-width: 300px; /* Optional: set a max width for better readability */
+    width: 110%; /* Make cards take full width */
+    max-width: 350px; /* Optional: set a max width for better readability */
     margin: 0 0 1rem 0; /* Add spacing between stacked cards */
     padding-top:10;  /* Remove margin */
+       
   }
 }
 
@@ -684,3 +689,94 @@ html, body {
 
 }
 
+/* General Modal Styles */
+/* General Modal Styles */
+.modal-header-dark {
+  background-color: rgb(5, 2, 2); /* Dark background for header */
+  color: #c22748; /* Vibrant text color for contrast */
+  border-bottom: 2px solid #c22748; /* Subtle border */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.modal-body-dark {
+  background-color:rgb(5, 2, 2); /* Dark background for body */
+  color: #f7f0f1; /* Vibrant text color */
+  font-size: 1.1rem;
+  padding: 1.5rem;
+  text-align: center;
+  border: none;
+}
+
+
+.modal-footer-dark {
+  background-color: rgb(5, 2, 2);
+  border-top: 2px solid #c22748; 
+  padding: 0.5rem;
+  text-align: right; 
+}
+
+/* Button Styling */
+.modal-close-button {
+  background-color: #c22748 !important; /* Vibrant button color */
+  color:rgb(5, 2, 2) !important; /* Dark text color for contrast */
+  border: 2px solid #c22748 !important; /* Matching border */
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: all 0.3s ease;
+}
+
+.modal-close-button:hover {
+  background-color: rgb(5, 2, 2)!important; /* Darker background on hover */
+  color: #c22748 !important; /* Inverted text color */
+  border: 2px solid #c22748 !important; /* Ensures border remains visible */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.modal-close-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(194, 39, 72, 0.5); /* Focus ring */
+}
+
+.modal-footer {
+
+  background-color: rgb(5, 2, 2) !important ;
+}
+
+
+
+
+.modal-close-buttonB{
+  background-color: #06c3c9 !important; /* Vibrant button color */
+  color:rgb(5, 2, 2) !important; /* Dark text color for contrast */
+  border: 2px solid #06c3c9 !important; /* Matching border */
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: all 0.3s ease;
+}
+
+.modal-close-buttonB:hover {
+  background-color: rgb(5, 2, 2)!important; /* Darker background on hover */
+  color: #06c3c9 !important; /* Inverted text color */
+  border: 2px solid #06c3c9 !important; /* Ensures border remains visible */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.modal-header-darkB{
+  background-color: rgb(5, 2, 2); /* Dark background for header */
+  color: #06c3c9; /* Vibrant text color for contrast */
+  border-bottom: 2px solid #06c3c9; /* Subtle border */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.modal-close-buttonB:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(31, 190, 183, 0.5); /* Focus ring */
+}

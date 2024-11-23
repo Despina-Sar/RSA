@@ -19,7 +19,7 @@
 .clarification-square {
     padding: 0.1rem;
     /*background-color: rgb(33, 37, 41);*/
-    background-color: rgb(15, 4, 4);
+    background-color: rgb(8, 4, 4);
     border: 1px solid hsl(0, 36%, 88%);
     border-radius: 8px;
     cursor: pointer;

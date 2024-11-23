@@ -286,13 +286,28 @@ const Test = () => {
           
     
           <li>
-             <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(4,145,141)'}}>Δημόσιο κλειδι (E,n):</span> </strong> <br />
-            Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
+             <strong><span  
+                style={{ 
+                   border:' 0px',
+                   padding:'2px 5px',
+                   boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+                   borderRadius: '8px',
+                   backgroundColor: 'rgb(4,145,141)'}}>
+                      Δημόσιο κλειδι (E,n):
+                </span> </strong> <br />
+                   Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
               Ε δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n).
           </li>
           <li>
 
-         <strong><span  style={{ border:' 0px',padding:'2px 5px',borderRadius: '8px',backgroundColor: 'rgb(138,4,17)'}}>Ιδιωτικό κλειδι (D,n):</span> </strong> <br />        
+         <strong><span  style={{
+           border:' 0px',
+           padding:'2px 5px',
+           borderRadius: '8px', 
+           boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+           backgroundColor: 'rgb(138,4,17)'}}>
+               Ιδιωτικό κλειδι (D,n):
+               </span> </strong> <br />        
           (D x E) mod (Φ(n)) = 1    
           </li>                     
       </ol> 

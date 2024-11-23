@@ -72,8 +72,8 @@ function App() {
                 <img
                   alt=""
                   src= {require('./images/favicon.png')}
-                  width="60"
-                  height="60"
+                  width="50"
+                  height="50"
                   className="d-inline-block align-top"
                   backgroundcolor= 'rgb(33, 37, 41)'
                 />{' '}
