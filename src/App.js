@@ -77,10 +77,7 @@ function App() {
                   className="d-inline-block align-top"
                   backgroundcolor= 'rgb(33, 37, 41)'
                 />{' '}
-                <h2>Home</h2>
-             
-        
-              
+          
               <Test/>
               <EducationalMain/>            
        

@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card';
 import {OverlayTrigger, Tooltip, Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
+import Confetti from 'react-confetti';
+
 
 const Educational = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
@@ -17,7 +19,9 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
   const [f, setF] = useState('');
   const [isFCorrect, setIsFCorrect] = useState(false);
 
-
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   // Handle the boy sending z to the girl
   const handleSendZ = () => {
@@ -45,6 +49,7 @@ const Educational = ({rsaValuess, updateRSAValues }) => {
   const[errors, setErrors] = useState({})
   const [showModalB, setShowModalB] = useState(false); 
   const [showModalA, setShowModalA] = useState(false); 
+  const [showModalE, setShowModalE] = useState(false); // Manage modal state
   const [factors, setFactors] = useState('');
   const [isZCorrect, setIsZCorrect] = useState(false);                              //from 7.11
 
@@ -212,6 +217,7 @@ const validateField = (field, value, updatedForm) => {
       setErrors(newErrors);
       break;
     case 'D':
+      validateD(field, value, updatedForm,newErrors);
       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
@@ -225,6 +231,7 @@ const validateField = (field, value, updatedForm) => {
       setErrors(newErrors);
       break;
     case 'CT':
+      handleSubmitCT(field, value,updatedForm,newErrors);
       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
@@ -570,6 +577,11 @@ const handleButtonClick = () => {
     // Call the onUnlockClick function since fields are filled
    //onUnlockClick();
     setIsFCorrect(true);
+    console.log("before 5sec");
+    setTimeout(() => {
+      setShowModalE(true);
+    }, 3000); // 5000ms = 5 seconds
+    console.log("after 5sec");
    //setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
   }
@@ -885,7 +897,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            isInvalid={!!errors.E}
                            disabled={locked}                           
                            style={{ 
-                            fontSize: '1.5rem', 
+                            fontSize: '1.2rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)' ,
                             backgroundColor: 'rgb(4,145,141)',
@@ -907,7 +919,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            isInvalid={!!errors.D}
                            disabled={locked}                           
                            style={{ 
-                            fontSize: '1.5rem', 
+                            fontSize: '1.2rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)',
                             backgroundColor: 'rgb(138,4,17)',
@@ -953,6 +965,43 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                           Στείλε το κλειδί
                         </Button>
 
+                       <div style={styles.receivedMessage}>
+                        {isZCorrect ? (
+                           <div>Περιμένει μήνυμα από την Alice</div>
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
+                      <br />
+
+                  <div style={styles.receivedMessage}>
+                        {isFCorrect ? (
+                          <>
+                            Έλαβε το κρυπτογραφημένο μήνυμα {form.CT}.  <br />
+                            <div>
+                        <Form.Control                          
+                              className="custom-placeholder"
+                              placeholder={`M = ${form.CT}${convertToSuperscript(form.D)} mod ${form.n} = ${form.M}`}
+                              style={{
+                                fontSize: '1.2rem',
+                                padding: '0.5rem 0.5rem',
+                                color: 'rgb(255, 255, 255)',
+                                backgroundColor: 'rgb(33,37,41)',
+                                fontWeight: 'bolder',
+                                border: '2px solid rgb(255, 255, 255)', // Default border
+                                transition: 'box-shadow 0.3s ease-in-out', // Smooth animation for the glow
+                                boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+                                 width:'60%',
+                                 Textalign:'center'
+                              }}                          
+                             /> </div> 
+                          </>
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
+                      <br />
+
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
                 <Modal.Header className="modal-header-dark">
@@ -971,6 +1020,29 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 </Modal.Footer>
               </Modal>
 
+
+
+
+              {showModalE && <Confetti colors={['rgb(4,145,141)','rgb(138,4,17)', '#000000']} />} {/* Blue and Black Confetti */}
+              <Modal
+                show={showModalE}
+                centered
+              >
+              <Modal.Header className="modal-header-dark">
+                  <Modal.Title>Συγχαρητήρια</Modal.Title>                
+                </Modal.Header>
+                <Modal.Body className="modal-body-dark">
+                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφισης RSA!
+                </Modal.Body>
+                <Modal.Footer className="modal-footer-dark">
+                  <Button
+                    className="modal-close-button"
+                    onClick={refreshPage}
+                  >
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
 
       </Card>
 
@@ -1102,7 +1174,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
                        disabled={locked}
-                       style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.5rem',color: 'rgb(0,0,0)'}}
+                       style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.2rem',color: 'rgb(0,0,0)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
                      {errors.M}
@@ -1116,11 +1188,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                      placeholder="CT"
                      value={form.CT ? `${PREFIX_MAP['CT']}=${form.CT}` : ''}
                     //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
-                     onChange={(e) => setField('CT', e.target.value)}
+                    onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
                      disabled={locked}
                      style={{
-                      fontSize: '1.5rem',
+                      fontSize: '1.2rem',
                       padding: '0.5rem 0.5rem',
                       color: 'rgb(255, 255, 255)',
                       backgroundColor: 'rgb(33,37,41)',
@@ -1282,7 +1354,7 @@ const styles = {
   },
   receivedMessage: {
     marginTop: '10px',
-    fontSize: '13px',
+    fontSize: '14px',
     color:'rgb(255, 255, 255)',
     backgroundColor: 'rgb(8, 6, 6)',
    
