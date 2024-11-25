@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/RSA/static/css/main.333b4dce.css",
-    "main.js": "/RSA/static/js/main.fc0fedbd.js",
+    "main.css": "/RSA/static/css/main.f24f32b3.css",
+    "main.js": "/RSA/static/js/main.7d55d686.js",
     "static/js/787.e447063f.chunk.js": "/RSA/static/js/787.e447063f.chunk.js",
     "static/media/up_2017_logo_gr_grey.jpg": "/RSA/static/media/up_2017_logo_gr_grey.dc1f4ae59603cfb335a8.jpg",
-    "static/media/pp.jpg": "/RSA/static/media/pp.9f50c18ed87d3cbc376c.jpg",
     "static/media/RSA_Visual.png": "/RSA/static/media/RSA_Visual.4c5acd14b048368274af.png",
     "static/media/ceidlogo.PNG": "/RSA/static/media/ceidlogo.b2dcdf875a01b42998d8.PNG",
+    "static/media/RSA_Visual1.png": "/RSA/static/media/RSA_Visual1.1ba534f111ffeb2d1d22.png",
     "index.html": "/RSA/index.html",
-    "main.333b4dce.css.map": "/RSA/static/css/main.333b4dce.css.map",
-    "main.fc0fedbd.js.map": "/RSA/static/js/main.fc0fedbd.js.map",
+    "main.f24f32b3.css.map": "/RSA/static/css/main.f24f32b3.css.map",
+    "main.7d55d686.js.map": "/RSA/static/js/main.7d55d686.js.map",
     "787.e447063f.chunk.js.map": "/RSA/static/js/787.e447063f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.333b4dce.css",
-    "static/js/main.fc0fedbd.js"
+    "static/css/main.f24f32b3.css",
+    "static/js/main.7d55d686.js"
   ]
 }
