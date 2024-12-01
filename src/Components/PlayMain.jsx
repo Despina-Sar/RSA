@@ -1,15 +1,13 @@
 
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import { Row, Col,Button } from 'react-bootstrap';
 import { RSAProvider } from './RSAContext.jsx';
-import Educational from './Educational';
+import Play from './Play';
 import EndModal from './EndModal';  // Import Component B
 
 
 
 
-function EducationalMain(){
+function PlayMain(){
 
 
 const [isAliceBlurred, setIsAliceBlurred] = useState(true);
@@ -61,27 +59,13 @@ return (
   <RSAProvider>
         
                
-          <Educational rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
+          <Play rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           
              <EndModal showModal={showModal} />
   </RSAProvider>
 );
 
 }
-export default EducationalMain;
-{/*
+export default PlayMain;
 
 
-
-const EducationalMain = () => {
-  return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Welcome to Component One</h2>
-      <p>This is the content for Component One.</p>
-    </div>
-  );
-};
-
-export default EducationalMain;
-
-*/}

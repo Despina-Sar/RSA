@@ -2,22 +2,33 @@ import React from 'react';
  import './index.css';
 import NavBar from './Components/NavBar'
 //import Footer from './Components/Footer'
-import Home from './Components/Home'
+
 import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Link
 } from "react-router-dom";
 import {HashRouter} from "react-router-dom";
 import Demo from './Components/Demo';
 import Training from './Components/Training';
 import Real from './Components/Real';
 import EducationalMain from './Components/EducationalMain';
+import HowTo from './Components/HowTo';
+import PlayMain from './Components/PlayMain';
 import Test from './Components/Test';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container,Button } from 'react-bootstrap';
+
+import Test1 from "./Components/test1"; // Adjust the path as needed
+import FancyHome from "./Components/FancyHome"; 
+
+import { useRoutes } from "react-router-dom";
+
+
+
+
 
 {/*
-
 
 function App() { 
  return (
@@ -27,13 +38,14 @@ function App() {
 <div  className="background-container">
    
 
-     <HashRouter>
+     {/*<HashRouter>
         <div className="App">
            <NavBar/>
       
             <div className="content">
             <Test/>
-            
+            <EducationalMain/>
+            {/*
               <Routes>
                 <Route path="/" element={<Home/>}/> 
                 <Route path="/Demo" element={<Demo/>}/>
@@ -42,9 +54,11 @@ function App() {
                 <Route path="/Real" element={<Real/>}/>       
                 <Route path="/Test" element={<Test/>}/>                            
              </Routes>
+
+           
             </div>
         </div>      
-      </HashRouter>
+     {/* </HashRouter>
     
 
      </div>
@@ -55,20 +69,13 @@ function App() {
 }
 export default App;
 
- */}
 
 
-function App() { 
-  return (
-  
- 
-   
- <div  className="background-container">
-      <div className="App">    
-           
-       
+*/}
+
+
           
-           
+           {/*
                 <img
                   alt=""
                   src= {require('./images/favicon.png')}
@@ -79,18 +86,122 @@ function App() {
                 />{' '}
           
               <Test/>
-              <EducationalMain/>            
-       
-          
-         </div>      
-  
-     
- 
-      </div>
-    
- 
+              <EducationalMain/>       
+       */}
+
+
+
+function App() { 
+
+
+  return (  
+    <div  className="background-container">
+
+    <Router>
+    <Container className="app-container">
+      <Row className="align-items-center justify-content-center vh-100">
+
+        <Col md={6} className="text-center app-left">
+          <div>
+          <img
+                  alt=""
+                  src= {require('./images/favicon.png')}
+                  width="150"
+                  height="150"
+                  className="d-inline-block align-top"
+                  backgroundcolor= 'rgb(33, 37, 41)'
+                />
+            <h1 className="app-name">RSA Educational App</h1>
+          </div>
+        </Col>
         
-   );  
- }
+   
+        <Col md={6} className="text-center app-right">
+          <div>
+            <Row className="mb-3">
+            <Link to="/HowTo">
+              <Button
+                 style={{
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#06c3c9', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#06c3c9', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'70%'   
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#06c3c9'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}
+              > 
+                Πως, που, πότε
+              </Button>
+            </Link>
+            </Row>
+            <Row>
+            <Link to="/PlayMain">
+              <Button 
+                style={{
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#c22748', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#c22748', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'70%'                 
+
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}
+              >
+                Ξεκίνα το παιχνίδι!
+              </Button>
+            </Link>
+            </Row>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+
+
+    <Routes>
+      <Route path="/PlayMain" element={<PlayMain />} />
+      <Route path="/HowTo" element={<HowTo />} />
+    </Routes>
+    </Router>
+
+    </div>
+
+
+
+
+  );
+}
+
+
  export default App;
 
+ 

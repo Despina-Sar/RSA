@@ -1,24 +1,24 @@
-//Check Bob 84:  console.log('errors ' +newErrors);
+
 
 /* 
 TO DO
-Edit training, create mock up plan
-FINAL
+Bilingual
+When Why text
+Overall text
+How to card adjustment
+How to card responsive
+Play card Offcanvas with old 3 squares on top - desktop
+Play card Offcanvas with old 3 squares- mobile
+Play card adjustment
+Play card responsive
+Home screen redirection
+Overall mobile adjustment
+Visual
+
 */
 
 
 /* 
 COMPLETED:
-Check when I edit previous value, recalculate everything : only on Bob
-on button click-> Lock all form Controls
-End Demo section until 20.10
-!!STARTED Edit to Greek
-restart button
-Check error messages to greek
-Check alignment
-Update font
-Update reallife card
-Reset state on modal close
-Lock buttons in case of empty values
-Update Offcanvas text 
+
 */

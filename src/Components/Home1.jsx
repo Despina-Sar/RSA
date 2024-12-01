@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-function Home(){
+function Home1(){
 return(
   
       <header style={{ display: 'block', textAlign: 'center', fontSize: '15px', maxWidth: '95%', marginTop: '60px'}}>

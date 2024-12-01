@@ -1,0 +1,158 @@
+/* Clarifications container */
+.howto-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    width: 65%;
+   
+    
+}
+
+.howto-info.card {
+   
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(8, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: left; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    height: 110px; 
+    margin:5px;
+    padding: 10px;
+}
+
+.howto-steps.card {
+   
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(8, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: left; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    height: 90px; 
+    margin:5px;
+    padding: 10px;
+    
+}
+
+
+
+.howto-how.card {
+   
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(8, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: left; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    height: 300px; 
+    margin:5px;
+    padding: 10px;
+}
+
+.howto-cardvisual.card {
+   
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(8, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: left; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    height: 230px;
+    margin:5px;
+    padding: 10px;
+}
+.howto-decr.card {
+   
+    /*background-color: rgb(33, 37, 41);*/
+    background-color: rgb(8, 4, 4);
+    border: 1px solid hsl(0, 36%, 88%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack title and content vertically */
+    align-items: left; /* Center title horizontally */
+    justify-content: flex-start; /* Align items to the top vertically */
+    height: 120px;
+    margin:5px;
+    padding: 10px;
+}
+
+.my-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff5a6d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .my-close-btn:hover {
+    background-color: #ff758c;
+  }
+
+@media (max-width: 1290px) {
+   
+    .howto-container {
+        display: flex;
+        flex-direction: column;
+         margin-top: 5%;
+        width: 75%;
+        
+    }
+
+    .howto-info.card {
+       
+        /*background-color: rgb(33, 37, 41);*/
+        background-color: rgb(8, 4, 4);
+        border: 1px solid hsl(0, 36%, 88%);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column; /* Stack title and content vertically */
+        align-items: left; /* Center title horizontally */
+        justify-content: flex-start; /* Align items to the top vertically */
+        height: 190px; 
+        margin:10px;
+        padding: 10px;
+    }
+    
+    .howto-steps.card {
+   
+        /*background-color: rgb(33, 37, 41);*/
+        background-color: rgb(8, 4, 4);
+        border: 1px solid hsl(0, 36%, 88%);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column; /* Stack title and content vertically */
+        align-items: left; /* Center title horizontally */
+        justify-content: flex-start; /* Align items to the top vertically */
+        height: 120px; 
+        margin:10px;
+        padding: 10px;
+    }
+    
+}
