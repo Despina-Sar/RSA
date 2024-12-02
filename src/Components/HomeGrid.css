@@ -1,0 +1,158 @@
+/* App.css */
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Default layout with 2 columns */
+    grid-gap: 20px; /* Space between cards */
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: no;
+    grid-template-rows: auto auto auto auto auto; /* For 5 rows */
+  }
+  
+  /* Full-width card that spans both columns */
+  .card.full-width {
+    grid-column: span 2; /* This will make the card span across both columns */
+  }
+  
+  /* Styling for individual cards */
+  .card {
+    background-color: rgb(8, 4, 4) !important;
+    border: 1px solid hsl(0, 36%, 88%);
+    padding: 20px;
+    
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+     transition: all 0.3s ease;
+     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+
+  /* Card Title - Fancy */
+.card-title {
+    font-size: 1.2rem; /* Larger title */
+    font-weight: bold;
+    color:rgb(250, 230, 230); /* Bright orange color */
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.199); /* Add shadow for depth */
+    margin: 0; /* Remove default margin */
+    letter-spacing: 0.6px; /* Slight spacing between letters */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+
+
+  }
+  
+  /* Card Title Hover Effect */
+  .card-title:hover {
+    color: #bebbb7; /* Change color on hover */
+  }
+
+
+  /* Card Description - Text Style */
+.card-description {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #bbb; /* Lighter gray for description */
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-align: justify; /* Justify text for a clean look */
+  }
+
+
+  /* Fancy Button Styling */
+.custombutton {
+    padding: 0.2rem 0.2rem;
+    background-color:rgb(8, 4, 4) !important; /* Dark background */
+    color: #c22748;
+    font-Weight: bold;
+    border-color:#c22748 !important;
+    border-width: 2px ;
+    border: 2px solid #333; /* Same color as background */
+    border-radius: 5px; /* Rounded edges */
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 25%;
+    min-width: 130px;
+    font-weight: bold;
+    letter-spacing: 1px; /* Letter spacing */
+    position: relative; /* To position glow effect */
+    overflow: hidden; /* Ensures glow is contained inside button */
+    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+    box-shadow:0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+
+  
+  
+  .my-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff5a6d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .my-close-btn:hover {
+    background-color: #ff758c;
+  }
+
+
+  /* Media Queries */
+  
+  /* For screens smaller than 1200px, use 1 card per row */
+  @media (max-width: 1200px) {
+    .grid-container {
+      grid-template-columns: 1fr; /* 1 card per row */
+    }
+  
+    .card.full-width {
+      grid-column: span 1; /* Make full-width cards not span two columns on smaller screens */
+    }
+  }
+  
+  /* For screens smaller than 768px, make the card and button slightly smaller */
+  @media (max-width: 768px) {
+    .grid-container {
+      width: 90%;
+    }
+
+    .custombutton {
+        font-size: 16px; /* Smaller font size */
+        padding: 10px 25px; /* Slightly smaller padding */
+      }
+  
+    .card {
+      padding: 15px;
+    }
+  
+  }
+  
+  /* For very small screens, adjust card spacing and button size */
+  @media (max-width: 480px) {
+    .grid-container {
+      width: 100%;
+    }
+  
+    .card {
+      padding: 10px;
+    }
+  
+    .custombutton {
+      padding: 6px;
+      font-size: 12px;
+    }
+  }
+  

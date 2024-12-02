@@ -15,6 +15,7 @@ import Training from './Components/Training';
 import Real from './Components/Real';
 import EducationalMain from './Components/EducationalMain';
 import HowTo from './Components/HowTo';
+import HomeGrid from './Components/HomeGrid';
 import PlayMain from './Components/PlayMain';
 import Test from './Components/Test';
 import { Row, Col, Container,Button } from 'react-bootstrap';
@@ -119,7 +120,7 @@ function App() {
         <Col md={6} className="text-center app-right">
           <div>
             <Row className="mb-3">
-            <Link to="/HowTo">
+            <Link to="/HomeGrid">
               <Button
                  style={{
                   fontSize: '1rem', // Slightly larger font for better readability
@@ -163,8 +164,7 @@ function App() {
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  width:'70%'                 
-
+                  width:'70%'   
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -189,7 +189,7 @@ function App() {
 
     <Routes>
       <Route path="/PlayMain" element={<PlayMain />} />
-      <Route path="/HowTo" element={<HowTo />} />
+      <Route path="/HomeGrid" element={<HomeGrid />} />
     </Routes>
     </Router>
 

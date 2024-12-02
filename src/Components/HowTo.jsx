@@ -174,7 +174,7 @@ return (
         <div className="my-close-btn" onClick={hideCard2}>
             X
           </div>        
-          <ol>
+    <ol>
         
         <li>
           <strong><span  
@@ -288,7 +288,8 @@ return (
            </div>
            </>
             <Button    
-            onClick={showCard3}                   
+            onClick={showCard3}
+                           
             style={{
             fontSize: '0.9rem', // Slightly larger font for better readability
             padding: '0.2rem 0.2rem', // Adjusted padding for a balanced look
@@ -327,7 +328,7 @@ return (
         Παραδειγμα 
         </Card.Title>                    
         <>              
-           
+    
         <div className="my-close-btn" onClick={hideCard3}>
             X
           </div>       
