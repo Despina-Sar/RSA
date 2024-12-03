@@ -77,12 +77,28 @@
         font-Size: 1.5rem;
       }
       
+      .my-play-btn {
+        position: absolute;
+        top: 280px;
+        right: 950px;
+        background-color:  #c22748;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+      .my-play-btn:hover {
+        background-color: #ff758c;
+      }
+    
 
-@media (max-width: 1490px) {
+@media (max-width: 780px) {
 
 .card.customcardAlicePlay,
 .card.customcardBobPlay {
-  width: 130%; /* Make cards take full width */
+  width: 100%; /* Make cards take full width */
   max-width: 500px; /* Optional: set a max width for better readability */
   margin: 0 0 1rem 0; /* Add spacing between stacked cards */
   padding-top:10;  /* Remove margin */

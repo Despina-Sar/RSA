@@ -100,6 +100,7 @@ function App() {
 
     <Router>
     <Container className="app-container">
+     
       <Row className="align-items-center justify-content-center vh-100">
 
         <Col md={6} className="text-center app-left">

@@ -27,21 +27,23 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
     <div className="grid-container">
     <div className="card full-width">
       <div className="card-content">
-        <h6>Πληροφορίες για τον RSA</h6>
-        <p>Algorithmos kruptografhshs me xrhsh dhmosiou kleidiou - RSA apo Ronald Rivest, Adi Shamir, και Leonard Adleman [1978]
+       <h2 className="card-title">Πληροφορίες για τον RSA</h2>
+        <p className="card-description">
+            Algorithmos kruptografhshs me xrhsh dhmosiou kleidiou - RSA apo Ronald Rivest, Adi Shamir, και Leonard Adleman [1978]
         asymmetric encryption algorithm - Asymmetric encryption  ανταλλαγή κλειδιού
         Ο αλγόριθμος Diffie-Hellman [1976] χρησιμοποιείται για ανταλλαγή κλειδιού σε έναν κύκλο επικοινωνίας</p>  
       </div>
     </div>
     <div className="card full-width">
       <div className="card-content">
-      <h6>Εφαρμογή RSA: Στάδιο Ι</h6>
-      <p>  Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το στείλει στην Alice.</p>
+      <h2 className="card-title">Εφαρμογή RSA: Στάδιο Ι</h2>
+      <p className="card-description">
+        Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το στείλει στην Alice.</p>
       </div>
     </div>
     <div className="card">
       <div className="card-content">
-       <h6>Βήματα</h6>
+      <h2 className="card-title">Βήματα</h2>
             <ol>
                 
                 <li>
@@ -124,7 +126,8 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
   {isCard2Visible && (
     <div className="card">
       <div className="card-content">
-        <h6> Παράδειγμα </h6>
+      <h2 className="card-title">Παράδειγμα</h2>
+      
         <div className="my-close-btn" onClick={hideCard2}>
             X
           </div>  
@@ -198,16 +201,12 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
  )}
     <div className="card full-width">
       <div className="card-content">
-        <h2 className="card-title">Card 7 Title</h2>
-        <h6>Εφαρμογή RSA: Στάδιο ΙΙ</h6>
-        <p> Η Alice λαμβάνει το δημόσιο κλειδί του, κρυπτογραφεί το μήνυμα της και το στέλνει στον Bob.
-        O Bob χρησιμοποιεί το ιδιωτικό κλειδί του και αποκρυπτογραφεί το μήνυμα.
-        </p>
-
-        <p className="card-description">
-            This is a description for card 7. Add a short paragraph or some interesting facts about the card.
+       <h2 className="card-title">Εφαρμογή RSA: Στάδιο ΙΙ</h2>
+         <p className="card-description">
+         Η Alice λαμβάνει το δημόσιο κλειδί του, κρυπτογραφεί το μήνυμα της και το στέλνει στον Bob.
+         O Bob χρησιμοποιεί το ιδιωτικό κλειδί του και αποκρυπτογραφεί το μήνυμα.
           </p>
-          
+
        </div>
     </div>
         <div className="card full-width">
@@ -225,8 +224,8 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
 
     <div className="card">
       <div className="card-content">
-        <h6>RSA κρυπτογραφηση & αποκρυπτογράφιση</h6>
-        <p>
+      <h2 className="card-title">RSA κρυπτογραφηση & αποκρυπτογράφιση</h2>
+          <p className="card-description">
                 Κρυπτογραφημένο μήνυμα: CT = M<sup>E</sup> mod n
                 <br/> 
                 Αποκρυπτογραφημένο μήνυμα: M = CT<sup>D</sup>mod n
@@ -249,16 +248,16 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
     {isCard3Visible && (
     <div className="card">
       <div className="card-content">
-      <h6>Παράδειγμα</h6>
-      <div className="my-close-btn" onClick={hideCard3}>
+      <h2 className="card-title">Παράδειγμα</h2>
+          <div className="my-close-btn" onClick={hideCard3}>
             X
           </div>       
-          <div>
+          <p className="card-description">
                 Κρυπτογραφημένο μήνυμα του 2 : CT = 2<sup>7</sup>mod 33 = 29
                 <br/> 
                 Αποκρυπτογραφημένο μήνυμα: M = 29<sup>3</sup> mod 33 = 2
                 <br/>
-           </div>
+                </p>
        </div>
     </div>
     )}

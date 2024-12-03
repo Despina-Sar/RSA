@@ -111,7 +111,7 @@
     background-color: #ff758c;
   }
 
-@media (max-width: 1290px) {
+@media (max-width: 780px) {
    
     .howto-container {
         display: flex;

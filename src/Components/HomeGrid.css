@@ -23,7 +23,8 @@
     background-color: rgb(8, 4, 4) !important;
     border: 1px solid hsl(0, 36%, 88%);
     padding: 20px;
-    
+
+
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -41,7 +42,7 @@
 
   /* Card Title - Fancy */
 .card-title {
-    font-size: 1.2rem; /* Larger title */
+    font-size: 1.0rem; /* Larger title */
     font-weight: bold;
     color:rgb(250, 230, 230); /* Bright orange color */
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.199); /* Add shadow for depth */
@@ -62,7 +63,7 @@
 .card-description {
     font-size: 1em;
     line-height: 1.6;
-    color: #bbb; /* Lighter gray for description */
+    color:  #bebbb7; /* Lighter gray for description */
     margin: 0;
     letter-spacing: 0.5px;
     text-align: justify; /* Justify text for a clean look */
@@ -97,7 +98,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #ff5a6d;
+    background-color:  #c22748;
     color: white;
     padding: 5px 10px;
     border-radius: 50%;
@@ -113,7 +114,7 @@
   /* Media Queries */
   
   /* For screens smaller than 1200px, use 1 card per row */
-  @media (max-width: 1200px) {
+  @media (max-width: 780px) {
     .grid-container {
       grid-template-columns: 1fr; /* 1 card per row */
     }
@@ -131,11 +132,14 @@
 
     .custombutton {
         font-size: 16px; /* Smaller font size */
-        padding: 10px 25px; /* Slightly smaller padding */
+        padding: 0.2rem 0.2rem; /* Slightly smaller padding */
+        min-width: 50%;
       }
   
     .card {
       padding: 15px;
+      width: 100%; /* Ensure cards are full-width */
+      max-width: none; 
     }
   
   }

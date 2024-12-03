@@ -6,7 +6,7 @@ import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import Confetti from 'react-confetti';
 import './Play.css';
-
+import Test from './Test.jsx';
 
 const Play = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
@@ -533,7 +533,7 @@ const handleButtonClick = () => {
     console.log("before 5sec");
     setTimeout(() => {
       setShowModalE(true);
-    }, 1000000); // 5000ms = 5 seconds
+    }, 5000); // 5000ms = 5 seconds
     console.log("after 5sec");
    //setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
@@ -648,7 +648,13 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 
   return (
+
+    <div>
+   <Test/>
+      
+   
     <div className="Main">
+
       {/* Boy's card with inputs and z calculation */}
       <Card style={{ borderColor: '#c22748' }}  className="customcardBobPlay">
          
@@ -757,7 +763,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            isInvalid={!!errors.E}
                            disabled={locked}                           
                            style={{ 
-                            fontSize: '1.2rem', 
+                            fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)' ,
                             backgroundColor: 'rgb(4,145,141)',
@@ -779,7 +785,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            isInvalid={!!errors.D}
                            disabled={locked}                           
                            style={{ 
-                            fontSize: '1.2rem', 
+                            fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)',
                             backgroundColor: 'rgb(138,4,17)',
@@ -1000,6 +1006,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
      
       </div>
 
+       
       {/* Girl's card with inputs and f calculation */}
       <Card style={{ borderColor: '#06c3c9' }}  className="customcardAlicePlay">
 
@@ -1118,6 +1125,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 </Modal>
 
       </Card>
+      <div className="my-play-btn" >
+            X
+          </div>  
+
+    
+    </div>
     </div>
   );
 };
