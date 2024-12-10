@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import './Test.css';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 
 {/*}
@@ -337,6 +343,12 @@ const Test = () => {
     }
   ];
 
+
+
+
+
+
+
   const toggleSection = (id) => {
     setExpandedSection(expandedSection === id ? null : id);
   };
@@ -348,9 +360,13 @@ const Test = () => {
   return (
     <div className="clarifications-container">
       {isMobile && (
+        <Navbar  className="Nav" style={{height:'70px'}}>
+       
         <button onClick={toggleDropdown} className="dropdown-toggle">
           <i class="bi bi-list"></i>
         </button>
+
+        </Navbar>
       )}
       <div className={`clarifications ${isMobile && !isDropdownOpen ? 'hidden' : ''}`}>
         {clarifications.map((clarification) => (

@@ -1,0 +1,81 @@
+/* General container styling */
+.clarifications-navbar {
+    margin-top: 20px;
+    background-color: #354747;
+  }
+  
+  /* Navbar brand styling */
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color:  #ce3d38;
+  }
+  
+  /* Nav link styling */
+  .nav-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #ce3d38;
+  }
+  .col-menu{
+    background: none !important;
+    background-color: none !important;
+  }
+
+  .nav-link.active {
+    color: #fff;
+    background-color: #ce3d38;
+    border-radius: 5px;
+  }
+  
+  .nav-link:hover {
+    color: #fff;
+    background-color: #ce3d38;
+  }
+  
+  /* Content container */
+  .clarification-content {
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #1a1212;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Content title */
+  .clarification-content h4 {
+    margin-bottom: 20px;
+    color:  #ce3d38;
+    font-size: 1.6rem;
+  }
+  
+  /* Highlighted boxes in content */
+  .highlight-box {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f3dbdb;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .shadow-box {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    background-color: #3a5a59;
+    color: white;
+  }
+  
+  .red-box {
+    background-color: #8a0411;
+    color: white;
+  }
+  
+  /* Image container */
+  .image-container img {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  

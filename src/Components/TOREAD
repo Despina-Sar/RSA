@@ -3,19 +3,11 @@
 /* 
 TO DO
 Bilingual
-p validation
-only num validation
-number limit validation
-When Why text
-Overall text
-How to card adjustment
-How to card responsive
 Play card Offcanvas with old 3 squares on top - desktop
 Play card Offcanvas with old 3 squares- mobile
-Play card adjustment
-Play card responsive
-Home screen redirection
 Overall mobile adjustment
+When Why text
+Overall text
 Visual
 
 */
@@ -25,5 +17,11 @@ Visual
 COMPLETED:
 How to card adjustment
 How to card responsive
+p validation
+number limit validation
+Play card adjustment
+Play card responsive
+only num validation
+Home screen redirection
 
 */

@@ -1,6 +1,7 @@
 import React from "react";
 import "./HomeGrid.css";
 import { useState } from 'react';
+import NavigateButton from './NavigateButton.jsx'; 
 
 const HomeGrid = () => {
 
@@ -26,6 +27,8 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
   return (
     <div className="grid-container">
     <div className="card full-width">
+    <NavigateButton to="/PlayMain" label="Start the Game" />  
+    <NavigateButton to="/" label="Home" />  
       <div className="card-content">
        <h2 className="card-title">Πληροφορίες για τον RSA</h2>
         <p className="card-description">
@@ -251,7 +254,8 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
       <h2 className="card-title">Παράδειγμα</h2>
           <div className="my-close-btn" onClick={hideCard3}>
             X
-          </div>       
+          </div>     
+          
           <p className="card-description">
                 Κρυπτογραφημένο μήνυμα του 2 : CT = 2<sup>7</sup>mod 33 = 29
                 <br/> 

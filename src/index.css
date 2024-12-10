@@ -531,7 +531,7 @@ html, body {
 }
 
 /* Mobile background */
-@media (max-width: 780px) {
+@media (max-width: 1000px) {
   .background-container {
     /*background-image: url('./backround_mobile.jpg'); /* Mobile background */
     background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(110, 98, 98) 40%, rgb(189, 162, 171) 100%);

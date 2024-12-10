@@ -1,12 +1,16 @@
 
 import React, { useState,useContext,useRef,useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import {Modal,Form,Button, Row, Col } from 'react-bootstrap';
+import {Modal,Form,Button, Row, Col, Navbar } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import Confetti from 'react-confetti';
 import './Play.css';
 import Test from './Test.jsx';
+import NavigateButton from './NavigateButton.jsx'; 
+
+
+
 
 const Play = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
@@ -141,6 +145,7 @@ const validateField = (field, value, updatedForm) => {
       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
+      setErrors(newErrors);
        break;
     case 'q':
       validateQ(field, value,updatedForm,newErrors);
@@ -175,8 +180,6 @@ const validateField = (field, value, updatedForm) => {
       */}
     case 'E':
        validateE(field, value, updatedForm,newErrors);
-       if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-       if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
        if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
        if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
        if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
@@ -184,9 +187,7 @@ const validateField = (field, value, updatedForm) => {
       break;
     case 'D':
       validateD(field, value, updatedForm,newErrors);
-      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
+       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
       setErrors(newErrors);
@@ -198,8 +199,6 @@ const validateField = (field, value, updatedForm) => {
       break;
     case 'CT':
       handleSubmitCT(field, value,updatedForm,newErrors);
-      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
@@ -212,23 +211,6 @@ const validateField = (field, value, updatedForm) => {
 
 
 
-  const validateAllValues=(updatedForm, newErrors)=> {
-   const n=updatedForm.n;
-   const fn=updatedForm.fn;
-   const E=updatedForm.E;
-   const D=updatedForm.D;
-   const CT=updatedForm.CT;
-   const M=updatedForm.M;;
-
-    if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-    if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-    if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-    if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-    if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
-    if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-
-  };
-  
 
 
 //-----------------------------------handle submit only for P-------------------------------------------
@@ -240,12 +222,22 @@ const validateP = (field, value, form,newErrors) =>{
    //-validation for p == prime
    if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
    else{
-    if (!isPrime(p)) {
-      newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
-      }
-    else {
-     delete newErrors.p; // Clear error if validation passes
+    if (/^\d*$/.test(p)) { // Allows only digits
+      const numericValue = Number(p);
+      if (numericValue >= 0 && numericValue <= 100) {
+
+         if (!isPrime(p)) { newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';}   
+         else {
+          delete newErrors.p; // Clear error if validation passes
+          handleInputChange('fn',(form.p -1) * (form.q-1));          
+      }  
+      }else 
+        {  newErrors.p = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+          }
     }
+    else 
+        {  newErrors.p = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες';
+          }
    }
  }
 
@@ -259,20 +251,29 @@ const validateP = (field, value, form,newErrors) =>{
   //validation for q == prime
     if (q === undefined || q === '') {newErrors.q = 'Το πεδίο είναι κενό'}
     else{ 
-      if (!isPrime(q)) {
-       
-        newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';
-       
-      } else {
-       delete newErrors.q; // Clear error if validation passes
-       handleInputChange('fn',(form.p -1) * (form.q-1));
-     
-   }
+
+      if (/^\d*$/.test(q)) { // Allows only digits
+        const numericValue = Number(q);
+        if (numericValue >= 0 && numericValue <= 100) {
+
+           if (!isPrime(q)) { newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';}   
+           else {
+            delete newErrors.q; // Clear error if validation passes
+            handleInputChange('fn',(form.p -1) * (form.q-1));          
+        }  
+        }else 
+          {  newErrors.q = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+            }
+      }
+      else 
+          {  newErrors.q = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες';
+            }
   }          
 }
 
 
 
+/*
 //---------------------------------handle submit only for n -------------------------------------------
 const validateN = (field, value, form,newErrors) =>{
   const{p,q,n}= form
@@ -311,7 +312,7 @@ const validateFn = (field, value, form,newErrors) =>{
    }
  }  
 }
-
+*/
 
 //----------------------------------------handle submit only for E---------------------------------------------
 
@@ -550,17 +551,19 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       //e.preventDefault()
       let{M}= form
       console.log("Inside M validation " +M);
-              if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
+      if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
       else{ 
-          // Check if E and phi(N) are positive integers
-          M=Number(M);
-          if(M < 0){
-            newErrors.M = 'M πρέπει να είναι μεγαλύτερο του 0'
-            console.log("M πρέπει να είναι μεγαλύτερο του 0");
-         }
-         else {
-          delete newErrors.M; // Clear error if validation passes
-         }
+
+        if (/^\d*$/.test(M)) { // Allows only digits
+          const numericValue = Number(M);
+          if (numericValue >= 0 && numericValue <= 100) {
+            delete newErrors.M; // Clear error if validation passes          
+
+          }else 
+          {  newErrors.M = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+            }
+        } else 
+        {  newErrors.M = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες'; }
         }     
       }
   
@@ -585,6 +588,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
         console.log('M: '+ M )
         console.log( 'E: '+E )
         console.log('n: '+n)
+
+
         let encryptedMessage = rsaEncrypt(Number(M) , E , n);
         console.log("Encrypted Message (C):", encryptedMessage);
   
@@ -649,10 +654,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
   return (
 
-    <div>
-   <Test/>
-      
-   
+   <div>
+    
+    <Test/>
+    <br/>
+    <NavigateButton to="/PlayMain" label="Start the Game" /> 
+    <NavigateButton to="/" label="Home" />  
+    <br/>
+
     <div className="Main">
 
       {/* Boy's card with inputs and z calculation */}
@@ -667,9 +676,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                </Card.Title><br /> 
     <Row className="mb-3">
             <Col>
-              Επίλεξε δύο πρώτους αριθμούς <br/> P και Q
+              Επίλεξε δύο πρώτους αριθμούς
            </Col>        
-            <Col xs={3}>
+            <Col xs={4}>
                 <Form.Control
                     className="custom-placeholderPQPlay"
                     placeholder="P"
@@ -683,7 +692,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     {errors.p}
                 </Form.Control.Feedback>          
          </Col>
-         <Col xs={3}>
+         <Col xs={4}>
                 <Form.Control
                 className="custom-placeholderPQPlay"
                     placeholder="Q"
@@ -756,7 +765,6 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                       <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
-                           type="integer"
                            placeholder="Επίλεξε το E"
                            value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
@@ -778,7 +786,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                       <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
-                           type="integer"
+                          
                            placeholder="Υπολόγισε το D"
                            value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
@@ -1048,7 +1056,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
             <Row className="mb-3">
                 <Col>
-                  Υπολόγησε το κρυπτογραφημένο μήνυμα του {form.M}
+                 Υπολόγισε το κρυπτογραφημένο μήνυμα του {form.M}
                 </Col>
                  <Col xs={4}>                                
                  <Form.Control                          
@@ -1125,9 +1133,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 </Modal>
 
       </Card>
-      <div className="my-play-btn" >
-            X
-          </div>  
+     
 
     
     </div>
