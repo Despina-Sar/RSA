@@ -92,7 +92,7 @@ export default App;
 
 function App() {
   return (
-    <Router>
+    <Router  basename="/RSA">
       <div className="background-container">
         <Routes>
           {/* Main Screen Route */}
@@ -183,13 +183,20 @@ function App() {
             }
           />
      
-         <Route path="/HomeGrid" element={<HomeGrid />} />
+       {/*  <Route path="/HomeGrid" element={<HomeGrid />} />
         <Route path="/PlayMain" element={<PlayMain />} />
-        {/* Redirect `/RSA` to `/` */}
+      
         <Route path="/RSA" element={<Navigate to="/" />} />
-        {/* Optional Catch-All Redirect */}
+      
         <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        */}
+        <Route path="/" element={<HomeGrid />} />
+      <Route path="/HomeGrid" element={<HomeGrid />} />
+      <Route path="/PlayMain" element={<PlayMain />} />
+      <Route path="/RSA" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
       </div>
     </Router>
   );
