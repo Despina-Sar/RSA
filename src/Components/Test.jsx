@@ -8,8 +8,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import "bootstrap/dist/css/bootstrap.min.css";
-
-
+import NavigateButton from './NavigateButton.jsx';
+import {Button} from 'react-bootstrap';
 
 {/*}
 import React, { useState } from 'react';
@@ -301,8 +301,8 @@ const Test = () => {
                    backgroundColor: 'rgb(4,145,141)'}}>
                       Δημόσιο κλειδι (E,n):
                 </span> </strong> <br />
-                   Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
-              Ε δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n).
+              Ε δεν έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
+              Ε δεν είναι πολλαπλάσιο των παραγόντων του Φ(n).
           </li>
           <li>
 
@@ -318,20 +318,10 @@ const Test = () => {
           </li>                     
       </ol> 
     },
+
     { 
       id: 2, 
-      title: "Διαδικασία Κρυπτογράφησης", 
-      content: 
-       <ul>
-          <li>Η Alice θέλει να στείλει ένα ασφαλές μήνυμα στον Bob</li>
-          <li>O Bob μοιράζεται με την Alice το δημόσιο κλειδί του.</li>
-          <li>Η Alice κρυπτογραφεί το μήνυμα με το δημόσιο κλειδί του Bob</li>
-          <li>Ο Bob αποκρυπτογραφεί το μήνυμα με το ιδιωτικό κλειδί του.</li>               
-     </ul>  
-    },
-    { 
-      id: 3, 
-      title: "Visual", 
+      title: "Απεικόνιση Αλγορίθμου", 
       content: 
       <div  className="image-container">
       <img
@@ -344,7 +334,9 @@ const Test = () => {
   ];
 
 
-
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
 
 
@@ -360,14 +352,22 @@ const Test = () => {
   return (
     <div className="clarifications-container">
       {isMobile && (
+        
         <Navbar  className="Nav" style={{height:'70px'}}>
        
         <button onClick={toggleDropdown} className="dropdown-toggle">
-          <i class="bi bi-list"></i>
+          
         </button>
+        <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '60px' }}>
+      Restart <i class="bi bi-arrow-clockwise"></i>
+    </Button>
+        <NavigateButton to="/" label="Home" />  
+      {/*  <NavigateButton to="/HomeGrid" label="How To" /> */}
+      
 
         </Navbar>
       )}
+      <br/>
       <div className={`clarifications ${isMobile && !isDropdownOpen ? 'hidden' : ''}`}>
         {clarifications.map((clarification) => (
           <div

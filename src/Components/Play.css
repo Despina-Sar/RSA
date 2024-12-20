@@ -21,11 +21,11 @@
     flex-direction: column;
     align-items: center;
     margin: 0px;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     background-color: rgb(8, 4, 4);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 35%;
+    width: 40%;
     text-align: center;
     color: #ffffff;
     border-width: 1px;
@@ -96,7 +96,7 @@
       }
     
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
 
 .card.customcardAlicePlay,
 .card.customcardBobPlay {

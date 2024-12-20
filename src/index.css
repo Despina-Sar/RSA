@@ -516,7 +516,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align content from top */
-  padding: 5vw;
+  padding: 1vw;
   
 }
 
@@ -531,7 +531,7 @@ html, body {
 }
 
 /* Mobile background */
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
   .background-container {
     /*background-image: url('./backround_mobile.jpg'); /* Mobile background */
     background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(110, 98, 98) 40%, rgb(189, 162, 171) 100%);

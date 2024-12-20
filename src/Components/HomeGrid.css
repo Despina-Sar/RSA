@@ -110,6 +110,13 @@
     background-color: #ff758c;
   }
 
+  .grid-container.ButtonNav{
+    background-color: #ff758c !important;
+    color:  #ff758c !important;
+  }
+
+
+
 
   /* Media Queries */
   

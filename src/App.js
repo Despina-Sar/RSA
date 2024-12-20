@@ -106,8 +106,8 @@ function App() {
                       <img
                         alt=""
                         src={require('./images/favicon.png')}
-                        width="150"
-                        height="150"
+                        width="170"
+                        height="170"
                         className="d-inline-block align-top"
                         backgroundcolor="rgb(33, 37, 41)"
                       />
@@ -143,7 +143,7 @@ function App() {
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}
                 > 
-                Πως, που, πότε</Button>
+                Μάθε τα βασικά!</Button>
                         </Link>
                       </Row>
                       <Row>

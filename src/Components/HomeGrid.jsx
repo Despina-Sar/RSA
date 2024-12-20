@@ -26,22 +26,34 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
 
   return (
     <div className="grid-container">
+
+    {/* <NavigateButton
+     className="custom-navigate-button"
+     
+        to="/PlayMain"
+        label="Start the Game"
+      />
+      */}
+      <NavigateButton to="/" label="Home" />   
     <div className="card full-width">
-    <NavigateButton to="/PlayMain" label="Start the Game" />  
-    <NavigateButton to="/" label="Home" />  
       <div className="card-content">
        <h2 className="card-title">Πληροφορίες για τον RSA</h2>
         <p className="card-description">
-            Algorithmos kruptografhshs me xrhsh dhmosiou kleidiou - RSA apo Ronald Rivest, Adi Shamir, και Leonard Adleman [1978]
-        asymmetric encryption algorithm - Asymmetric encryption  ανταλλαγή κλειδιού
-        Ο αλγόριθμος Diffie-Hellman [1976] χρησιμοποιείται για ανταλλαγή κλειδιού σε έναν κύκλο επικοινωνίας</p>  
+        Ο RSA είναι ένας αλγόριθμος ασύμμετρης κρυπτογράφησης που χρησιμοποιείται ευρέως για την προστασία της ασφάλειας δεδομένων και την εξασφάλιση 
+        εμπιστευτικότητας στις επικοινωνίες. Το όνομά του προέρχεται από τους δημιουργούς του, Ρον Ρίβεστ, Άντι Σάμιρ και Λεν Άντλμαν, και παρουσιάστηκε
+        για πρώτη φορά το 1977. Ο αλγόριθμος βασίζεται στις μαθηματικές ιδιότητες των πρώτων αριθμών και στη δυσκολία παραγοντοποίησης μεγάλων σύνθετων αριθμών, 
+        καθιστώντας εξαιρετικά δύσκολη την παραβίαση του. Μέσω του συστήματος δημόσιου και ιδιωτικού κλειδιού, ο RSA χρησιμοποιείται όχι μόνο για την κρυπτογράφηση μηνυμάτων,
+         αλλά και για την υλοποίηση ψηφιακών υπογραφών, παρέχοντας αυθεντικοποίηση και ακεραιότητα δεδομένων. 
+        Αποτελεί ένα από τα θεμέλια της σύγχρονης κρυπτογραφίας και χρησιμοποιείται σε πλήθος εφαρμογών, όπως το HTTPS και η ασφαλής ανταλλαγή email.
+       </p>  
       </div>
     </div>
     <div className="card full-width">
       <div className="card-content">
       <h2 className="card-title">Εφαρμογή RSA: Στάδιο Ι</h2>
       <p className="card-description">
-        Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το στείλει στην Alice.</p>
+      Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, ο Bob πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το κοινοποιήσει στην Alice.
+        </p>
       </div>
     </div>
     <div className="card">
@@ -95,8 +107,8 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                         backgroundColor: 'rgb(4,145,141)'}}>
                             Δημόσιο κλειδι (E,n):
                     </span> </strong> <br />
-                        Ε δεν πρέπει να έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
-                    Ε δεν πρέπει να είναι πολλαπλάσιο των παραγόντων του Φ(n).
+                    Ε δεν έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
+                    Ε δεν είναι πολλαπλάσιο των παραγόντων του Φ(n)
                 </li>
                 <li>
 
@@ -183,7 +195,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                     backgroundColor: 'rgb(4,145,141)'}}>
                         Δημόσιο κλειδι (7,33):
                 </span> </strong> <br />
-                    Επιλέγουμε Ε = 7 γιατί <br /> Δεν έχει κοινούς παράγοντες με το 20 <br />  Δεν είναι πολλατγχδεφγτ42<br /> 
+                    Επιλέγουμε Ε = 7 γιατί <br /> Δεν έχει κοινούς παράγοντες με το 20 <br />  Δεν είναι πολλαπλάσιου των 2 & 5<br /> 
                 
             </li>
             <li>
@@ -206,8 +218,9 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
       <div className="card-content">
        <h2 className="card-title">Εφαρμογή RSA: Στάδιο ΙΙ</h2>
          <p className="card-description">
-         Η Alice λαμβάνει το δημόσιο κλειδί του, κρυπτογραφεί το μήνυμα της και το στέλνει στον Bob.
-         O Bob χρησιμοποιεί το ιδιωτικό κλειδί του και αποκρυπτογραφεί το μήνυμα.
+         Η Alice λαμβάνει το δημόσιο κλειδί του Bob, το χρησιμοποιεί για να κρυπτογραφήσει το μήνυμά της 
+         και το αποστέλλει σε αυτόν. Ο Bob στη συνέχεια χρησιμοποιεί το ιδιωτικό του κλειδί για να 
+         αποκρυπτογραφήσει το μήνυμα και να το διαβάσει.
           </p>
 
        </div>
@@ -218,7 +231,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
         <img
             alt=""
             src= {require('../images/RSA_Visual1.png')}
-            height="auto" width="60%"        
+            height="auto" width="100%"        
         />   
     </div>
        

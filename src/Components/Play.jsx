@@ -7,7 +7,7 @@ import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import Confetti from 'react-confetti';
 import './Play.css';
 import Test from './Test.jsx';
-import NavigateButton from './NavigateButton.jsx'; 
+import NavigateButton from './NavigateButton.jsx';
 
 
 
@@ -120,8 +120,10 @@ const Play = ({rsaValuess, updateRSAValues }) => {
     setRSAValues(prev => ({
         ...prev,
         [field]: rawValue,
+        
     }));
-
+    console.log(rawValue);
+    
     // Clear errors for the field if valid
     if (!!errors[field]) {
         setErrors(prevErrors => ({
@@ -214,7 +216,41 @@ const validateField = (field, value, updatedForm) => {
 
 
 //-----------------------------------handle submit only for P-------------------------------------------
+
 const validateP = (field, value, form,newErrors) =>{
+  const{p}= form
+  console.log('P: '+p+' is prime: '+isPrime(p));
+   //-validation for p == prime
+   if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
+   else{
+    if (!(/^\d*$/.test(p))) { // Allows only digits
+       newErrors.p = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες'; }
+
+        else{
+          const numericValue = Number(p);
+          if (numericValue <= 0 || numericValue >= 100) {
+            newErrors.p = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+           }
+           else {
+                 if (!isPrime(p)) { newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';}   
+                else {
+                    delete newErrors.p; // Clear error if validation passes
+                    console.log('tetttt' + (!form.q === undefined && !form.q === '') );
+                    console.log(form.q);
+                    if (form.q !== undefined && form.q !== '' ){ handleInputChange('fn',(form.p -1) * (form.q-1)); }
+                   
+                    console.log('deleted error');  
+                    setErrors(newErrors);      
+                 }  
+            }
+      }
+   }
+  }
+
+
+{/*
+
+ const validateP = (field, value, form,newErrors) =>{
   const{p}= form
 
   console.log('P: '+p+' is prime: '+isPrime(p));
@@ -222,25 +258,15 @@ const validateP = (field, value, form,newErrors) =>{
    //-validation for p == prime
    if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
    else{
-    if (/^\d*$/.test(p)) { // Allows only digits
-      const numericValue = Number(p);
-      if (numericValue >= 0 && numericValue <= 100) {
-
-         if (!isPrime(p)) { newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';}   
-         else {
-          delete newErrors.p; // Clear error if validation passes
-          handleInputChange('fn',(form.p -1) * (form.q-1));          
-      }  
-      }else 
-        {  newErrors.p = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
-          }
+    if (!isPrime(p)) {
+      newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
+      }
+    else {
+     delete newErrors.p; // Clear error if validation passes
     }
-    else 
-        {  newErrors.p = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες';
-          }
    }
  }
-
+ */}
 
  //---------------------------------handle submit only for Q --------------------------------------------
  const validateQ = (field, value, form,newErrors) =>{
@@ -259,7 +285,8 @@ const validateP = (field, value, form,newErrors) =>{
            if (!isPrime(q)) { newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';}   
            else {
             delete newErrors.q; // Clear error if validation passes
-            handleInputChange('fn',(form.p -1) * (form.q-1));          
+
+            if (form.p !== undefined && form.p !== '' ){ handleInputChange('fn',(form.p -1) * (form.q-1)); }      
         }  
         }else 
           {  newErrors.q = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
@@ -655,12 +682,17 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   return (
 
    <div>
-    
+ {/*{!isMobile && (<NavigateButton to="/HomeGrid" label="How To" />)}*/}
+ {!isMobile && ( <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '60px' }}>
+      Restart <i class="bi bi-arrow-clockwise"></i>
+    </Button>
+   )}
+  {!isMobile && (<NavigateButton variant="dark !important" to="/" label="Home" />  )}
+  <br/>
+
     <Test/>
     <br/>
-    <NavigateButton to="/PlayMain" label="Start the Game" /> 
-    <NavigateButton to="/" label="Home" />  
-    <br/>
+
 
     <div className="Main">
 
@@ -1056,7 +1088,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
             <Row className="mb-3">
                 <Col>
-                 Υπολόγισε το κρυπτογραφημένο μήνυμα του {form.M}
+                 Υπολόγισε το κρυπτογραφημένο μήνυμα
                 </Col>
                  <Col xs={4}>                                
                  <Form.Control                          
