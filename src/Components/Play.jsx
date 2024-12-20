@@ -978,7 +978,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="bi bi-unlock-fill"
                     style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
                   ></i>
-                   (E,n) = ({form.E},{form.n})
+                  ({form.E},{form.n})
                 </span>
               </div>
             </Col>
@@ -994,7 +994,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   className="bi bi-unlock-fill"
                   style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
                 ></i>
-                (E,n) = ({form.E},{form.n})
+                ({form.E},{form.n})
               </span>
               </div>
               </Row>
@@ -1017,7 +1017,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="bi bi-file-earmark-lock-fill"
                     style={{ fontSize: '40px', color: 'rgb(138,4,17)' }}
                   ></i>
-                (CT,n) =   ({form.CT},{form.n})
+               ({form.CT},{form.n})
                 </span>
               </div>
             </Col>
@@ -1033,7 +1033,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   className="bi bi-file-earmark-lock-fill"
                   style={{fontSize: '40px', color:'rgb(138,4,17)'}}
                 ></i>
-                 CT = {form.CT}
+                 CT : {form.CT}
               </span>
               </div>
               </Row>
