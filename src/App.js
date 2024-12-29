@@ -88,11 +88,23 @@ export default App;
               <EducationalMain/>       
        */}
 
-
+       function PathFixer() {
+        const navigate = useNavigate();
+        const location = useLocation();
+      
+        useEffect(() => {
+          if (location.pathname === '/PlayMain') {
+            navigate('/RSA/PlayMain', { replace: true });
+          }
+        }, [location, navigate]);
+      
+        return null;
+      }
 
 function App() {
   return (
     <Router  basename="/RSA">
+        <PathFixer />
       <div className="background-container">
         <Routes>
           {/* Main Screen Route */}
