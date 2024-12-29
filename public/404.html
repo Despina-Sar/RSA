@@ -4,18 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-    // Get the current path from the URL
-    var path = window.location.pathname;
-
-    // Remove any trailing slashes
-    var cleanPath = path.replace(/\/+$/, '');
-
-    // Ensure that we don't enter an infinite loop by only redirecting once
-    if (cleanPath.startsWith("/RSA")) {
-      window.location.replace(cleanPath + '/');
-    } else {
-      window.location.replace("/RSA/");
-    }
+    // Directly redirect to the index.html page, which will let React Router handle the rest.
+    window.location.replace("/RSA/index.html");
   </script>
 </head>
 <body>
