@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect } from 'react';
  import './index.css';
 import NavBar from './Components/NavBar'
 //import Footer from './Components/Footer'
@@ -7,7 +7,8 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,Navigate
+  Link,Navigate,
+  useNavigate, useLocation 
 } from "react-router-dom";
 import {HashRouter} from "react-router-dom";
 import Demo from './Components/Demo';
@@ -15,6 +16,8 @@ import Training from './Components/Training';
 import Real from './Components/Real';
 import EducationalMain from './Components/EducationalMain';
 import HowTo from './Components/HowTo';
+
+
 import HomeGrid from './Components/HomeGrid';
 import PlayMain from './Components/PlayMain';
 import Test from './Components/Test';
