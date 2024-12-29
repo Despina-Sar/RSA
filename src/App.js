@@ -91,28 +91,13 @@ export default App;
               <EducationalMain/>       
        */}
 
-       const RedirectHandler = () => {
-        const navigate = useNavigate();
       
-        useEffect(() => {
-          const currentPath = window.location.pathname;
-      
-          // Check for incorrect paths and redirect to the correct one
-          if (currentPath === '/PlayMain') {
-            navigate('/RSA/PlayMain', { replace: true });
-          } else if (currentPath === '/RSA') {
-           // navigate('/RSA', { replace: true });
-          }
-        }, [navigate]);
-      
-        return null;
-      };
 
 
 function App() {
   return (
     <Router  basename="/RSA">
-        <RedirectHandler />
+
       <div className="background-container">
         <Routes>
           {/* Main Screen Route */}
