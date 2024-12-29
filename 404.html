@@ -4,18 +4,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-    // Get the current path
+    // Get the current path from the URL
     var path = window.location.pathname;
 
-    // Clean up the path by removing trailing slashes
+    // Remove any trailing slashes
     var cleanPath = path.replace(/\/+$/, '');
 
-    // Check if the path starts with the repository's base path (e.g., /RSA)
+    // Ensure that we don't enter an infinite loop by only redirecting once
     if (cleanPath.startsWith("/RSA")) {
-      // Redirect to the cleaned-up path, ensuring no extra slashes or index.html are appended
       window.location.replace(cleanPath + '/');
     } else {
-      // If it's not a valid route, just route to the base index.html of the app
       window.location.replace("/RSA/");
     }
   </script>
