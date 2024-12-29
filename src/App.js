@@ -195,7 +195,7 @@ function App() {
       <Route path="/HomeGrid" element={<HomeGrid />} />
       <Route path="/PlayMain" element={<PlayMain />} />
       <Route path="/RSA" element={<Navigate to="/" />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
       </div>
     </Router>
