@@ -7,15 +7,15 @@
     // Get the current path
     var path = window.location.pathname;
 
-    // Remove trailing slashes to avoid infinite loop
+    // Clean up the path by removing trailing slashes
     var cleanPath = path.replace(/\/+$/, '');
 
-    // If the path is inside the repository folder (e.g., /RSA), route correctly
+    // Check if the path starts with the repository's base path (e.g., /RSA)
     if (cleanPath.startsWith("/RSA")) {
-      // Ensure we're only redirecting to index.html once, without appending slashes or index.html repeatedly
+      // Redirect to the cleaned-up path, ensuring no extra slashes or index.html are appended
       window.location.replace(cleanPath + '/');
     } else {
-      // Redirect to the base of the app if the path is not valid
+      // If it's not a valid route, just route to the base index.html of the app
       window.location.replace("/RSA/");
     }
   </script>
