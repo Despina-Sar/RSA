@@ -2,13 +2,12 @@
 
 /* 
 TO DO
+Button to random select prime numbers
+ενδεικτικα section - step by step with next butotn  - autocalculated
+test section?
 Bilingual
-Play card Offcanvas with old 3 squares on top - desktop
-Play card Offcanvas with old 3 squares- mobile
-Overall mobile adjustment
-When Why text
-Overall text
-Visual
+Play  menu
+
 
 */
 
@@ -23,5 +22,8 @@ Play card adjustment
 Play card responsive
 only num validation
 Home screen redirection
-
+Overall mobile adjustment
+When Why text
+Overall text
+Visual
 */

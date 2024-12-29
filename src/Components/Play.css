@@ -1,4 +1,10 @@
 
+.PlayMain{
+  min-width: 103%;
+  top: 0 !important;
+  margin: 0 !important;
+
+}
 .card.customcardAlicePlay {
     display: flex;
     flex-direction: column;
@@ -8,6 +14,7 @@
     border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     width: 30%;
+    max-width: 550px;
     text-align: center;
     font-size: 14px;
     color: #ffffff;
@@ -25,7 +32,8 @@
     border-radius: 12px;
     background-color: rgb(8, 4, 4);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 40%;
+    width: 35%;
+    max-width: 550px;
     text-align: center;
     color: #ffffff;
     border-width: 1px;
@@ -72,6 +80,12 @@
         padding: 0.5rem 0.5rem;
         position: relative;
       }
+      .custom-placeholderPQ{
+        background-color: rgb(243, 219, 219);
+        padding: 0.5rem 0.5rem;
+        position: relative;
+        width: 120%  !important;
+      }
        
       .custom-placeholderMPlay::placeholder {
         color: rgb(150, 13, 13) !important;
@@ -95,13 +109,55 @@
         background-color: #ff758c;
       }
     
+      .right-buttons {
+        display: flex; /* Align right buttons in a row */
+        gap: 10px; /* Space between right buttons */
+        margin-left: 70% !important;
+       }
+
+/**/
+.input-wrapper {
+  position: relative; /* Parent container for the input and button */
+}
+
+.custom-placeholderPQPlay {
+  padding-right: 40px; /* Space for the button */
+}
+
+.prime-calculator-btn {
+  position: absolute;
+  right: 5px; /* Stick to the right edge of the input */
+  top: 0; /* Align with the top of the input */
+  background-color: rgb(243, 219, 219);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  height: 30px; /* Match input height */
+  line-height: 1.2rem; /* Ensure proper text alignment inside the button */
+}
+
+.prime-calculator-btn:hover {
+  background-color: #c5abab;
+}
+
+.is-invalid ~ .prime-calculator-btn {
+  top: 0; /* Ensure button follows the control’s movement */
+}
+
+
+
+
+
 
 @media (max-width: 1300px) {
 
 .card.customcardAlicePlay,
 .card.customcardBobPlay {
-  width: 100%; /* Make cards take full width */
-  max-width: 500px; /* Optional: set a max width for better readability */
+  width: 80%; /* Make cards take full width */
+  max-width: 400px; /* Optional: set a max width for better readability */
   margin: 0 0 1rem 0; /* Add spacing between stacked cards */
   padding-top:10;  /* Remove margin */
      

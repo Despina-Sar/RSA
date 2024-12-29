@@ -27,11 +27,30 @@ return(
         intended recipients; third parties intercepting such transmissions would find them indecipherable.
      </p>
 
-   
+     <h2>Clarifications</h2>
+      <div className="dropdown">
+        {clarifications.map(item => (
+          <div key={item.id} className="dropdown-item">
+            <button
+              className="dropdown-title"
+              onClick={() => toggleClarification(item.id)}
+            >
+              {item.title}
+            </button>
+            {selectedClarification === item.id && (
+              <div className="dropdown-content">
+                <p>{item.content}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </>
 );
 
 }
 
 export default RSAHistory;
+
+
 

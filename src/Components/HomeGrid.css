@@ -116,6 +116,11 @@
   }
 
 
+  .right-buttons {
+    display: flex; /* Align right buttons in a row */
+    gap: 10px; /* Space between right buttons */
+    margin-right: 190% !important;
+  }
 
 
   /* Media Queries */

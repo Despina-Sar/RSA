@@ -130,7 +130,7 @@ function App() {
                     borderRadius: '5px', // Rounded corners for a modern look
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                     transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                    width:'70%'   
+                    width:'60%'   
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -143,7 +143,7 @@ function App() {
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}
                 > 
-                Μάθε τα βασικά!</Button>
+                Σχετικά</Button>
                         </Link>
                       </Row>
                       <Row>
@@ -160,7 +160,7 @@ function App() {
                     borderRadius: '5px', // Rounded corners for a modern look
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                     transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                    width:'70%'   
+                    width:'60%'   
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -173,7 +173,7 @@ function App() {
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}
                  >
-                  Ξεκίνα το παιχνίδι!</Button>
+                  Έναρξη</Button>
                         </Link>
                       </Row>
                     </div>

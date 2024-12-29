@@ -8,6 +8,7 @@ import Confetti from 'react-confetti';
 import './Play.css';
 import Test from './Test.jsx';
 import NavigateButton from './NavigateButton.jsx';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 
 
@@ -48,7 +49,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
   //-----------------------------   ME   -----------------------------------
-  const [locked, setLocked] = useState(false); // State to lock the form
+  const [locked, setLocked] = useState(false); 
   const { rsaValues, setRSAValues } = useContext(RSAContext);
   const [form, setForm] = useState(rsaValues);
   const[errors, setErrors] = useState({})
@@ -538,7 +539,7 @@ const handleSubmit = () => {
   }else{
    // Lock the form
    setIsZCorrect(true);
-   //setLocked(true);
+   setLocked(true);
   //onSendClick();
   }  
 };
@@ -563,7 +564,7 @@ const handleButtonClick = () => {
       setShowModalE(true);
     }, 5000); // 5000ms = 5 seconds
     console.log("after 5sec");
-   //setLocked(true);
+   setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
   }
 };
@@ -678,21 +679,84 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     ? `Ιδιωτικό κλειδί (D,n):(${form.D},${form.n})` 
     : '';  // If p or q is empty, just show the base placeholder    
 
+      const navigate = useNavigate(); // Initialize navigate function
+    
+    const HomeRedirection = () => {
+      navigate('/'); // Navigate to the '/' route when button is clicked
+    };
 
+    const handleCalculatePrimeP = () => {
+      // Helper function to check if a number is prime
+      const isPrime = (num) => {
+        if (num < 2) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) return false;
+        }
+        return true;
+      };
+    
+      // Generate a random prime number between 0 and 100
+      const primes = [];
+      for (let i = 0; i <= 50; i++) {
+        if (isPrime(i)) primes.push(i);
+      }
+    
+      const randomPrime = primes[Math.floor(Math.random() * primes.length)];
+      const formattedValue = `${PREFIX_MAP['p']}=${randomPrime}`; // Format as P={result}
+      setField('p', formattedValue); // Save the numeric part
+    };
+
+    
+    const handleCalculatePrimeQ = () => {
+      // Helper function to check if a number is prime
+      const isPrime = (num) => {
+        if (num < 2) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) return false;
+        }
+        return true;
+      };
+    
+      // Generate a random prime number between 0 and 100
+      const primes = [];
+      for (let i = 0; i <= 50; i++) {
+        if (isPrime(i)) primes.push(i);
+      }
+    
+      const randomPrime = primes[Math.floor(Math.random() * primes.length)];
+      const formattedValue = `${PREFIX_MAP['q']}=${randomPrime}`; // Format as P={result}
+      setField('q', formattedValue); // Save the numeric part
+    };
+    
+
+
+  
   return (
 
-   <div>
+   <div  className="PlayMain">
  {/*{!isMobile && (<NavigateButton to="/HomeGrid" label="How To" />)}*/}
- {!isMobile && ( <Button variant="dark" onClick={refreshPage} style={{ marginLeft: '60px' }}>
-      Restart <i class="bi bi-arrow-clockwise"></i>
+
+     
+ <div className="right-buttons">
+
+  {!isMobile && (
+       <Button variant="dark"        
+                onClick={HomeRedirection}> 
+                 Αρχική
+              </Button>
+   )}
+    {!isMobile && ( <Button variant="dark" onClick={refreshPage}>
+      <i class="bi bi-arrow-clockwise"></i>
     </Button>
    )}
-  {!isMobile && (<NavigateButton variant="dark !important" to="/" label="Home" />  )}
-  <br/>
+</div>
 
+
+   
     <Test/>
     <br/>
-
+    <br/>
+    <br/>
 
     <div className="Main">
 
@@ -710,7 +774,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             <Col>
               Επίλεξε δύο πρώτους αριθμούς
            </Col>        
-            <Col xs={4}>
+           {/* <Col xs={4}>
                 <Form.Control
                     className="custom-placeholderPQPlay"
                     placeholder="P"
@@ -723,7 +787,47 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <Form.Control.Feedback type="invalid">
                     {errors.p}
                 </Form.Control.Feedback>          
-         </Col>
+         </Col>*/}
+
+<Col xs={4} className="form-container" style={{ position: 'relative' }}>
+  <div className="input-wrapper">
+    <Form.Control
+      className="custom-placeholderPQPlay"
+      placeholder="P"
+      style={{
+        backgroundColor: 'rgb(243, 219, 219)',
+        fontWeight: 'bold',
+        fontSize: '1.0rem',
+        color: 'rgb(108,117,125)',
+        paddingRight: '40px', // Reserve space for the button
+      }}
+      value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+      onChange={(e) => {
+        const value = e.target.value.replace(`${PREFIX_MAP['p']}=`, '');
+        setField('p', value);
+      }}
+      isInvalid={!!errors.p}
+      disabled={locked}
+    />
+    <Form.Control.Feedback type="invalid">
+      {errors.p}
+    </Form.Control.Feedback>
+
+    <button
+      type="button"
+      className="prime-calculator-btn"
+      onClick={handleCalculatePrimeP}
+      title="Select a random prime number"
+    >
+    <i class="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    </button>
+  </div>
+</Col>
+
+
+
+
+{/*
          <Col xs={4}>
                 <Form.Control
                 className="custom-placeholderPQPlay"
@@ -738,6 +842,43 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     {errors.q}
                 </Form.Control.Feedback>
           </Col>   
+*/}
+
+
+<Col xs={4} className="form-container" style={{ position: 'relative' }}>
+  <div className="input-wrapper">
+    <Form.Control
+      className="custom-placeholderPQPlay"
+      placeholder="Q"
+      style={{
+        backgroundColor: 'rgb(243, 219, 219)',
+        fontWeight: 'bold',
+        fontSize: '1.0rem',
+        color: 'rgb(108,117,125)',
+        paddingRight: '40px', // Reserve space for the button
+      }}
+      value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
+      onChange={(e) => {
+        const value = e.target.value.replace(`${PREFIX_MAP['q']}=`, '');
+        setField('q', value);
+      }}
+      isInvalid={!!errors.q}
+      disabled={locked}
+    />
+    <Form.Control.Feedback type="invalid">
+      {errors.q}
+    </Form.Control.Feedback>
+
+    <button
+      type="button"
+      className="prime-calculator-btn"
+      onClick={handleCalculatePrimeQ}
+      title="Select a random prime number"
+    >
+    <i class="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    </button>
+  </div>
+</Col>
 
        </Row>
 
@@ -750,7 +891,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 placeholder={placeholderN} 
                 style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
                 isInvalid={!!errors.n}
-               disabled={locked}
+                readOnly
              />
              <Form.Control.Feedback type= 'invalid' >
                  {errors.n}
@@ -764,7 +905,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               //value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
               style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
-              disabled={locked} // Disable input if locked
+              readOnly
             />
             <Form.Control.Feedback type="invalid">
               {errors.fn}
@@ -774,9 +915,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
         <Row className="mb-3">    
         <Col xs={5}>
-            Παράγοντες του Φ(n) 
+            Παράγοντες Φ(n) 
        </Col>  
-       <Col xs={7}>          
+       <Col xs={6}>         
         <Form.Control
             className="custom-placeholderPQ"
             type="text"
@@ -930,7 +1071,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="modal-close-button"
                     onClick={handleCloseModB}
                   >
-                    Close
+                    Κλείσιμο
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -938,7 +1079,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 
 
-              {showModalE && <Confetti colors={['rgb(4,145,141)','rgb(138,4,17)', '#000000']} />} {/* Blue and Black Confetti */}
+              {showModalE} {/* Blue and Black Confetti */}
               <Modal
                 show={showModalE}
                 centered
@@ -954,7 +1095,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="modal-close-button"
                     onClick={refreshPage}
                   >
-                    Close
+                    Κλείσιμο
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -1017,7 +1158,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="bi bi-file-earmark-lock-fill"
                     style={{ fontSize: '40px', color: 'rgb(138,4,17)' }}
                   ></i>
-               ({form.CT},{form.n})
+                 {form.CT}
                 </span>
               </div>
             </Col>
@@ -1077,7 +1218,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                        value={form.M ? `${PREFIX_MAP['M']}=${form.M}` : ''}
                         onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
-                       disabled={locked}
+                      // disabled={locked}
                        style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
@@ -1098,7 +1239,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                     onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
-                     disabled={locked}
+                    // disabled={locked}
                      style={{
                       fontSize: '1.2rem',
                       padding: '0.5rem 0.5rem',
@@ -1159,7 +1300,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   <Modal.Footer className="modal-footer-dark">
                     <Button className="modal-close-buttonB"
                     onClick={handleCloseModA}>
-                      Close
+                      Κλείσιμο
                     </Button>
                   </Modal.Footer>
                 </Modal>

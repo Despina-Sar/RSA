@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./HomeGrid.css";
-import { useState } from 'react';
 import NavigateButton from './NavigateButton.jsx'; 
+import {Button} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const HomeGrid = () => {
-
+   const navigate = useNavigate(); 
 const [isCard2Visible, setIsCard2Visible] = useState(false);
 const [isCard3Visible, setIsCard3Visible] = useState(false);
   // Show Card 2
@@ -23,8 +24,20 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
   const hideCard3 = () => {
     setIsCard3Visible(false);
   };
+  const HomeRedirection = () => {
+    navigate('/'); // Navigate to the '/' route when button is clicked
+  };
 
   return (
+<div>
+    <div className="right-buttons">
+    <Button variant="dark"        
+           onClick={HomeRedirection} // Trigger navigation on click
+             >
+           Αρχική
+         </Button>  
+   </div>
+
     <div className="grid-container">
 
     {/* <NavigateButton
@@ -34,25 +47,43 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
         label="Start the Game"
       />
       */}
-      <NavigateButton to="/" label="Home" />   
-    <div className="card full-width">
+ 
+       <div className="card full-width">
       <div className="card-content">
-       <h2 className="card-title">Πληροφορίες για τον RSA</h2>
+       <h2 className="card-title">RSA</h2>
         <p className="card-description">
         Ο RSA είναι ένας αλγόριθμος ασύμμετρης κρυπτογράφησης που χρησιμοποιείται ευρέως για την προστασία της ασφάλειας δεδομένων και την εξασφάλιση 
-        εμπιστευτικότητας στις επικοινωνίες. Το όνομά του προέρχεται από τους δημιουργούς του, Ρον Ρίβεστ, Άντι Σάμιρ και Λεν Άντλμαν, και παρουσιάστηκε
+        εμπιστευτικότητας στις επικοινωνίες. Το όνομά του προέρχεται από τους δημιουργούς του, Ron Rivest, Adi Shamir and Leonard Adleman, και παρουσιάστηκε
         για πρώτη φορά το 1977. Ο αλγόριθμος βασίζεται στις μαθηματικές ιδιότητες των πρώτων αριθμών και στη δυσκολία παραγοντοποίησης μεγάλων σύνθετων αριθμών, 
         καθιστώντας εξαιρετικά δύσκολη την παραβίαση του. Μέσω του συστήματος δημόσιου και ιδιωτικού κλειδιού, ο RSA χρησιμοποιείται όχι μόνο για την κρυπτογράφηση μηνυμάτων,
-         αλλά και για την υλοποίηση ψηφιακών υπογραφών, παρέχοντας αυθεντικοποίηση και ακεραιότητα δεδομένων. 
+         αλλά και για την υλοποίηση ψηφιακών υπογραφών, παρέχοντας ταυτοποίηση και ακεραιότητα δεδομένων. 
         Αποτελεί ένα από τα θεμέλια της σύγχρονης κρυπτογραφίας και χρησιμοποιείται σε πλήθος εφαρμογών, όπως το HTTPS και η ασφαλής ανταλλαγή email.
        </p>  
       </div>
     </div>
     <div className="card full-width">
+        <div className="card-content">
+        <div  className="image-container">
+        <img
+            alt=""
+            src= {require('../images/RSA_Visual1.png')}
+            height="auto" width="100%"        
+        />   
+    </div>
+       
+      </div>
+    </div>
+    
+    <div className="card full-width">
       <div className="card-content">
       <h2 className="card-title">Εφαρμογή RSA: Στάδιο Ι</h2>
+      {/*
       <p className="card-description">
       Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, ο Bob πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το κοινοποιήσει στην Alice.
+        </p>
+        */}
+        <p className="card-description">
+      Δημιουργία και κοινοποίηση δημοσίου κλειδιού παραλήπτη.
         </p>
       </div>
     </div>
@@ -195,7 +226,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                     backgroundColor: 'rgb(4,145,141)'}}>
                         Δημόσιο κλειδι (7,33):
                 </span> </strong> <br />
-                    Επιλέγουμε Ε = 7 γιατί <br /> Δεν έχει κοινούς παράγοντες με το 20 <br />  Δεν είναι πολλαπλάσιου των 2 & 5<br /> 
+                    Επιλέγουμε Ε = 7 γιατί <br /> δεν έχει κοινούς παράγοντες με το 20 <br /> δεν είναι πολλαπλάσιου των 2 & 5<br /> 
                 
             </li>
             <li>
@@ -217,26 +248,19 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
     <div className="card full-width">
       <div className="card-content">
        <h2 className="card-title">Εφαρμογή RSA: Στάδιο ΙΙ</h2>
-         <p className="card-description">
+        
+        {/* <p className="card-description">
          Η Alice λαμβάνει το δημόσιο κλειδί του Bob, το χρησιμοποιεί για να κρυπτογραφήσει το μήνυμά της 
          και το αποστέλλει σε αυτόν. Ο Bob στη συνέχεια χρησιμοποιεί το ιδιωτικό του κλειδί για να 
          αποκρυπτογραφήσει το μήνυμα και να το διαβάσει.
           </p>
-
+          */}
+          <p className="card-description">
+           Κρυπτογράφηση και αποστολή μηνύματος από τον αποστολέα και αποκρυπτογράφηση από τον παραλήπτη.
+          </p>
        </div>
     </div>
-        <div className="card full-width">
-        <div className="card-content">
-        <div  className="image-container">
-        <img
-            alt=""
-            src= {require('../images/RSA_Visual1.png')}
-            height="auto" width="100%"        
-        />   
-    </div>
-       
-      </div>
-    </div>
+   
 
     <div className="card">
       <div className="card-content">
@@ -270,15 +294,16 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
           </div>     
           
           <p className="card-description">
-                Κρυπτογραφημένο μήνυμα του 2 : CT = 2<sup>7</sup>mod 33 = 29
+                Κρυπτογραφηση του μηνύματος 2 : CT = 2<sup>7</sup>mod 33 = 29
                 <br/> 
-                Αποκρυπτογραφημένο μήνυμα: M = 29<sup>3</sup> mod 33 = 2
+                Αποκρυπτογραφηση: M = 29<sup>3</sup> mod 33 = 2
                 <br/>
                 </p>
        </div>
     </div>
     )}
     
+  </div>
   </div>
 );
 };

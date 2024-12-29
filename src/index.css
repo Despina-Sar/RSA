@@ -82,7 +82,7 @@ body {
   font-size: smaller!important;
 }
 
-h1,h5,h3,h4,h6,h6,h7,div
+h1,h5,h3,h4,h6,h6,h7
 p {
   margin: 0;
   padding: 0;
@@ -799,7 +799,7 @@ html, body {
 
 /*newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww 27.11*/
 .app-container {
- 
+
   color: white;
   font-family: 'Arial', sans-serif;
   
