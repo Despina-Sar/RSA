@@ -26,7 +26,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
   const [isFCorrect, setIsFCorrect] = useState(false);
 
   const refreshPage = () => {
-    window.location.reload();
+    window.location.replace('/RSA/PlayMain');
   };
 
   // Handle the boy sending z to the girl
