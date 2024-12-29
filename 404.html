@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,11 +9,11 @@
 
     // Check if the path starts with the repository name (this ensures we stay on the correct route)
     if (path.startsWith("/RSA")) {
-      // Redirect to index.html but keep the current path
-      window.location.replace(path.replace(/\/$/, '') + '/index.html');
+      // If the path is valid, just redirect to the root of the app without appending 'index.html' repeatedly
+      window.location.replace(path + '/');
     } else {
-      // Fallback to index.html if there's no match
-      window.location.replace('/RSA/index.html');
+      // If the path is not valid, redirect to the app's root URL
+      window.location.replace("/RSA/");
     }
   </script>
 </head>
