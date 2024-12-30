@@ -1,0 +1,273 @@
+
+.PlayMain{
+    min-width: 103%;
+    top: 0 !important;
+    margin: 0 !important;
+  
+  }
+  .card.customcardAlicePlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color:rgb(0, 0, 0);
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 30%;
+      max-width: 550px;
+      text-align: center;
+      font-size: 14px;
+      color: #ffffff;
+      border-width: 1px;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card.customcardBobPlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0px;
+      padding: 25px;
+      border-radius: 12px;
+      background-color: rgb(0, 0, 0);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 35%;
+      max-width: 550px;
+      text-align: center;
+      color: #ffffff;
+      border-width: 1px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      }
+    
+  
+  
+      .arrowRightPlay {
+          color: #ffffff;
+          display: flex;
+          alignItems: center;
+          animation-name: slideRight;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+          animation-delay: 0s;
+          animation-iteration-count: 1;
+          animation-direction: normal;
+          animation-fill-mode: forwards;
+        
+        }
+        
+        .arrowLeftPlay {
+          color: #ffffff;
+          display: flex;
+          alignItems: center;
+          animation-name: slideLeft;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+          animation-delay: 0s;
+          animation-iteration-count: 1;
+          animation-direction: normal;
+          animation-fill-mode: forwards;
+        }
+  
+        .custom-placeholderFN::placeholder {
+          color: rgb(5, 2, 2) !important;
+          font-Weight:bold;
+          font-Size: 1.0rem;
+        }   
+  
+        .custom-placeholderFN{
+          background-color: rgb(243, 219, 219);
+          padding: 0.5rem 0.5rem;
+          position: relative;
+        }
+        .custom-placeholderPQ{
+          background-color: rgb(243, 219, 219);
+          padding: 0.5rem 0.5rem;
+          position: relative;
+          width: 120%  !important;
+        }
+         
+        .custom-placeholderMPlay::placeholder {
+          color: rgb(150, 13, 13) !important;
+          font-Weight:bolder;
+          font-Size: 1.5rem;
+        }
+        
+        .my-play-btn {
+          position: absolute;
+          top: 280px;
+          right: 950px;
+          background-color:  #c22748;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-weight: bold;
+        }
+        
+        .my-play-btn:hover {
+          background-color: #ff758c;
+        }
+      
+        .right-buttons {
+          display: flex; /* Align right buttons in a row */
+          gap: 10px; /* Space between right buttons */
+          margin-left: 70% !important;
+         }
+  
+  /**/
+  .input-wrapper {
+    position: relative; /* Parent container for the input and button */
+  }
+  
+  .custom-placeholderPQPlay {
+    padding-right: 40px; /* Space for the button */
+  }
+  
+  .prime-calculator-btn {
+    position: absolute;
+    right: 5px; /* Stick to the right edge of the input */
+    top: 0; /* Align with the top of the input */
+    background-color: rgb(243, 219, 219);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    height: 30px; /* Match input height */
+    line-height: 1.2rem; /* Ensure proper text alignment inside the button */
+  }
+  
+  .prime-calculator-btn:hover {
+    background-color: #c5abab;
+  }
+  
+  .is-invalid ~ .prime-calculator-btn {
+    top: 0; /* Ensure button follows the control’s movement */
+  }
+  
+  
+  
+  
+  
+  
+  @media (max-width: 1300px) {
+  
+  .card.customcardAlicePlay,
+  .card.customcardBobPlay {
+    width: 90%; /* Make cards take full width */
+    max-width: 400px; /* Optional: set a max width for better readability */
+    margin: 0 0 1rem 0; /* Add spacing between stacked cards */
+    padding-top:10;  /* Remove margin */
+       
+  }
+      
+  
+    .mobileValueLabel{
+      color: #ffffff;
+      font-size: 30px;
+    }
+  
+    .arrowDownPlay {
+      display: flex;
+      color: #ffffff;
+      align-items: center;
+      font-size: 50px;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      animation-name: slideDownMobile;
+      animation-duration: 1s;
+      animation-timing-function: ease-in;
+      animation-delay: 0s;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-fill-mode: forwards;
+    
+    }
+  
+    .arrowUpPlay {
+      display: flex;
+      color: #ffffff;
+      align-items: center;
+      font-size: 50px;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      animation-name: slideUpMobile;
+      animation-duration: 1s;
+      animation-timing-function: ease-in;
+      animation-delay: 0s;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-fill-mode: backwards;
+    
+    }
+    .mobileArrowContainer {
+      display: flex;
+      color: #ffffff;
+      font-size: 50px;
+      flex-direction: column; /* Stack the arrow and text vertically */
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      color: #ffffff;
+    }
+  
+    .mobileArrowContainer .row {
+      display: flex;
+      align-items: center;
+      gap: 15px; /* Add spacing between the arrow and the text */
+    }
+  
+  }
+  
+  
+  
+  
+  @keyframes slideRight {
+      from{
+        transform: translateX(-30%);
+      }
+      to{
+        transform: translateX(15%);
+      }
+      
+    }
+  
+    
+  @keyframes slideLeft {
+      from{
+        transform: translateX(15%);
+      }
+      to{
+        transform: translateX(-15%);
+      }
+      
+    }
+    
+    
+    
+    
+      @keyframes slideDownMobile {
+        from{
+          transform: translateY(0%);
+        }
+        to{
+          transform: translateY(50%);
+        }
+        }
+    
+        
+      @keyframes slideUpMobile {
+        from{
+          transform: translateY(50%);
+        }
+        to{
+          transform: translateY(0%);
+        }
+        }
+    
+    
+    

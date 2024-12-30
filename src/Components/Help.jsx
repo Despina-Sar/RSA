@@ -13,12 +13,13 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate from react
 
 
 
-const Play = ({rsaValuess, updateRSAValues }) => {
+const Help = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
   const isMobile = useIsMobile();
+  const [step, setStep] = useState(0); // to track the step
 
   // Girl's state
   const [p, setP] = useState('');
@@ -49,7 +50,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
   //-----------------------------   ME   -----------------------------------
-  const [locked, setLocked] = useState(false); 
+  //const [locked, setLocked] = useState(false); 
   const { rsaValues, setRSAValues } = useContext(RSAContext);
   const [form, setForm] = useState(rsaValues);
   const[errors, setErrors] = useState({})
@@ -64,7 +65,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
   const [error, setError] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
   const target = useRef(null);
-
+  const [randomNumber, setRandomNumber] = useState(null);
 
 
 
@@ -79,8 +80,12 @@ const Play = ({rsaValuess, updateRSAValues }) => {
       setIsZCorrect(false); // Reset validation on input change 
     };
    
+    const generateRandomNumber = () => {
+        const number = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
+        console.log("Random num is" +number);
+        return number;
+      };
 
-    
     const PREFIX_MAP = {
       fn: "Φ(n)",
       p: "P",
@@ -95,7 +100,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
   const setField = (field, value) => {
-    if (locked) return;
+   // if (locked) return;
 
     // Get the prefix for this field from the PREFIX_MAP, default to an empty string if not found
     const prefix = PREFIX_MAP[field] || "";
@@ -134,6 +139,38 @@ const Play = ({rsaValuess, updateRSAValues }) => {
     }
 };
 
+const handleNext = () => {
+    if (step === 0) {
+        handleCalculatePrimeP(); // Set random value for x
+    } else if (step === 1) {
+        handleCalculatePrimeQ(); // Set random value for y
+    } else if (step === 2) {
+        calculateE(form.fn);
+    } else if (step === 3) {
+       const varE= calculateD(form.E, form.fn);
+       const formattedValue = `${PREFIX_MAP['D']}=${varE}`; 
+       setField('D', formattedValue);
+    }   else if (step === 4) {
+        handleSubmit();
+    }
+    else if (step === 5){
+       const varM=generateRandomNumber();
+       const formattedValueM = `${PREFIX_MAP['M']}=${varM}`; 
+       setField('M',formattedValueM);
+    }
+    else if (step === 6){
+        const varCT= rsaEncrypt(form.M , form.E , form.n);        
+        const formattedValueCT = `${PREFIX_MAP['CT']}=${varCT}`; 
+        setField('CT',formattedValueCT);
+     }
+     else if (step === 7){
+        handleButtonClick()
+     }
+    
+    setStep(step + 1); // Move to the next step
+  };
+
+
 
 const validateField = (field, value, updatedForm) => {
   const{p,q,n,fn,E,D,CT,M}= updatedForm;
@@ -160,27 +197,6 @@ const validateField = (field, value, updatedForm) => {
     // Finally, update the errors state once with all accumulated errors
      setErrors(newErrors);
         break;
-    {/*
-        case 'n':
-      validateN(field, value, updatedForm,newErrors);
-      if (fn !== undefined && fn !== '') {console.log("Entered ValidateFN"); validateFn('fn', fn, updatedForm,newErrors);}
-      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
-      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-        setErrors(newErrors);
-        setShowTooltip(!!newErrors.n);
-      break;
-    case 'fn':
-      validateFn(field, value, updatedForm,newErrors);
-      if (n !== undefined && n !== '') { console.log("Entered ValidateN"); validateN('n', n, updatedForm,newErrors);}
-      if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
-      if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
-      if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
-      if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-      setErrors(newErrors);
-      break;
-      */}
     case 'E':
        validateE(field, value, updatedForm,newErrors);
        if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
@@ -249,25 +265,7 @@ const validateP = (field, value, form,newErrors) =>{
   }
 
 
-{/*
 
- const validateP = (field, value, form,newErrors) =>{
-  const{p}= form
-
-  console.log('P: '+p+' is prime: '+isPrime(p));
-
-   //-validation for p == prime
-   if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
-   else{
-    if (!isPrime(p)) {
-      newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';
-      }
-    else {
-     delete newErrors.p; // Clear error if validation passes
-    }
-   }
- }
- */}
 
  //---------------------------------handle submit only for Q --------------------------------------------
  const validateQ = (field, value, form,newErrors) =>{
@@ -300,47 +298,6 @@ const validateP = (field, value, form,newErrors) =>{
 }
 
 
-
-/*
-//---------------------------------handle submit only for n -------------------------------------------
-const validateN = (field, value, form,newErrors) =>{
-  const{p,q,n}= form
-  //const newErrors ={}
-  
-   // n validation
-  if (n === undefined || n === '') {newErrors.n = 'Το πεδίο είναι κενό'}
-  else{ 
-  if (n != p*q) 
-      {
-      newErrors.n = n+' ≠  P x Q';
-      console.log(n + " not p x q");
-      } else {
-        delete newErrors.n; // Clear error if validation passes
-    }
-  }     
-}
-
-
-//---------------------------------handle submit only for Fn--------------------------------------------
-const validateFn = (field, value, form,newErrors) =>{
-  const{p,q,fn}= form
- //const newErrors ={}
-
-
- //fn validation
- if (fn === undefined || fn === '') {newErrors.fn = 'Το πεδίο είναι κενό'}
- else{ 
- if (fn != ((q-1)*(p-1))) 
-      {
-          newErrors.fn = +fn+' ≠ (P - 1) x (Q - 1)';
-          console.log(fn + " invalid");
-      }else {
-       delete newErrors.fn; // Clear error if validation passes
-       
-   }
- }  
-}
-*/
 
 //----------------------------------------handle submit only for E---------------------------------------------
 
@@ -429,7 +386,7 @@ const validateD = (field, value, form, newErrors) => {
 
 //----------------------------------------------------------------
 const handleInputChange = (field, value) => {
-  if (locked) return; // Prevent changes if locked
+ // if (locked) return; // Prevent changes if locked
 
   // Remove the prefix if it's present and not needed
   //const cleanedValue = value.replace(`${PREFIX_MAP['fn']}=`, ''); // Remove 'fn=' if present
@@ -496,6 +453,8 @@ function isWholeNumber(value) {
   return /^\d+$/.test(value);
 }
 
+
+
 function modInverse(e, phiN) {
   let [t, newT] = [0, 1];
   let [r, newR] = [phiN, e];
@@ -535,11 +494,11 @@ const handleSubmit = () => {
     console.log('errors ' +newErrors);
     setShowModalB(true); // Show modal if fields are empty
     return; // Exit the function, preventing the rest of the code from running
-    setLocked(false);
+   // setLocked(false);
   }else{
    // Lock the form
    setIsZCorrect(true);
-   setLocked(true);
+  // setLocked(true);
   //onSendClick();
   }  
 };
@@ -554,7 +513,7 @@ const handleButtonClick = () => {
   // Check if any fields are empty or has errors
   if (hasEmptyFields || hasErrors) {
     setShowModalA(true); // Show modal if fields are empty
-    setLocked(false);
+  // setLocked(false);
   } else {
     // Call the onUnlockClick function since fields are filled
    //onUnlockClick();
@@ -564,7 +523,7 @@ const handleButtonClick = () => {
       setShowModalE(true);
     }, 5000); // 5000ms = 5 seconds
     console.log("after 5sec");
-   setLocked(true);
+  // setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
   }
 };
@@ -684,16 +643,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     const HomeRedirection = () => {
       navigate('/'); // Navigate to the '/' route when button is clicked
     };
-    const NextRedirection = () => {
-      navigate('/TestNext'); // Navigate to the '/' route when button is clicked
-    };
+
   
-    const HelpRedirection = () => {
-      navigate('/HelpMain'); // Navigate to the '/' route when button is clicked
-    };
-
-
-
     const handleCalculatePrimeP = () => {
       // Helper function to check if a number is prime
       const isPrime = (num) => {
@@ -735,8 +686,65 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       const randomPrime = primes[Math.floor(Math.random() * primes.length)];
       const formattedValue = `${PREFIX_MAP['q']}=${randomPrime}`; // Format as P={result}
       setField('q', formattedValue); // Save the numeric part
+      console.log(typeof randomPrime);
+      console.log(typeof formattedValue);
     };
     
+
+
+    const calculateE = (fn) => {
+       // let { fn} = form;
+        let e = 3;
+        while (e < fn) {
+          if (gcd(e, fn) === 1) {
+            const formattedValue = `${PREFIX_MAP['E']}=${e}`; 
+            setField('E', formattedValue);
+            return e;
+          }
+          e += 1;
+        }
+        throw new Error("No valid 'e' found. Check your inputs.");
+      };
+
+      const gcd = (a, b) => {
+        while (b !== 0) {
+          [a, b] = [b, a % b];
+        }
+        return a;
+      };
+
+
+      function calculateD(a, m) {
+        // validate inputs
+        [a, m] = [Number(a), Number(m)]
+        if (Number.isNaN(a) || Number.isNaN(m)) {
+          return NaN // invalid input
+        }
+        a = (a % m + m) % m
+        if (!a || m < 2) {
+          return NaN // invalid input
+        }
+        // find the gcd
+        const s = []
+        let b = m
+        while(b) {
+          [a, b] = [b, a % b]
+          s.push({a, b})
+        }
+        if (a !== 1) {
+          return NaN // inverse does not exists
+        }
+        // find the inverse
+        let x = 1
+        let y = 0
+        for(let i = s.length - 2; i >= 0; --i) {
+          [x, y] = [y,  x - y * Math.floor(s[i].a / s[i].b)]
+        }
+        return (y % m + m) % m
+      }
+
+   
+     
 
 
   
@@ -747,37 +755,50 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
      
  <div className="right-buttons">
- {!isMobile && (
-       <Button variant="dark"        
-                onClick={HelpRedirection}> 
-                 Βοήθεια 
-              </Button>
-   )}
+ <Button 
+                          onClick={handleNext}                         
+                          style={{
+                            fontSize: '1rem', // Slightly larger font for better readability
+                            padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                            fontWeight: 'bolder',
+                            borderColor: '#c22748', // Custom border color
+                            borderWidth: '2px', // Custom border thickness
+                            color: '#c22748', // Ensure text color matches or complements the border
+                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            borderRadius: '5px', // Rounded corners for a modern look
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                            transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                            e.target.style.color = '#fff'; // Make text white on hover
+                            e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.color = '#c22748'; // Reset text color
+                            e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                          }}
+                        >
+                          Επόμενο
+                        </Button>
   {!isMobile && (
        <Button variant="dark"        
                 onClick={HomeRedirection}> 
                  Αρχική
               </Button>
    )}
-   {!isMobile && (
-       <Button variant="dark"        
-                onClick={NextRedirection}> 
-                 test 
-              </Button>
-   )}
- 
+  
+  
     {!isMobile && ( <Button variant="dark" onClick={refreshPage}>
       <i class="bi bi-arrow-clockwise"></i>
     </Button>
    )}
-</div>
 
 
    
-    <Test/>
-    <br/>
-    <br/>
-    <br/>
+           
+</div>
 
     <div className="Main">
 
@@ -795,111 +816,62 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             <Col>
               Επίλεξε δύο πρώτους αριθμούς
            </Col>        
-           {/* <Col xs={4}>
-                <Form.Control
-                    className="custom-placeholderPQPlay"
-                    placeholder="P"
-                    style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
-                   value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
-                    onChange={(e) => setField('p', e.target.value)} // Update without the prefix
-                    isInvalid={!!errors.p} // Keep the visual invalid state
-                    disabled={locked}
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors.p}
-                </Form.Control.Feedback>          
-         </Col>*/}
-
-<Col xs={4} className="form-container" style={{ position: 'relative' }}>
-  <div className="input-wrapper">
-    <Form.Control
-      className="custom-placeholderPQPlay"
-      placeholder="P"
-      style={{
-        backgroundColor: 'rgb(243, 219, 219)',
-        fontWeight: 'bold',
-        fontSize: '1.0rem',
-        color: 'rgb(108,117,125)',
-        paddingRight: '40px', // Reserve space for the button
-      }}
-      value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
-      onChange={(e) => {
-        const value = e.target.value.replace(`${PREFIX_MAP['p']}=`, '');
-        setField('p', value);
-      }}
-      isInvalid={!!errors.p}
-      disabled={locked}
-    />
-    <Form.Control.Feedback type="invalid">
-      {errors.p}
-    </Form.Control.Feedback>
-
-    <button
-      type="button"
-      className="prime-calculator-btn"
-      onClick={handleCalculatePrimeP}
-      title="Select a random prime number"
-    >
-    <i class="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
-    </button>
-  </div>
-</Col>
-
-
-
-
-{/*
-         <Col xs={4}>
+      
+            <Col xs={4} className="form-container" style={{ position: 'relative' }}>
+            <div className="input-wrapper">
                 <Form.Control
                 className="custom-placeholderPQPlay"
-                    placeholder="Q"
-                    style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
-                    value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
-                    onChange={(e) => setField('q', e.target.value)}
-                    isInvalid={!!errors.q}
-                    disabled={locked}
+                placeholder="P"
+                readOnly
+                style={{
+                    backgroundColor: 'rgb(243, 219, 219)',
+                    fontWeight: 'bold',
+                    fontSize: '1.0rem',
+                    color: 'rgb(108,117,125)',
+                    paddingRight: '40px', // Reserve space for the button
+                }}
+                value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
+                onChange={(e) => {
+                    const value = e.target.value.replace(`${PREFIX_MAP['p']}=`, '');
+                    setField('p', value);
+                }}
+                isInvalid={!!errors.p}
+               // disabled={locked}
                 />
-                <Form.Control.Feedback type= 'invalid'>
-                    {errors.q}
+                <Form.Control.Feedback type="invalid">
+                {errors.p}
                 </Form.Control.Feedback>
-          </Col>   
-*/}
+         </div>
+            </Col>
 
 
-<Col xs={4} className="form-container" style={{ position: 'relative' }}>
-  <div className="input-wrapper">
-    <Form.Control
-      className="custom-placeholderPQPlay"
-      placeholder="Q"
-      style={{
-        backgroundColor: 'rgb(243, 219, 219)',
-        fontWeight: 'bold',
-        fontSize: '1.0rem',
-        color: 'rgb(108,117,125)',
-        paddingRight: '40px', // Reserve space for the button
-      }}
-      value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
-      onChange={(e) => {
-        const value = e.target.value.replace(`${PREFIX_MAP['q']}=`, '');
-        setField('q', value);
-      }}
-      isInvalid={!!errors.q}
-      disabled={locked}
-    />
-    <Form.Control.Feedback type="invalid">
-      {errors.q}
-    </Form.Control.Feedback>
 
-    <button
-      type="button"
-      className="prime-calculator-btn"
-      onClick={handleCalculatePrimeQ}
-      title="Select a random prime number"
-    >
-    <i class="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
-    </button>
-  </div>
-</Col>
+            <Col xs={4} className="form-container" style={{ position: 'relative' }}>
+            <div className="input-wrapper">
+                <Form.Control
+                className="custom-placeholderPQPlay"
+                placeholder="Q"
+                readOnly
+                style={{
+                    backgroundColor: 'rgb(243, 219, 219)',
+                    fontWeight: 'bold',
+                    fontSize: '1.0rem',
+                    color: 'rgb(108,117,125)',
+                    paddingRight: '40px', // Reserve space for the button
+                }}
+                value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
+                onChange={(e) => {
+                    const value = e.target.value.replace(`${PREFIX_MAP['q']}=`, '');
+                    setField('q', value);
+                }}
+                isInvalid={!!errors.q}
+              //  disabled={locked}
+                />
+                <Form.Control.Feedback type="invalid">
+                {errors.q}
+                </Form.Control.Feedback>
+            </div>
+            </Col>
 
        </Row>
 
@@ -963,7 +935,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
-                           disabled={locked}                           
+                           readOnly
                            style={{ 
                             fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
@@ -985,7 +957,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
                            isInvalid={!!errors.D}
-                           disabled={locked}                           
+                           readOnly                          
                            style={{ 
                             fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
@@ -1014,7 +986,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
        </Row>
                
                         <Button 
-                          onClick={handleSubmit}                         
+                          onClick={handleSubmit}  
+                          disabled={true}                       
                           style={{
                             fontSize: '1rem', // Slightly larger font for better readability
                             padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
@@ -1057,6 +1030,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                                 <br/>
                         <Form.Control                          
                               className="custom-placeholder"
+                              readOnly
                               placeholder={`M = ${form.CT}${convertToSuperscript(form.D)} mod ${form.n} = ${form.M}`}
                               style={{
                                 fontSize: '1.2rem',
@@ -1236,9 +1210,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    <Form.Control
                       classname='custom-placeholderMPlay'
                        placeholder="Μήνυμα"
+                       readOnly
                        value={form.M ? `${PREFIX_MAP['M']}=${form.M}` : ''}
                        onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
+                      // disabled={locked}
                        style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
@@ -1259,6 +1235,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                     onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
+                     readOnly
                     // disabled={locked}
                      style={{
                       fontSize: '1.2rem',
@@ -1282,6 +1259,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            
                <Button 
                           onClick={handleButtonClick}
+                          disabled={true}   
                           style={{
                             fontSize: '1rem', // Slightly larger font for better readability
                             padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
@@ -1406,4 +1384,4 @@ const styles = {
   }
 };
 
-export default Play;
+export default Help;

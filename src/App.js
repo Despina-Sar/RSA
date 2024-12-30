@@ -19,6 +19,8 @@ import HowTo from './Components/HowTo';
 
 
 import HomeGrid from './Components/HomeGrid';
+import HelpMain from './Components/HelpMain';
+import TestNext from './Components/TestNext';
 import PlayMain from './Components/PlayMain';
 import Test from './Components/Test';
 import { Row, Col, Container,Button } from 'react-bootstrap';
@@ -199,6 +201,8 @@ function App() {
         <Route path="/" element={<HomeGrid />} />
       <Route path="/HomeGrid" element={<HomeGrid />} />
       <Route path="/PlayMain" element={<PlayMain />} />
+      <Route path="/HelpMain" element={<HelpMain />} />
+      <Route path="/TestNext" element={<TestNext />} />
       <Route path="/RSA" element={<Navigate to="/" />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>

@@ -1,0 +1,75 @@
+/* CardCarousel.module.css */
+
+/* General reset for the carousel */
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it's full height of the viewport */
+  position: relative; /* This ensures positioning of the cards */
+  width: 100%;
+  overflow: hidden; /* Prevents any overflow when the cards move */
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Card width */
+  text-align: center;
+  position: absolute; /* Cards are absolutely positioned to enable movement */
+  top: 50%; /* Vertically center the card */
+  left: 50%; /* Horizontally center the card */
+  transform: translate(-50%, -50%); /* Adjust the card to be fully centered */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+
+/* When showing the current card */
+.carousel-container .card.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateX(0%); /* Card slides into the center */
+}
+
+/* When the previous card is hidden (moving left) */
+.carousel-container .card.hide {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateX(-100%); /* Move the previous card to the left */
+}
+
+/* Button Styles */
+.card button {
+  background-color: #6200ea;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.card button:hover {
+  background-color: #3700b3;
+}
+
+.card input {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.card p {
+  font-size: 18px;
+  color: #333;
+}

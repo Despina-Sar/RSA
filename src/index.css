@@ -507,7 +507,7 @@ html, body {
 /* Ensuring the background container behaves correctly */
 .background-container {
   /*background-image: url('./backround_desktop.jpg'); /* Desktop background */
-  background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(110, 98, 98) 70%, rgb(189, 162, 171) 100%);
+  background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
   background-size: cover;
   min-height: 100vh;
   width: 100%; /* Ensure full width */
