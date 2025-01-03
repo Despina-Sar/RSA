@@ -4,7 +4,7 @@ import { RSAProvider } from './RSAContext.jsx';
 import Help from './Help';
 import EndModal from './EndModal';  // Import Component B
 
-
+import NavBar from './NavBar'
 
 
 function HelpMain(){
@@ -12,6 +12,11 @@ function HelpMain(){
 
 const [isAliceBlurred, setIsAliceBlurred] = useState(true);
 const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
+
+const [step, setStep] = useState(-1);
+const handleNext = () => {
+  setStep((prevStep) => prevStep + 1);
+};
 
 const handleBobSendClick = () => {
   console.log('Bob send button clicked');
@@ -58,8 +63,8 @@ const handleAliceUnlockClick = () => {
 return (
   <RSAProvider>
         
-               
-          <Help rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
+        <NavBar step={step} onNext={handleNext}/>       
+          <Help rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}  step={step} />
           
              <EndModal showModal={showModal} />
   </RSAProvider>

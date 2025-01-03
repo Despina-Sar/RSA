@@ -286,12 +286,13 @@ html, body {
 /* Navbar styling */
 .navbar {
   color: #ffffff;
-  background-color: rgb(33, 37, 41);
-  font-size: 12px;
+  background-color: rgb(0, 0, 0);
+  font-size: 15px;
   font-weight: bold;
-  height: 30px; /* Set the desired height */
+  height: 60px; /* Set the desired height */
   width: 100%;
-  position: fixed; /* Fix the navbar at the top of the page */
+ /*position: fixed; /* Fix the navbar at the top of the page */
+ margin-top: 0px;
   top: 0; /* Align at the very top */
   left: 0; /* Align at the left edge */
   right: 0; /* Align at the right edge */
@@ -516,7 +517,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align content from top */
-  padding: 1vw;
+ 
   
 }
 
@@ -534,7 +535,7 @@ html, body {
 @media (max-width: 1300px) {
   .background-container {
     /*background-image: url('./backround_mobile.jpg'); /* Mobile background */
-    background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(110, 98, 98) 40%, rgb(189, 162, 171) 100%);
+    background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
     background-size: cover;
     background-position: center center; /* Center image to avoid losing key details */
     background-repeat: no-repeat;

@@ -20,7 +20,7 @@
 .clarification-square {
     padding: 0.1rem;
     /*background-color: rgb(33, 37, 41);*/
-    background-color: rgb(8, 4, 4);
+    background-color: rgb(0, 0, 0);
     border: 1px solid hsl(0, 36%, 88%);
     border-radius: 8px;
     cursor: pointer;
@@ -86,7 +86,7 @@
 
   .Nav {
     width: 100%; /* Ensure it spans the full width of the screen */
-    background-color: rgb(8, 4, 4); /* Dark background color */
+    background-color: rgb(0, 0, 0); /* Dark background color */
     height: 60px; /* Fixed height for consistency */
     display: flex;
     align-items: center; /* Vertically center content */

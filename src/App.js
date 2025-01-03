@@ -20,7 +20,7 @@ import HowTo from './Components/HowTo';
 
 import HomeGrid from './Components/HomeGrid';
 import HelpMain from './Components/HelpMain';
-import TestNext from './Components/TestNext';
+import CardCarousel from './Components/CardCarousel';
 import PlayMain from './Components/PlayMain';
 import Test from './Components/Test';
 import { Row, Col, Container,Button } from 'react-bootstrap';
@@ -118,7 +118,9 @@ function App() {
                         className="d-inline-block align-top"
                         backgroundcolor="rgb(33, 37, 41)"
                       />
-                      <h1 className="app-name">RSA Educational App</h1>
+                      <br/>                      
+                      <br/>
+                      <h3 className="app-name">Εκπαιδευτική εφαρμογή</h3>
                     </div>
                   </Col>
                   <Col md={6} className="text-center app-right">
@@ -202,7 +204,7 @@ function App() {
       <Route path="/HomeGrid" element={<HomeGrid />} />
       <Route path="/PlayMain" element={<PlayMain />} />
       <Route path="/HelpMain" element={<HelpMain />} />
-      <Route path="/TestNext" element={<TestNext />} />
+      <Route path="/CardCarousel" element={<CardCarousel />} />
       <Route path="/RSA" element={<Navigate to="/" />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>

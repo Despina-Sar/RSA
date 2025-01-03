@@ -1,13 +1,16 @@
 /* CardCarousel.module.css */
 
 /* General reset for the carousel */
+* {
+  box-sizing: border-box;
+}
 
 .carousel-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh; /* Ensure it's full height of the viewport */
-  position: relative; /* This ensures positioning of the cards */
+  position: relative; /* Ensures cards are positioned within this container */
   width: 100%;
   overflow: hidden; /* Prevents any overflow when the cards move */
 }
@@ -18,50 +21,84 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  width: 300px; /* Card width */
+  width: 600px; /* Updated Card width */
+  height: 400px; /* Updated Card height */
   text-align: center;
-  position: absolute; /* Cards are absolutely positioned to enable movement */
+  position: absolute; /* Cards are absolutely positioned to overlap */
   top: 50%; /* Vertically center the card */
   left: 50%; /* Horizontally center the card */
-  transform: translate(-50%, -50%); /* Adjust the card to be fully centered */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  opacity: 0;
+  transform: translate(-50%, -50%); /* Adjust to be fully centered */
+  opacity: 0; /* Start with card hidden */
+  transition: opacity 1.2s ease-in-out; /* Smooth opacity transition with ease-in-out */
+  z-index: 1; /* Ensure all cards are at the same level */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures content goes up and buttons go down */
 }
 
 /* When showing the current card */
 .carousel-container .card.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) translateX(0%); /* Card slides into the center */
+  opacity: 1; /* Make the current card fully visible */
+  z-index: 2; /* Bring the active card to the front */
 }
 
-/* When the previous card is hidden (moving left) */
+/* When hiding a card */
 .carousel-container .card.hide {
-  opacity: 0;
-  transform: translate(-50%, -50%) translateX(-100%); /* Move the previous card to the left */
+  opacity: 0; /* Fade out the hidden card */
+  z-index: 1; /* Keep hidden cards behind */
 }
 
-/* Button Styles */
+/* Top Right Button */
+.top-right-btn {
+  position: fixed; /* Position the button fixed to the screen */
+  top: 15px;
+  margin-left: 70% !important;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  z-index: 10; /* Ensure the button stays on top of other elements */
+}
+
+
+
+/* Button Styles for Back/Next */
 .card button {
   background-color: #6200ea;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  margin: 10px 0;
+  padding: 12px 24px; /* Adjust button padding for larger cards */
+  margin-top: 20px; /* Add margin to ensure space between content and button */
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px; /* Increase font size for buttons */
+  width: 45%; /* Adjust width to fit both buttons in the same row */
+  transition: background-color 0.3s ease;
 }
 
 .card button:hover {
   background-color: #3700b3;
 }
 
+/* Flex container for buttons to align them horizontally */
+.card .button-container {
+  display: flex;
+  justify-content: space-between; /* Add space between the buttons */
+  margin-top: 20px; /* Add some margin to the top for spacing */
+}
+
+.card .button-container button {
+  width: 45%; /* Make each button take 45% width so they align side by side */
+  padding: 12px 24px; /* Same padding for both buttons */
+}
+
 .card input {
-  padding: 10px;
+  padding: 12px;
   margin: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 80%;
+  width: 80%; /* Ensure inputs take up most of the width */
+  font-size: 16px;
 }
 
 .card h2 {
@@ -70,6 +107,13 @@
 }
 
 .card p {
-  font-size: 18px;
+  font-size: 20px;
   color: #333;
+  margin-bottom: 40px; /* Add space below the result text */
 }
+
+.right-buttons {
+  display: flex; /* Align right buttons in a row */
+  gap: 10px; /* Space between right buttons */
+  margin-left: 70% !important;
+ }

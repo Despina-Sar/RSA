@@ -13,13 +13,13 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate from react
 
 
 
-const Help = ({rsaValuess, updateRSAValues }) => {
+const Help = ({rsaValuess, updateRSAValues ,step }) => {
   // Boy's state
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
   const isMobile = useIsMobile();
-  const [step, setStep] = useState(0); // to track the step
+  //const [step, setStep] = useState(0); // to track the step
 
   // Girl's state
   const [p, setP] = useState('');
@@ -54,6 +54,7 @@ const Help = ({rsaValuess, updateRSAValues }) => {
   const { rsaValues, setRSAValues } = useContext(RSAContext);
   const [form, setForm] = useState(rsaValues);
   const[errors, setErrors] = useState({})
+  const [showModalH, setShowModalH] = useState(false); 
   const [showModalB, setShowModalB] = useState(false); 
   const [showModalA, setShowModalA] = useState(false); 
   const [showModalE, setShowModalE] = useState(false); // Manage modal state
@@ -72,6 +73,19 @@ const Help = ({rsaValuess, updateRSAValues }) => {
   // Function to close the modal
   const handleCloseModB = () => setShowModalB(false);
   const handleCloseModA = () => setShowModalA(false);
+  const handleCloseModH = () => setShowModalH(false);
+
+
+  useEffect(() => {
+    // Ελέγχουμε αν το popup έχει ήδη εμφανιστεί σε αυτή τη συνεδρία
+    const hasSeenModal = sessionStorage.getItem("hasSeenModal");
+
+    if (!hasSeenModal) {
+      setShowModalH(true); // Εμφανίζουμε το modal
+      sessionStorage.setItem("hasSeenModal", "true"); // Καταγράφουμε ότι εμφανίστηκε
+    }
+  }, []); // Τρέχει μόνο όταν φορτώνεται η σελίδα
+
 
     // Handle input changes for the bobs's inputs                                   //from 7.11
     const handleInputChange2 = (e, setter) => {
@@ -139,6 +153,39 @@ const Help = ({rsaValuess, updateRSAValues }) => {
     }
 };
 
+
+React.useEffect(() => {
+  if (step === 0) {
+    handleCalculatePrimeP(); // Set random value for x
+} else if (step === 1) {
+    handleCalculatePrimeQ(); // Set random value for y
+} else if (step === 2) {
+    calculateE(form.fn);
+} else if (step === 3) {
+   const varE= calculateD(form.E, form.fn);
+   const formattedValue = `${PREFIX_MAP['D']}=${varE}`; 
+   setField('D', formattedValue);
+}   else if (step === 4) {
+    handleSubmit();
+}
+else if (step === 5){
+   const varM=generateRandomNumber();
+   const formattedValueM = `${PREFIX_MAP['M']}=${varM}`; 
+   setField('M',formattedValueM);
+}
+else if (step === 6){
+    const varCT= rsaEncrypt(form.M , form.E , form.n);        
+    const formattedValueCT = `${PREFIX_MAP['CT']}=${varCT}`; 
+    setField('CT',formattedValueCT);
+ }
+ else if (step === 7){
+    handleButtonClick()
+ }
+  // Add other steps as needed
+}, [step]);
+
+
+{/*
 const handleNext = () => {
     if (step === 0) {
         handleCalculatePrimeP(); // Set random value for x
@@ -169,7 +216,7 @@ const handleNext = () => {
     
     setStep(step + 1); // Move to the next step
   };
-
+*/}
 
 
 const validateField = (field, value, updatedForm) => {
@@ -521,7 +568,7 @@ const handleButtonClick = () => {
     console.log("before 5sec");
     setTimeout(() => {
       setShowModalE(true);
-    }, 5000); // 5000ms = 5 seconds
+    }, 2000); // 5000ms = 5 seconds
     console.log("after 5sec");
   // setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
@@ -753,9 +800,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
    <div  className="PlayMain">
  {/*{!isMobile && (<NavigateButton to="/HomeGrid" label="How To" />)}*/}
 
-     
+
  <div className="right-buttons">
- <Button 
+ 
+ {/* <Button 
                           onClick={handleNext}                         
                           style={{
                             fontSize: '1rem', // Slightly larger font for better readability
@@ -782,6 +830,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         >
                           Επόμενο
                         </Button>
+    */}
+
+
+{/*
   {!isMobile && (
        <Button variant="dark"        
                 onClick={HomeRedirection}> 
@@ -794,13 +846,33 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       <i class="bi bi-arrow-clockwise"></i>
     </Button>
    )}
-
+*/}
 
    
            
 </div>
 
     <div className="Main">
+
+         {/* Bootstrap Modal for displaying empty field alert */}
+                  <Modal show={showModalH} onHide={handleCloseModH} centered>
+                      <Modal.Header className="modal-header-dark">
+                        <Modal.Title>Οδηγίες</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body className="modal-body-dark">
+                      Αυτό το τμήμα είναι σχεδιασμένο για να σας καθοδηγήσει βήμα προς βήμα σχετικά 
+                      με το πως λειτουργεί η εφαρμογή. Πατήστε το κουμπί "Επόμενο" για να ξεκλειδώσετε το
+                     επόμενο βήμα.
+                      </Modal.Body>
+                      <Modal.Footer className="modal-footer-dark">
+                        <Button
+                          className="modal-close-button"
+                          onClick={handleCloseModH}
+                        >
+                          Ξεκινήστε
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
 
       {/* Boy's card with inputs and z calculation */}
       <Card style={{ borderColor: '#c22748' }}  className="customcardBobPlay">
@@ -1090,7 +1162,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="modal-close-button"
                     onClick={refreshPage}
                   >
-                    Κλείσιμο
+                    Δοκίμασε ξανά
                   </Button>
                 </Modal.Footer>
               </Modal>

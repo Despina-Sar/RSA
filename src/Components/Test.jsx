@@ -133,7 +133,7 @@ const Test = () => {
 
   return (
     <div className="clarifications-container">
-      {isMobile && (
+    {/*  {isMobile && (
      <Navbar  className="Nav" >
  
        
@@ -159,6 +159,7 @@ const Test = () => {
 
     </Navbar>
       )}
+    */}
       <br/>
       <div className={`clarifications ${isMobile && !isDropdownOpen ? 'hidden' : ''}`}>
         {clarifications.map((clarification) => (

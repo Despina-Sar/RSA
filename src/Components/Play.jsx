@@ -9,7 +9,7 @@ import './Play.css';
 import Test from './Test.jsx';
 import NavigateButton from './NavigateButton.jsx';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-
+import NavBar from './NavBar'
 
 
 
@@ -743,42 +743,36 @@ const handleSubmitM = (field, value, form,newErrors) =>{
   return (
 
    <div  className="PlayMain">
- {/*{!isMobile && (<NavigateButton to="/HomeGrid" label="How To" />)}*/}
-
-     
- <div className="right-buttons">
- {!isMobile && (
-       <Button variant="dark"        
-                onClick={HelpRedirection}> 
-                 Βοήθεια 
-              </Button>
-   )}
-  {!isMobile && (
-       <Button variant="dark"        
-                onClick={HomeRedirection}> 
-                 Αρχική
-              </Button>
-   )}
-   {!isMobile && (
-       <Button variant="dark"        
-                onClick={NextRedirection}> 
-                 test 
-              </Button>
-   )}
- 
-    {!isMobile && ( <Button variant="dark" onClick={refreshPage}>
-      <i class="bi bi-arrow-clockwise"></i>
-    </Button>
-   )}
-</div>
+  
+  <NavBar/>
 
 
-   
-    <Test/>
-    <br/>
-    <br/>
-    <br/>
 
+{/* Conditional rendering for mobile 
+{!isMobile && (
+  <div className="right-buttons-container">
+    <img alt="" src={require('../images/favicon.png')} className="image" />
+    <div className="right-buttons">
+      <Button variant="dark" onClick={HelpRedirection}>
+        Βοήθεια
+      </Button>
+      <Button variant="dark" onClick={HomeRedirection}>
+        Αρχική
+      </Button>
+      <Button variant="dark" onClick={NextRedirection}>
+        Test
+      </Button>
+      <Button variant="dark" onClick={refreshPage}>
+        <i className="bi bi-arrow-clockwise"></i>
+      </Button>
+    </div>
+  </div>
+)}
+*/}
+
+  <Test/>
+  <br/>
+  
     <div className="Main">
 
       {/* Boy's card with inputs and z calculation */}
@@ -1116,7 +1110,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     className="modal-close-button"
                     onClick={refreshPage}
                   >
-                    Κλείσιμο
+                   Δοκίμασε ξανά
                   </Button>
                 </Modal.Footer>
               </Modal>

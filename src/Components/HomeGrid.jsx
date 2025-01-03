@@ -3,6 +3,8 @@ import "./HomeGrid.css";
 import NavigateButton from './NavigateButton.jsx'; 
 import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import NavBar from './NavBar'
+
 
 const HomeGrid = () => {
    const navigate = useNavigate(); 
@@ -30,6 +32,11 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
 
   return (
 <div>
+
+<NavBar/>
+
+
+{/*
     <div className="right-buttons">
     <Button variant="dark"        
            onClick={HomeRedirection} // Trigger navigation on click
@@ -37,6 +44,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
            Αρχική
          </Button>  
    </div>
+*/}
 
     <div className="grid-container">
 
