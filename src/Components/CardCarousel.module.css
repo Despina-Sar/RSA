@@ -1,119 +1,110 @@
-/* CardCarousel.module.css */
-
-/* General reset for the carousel */
-* {
-  box-sizing: border-box;
+.CarouselMain
+{
+  width: 100% !important;
 }
 
-.carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Ensure it's full height of the viewport */
-  position: relative; /* Ensures cards are positioned within this container */
-  width: 100%;
-  overflow: hidden; /* Prevents any overflow when the cards move */
-}
-
-/* Card Styles */
-.card {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  width: 600px; /* Updated Card width */
-  height: 400px; /* Updated Card height */
-  text-align: center;
-  position: absolute; /* Cards are absolutely positioned to overlap */
-  top: 50%; /* Vertically center the card */
-  left: 50%; /* Horizontally center the card */
-  transform: translate(-50%, -50%); /* Adjust to be fully centered */
-  opacity: 0; /* Start with card hidden */
-  transition: opacity 1.2s ease-in-out; /* Smooth opacity transition with ease-in-out */
-  z-index: 1; /* Ensure all cards are at the same level */
+.test-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures content goes up and buttons go down */
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+  margin-left: 25%;
+  height: 40%;
+  width: 50%;
+  background: linear-gradient(to bottom, #000000, #000000);
+  border-radius: 15px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  padding: 20px;
 }
 
-/* When showing the current card */
-.carousel-container .card.show {
-  opacity: 1; /* Make the current card fully visible */
-  z-index: 2; /* Bring the active card to the front */
+.card {
+  background: rgba(24, 24, 24, 0.966);
+  color: rgb(255, 255, 255);
+   border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 90%;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* When hiding a card */
-.carousel-container .card.hide {
-  opacity: 0; /* Fade out the hidden card */
-  z-index: 1; /* Keep hidden cards behind */
-}
-
-/* Top Right Button */
-.top-right-btn {
-  position: fixed; /* Position the button fixed to the screen */
-  top: 15px;
-  margin-left: 70% !important;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  z-index: 10; /* Ensure the button stays on top of other elements */
-}
-
-
-
-/* Button Styles for Back/Next */
-.card button {
-  background-color: #6200ea;
-  color: #fff;
-  border: none;
-  padding: 12px 24px; /* Adjust button padding for larger cards */
-  margin-top: 20px; /* Add margin to ensure space between content and button */
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px; /* Increase font size for buttons */
-  width: 45%; /* Adjust width to fit both buttons in the same row */
-  transition: background-color 0.3s ease;
-}
-
-.card button:hover {
-  background-color: #3700b3;
-}
-
-/* Flex container for buttons to align them horizontally */
-.card .button-container {
+.button-container {
   display: flex;
-  justify-content: space-between; /* Add space between the buttons */
-  margin-top: 20px; /* Add some margin to the top for spacing */
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.card .button-container button {
-  width: 45%; /* Make each button take 45% width so they align side by side */
-  padding: 12px 24px; /* Same padding for both buttons */
-}
-
-.card input {
-  padding: 12px;
-  margin: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 80%; /* Ensure inputs take up most of the width */
+button {
+  background: #000000;
+  color: white;
+  border-Color: #c22748;
+  border-Width: 2px;
+  padding: 10px 20px;
   font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px !important; 
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.card h2 {
-  margin-bottom: 20px;
-  color: #333;
+button:hover {
+  background: #c22748;
 }
 
-.card p {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 40px; /* Add space below the result text */
+button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
 }
 
-.right-buttons {
-  display: flex; /* Align right buttons in a row */
-  gap: 10px; /* Space between right buttons */
-  margin-left: 70% !important;
- }
+
+
+.hintButton:hover {
+  color:#06c3c9;
+  background: #06c2c92f;
+
+}
+
+
+
+.validInput {
+  border: 2px solid rgb(8, 165, 8) !important; 
+  background-color: #e6ffe6!important; 
+  pointer-events: none; /* Prevent further user interaction */
+  border-radius: 5px !important;
+  padding: 5px;
+}
+
+.Input {
+  border: 2px solid rgb(255, 255, 255) !important; 
+  background-color: #ffffff!important; 
+  border-radius: 5px !important;
+  padding: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.hintButton {
+  margin-top: 10px;
+  background:none;
+  color: #06c3c9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hint {
+  background: #000000;
+  color: #06c3c9;
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #06c3c9;
+  border-radius: 5px;
+  margin-left: 25%;
+  width: 40%;
+}

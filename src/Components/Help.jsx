@@ -954,7 +954,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  className="custom-placeholderNF"
                //  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder={placeholderN} 
-                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
+                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
                 isInvalid={!!errors.n}
                 readOnly
              />
@@ -968,7 +968,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               className="custom-placeholderNF"
               placeholder= {placeholderFn}
               //value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
+              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', fontSize: '0.83rem'}}
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               readOnly
             />

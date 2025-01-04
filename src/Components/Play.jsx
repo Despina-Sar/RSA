@@ -398,7 +398,7 @@ const validateE = (field, value, form, newErrors) => {
   console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
 
   if (a !== 1) {
-    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' εκτός από το 1.';
+    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ form.fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' εκτός από το 1.';
     console.log('Validation Error: Το E δεν είναι κατάλληλο δημόσιο κλειδί, διότι έχει κοινούς διαιρέτες με το φ(n). GCD:', a);
   } else {
     delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
@@ -534,8 +534,8 @@ const handleSubmit = () => {
     // Show an alert if any field is empty
     console.log('errors ' +newErrors);
     setShowModalB(true); // Show modal if fields are empty
-    return; // Exit the function, preventing the rest of the code from running
     setLocked(false);
+    return; 
   }else{
    // Lock the form
    setIsZCorrect(true);
@@ -904,7 +904,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  className="custom-placeholderNF"
                //  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder={placeholderN} 
-                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
+                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
                 isInvalid={!!errors.n}
                 readOnly
              />
@@ -918,7 +918,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               className="custom-placeholderNF"
               placeholder= {placeholderFn}
               //value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold'}}
+              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               readOnly
             />
@@ -1121,7 +1121,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       <div style={styles.arrowsColumn}>
         {/* Arrow showing z sent from boy to girl */}
 
-
+        {handleCloseModB}
         {isZCorrect && (
         <div style={styles.arrowContainer}>
           {!isMobile ? (
@@ -1253,7 +1253,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     //  onChange={(e) => handleInputChangeD('D', e.target.value)} 
                     onChange={(e) => setField('CT', e.target.value)}
                      isInvalid={!!errors.CT}
-                    // disabled={locked}
+                     //disabled={locked}
                      style={{
                       fontSize: '1.2rem',
                       padding: '0.5rem 0.5rem',

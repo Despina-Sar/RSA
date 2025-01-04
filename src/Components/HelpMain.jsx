@@ -64,6 +64,7 @@ return (
   <RSAProvider>
         
         <NavBar step={step} onNext={handleNext}/>       
+        <br/>
           <Help rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}  step={step} />
           
              <EndModal showModal={showModal} />

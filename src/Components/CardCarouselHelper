@@ -1,0 +1,221 @@
+import React, { useState, useEffect } from 'react';
+import styles from './CardCarousel.module.css';
+
+const App = () => {
+  const [currentCard, setCurrentCard] = useState(0);
+  const [rsaParams, setRsaParams] = useState({
+    n: 0,
+    e: 0,
+    d: 0,
+    encryptedMessage: 0,
+  }); // RSA parameters for Card 1
+  const [decryptedMessage, setDecryptedMessage] = useState('');
+  const [decryptionError, setDecryptionError] = useState('');
+
+  const [rsaValidationParams, setRsaValidationParams] = useState({ n: 0, fn: 0, e: 0 }); // RSA params for Card 2
+  const [rsaInput, setRsaInput] = useState('');
+  const [rsaError, setRsaError] = useState('');
+
+  const [rsaEncryptionParams, setRsaEncryptionParams] = useState({
+    n: 0,
+    e: 0,
+    message: 0,
+    encryptedMessage: 0,
+  }); // RSA params for Card 3
+  const [userEncryptedInput, setUserEncryptedInput] = useState('');
+  const [encryptionError, setEncryptionError] = useState('');
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (currentCard === 0) generateRSAEncryptionValues();
+    if (currentCard === 1) generateRSAValidationValues();
+    if (currentCard === 2) generateRSAEncryptionHintValues();
+  }, [currentCard]);
+
+  const generateRSAEncryptionValues = () => {
+    const p = getPrime();
+    const q = getPrime();
+    const n = p * q;
+    const fn = (p - 1) * (q - 1);
+    const e = findValidE(fn);
+    const d = findModInverse(e, fn);
+
+    const message = Math.floor(Math.random() * 20) + 1; // Random message
+    const encryptedMessage = modExp(message, e, n); // Encrypt message
+
+    setRsaParams({ n, e, d, encryptedMessage });
+    setDecryptedMessage('');
+    setDecryptionError('');
+  };
+
+  const generateRSAValidationValues = () => {
+    const p = getPrime();
+    const q = getPrime();
+    const n = p * q;
+    const fn = (p - 1) * (q - 1);
+    const e = findValidE(fn);
+
+    setRsaValidationParams({ n, fn, e });
+    setRsaInput('');
+    setRsaError('');
+  };
+
+  const generateRSAEncryptionHintValues = () => {
+    const p = getPrime();
+    const q = getPrime();
+    const n = p * q;
+    const fn = (p - 1) * (q - 1);
+    const e = findValidE(fn);
+
+    const message = Math.floor(Math.random() * 20) + 1;
+    const encryptedMessage = modExp(message, e, n);
+
+    setRsaEncryptionParams({ n, e, message, encryptedMessage });
+    setUserEncryptedInput('');
+    setEncryptionError('');
+    setShowHint(false); // Reset hint visibility
+  };
+
+  const validateDecryptionAnswer = () => {
+    const { d, n, encryptedMessage } = rsaParams;
+    const correctMessage = modExp(encryptedMessage, d, n); // Decrypt message
+    if (parseInt(decryptedMessage, 10) === correctMessage) {
+      alert('Correct!');
+    } else {
+      setDecryptionError('Incorrect! Please try again.');
+    }
+  };
+
+  const validateRSAValidationAnswer = () => {
+    if (parseInt(rsaInput, 10) === rsaValidationParams.e) {
+      alert('Correct!');
+    } else {
+      setRsaError('Incorrect! Please try again.');
+    }
+  };
+
+  const validateEncryptionAnswer = () => {
+    const { encryptedMessage } = rsaEncryptionParams;
+    if (parseInt(userEncryptedInput, 10) === encryptedMessage) {
+      alert('Correct!');
+    } else {
+      setEncryptionError('Incorrect! Please try again.');
+    }
+  };
+
+  const getPrime = () => {
+    const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+    return primes[Math.floor(Math.random() * primes.length)];
+  };
+
+  const gcd = (a, b) => {
+    if (!b) return a;
+    return gcd(b, a % b);
+  };
+
+  const findValidE = (fn) => {
+    for (let i = 2; i < fn; i++) {
+      if (gcd(i, fn) === 1) return i;
+    }
+    return 2;
+  };
+
+  const findModInverse = (a, m) => {
+    const m0 = m;
+    let x0 = 0;
+    let x1 = 1;
+    if (m === 1) return 0;
+
+    while (a > 1) {
+      const q = Math.floor(a / m);
+      let t = m;
+
+      m = a % m;
+      a = t;
+      t = x0;
+
+      x0 = x1 - q * x0;
+      x1 = t;
+    }
+
+    if (x1 < 0) x1 += m0;
+
+    return x1;
+  };
+
+  const modExp = (base, exp, mod) => {
+    let result = 1;
+    base = base % mod;
+    while (exp > 0) {
+      if (exp % 2 === 1) result = (result * base) % mod;
+      exp = Math.floor(exp / 2);
+      base = (base * base) % mod;
+    }
+    return result;
+  };
+
+  const handleNext = () => {
+    if (currentCard < 2) setCurrentCard(currentCard + 1);
+  };
+
+  const handleBack = () => {
+    if (currentCard > 0) setCurrentCard(currentCard - 1);
+  };
+
+  return (
+    <div className={styles['carousel-container']}>
+      {/* Card 1: RSA Decryption */}
+      {/* ... */}
+
+      {/* Card 2: RSA Validation */}
+      {/* ... */}
+
+      {/* Card 3: RSA Encryption */}
+      <div
+        className={`${styles.card} ${
+          currentCard === 2 ? styles.show : styles.hide
+        }`}
+      >
+        {currentCard === 2 && (
+          <>
+            <h2>
+              RSA Encryption:
+              <br />
+              n = {rsaEncryptionParams.n}, e = {rsaEncryptionParams.e}, Message
+              = {rsaEncryptionParams.message}.
+              <br />
+              Enter the encrypted message.
+            </h2>
+            <input
+              type="number"
+              placeholder="Encrypted Message"
+              value={userEncryptedInput}
+              onChange={(e) => setUserEncryptedInput(e.target.value)}
+            />
+            {encryptionError && (
+              <p className={styles.error}>{encryptionError}</p>
+            )}
+            <button
+              className={styles.hintButton}
+              onClick={() => setShowHint(!showHint)}
+            >
+              {showHint ? 'Hide Hint' : 'Hint'}
+            </button>
+            {showHint && (
+              <p className={styles.hint}>
+                Correct Encrypted Message: {rsaEncryptionParams.encryptedMessage}
+              </p>
+            )}
+            <div className={styles['button-container']}>
+              <button onClick={handleBack}>Back</button>
+              <button onClick={validateEncryptionAnswer}>Submit</button>
+              <button onClick={handleNext}>Next</button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default App;

@@ -157,13 +157,11 @@
   .card.customcardAlicePlay,
   .card.customcardBobPlay {
     width: 90%; /* Make cards take full width */
-    max-width: 400px; /* Optional: set a max width for better readability */
-    margin: 0 0 1rem 0; /* Add spacing between stacked cards */
+    max-width: 420px; /* Optional: set a max width for better readability */
+    margin: 0 0 0.7rem 0; /* Add spacing between stacked cards */
     padding-top:10;  /* Remove margin */
        
   }
-      
-  
     .mobileValueLabel{
       color: #ffffff;
       font-size: 30px;

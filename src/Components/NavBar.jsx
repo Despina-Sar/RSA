@@ -144,14 +144,18 @@ function NavBar({ step, onNext }) {
                 />
                 
            </Navbar.Brand>  
-         
+
+           {/*
+           {!isMobile && (
            <div style={{ 
             fontWeight: 'lighter',
             fontSize: '1.1rem' ,
             color:'rgb(221, 221, 221)'
              }}>
-               {getTextForPath()}
-           </div>
+               {getTextForPath()}            
+           </div> 
+          )}
+           */}
            
 
 
@@ -160,13 +164,11 @@ function NavBar({ step, onNext }) {
            {location.pathname !== '/HomeGrid' && (    
             <Nav id = "menu">  
         
-            {location.pathname !== '/HelpMain' && ( 
+            {location.pathname === '/PlayMain' && ( 
                       <Nav.Link as={Link} to="/HelpMain">Βοήθεια</Nav.Link>
             )}
-             {location.pathname !== '/PlayMain' && ( 
-                      <Nav.Link as={Link} to="/PlayMain">Play</Nav.Link>
-            )}
-            <Nav.Link as={Link} to="/CardCarousel">Test</Nav.Link>
+          
+          
             <Navbar.Brand as={Link} to="/" id="nav-menu">  
           
             </Navbar.Brand>  
@@ -202,6 +204,14 @@ function NavBar({ step, onNext }) {
                </Button>
            )} 
         
+        {(location.pathname === '/HelpMain' ||location.pathname === '/CardCarousel' )&& ( 
+                      <Nav.Link as={Link} to="/PlayMain">Πίσω</Nav.Link>
+            )}
+
+         {location.pathname === '/PlayMain' && ( 
+          <Nav.Link as={Link} to="/CardCarousel">Test</Nav.Link>
+         )}
+
           {location.pathname !== '/HomeGrid' && (
             <Button variant="dark" onClick={refreshPage} style={{ fontSize: '1.0rem',fontWeight: 'bolder' }}>
                     <i class="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
@@ -218,7 +228,7 @@ function NavBar({ step, onNext }) {
 
 
              <Offcanvas show={show} onHide={handleClose} style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' }}>
-                <Offcanvas.Header closeButton style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' }}>
+                <Offcanvas.Header closeButton style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'rbg(f,f,f)' }}>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
@@ -234,7 +244,7 @@ function NavBar({ step, onNext }) {
                   <div  className="image-container">
                         <img
                           alt=""
-                          src= {require('../images/RSA_Visual.png')}
+                          src= {require('../images/RSA_VisualVertical.png')}
                           height="auto" width="107%"        
                         />   
                   </div>
