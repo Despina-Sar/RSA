@@ -554,7 +554,7 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            6. Έλεγχος κρυπτογράφισης
+            6. Έλεγχος κρυπτογράφησης
           </p>
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>P = {p}, Q = {q}, E = {e} , μήνυμα = {message}</p>
