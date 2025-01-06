@@ -129,8 +129,16 @@ button:disabled {
 
   .CarouselMain
   {
-    width: 150% !important;
+    width: 180% !important;
   }
   
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 0px !important;
+    margin-top: 20px;
+    }
+
+    
 
 }
