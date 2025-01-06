@@ -26,8 +26,14 @@ const CardCarousel = () => {
   };
 
   const generateRSAQuestions = () => {
-    const p = getPrime();
-    const q = getPrime();
+    let p = getPrime();
+    let q = getPrime();
+    if((p==2 && q==3) || (p==3 && q==2))
+      { 
+        p = getPrime();
+        console.log(p);
+ 
+      }
     const n = p * q;
     const phiN = (p - 1) * (q - 1);
     const e = findValidE(phiN);
@@ -52,7 +58,15 @@ const CardCarousel = () => {
     return primes[Math.floor(Math.random() * primes.length)];
   };
 
-  const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+  
+  //const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+
+  const gcd = (a, b) => {
+    while (b !== 0) {
+      [a, b] = [b, a % b];
+    }
+    return a;
+  };
 
   const findValidE = (phiN) => {
     for (let i = 2; i < phiN; i++) {
@@ -98,19 +112,36 @@ const CardCarousel = () => {
     const errors = {};
     const validated = {};
   
-    if (currentCard === 0) {
+    
+    {/*if (currentCard === 0) {
       if (parseInt(userInputs.e, 10) !== e) {
         errors.keys = 'Λάθος δημόσιο κλειδί.Δοκίμασε ξανά.';
       } else {
         validated.keys = true;
       }
-    } 
-    if (currentCard === 1) {
+    } */}
+     if (currentCard === 0) {
+       let validatenumE= validateE(phiN,userInputs.e);
+       if (validatenumE == false) {
+         errors.keys = 'Λάθος δημόσιο κλειδί.Δοκίμασε ξανά.';
+       } else {
+         validated.keys = true;
+      }
+     }
+    {/*if (currentCard === 1) {
       if (parseInt(userInputs.d, 10) !== d) {
         errors.privateKey = 'Λάθος διωτικό κλειδί.Δοκίμασε ξανά.';
       } else {
         validated.privateKey = true;
-      }
+      }*/}
+      if (currentCard === 1) {
+        let validatenumD= validateD(userInputs.d, e, phiN);
+        console.log("validatenumD"+ validatenumD)
+        if (validatenumD == false) {
+          errors.privateKey = 'Λάθος διωτικό κλειδί.Δοκίμασε ξανά.';
+        } else {
+          validated.privateKey = true;
+        }
     }else if (currentCard === 2) {
       if (parseInt(userInputs.d, 10) !== d) {
         errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
@@ -165,6 +196,58 @@ const CardCarousel = () => {
   };
 
 
+  const validateE = (fn,Einput) => {
+       // Έλεγχος αν το E είναι πρώτος με το φ(n)
+    let a = Einput, b = fn;
+    while (b !== 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+    console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
+  
+    if (a !== 1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const validateD = (D, E, fn) => {
+    console.log("D: "+D);
+    console.log("E: "+E);
+    console.log("fn: "+fn);
+      const expectedD = modInverse(E, fn);
+      if(expectedD == -1 ){ return false;}
+      if (D !== expectedD) {
+           return false;
+      } else {
+        return true;
+      }
+    
+  };
+  
+  function modInverse(e, phiN) {
+    let [t, newT] = [0, 1];
+    let [r, newR] = [phiN, e];
+  
+    while (newR !== 0) {
+      let quotient = Math.floor(r / newR);
+      [t, newT] = [newT, t - quotient * newT];
+      [r, newR] = [newR, r - quotient * newR];
+    }
+  
+    if (r > 1) {
+     // throw new Error(`${e} has no modular inverse mod ${phiN}`);
+     return -1;
+    }
+  
+    if (t < 0) {
+      t = t + phiN;
+    }
+  
+    return t;
+  }
 
   const renderCardContent = () => {
     const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
@@ -229,8 +312,8 @@ const CardCarousel = () => {
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
             2. Υπολογισμός ιδιωτικού κλειδιού
             </p>
-            <p>Δίνονται δύο πρώτοι αριθμοί:</p>
-          <p>P = {p}, Q = {q}</p>
+            <p>Δίνονται οι ακόλουθοι αριθμοί:</p>
+          <p>P = {p}, Q = {q}, E = {e}</p>
           <p>Υπολόγισε το ιδιωτικό κλειδί D:</p>
      
           <input
@@ -271,7 +354,7 @@ const CardCarousel = () => {
             </p>
           <p>Δίνονται οι ακόλουθοι αριθμοί:</p>
           <p>n = {n}, Φ(n) = {phiN}, E = {e}</p>
-          <p>Υπολόγισε τον ιδιωτικό κλειδί D:</p>
+          <p>Υπολόγισε το ιδιωτικό κλειδί D:</p>
      
           <input
                 className={isValidated ? styles.validInput : styles.Input}

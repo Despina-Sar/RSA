@@ -48,8 +48,9 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
 
-  //-----------------------------   ME   -----------------------------------
+  //----------------------------------------------------------------
   const [locked, setLocked] = useState(false); 
+  //const [lockedAlice, setLockedAlice] = useState(false); 
   const { rsaValues, setRSAValues } = useContext(RSAContext);
   const [form, setForm] = useState(rsaValues);
   const[errors, setErrors] = useState({})
@@ -95,7 +96,8 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
   const setField = (field, value) => {
-    if (locked) return;
+
+    //if (locked) return;
 
     // Get the prefix for this field from the PREFIX_MAP, default to an empty string if not found
     const prefix = PREFIX_MAP[field] || "";
@@ -518,6 +520,8 @@ function modInverse(e, phiN) {
   return t;
 }
 
+
+
 //----------------------bob----------------------
 
 const handleSubmit = () => {
@@ -531,18 +535,21 @@ const handleSubmit = () => {
   updateRSAValues({ p, q, n, fn, e: E, d: D });
 
    if (hasEmptyFields || hasErrors) {
-    // Show an alert if any field is empty
-    console.log('errors ' +newErrors);
     setShowModalB(true); // Show modal if fields are empty
     setLocked(false);
+ 
+    
     return; 
   }else{
    // Lock the form
    setIsZCorrect(true);
    setLocked(true);
+  // setLockedAlice(false);
   //onSendClick();
   }  
 };
+
+
 
 //--------------------Alice---------------------------
 const handleButtonClick = () => {
@@ -554,7 +561,7 @@ const handleButtonClick = () => {
   // Check if any fields are empty or has errors
   if (hasEmptyFields || hasErrors) {
     setShowModalA(true); // Show modal if fields are empty
-    setLocked(false);
+    setLocked(false);;
   } else {
     // Call the onUnlockClick function since fields are filled
    //onUnlockClick();
@@ -564,7 +571,7 @@ const handleButtonClick = () => {
       setShowModalE(true);
     }, 5000); // 5000ms = 5 seconds
     console.log("after 5sec");
-   setLocked(true);
+    setLocked(true);
     console.log('CT sent to Bob!'); // Placeholder for any additional functionality
   }
 };
@@ -1230,8 +1237,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    <Form.Control
                       classname='custom-placeholderMPlay'
                        placeholder="Μήνυμα"
+                       disabled={false}
                        value={form.M ? `${PREFIX_MAP['M']}=${form.M}` : ''}
-                       onChange={(e) => setField('M', e.target.value)}
+                      // onChange={(e) => setField('M', e.target.value)}
+                      onChange={(e) => {
+                        console.log('Input changed:', e.target.value);
+                        setField('M', e.target.value);
+                      }}
+                      
                        isInvalid={!!errors.M}
                        style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />

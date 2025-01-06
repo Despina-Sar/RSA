@@ -2,6 +2,79 @@
 import React from 'react'
 
 function RSAHistory(){
+
+
+
+  const validateE = (fn) => {
+ 
+    // Μετατροπή των τιμών σε αριθμούς
+    let Einput = Number(form.E);
+    //fn = Number(form.fn);
+  
+    // Έλεγχος αν το πεδίο E είναι κενό
+    if (Einput === undefined || Einput === '') {
+    //  newErrors.E = 'Το πεδίο E είναι κενό. Παρακαλώ εισάγετε έναν αριθμό.';
+      console.log('Validation Error: Το πεδίο E είναι κενό.');
+      return;
+    }
+  
+    // Έλεγχος ότι E και fn είναι θετικοί ακέραιοι μεγαλύτεροι του 1
+    if (!Number.isInteger(Einput) || Einput <= 1) {
+      //newErrors.E = 'Το E πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
+      console.log('Validation Error: Το E δεν είναι θετικός ακέραιος μεγαλύτερος του 1. E:', Einput);
+      return;
+    }
+  
+  
+    if (!Number.isInteger(fn) || fn <= 1) {
+      //newErrors.E = 'Το φ(n) (fn) πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
+      console.log('Validation Error: Το φ(n) (fn) δεν είναι θετικός ακέραιος μεγαλύτερος του 1. fn:', fn);
+      return;
+    }
+  
+    // Έλεγχος αν το E είναι πρώτος με το φ(n)
+    let a = Einput, b = fn;
+    while (b !== 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+    console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
+  
+    if (a !== 1) {
+     // newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ form.fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' εκτός από το 1.';
+      console.log('Validation Error: Το E δεν είναι κατάλληλο δημόσιο κλειδί, διότι έχει κοινούς διαιρέτες με το φ(n). GCD:', a);
+    } else {
+      //delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
+      console.log('Success: Το E είναι έγκυρο δημόσιο κλειδί.');
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 return(
     <>
      <h4>History</h4>
