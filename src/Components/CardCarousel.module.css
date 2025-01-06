@@ -84,6 +84,10 @@ button:disabled {
   padding: 5px;
 }
 
+.Hidden {
+  visibility: hidden;
+}
+
 .error {
   color: red;
   font-size: 0.9rem;
@@ -107,4 +111,26 @@ button:disabled {
   border-radius: 5px;
   margin-left: 25%;
   width: 40%;
+}
+
+
+@media (max-width: 1300px) {
+
+  .card {
+    background: rgba(24, 24, 24, 0.966);
+    color: rgb(255, 255, 255);
+     border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .CarouselMain
+  {
+    width: 150% !important;
+  }
+  
+
 }

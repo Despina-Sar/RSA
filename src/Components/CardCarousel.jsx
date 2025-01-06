@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CardCarousel.module.css';
 import NavBar from './NavBar'
+import RandomMessage from './RandomMessage.jsx'
 import {Button,Form,Modal} from 'react-bootstrap'
+import { findAllInRenderedTree } from 'react-dom/test-utils';
 
 const CardCarousel = () => {
   const [currentCard, setCurrentCard] = useState(0);
@@ -10,6 +12,16 @@ const CardCarousel = () => {
   const [hints, setHints] = useState({});
   const [errors, setErrors] = useState({});
   const [showModalE, setShowModalE] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(''); // State to store the selected message
+  const [isMessageSet, setIsMessageSet] = useState(false);
+
+  const updateSelectedMessage = (newMessage) => {
+    console.log("isMessageSet "+ isMessageSet    );
+    if (!isMessageSet) { // Only update if the message hasn't been set
+      setSelectedMessage(newMessage);
+      setIsMessageSet(true); // Mark the message as set
+    }
+  };
 
   useEffect(() => {
     generateNewTest();
@@ -106,6 +118,40 @@ const CardCarousel = () => {
     window.location.reload();
   };
 
+  
+
+  const handleCorrectSix = () => {
+    const { encryptedMessage } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      six: selectedMessage === encryptedMessage ? null : 'Λάθος απάντηση',
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage === encryptedMessage,
+      }
+    }));
+  };
+  
+  const handleWrongSix = () => {
+    const { encryptedMessage } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      six: selectedMessage !== encryptedMessage ? null : 'Λάθος απάντηση',
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage !== encryptedMessage,
+      }
+    }));
+  };
+  
+
+
 
   const handleValidation = () => {
     const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
@@ -133,36 +179,37 @@ const CardCarousel = () => {
         errors.privateKey = 'Λάθος διωτικό κλειδί.Δοκίμασε ξανά.';
       } else {
         validated.privateKey = true;
-      }*/}
+      }
       if (currentCard === 1) {
         let validatenumD= validateD(userInputs.d, e, phiN);
         console.log("validatenumD"+ validatenumD)
         if (validatenumD == false) {
-          errors.privateKey = 'Λάθος διωτικό κλειδί.Δοκίμασε ξανά.';
+          errors.privateKey = 'Λάθος ιδιωτικό κλειδί.Δοκίμασε ξανά.';
         } else {
           validated.privateKey = true;
         }
-    }else if (currentCard === 2) {
+    } */}
+    if (currentCard === 1) {
       if (parseInt(userInputs.d, 10) !== d) {
         errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
       } else {
         validated.privateKey = true;
       }
-    } else if (currentCard === 3) {
+    } else if (currentCard === 2) {
       if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
         errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα. Δοκίμασε ξανά.';
       } else {
         validated.encryptedMessage = true;
       }
     }
-    else if (currentCard === 4) {
+    else if (currentCard === 3) {
       if (parseInt(userInputs.message, 10) !== message) {
         errors.message = 'Λάθος μήνυμα. Δοκίμασε ξανά.';
       } else {
         validated.message = true;
       }
     } 
-    else if (currentCard === 5) {
+    else if (currentCard === 4) {
       if (parseInt(userInputs.e, 10) !== e) {
         errors.e = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
       } else {
@@ -188,7 +235,7 @@ const CardCarousel = () => {
   };
 
   const handleNext = () => {
-    if (currentCard < 4) setCurrentCard(currentCard + 1);
+    if (currentCard < 5) setCurrentCard(currentCard + 1);
   };
 
   const handleBack = () => {
@@ -256,12 +303,20 @@ const CardCarousel = () => {
     const valid0=userInputs.validated?.[0];
     const valid1=userInputs.validated?.[1];
     const valid2=userInputs.validated?.[2];
-    if (valid0== true && valid0==true && valid2==true)
+    const valid3=userInputs.validated?.[3];
+    const valid4=userInputs.validated?.[4];
+    const valid5= errors.six ;
+    console.log("errors.six" +errors.six);
+   console.log("Valid5" + (valid5=== null))
+
+    if (valid0== true && valid0==true && valid2==true  && valid3==true  && valid4==true && valid5=== null)
     {console.log("Validation: "+valid0+valid1+valid2);
       setTimeout(() => {
         setShowModalE(true);
       }, 1000);
     }
+
+
 
     console.log(rsaValues[currentCard] );
     console.log(userInputs.d);
@@ -281,7 +336,7 @@ const CardCarousel = () => {
           <input
             type="number"
             className={isValidated ? styles.validInput : styles.Input}
-            placeholder="E (δημόσιο κλειδί)"
+            placeholder="E"
             value={userInputs.e || ''}
             onChange={(e) => handleInputChange('e', e.target.value)}
             style={{
@@ -306,6 +361,7 @@ const CardCarousel = () => {
       );
     }
 
+    {/*
     if (currentCard === 1) {
       return (
         <>
@@ -328,7 +384,7 @@ const CardCarousel = () => {
                 }}
           />
 
-          
+       
           <button
             className={styles.hintButton}
             onClick={() => toggleHint('privateKey')}
@@ -344,13 +400,14 @@ const CardCarousel = () => {
         </>
       );
     }
+  */}
   
-  
-    if (currentCard === 2) {
+
+    if (currentCard === 1) {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            3. Υπολογισμός ιδιωτικού κλειδιού
+            2. Υπολογισμός ιδιωτικού κλειδιού
             </p>
           <p>Δίνονται οι ακόλουθοι αριθμοί:</p>
           <p>n = {n}, Φ(n) = {phiN}, E = {e}</p>
@@ -359,7 +416,7 @@ const CardCarousel = () => {
           <input
                 className={isValidated ? styles.validInput : styles.Input}
                 type="number"
-                placeholder="D (ιδιωτικό κλειδί)"
+                placeholder="D"
                 disabled={isValidated}
                 value={userInputs.d || ''}
                 onChange={(e) => handleInputChange('d', e.target.value)}
@@ -385,24 +442,24 @@ const CardCarousel = () => {
       );
     }
   
-    if (currentCard === 3) {
+    if (currentCard === 2) {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            4. Κρυπτογράφηση μηνύματος
+            3. Κρυπτογράφηση μηνύματος
           </p>
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>n = {n}, E = {e}, μήνυμα = {message}</p>
           <p>Υπολόγισε τον κρυπτογραφημένο μήνυμα CT:</p>
           <input
             type="number"
-            placeholder="CT (κρυπτογραφημένο μήνυμα)"
+            placeholder="CT"
             className={isValidated ? styles.validInput : styles.Input}
             value={userInputs.encryptedMessage || ''}
             onChange={(e) => handleInputChange('encryptedMessage', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '70%'
+              fontSize: '0.8rem', width: '50%'
              }}
           />
          
@@ -421,24 +478,24 @@ const CardCarousel = () => {
       );
     }
 
-    if (currentCard === 4) {
+    if (currentCard === 3) {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            5. Αποκρυπτογράφηση μηνύματος
+            4. Αποκρυπτογράφηση μηνύματος
           </p>
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
-          <p>n = {n}, E = {e}, κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
+          <p>n = {n}, E = {e},  D = {d}, κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
           <p>Υπολόγισε τον αποκρυπτογραφημένο μήνυμα Μ:</p>
           <input
             type="number"
-            placeholder="Μ (αποκρυπτογραφημένο μήνυμα)"
+            placeholder="Μ"
             className={isValidated ? styles.validInput : styles.Input}
             value={userInputs.message || ''}
             onChange={(e) => handleInputChange('message', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '70%'
+              fontSize: '0.8rem', width: '60%'
              }}
           />
          
@@ -457,24 +514,24 @@ const CardCarousel = () => {
       );
     }
 
-    if (currentCard === 5) {
+    if (currentCard === 4) {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            6. Υπολογισμός δημόσιου κλειδιού
+            5. Υπολογισμός δημόσιου κλειδιού
           </p>
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>n = {n}, Φ(n) = {phiN}</p>
           <p>Υπολόγισε το δημόσιο κλειδί Ε:</p>
           <input
             type="number"
-            placeholder="E (δημόσιο κλειδί)"
+            placeholder="E"
             className={isValidated ? styles.validInput : styles.Input}
             value={userInputs.e || ''}
             onChange={(e) => handleInputChange('e', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '70%'
+              fontSize: '0.8rem', width: '50%'
              }}
           />
          
@@ -489,6 +546,31 @@ const CardCarousel = () => {
             <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
           )}
            {errors.e && <p className={styles.error}>{errors.e}</p>}
+        </>
+      );
+    }
+
+    if (currentCard === 5) {
+      return (
+        <>
+           <p style={{ fontSize: '16px', fontWeight:'bold'}}>
+            6. Έλεγχος κρυπτογράφισης
+          </p>
+          <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
+          <p>P = {p}, Q = {q}, E = {e} , μήνυμα = {message}</p>
+        
+           <div className={styles['Hidden']}>
+                <RandomMessage 
+                  encryptedMessage={encryptedMessage} 
+                  updateSelectedMessage={updateSelectedMessage}
+                  isMessageSet={isMessageSet}
+                />
+              </div>
+           <p>Το κρυπτογραφημένο μήνυμα είναι το {selectedMessage}.</p>
+    
+         {errors.six && <p className={styles.error}>{errors.six}</p>}
+         {isValidated && <p className={styles.success}>Σωστή απάντηση!</p>}
+          
         </>
       );
     }
@@ -531,8 +613,62 @@ const CardCarousel = () => {
                 }}>
                   Πίσω
         </Button>
+        <Button onClick={handleCorrectSix} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 5 ? 'none' : 'block' ,
+                  fontSize: '1.0rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#c22748', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#c22748', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  marginLeft: '5px' , marginRight: '5px' 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                 Σωστό
+        </Button>
+        <Button onClick={handleWrongSix} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 5 ? 'none' : 'block' ,
+                  fontSize: '1.0rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#c22748', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#c22748', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  marginLeft: '5px' , marginRight: '5px' 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                Λάθος        </Button>
         <Button onClick={handleValidation}
                 style={{
+                  display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
@@ -556,7 +692,7 @@ const CardCarousel = () => {
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}
             >Υποβολή</Button>
-       <Button onClick={handleNext} disabled={currentCard === 4} 
+       <Button onClick={handleNext} disabled={currentCard === 5} 
                 style={{
                   display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
