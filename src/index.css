@@ -604,6 +604,10 @@ html, body {
     animation-fill-mode: backwards;
   
   }
+
+
+
+  
   .mobileArrowContainer {
     display: flex;
     color: #ffffff;
@@ -897,3 +901,4 @@ html, body {
   text-decoration: none;
   color: inherit;
 }
+

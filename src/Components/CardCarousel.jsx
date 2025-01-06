@@ -599,7 +599,7 @@ const CardCarousel = () => {
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  marginLeft: '5px' , marginRight: '5px' 
+                  marginLeft: '2px' , marginRight: '2px' 
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -679,7 +679,7 @@ const CardCarousel = () => {
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  marginLeft: '5px' , marginRight: '5px' 
+                  marginLeft: '2px' , marginRight: '2px' 
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
