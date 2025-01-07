@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { RSAProvider } from './RSAContext.jsx';
 import Play from './Play';
 import EndModal from './EndModal';  // Import Component B
-
+import NavBar from './NavBar'
 
 
 
@@ -58,7 +58,7 @@ const handleAliceUnlockClick = () => {
 return (
   <RSAProvider>
         
-               
+        <NavBar/>      
           <Play rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           
              <EndModal showModal={showModal} />

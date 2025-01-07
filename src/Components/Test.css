@@ -13,7 +13,7 @@
     margin: 0.4rem 0; /* Add some spacing */
     font-weight: bolder;
     text-align: center; /* Center title horizontally */
-    color:rgb(243, 219, 219);
+    color:rgb(255, 255, 255);
 }
 
 /* Desktop: show squares side by side and content always visible */
@@ -30,7 +30,7 @@
     align-items: center; /* Center title horizontally */
     justify-content: flex-start; /* Align items to the top vertically */
     height: 200px; 
-    width: 300px; 
+    width: 200px; 
 }
 
 .clarification-square:nth-child(1) {

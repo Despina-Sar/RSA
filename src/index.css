@@ -521,6 +521,7 @@ html, body {
   
 }
 
+
 .Main{
   display: flex;
   justify-content: space-around;
@@ -542,6 +543,7 @@ html, body {
     min-height: 185vh; /* Full height on mobile to ensure it fills the screen */
   
     max-width: 100% !important;
+    
    
   
   }

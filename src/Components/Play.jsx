@@ -572,7 +572,7 @@ const handleButtonClick = () => {
     }, 5000); // 5000ms = 5 seconds
     console.log("after 5sec");
     setLocked(true);
-    console.log('CT sent to Bob!'); // Placeholder for any additional functionality
+    console.log('CT sent to Bob'); // Placeholder for any additional functionality
   }
 };
 
@@ -751,9 +751,6 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
    <div  className="PlayMain">
   
-  <NavBar/>
-
-
 
 {/* Conditional rendering for mobile 
 {!isMobile && (
@@ -777,7 +774,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 )}
 */}
 
-  <Test/>
+
   <br/>
   
     <div className="Main">
@@ -1013,7 +1010,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            {placeholderD}  
         </Col>
        </Row>
-               
+              
                         <Button 
                           onClick={handleSubmit}                         
                           style={{
@@ -1083,7 +1080,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
                 <Modal.Header className="modal-header-dark">
-                  <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
                   Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
@@ -1107,10 +1104,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 centered
               >
               <Modal.Header className="modal-header-dark">
-                  <Modal.Title>Συγχαρητήρια</Modal.Title>                
+                  <Modal.Title className="text-center w-100">Μπράβο</Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφισης RSA!
+                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφησης RSA
                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                   <Button
@@ -1319,7 +1316,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
         )}
                <Modal show={showModalA} onHide={handleCloseModA} centered>
                   <Modal.Header  className="modal-header-darkB">
-                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
                   </Modal.Header>
                   <Modal.Body  className="modal-body-dark">
                   Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.

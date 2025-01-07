@@ -22,9 +22,9 @@ function EndModal({ showModal }) {
         <Modal.Body className="modal-body-custom">
           <Card className="text-center p-3 shadow-lg" style={{ borderRadius: '15px', backgroundColor: '#333', color: '#fff' }}>
             <Card.Body>
-            <Card.Title as="h3" className="text-light">Συγχαρητήρια</Card.Title>
+            <Card.Title as="h3" className="text-light">Μπράβο</Card.Title>
               <Card.Text as="h5" className="mb-4">
-                Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφισης RSA!
+                Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφησης RSA!
               </Card.Text>
               <Button variant="outline-light" onClick={refreshPage}>
                 Close

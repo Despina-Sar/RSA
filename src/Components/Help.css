@@ -1,6 +1,6 @@
 
 .PlayMain{
-    min-width: 103%;
+    min-width: 100%;
     top: 0 !important;
     margin: 0 !important;
   
@@ -223,16 +223,16 @@
   
   
   
-  
   @keyframes slideRight {
-      from{
-        transform: translateX(-30%);
-      }
-      to{
-        transform: translateX(15%);
-      }
-      
+    from{
+      transform: translateX(-15%);
     }
+    to{
+      transform: translateX(15%);
+    }
+    
+  }
+  
   
     
   @keyframes slideLeft {
@@ -244,7 +244,6 @@
       }
       
     }
-    
     
     
     

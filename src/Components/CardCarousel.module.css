@@ -33,7 +33,6 @@
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
   margin-top: 20px;
 }
 
@@ -109,8 +108,9 @@ button:disabled {
   margin-top: 10px;
   border: 1px solid #06c3c9;
   border-radius: 5px;
-  margin-left: 25%;
-  width: 40%;
+  width: 30%;
+  align-self: center;
+  margin-left: 35%;
 }
 
 

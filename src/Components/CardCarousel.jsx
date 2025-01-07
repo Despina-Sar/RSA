@@ -14,7 +14,13 @@ const CardCarousel = () => {
   const [showModalE, setShowModalE] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(''); // State to store the selected message
   const [isMessageSet, setIsMessageSet] = useState(false);
+  const [trueCount, setTrueCount] = useState(0);
+ 
 
+
+  const handleClose = () => setShowModalE(false);
+
+  
   const updateSelectedMessage = (newMessage) => {
     console.log("isMessageSet "+ isMessageSet    );
     if (!isMessageSet) { // Only update if the message hasn't been set
@@ -152,43 +158,21 @@ const CardCarousel = () => {
   
 
 
-
+ {/*
   const handleValidation = () => {
     const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
     const errors = {};
     const validated = {};
   
-    
-    {/*if (currentCard === 0) {
-      if (parseInt(userInputs.e, 10) !== e) {
-        errors.keys = 'Λάθος δημόσιο κλειδί.Δοκίμασε ξανά.';
-      } else {
-        validated.keys = true;
-      }
-    } */}
-     if (currentCard === 0) {
+      if (currentCard === 0) {
        let validatenumE= validateE(phiN,userInputs.e);
        if (validatenumE == false) {
          errors.keys = 'Λάθος δημόσιο κλειδί.Δοκίμασε ξανά.';
-       } else {
+               } else {
          validated.keys = true;
       }
      }
-    {/*if (currentCard === 1) {
-      if (parseInt(userInputs.d, 10) !== d) {
-        errors.privateKey = 'Λάθος διωτικό κλειδί.Δοκίμασε ξανά.';
-      } else {
-        validated.privateKey = true;
-      }
-      if (currentCard === 1) {
-        let validatenumD= validateD(userInputs.d, e, phiN);
-        console.log("validatenumD"+ validatenumD)
-        if (validatenumD == false) {
-          errors.privateKey = 'Λάθος ιδιωτικό κλειδί.Δοκίμασε ξανά.';
-        } else {
-          validated.privateKey = true;
-        }
-    } */}
+
     if (currentCard === 1) {
       if (parseInt(userInputs.d, 10) !== d) {
         errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
@@ -198,6 +182,7 @@ const CardCarousel = () => {
     } else if (currentCard === 2) {
       if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
         errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα. Δοκίμασε ξανά.';
+        validated.encryptedMessage = false;
       } else {
         validated.encryptedMessage = true;
       }
@@ -228,7 +213,84 @@ const CardCarousel = () => {
         },
       }));
     }
+    else{
+      setUserInputs((prev) => ({
+        ...prev,
+        validated: {
+          ...prev.validated,
+          [currentCard]: false, // Mark the current card as validated
+        },
+      }));
+    }
   };
+ */}
+  const handleValidation = () => {
+    const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
+    const errors = {};
+    const validated = {};
+  
+    switch (currentCard) {
+      case 0:
+        let validatenumE = validateE(phiN, userInputs.e);
+        if (!validatenumE) {
+          errors.keys = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
+        } else {
+          validated.keys = true;
+        }
+        break;
+      case 1:
+        if (parseInt(userInputs.d, 10) !== d) {
+          errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
+        } else {
+          validated.privateKey = true;
+        }
+        break;
+      case 2:
+        if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
+          errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα. Δοκίμασε ξανά.';
+        } else {
+          validated.encryptedMessage = true;
+        }
+        break;
+      case 3:
+        if (parseInt(userInputs.message, 10) !== message) {
+          errors.message = 'Λάθος μήνυμα. Δοκίμασε ξανά.';
+        } else {
+          validated.message = true;
+        }
+        break;
+      case 4:
+        if (parseInt(userInputs.e, 10) !== e) {
+          errors.e = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
+        } else {
+          validated.e = true;
+        }
+        break;
+      default:
+        break;
+    }
+  
+    setErrors(errors);
+  
+    if (Object.keys(errors).length === 0) {
+      setUserInputs((prev) => ({
+        ...prev,
+        validated: {
+          ...prev.validated,
+          [currentCard]: true,
+        },
+      }));
+    } else {
+      setUserInputs((prev) => ({
+        ...prev,
+        validated: {
+          ...prev.validated,
+          [currentCard]: false,
+        },
+      }));
+    }
+  };
+  
   
   const toggleHint = (key) => {
     setHints((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -296,31 +358,45 @@ const CardCarousel = () => {
     return t;
   }
 
-  const renderCardContent = () => {
-    const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
 
-    const isValidated = userInputs.validated?.[currentCard];
+  function finalization() {
+
+    
+    console.log("finalization");
+
+    console.log(userInputs);
     const valid0=userInputs.validated?.[0];
     const valid1=userInputs.validated?.[1];
     const valid2=userInputs.validated?.[2];
     const valid3=userInputs.validated?.[3];
     const valid4=userInputs.validated?.[4];
-    const valid5= errors.six ;
-    console.log("errors.six" +errors.six);
-   console.log("Valid5" + (valid5=== null))
+    const valid5= userInputs.validated?.[5];
 
-    if (valid0== true && valid0==true && valid2==true  && valid3==true  && valid4==true && valid5=== null)
-    {console.log("Validation: "+valid0+valid1+valid2);
-      setTimeout(() => {
-        setShowModalE(true);
-      }, 1000);
-    }
+    let validArray = [valid0, valid1, valid2, valid3, valid4, valid5];
+    const areAllUndefined = validArray.every(value => value !== undefined);
+
+    if (areAllUndefined == true)
+      
+      {
+        const trueCount = validArray.filter(Boolean).length;
+        
+        console.log("Validation: "+trueCount);
+        setTimeout(() => {
+          setTrueCount(trueCount); // Set trueCount in state
+           setShowModalE(true); // Show the modal
+        }, 1000);
+      }
+
+  }
+
+  const renderCardContent = () => {
+    const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
+
+    const isValidated = userInputs.validated?.[currentCard];
 
 
 
-    console.log(rsaValues[currentCard] );
-    console.log(userInputs.d);
- 
+   
 
     if (currentCard === 0) {
       return (
@@ -333,6 +409,8 @@ const CardCarousel = () => {
           <p>P = {p}, Q = {q}</p>
           <p>Υπολόγισε το δημόσιο κλειδί E:</p>
    
+      
+
           <input
             type="number"
             className={isValidated ? styles.validInput : styles.Input}
@@ -340,23 +418,28 @@ const CardCarousel = () => {
             value={userInputs.e || ''}
             onChange={(e) => handleInputChange('e', e.target.value)}
             style={{
-              fontSize: '0.8rem', width: '50%'
+              fontSize: '0.8rem', width: '30%'
              }}
           />
-      
-          <button
-            className={styles.hintButton}
-            onClick={() => toggleHint('keys')}
-            disabled={isValidated}
-          >
-            {hints.keys ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
-          </button>
-
-          {hints.keys && (
+      <br />
+         {hints.keys && (
             <p className={styles.hint}> E = {e}</p>
           )}
 
-           {errors.keys && <p className={styles.error}>{errors.keys}</p>}
+        {!isValidated &&  errors.keys &&(
+          
+            <button
+              className={styles.hintButton}
+              onClick={() => toggleHint('keys')}
+            >
+              {hints.keys ? <i className="bi bi-lightbulb-off"></i> : <i className="bi bi-lightbulb"></i>}
+            </button>
+          )}
+        {/* Conditionally render hint button based on input validity */}
+   
+        
+          {errors.keys && <p className={styles.error}>{errors.keys}</p>}
+
         </>
       );
     }
@@ -421,11 +504,15 @@ const CardCarousel = () => {
                 value={userInputs.d || ''}
                 onChange={(e) => handleInputChange('d', e.target.value)}
                 style={{
-                  fontSize: '0.8rem', width: '50%'
+                  fontSize: '0.8rem', width: '30%'
                 }}
           />
+             <br />
+             {hints.privateKey && (
+            <p className={styles.hint}>Ιδιωτικό κλειδί D = {d}</p>
+          )}
 
-          
+     {!isValidated &&  errors.privateKey &&(
           <button
             className={styles.hintButton}
             onClick={() => toggleHint('privateKey')}
@@ -433,9 +520,9 @@ const CardCarousel = () => {
           >
             {hints.privateKey ? <i class="bi bi-lightbulb-off"></i>: <i class="bi bi-lightbulb"></i>}
           </button>
-          {hints.privateKey && (
-            <p className={styles.hint}>Ιδιωτικό κλειδί D = {d}</p>
-          )}
+     )}
+
+       
           {errors.privateKey && <p className={styles.error}>{errors.privateKey}</p>}
 
         </>
@@ -459,10 +546,14 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('encryptedMessage', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '50%'
+              fontSize: '0.8rem', width: '30%'
              }}
           />
-         
+          <br />
+          {hints.encryptedMessage && (
+            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
+          )}
+         {!isValidated &&  errors.encryptedMessage &&(
           <button
             className={styles.hintButton}
             onClick={() => toggleHint('encryptedMessage')}
@@ -470,9 +561,8 @@ const CardCarousel = () => {
           >
             {hints.encryptedMessage ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
           </button>
-          {hints.encryptedMessage && (
-            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
-          )}
+         )}
+         
            {errors.encryptedMessage && <p className={styles.error}>{errors.encryptedMessage}</p>}
         </>
       );
@@ -495,10 +585,16 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('message', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '60%'
+              fontSize: '0.8rem', width: '30%'
              }}
           />
+
+         <br />
+         {hints.message && (
+            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {message}</p>
+          )}
          
+         {!isValidated &&  errors.message &&(
           <button
             className={styles.hintButton}
             onClick={() => toggleHint('message')}
@@ -506,9 +602,9 @@ const CardCarousel = () => {
           >
             {hints.message ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
           </button>
-          {hints.message && (
-            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {message}</p>
           )}
+
+          
            {errors.message && <p className={styles.error}>{errors.message}</p>}
         </>
       );
@@ -531,10 +627,14 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('e', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '50%'
+              fontSize: '0.8rem', width: '30%'
              }}
           />
-         
+         <br />
+         {hints.e && (
+            <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
+          )}
+         {!isValidated &&  errors.e &&(
           <button
             className={styles.hintButton}
             onClick={() => toggleHint('e')}
@@ -542,9 +642,9 @@ const CardCarousel = () => {
           >
             {hints.e ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
           </button>
-          {hints.e && (
-            <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
-          )}
+         )}
+
+         
            {errors.e && <p className={styles.error}>{errors.e}</p>}
         </>
       );
@@ -569,7 +669,7 @@ const CardCarousel = () => {
            <p>Το κρυπτογραφημένο μήνυμα είναι το {selectedMessage}.</p>
     
          {errors.six && <p className={styles.error}>{errors.six}</p>}
-         {isValidated && <p className={styles.success}>Σωστή απάντηση!</p>}
+         {isValidated && <p className={styles.success}>Σωστή απάντηση</p>}
           
         </>
       );
@@ -586,42 +686,15 @@ const CardCarousel = () => {
      
       <div className={styles.card}>{renderCardContent()}</div>
       <div className={styles['button-container']}>
-        <Button onClick={handleBack} disabled={currentCard === 0}
+        <Button onClick={handleBack} 
                 style={{
                   display: currentCard === 0 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
-                  borderColor: '#c22748', // Custom border color
+                  borderColor: 'grey', // Custom border color
                   borderWidth: '2px', // Custom border thickness
-                  color: '#c22748', // Ensure text color matches or complements the border
-                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
-                  borderRadius: '5px', // Rounded corners for a modern look
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
-                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  marginLeft: '2px' , marginRight: '2px' 
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
-                  e.target.style.color = '#fff'; // Make text white on hover
-                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                  e.target.style.color = '#c22748'; // Reset text color
-                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
-                }}>
-                  Πίσω
-        </Button>
-        <Button onClick={handleCorrectSix} disabled={currentCard === 0}
-                style={{
-                  display: currentCard !== 5 ? 'none' : 'block' ,
-                  fontSize: '1.0rem', // Slightly larger font for better readability
-                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
-                  fontWeight: 'bolder',
-                  borderColor: '#c22748', // Custom border color
-                  borderWidth: '2px', // Custom border thickness
-                  color: '#c22748', // Ensure text color matches or complements the border
+                  color: '#grey', // Ensure text color matches or complements the border
                   backgroundColor: 'rgb(8, 4, 4)', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
@@ -629,78 +702,107 @@ const CardCarousel = () => {
                   marginLeft: '5px' , marginRight: '5px' 
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.backgroundColor = '#grey'; // Change to border color on hover
                   e.target.style.color = '#fff'; // Make text white on hover
-                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.color = '#grey'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                  <i class="bi bi-arrow-left"></i>
+        </Button>
+        <Button onClick={handleCorrectSix} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 5 ? 'none' : 'block' ,
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#06c3c9', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#06c3c9', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'60%'   
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#06c3c9'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
                  Σωστό
         </Button>
         <Button onClick={handleWrongSix} disabled={currentCard === 0}
-                style={{
-                  display: currentCard !== 5 ? 'none' : 'block' ,
-                  fontSize: '1.0rem', // Slightly larger font for better readability
-                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
-                  fontWeight: 'bolder',
-                  borderColor: '#c22748', // Custom border color
-                  borderWidth: '2px', // Custom border thickness
-                  color: '#c22748', // Ensure text color matches or complements the border
-                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
-                  borderRadius: '5px', // Rounded corners for a modern look
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
-                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  marginLeft: '5px' , marginRight: '5px' 
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
-                  e.target.style.color = '#fff'; // Make text white on hover
-                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                  e.target.style.color = '#c22748'; // Reset text color
-                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
-                }}>
-                Λάθος        </Button>
+              style={{
+                    display: currentCard !== 5 ? 'none' : 'block' ,
+                    fontSize: '1rem', // Slightly larger font for better readability
+                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontWeight: 'bolder',
+                    borderColor: '#06c3c9', // Custom border color
+                    borderWidth: '2px', // Custom border thickness
+                    color: '#06c3c9', // Ensure text color matches or complements the border
+                    backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                    borderRadius: '5px', // Rounded corners for a modern look
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                    transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                    width:'60%'   
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                    e.target.style.color = '#fff'; // Make text white on hover
+                    e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                    e.target.style.color = '#06c3c9'; // Reset text color
+                    e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                  }}>
+                Λάθος      
+         </Button>
         <Button onClick={handleValidation}
-                style={{
+                 style={{
                   display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
-                  borderColor: '#c22748', // Custom border color
+                  borderColor: '#06c3c9', // Custom border color
                   borderWidth: '2px', // Custom border thickness
-                  color: '#c22748', // Ensure text color matches or complements the border
+                  color: '#06c3c9', // Ensure text color matches or complements the border
                   backgroundColor: 'rgb(8, 4, 4)', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  marginLeft: '2px' , marginRight: '2px' 
+                  width:'60%'   
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
                   e.target.style.color = '#fff'; // Make text white on hover
-                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.color = '#06c3c9'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}
-            >Υποβολή</Button>
+            >Έλεγχος
+        </Button>
        <Button onClick={handleNext} disabled={currentCard === 5} 
                 style={{
                   display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
-                  borderColor: '#c22748', // Custom border color
+                  borderColor: 'grey', // Custom border color
                   borderWidth: '2px', // Custom border thickness
-                  color: '#c22748', // Ensure text color matches or complements the border
+                  color: '#grey', // Ensure text color matches or complements the border
                   backgroundColor: 'rgb(8, 4, 4)', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
@@ -708,17 +810,19 @@ const CardCarousel = () => {
                   marginLeft: '5px' , marginRight: '5px' 
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.backgroundColor = '#grey'; // Change to border color on hover
                   e.target.style.color = '#fff'; // Make text white on hover
-                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.color = '#grey'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
-                Επόμενο
+                <i class="bi bi-arrow-right"></i>
         </Button>
+
+        
 
         {showModalE} {/* Blue and Black Confetti */}
               <Modal
@@ -726,21 +830,58 @@ const CardCarousel = () => {
                 centered
               >
               <Modal.Header className="modal-header-dark">
-                  <Modal.Title>Συγχαρητήρια</Modal.Title>                
+                  <Modal.Title className="text-center w-100">Το test ολοκληρώθηκε</Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                 Ολοκλήρωσες επιτυχώς το test!
-                </Modal.Body>
+                  Απάντησες σωστά σε {trueCount} από τις 6 ερωτήσεις.
+                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
+                <Button
+                    className="modal-close-button"
+                    onClick={handleClose}>
+                    Έλεγχος αποτελεσμάτων
+                  </Button>
+                  
                   <Button
                     className="modal-close-button"
-                    onClick={refreshPage}
-                  >
-                   Δοκίμασε ξανά
+                    onClick={refreshPage}>
+                    Δοκίμασε ξανά
                   </Button>
+
+                 
+
                 </Modal.Footer>
               </Modal>
       </div>
+      <Button onClick={finalization} disabled={currentCard !== 5} 
+                style={{
+                  display: currentCard !== 5 ? 'none' : 'block' ,
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#c22748', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#c22748', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  marginLeft: '5px' , marginRight: '5px', 
+                  marginTop:'10px'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#c22748'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                Οριστική υποβολή
+        </Button>
+     
     </div>
     </div>
   );

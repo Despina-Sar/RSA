@@ -9,6 +9,8 @@ import './Play.css';
 import Test from './Test.jsx';
 import NavigateButton from './NavigateButton.jsx';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useLocation,useNavigationType  } from 'react-router-dom'; // Import React Router's useLocation hook
+
 
 
 
@@ -60,7 +62,7 @@ const Help = ({rsaValuess, updateRSAValues ,step }) => {
   const [showModalE, setShowModalE] = useState(false); // Manage modal state
   const [factors, setFactors] = useState('');
   const [isZCorrect, setIsZCorrect] = useState(false);                              //from 7.11
-
+  const [isReload, setIsReload] = useState(false);
 
 
   const [error, setError] = useState('');
@@ -74,17 +76,40 @@ const Help = ({rsaValuess, updateRSAValues ,step }) => {
   const handleCloseModB = () => setShowModalB(false);
   const handleCloseModA = () => setShowModalA(false);
   const handleCloseModH = () => setShowModalH(false);
+  const location = useLocation();
+  const navigationType = useNavigationType();
 
 
+  
+  
   useEffect(() => {
-    // Ελέγχουμε αν το popup έχει ήδη εμφανιστεί σε αυτή τη συνεδρία
-    const hasSeenModal = sessionStorage.getItem("hasSeenModal");
+    console.log("Entered useEffect");
 
-    if (!hasSeenModal) {
-      setShowModalH(true); // Εμφανίζουμε το modal
-      sessionStorage.setItem("hasSeenModal", "true"); // Καταγράφουμε ότι εμφανίστηκε
+    // Check if the page was reloaded
+    const isPageReload = sessionStorage.getItem('isReload') === 'true';
+    console.log("Is Page Reload: " + isPageReload);
+
+    // If it's a reload, set `isReload` to true and don't show modal
+    if (isPageReload) {
+      setIsReload(true);
+      sessionStorage.setItem('isReload', 'false'); // Reset reload flag after detection
+    } else {
+      setIsReload(false);
+      setShowModalH(true); // Show modal on normal navigation
     }
-  }, []); // Τρέχει μόνο όταν φορτώνεται η σελίδα
+
+    // Listen for beforeunload event to detect page reloads
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('isReload', 'true'); // Set reload flag when user reloads the page
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []); // Em
 
 
     // Handle input changes for the bobs's inputs                                   //from 7.11
@@ -857,7 +882,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
          {/* Bootstrap Modal for displaying empty field alert */}
                   <Modal show={showModalH} onHide={handleCloseModH} centered>
                       <Modal.Header className="modal-header-dark">
-                        <Modal.Title>Οδηγίες</Modal.Title>
+                        <Modal.Title className="text-center w-100">Οδηγίες</Modal.Title>
                       </Modal.Header>
                       <Modal.Body className="modal-body-dark">
                       Αυτό το τμήμα είναι σχεδιασμένο για να σας καθοδηγήσει βήμα προς βήμα σχετικά 
@@ -1056,7 +1081,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            {placeholderD}  
         </Col>
        </Row>
-               
+
+             
                         <Button 
                           onClick={handleSubmit}  
                           disabled={true}                       
@@ -1128,7 +1154,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
                 <Modal.Header className="modal-header-dark">
-                  <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
                   Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
@@ -1144,18 +1170,18 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               </Modal>
 
 
+{/*
 
-
-              {showModalE} {/* Blue and Black Confetti */}
+              {showModalE}
               <Modal
                 show={showModalE}
                 centered
               >
               <Modal.Header className="modal-header-dark">
-                  <Modal.Title>Συγχαρητήρια</Modal.Title>                
+                  <Modal.Title>Μπράβο</Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφισης RSA!
+                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφησης RSA
                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                   <Button
@@ -1166,6 +1192,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   </Button>
                 </Modal.Footer>
               </Modal>
+
+            */}
 
       </Card>
 
@@ -1362,7 +1390,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
         )}
                <Modal show={showModalA} onHide={handleCloseModA} centered>
                   <Modal.Header  className="modal-header-darkB">
-                    <Modal.Title>Μήνυμα λάθους</Modal.Title>
+                    <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
                   </Modal.Header>
                   <Modal.Body  className="modal-body-dark">
                   Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.

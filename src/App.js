@@ -144,7 +144,7 @@ function App() {
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
                     e.target.style.color = '#fff'; // Make text white on hover
-                    e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                    e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
                   }}
                   onMouseLeave={(e) => {
                     e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background

@@ -1,10 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import {Modal,Form, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import React, { useState,useContext  } from 'react';
 import Button from 'react-bootstrap/Button';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
+
 
 
 import {
@@ -19,9 +21,12 @@ function NavBar({ step, onNext }) {
     const [expandedSection, setExpandedSection] = useState(null);
 
   const [show, setShow] = useState(false);
+  const [showTop, setShowTop] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseTop = () => setShowTop(false);
+  const handleShowTop = () => setShowTop(true);
   const isMobile = useIsMobile();
 
 
@@ -164,16 +169,14 @@ function NavBar({ step, onNext }) {
            {location.pathname !== '/HomeGrid' && (    
             <Nav id = "menu">  
         
-            {location.pathname === '/PlayMain' && ( 
-                      <Nav.Link as={Link} to="/HelpMain">Βοήθεια</Nav.Link>
-            )}
+         
           
           
             <Navbar.Brand as={Link} to="/" id="nav-menu">  
           
             </Navbar.Brand>  
       
-            {location.pathname === '/HelpMain' && ( 
+            { location.pathname === '/HelpMain' && ( 
              <Button 
                     onClick={onNext}                         
                     style={{
@@ -202,33 +205,67 @@ function NavBar({ step, onNext }) {
                   >
                     Επόμενο
                </Button>
-           )} 
+           ) } 
+
+
+{
+        //(location.pathname === '/HelpMain' ||location.pathname === '/CardCarousel' )&& ( 
+                      <Nav.Link as={Link} to="/PlayMain">Εκπαίδευση</Nav.Link>
+          //  )
+            }
         
-        {(location.pathname === '/HelpMain' ||location.pathname === '/CardCarousel' )&& ( 
-                      <Nav.Link as={Link} to="/PlayMain">Πίσω</Nav.Link>
-            )}
+        {
+           //location.pathname === '/PlayMain' && ( 
+                      <Nav.Link as={Link} to="/HelpMain">Βοήθεια</Nav.Link>
+          //  )
+          }
 
-         {location.pathname === '/PlayMain' && ( 
+    
+
+         {
+          //location.pathname === '/PlayMain' && ( 
           <Nav.Link as={Link} to="/CardCarousel">Test</Nav.Link>
-         )}
+        // )
+        }
 
-          {location.pathname !== '/HomeGrid' && (
+          {
+          //location.pathname !== '/HomeGrid' && (
             <Button variant="dark" onClick={refreshPage} style={{ fontSize: '1.0rem',fontWeight: 'bolder' }}>
                     <i class="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
                  </Button>
-                )}
+            //    )
+            }
             
-            {isMobile && (
+            { isMobile && (
               <Button variant="dark" onClick={handleShow} style={{ fontSize: '1.0rem',fontWeight: 'bolder' ,marginLeft: '5px' , marginRight: '5px'   }}>
                  <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
               </Button>
-             )}
+          )}
+
+
+         {!isMobile && (
+            <Button variant="dark" onClick={handleShowTop} style={{ fontSize: '1.0rem',fontWeight: 'bolder' ,marginLeft: '5px' , marginRight: '5px'   }}>
+                 <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
+              </Button>
+                  )}
 
          
 
 
              <Offcanvas show={show} onHide={handleClose} style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' }}>
-                <Offcanvas.Header closeButton style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'rbg(f,f,f)' }}>
+                <Offcanvas.Header closeButton 
+                  style={{
+                    fontSize: '1rem', // Slightly larger font for better readability
+                    padding: '0.4rem 0.3rem', // Adjusted padding for a balanced look
+                    fontWeight: 'bolder',
+                    borderColor: '#c22748', // Custom border color
+                    borderWidth: '2px', // Custom border thickness
+                    color: 'white', // Ensure text color matches or complements the border
+                    backgroundColor: '#c22748', // Dark background
+                    borderRadius: '5px', // Rounded corners for a modern look
+                    marginLeft: '5px' , marginRight: '5px' , marginTop: '5px',
+                    width: '10%'
+                  }}>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
@@ -250,6 +287,57 @@ function NavBar({ step, onNext }) {
                   </div>
                  </Offcanvas.Body>
               </Offcanvas>
+
+
+
+              <Offcanvas show={showTop} onHide={handleCloseTop}  placement="top"  style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' ,height: '50%'}}>
+                <Offcanvas.Header closeButton 
+                
+                style={{
+                      fontSize: '1rem', // Slightly larger font for better readability
+                      padding: '0.4rem 0.3rem', // Adjusted padding for a balanced look
+                      fontWeight: 'bolder',
+                      borderColor: '#c22748', // Custom border color
+                      borderWidth: '2px', // Custom border thickness
+                      color: 'white', // Ensure text color matches or complements the border
+                      backgroundColor: '#c22748', // Dark background
+                      borderRadius: '5px', // Rounded corners for a modern look
+                      marginLeft: '5px' , marginRight: '5px' , marginTop: '5px',
+                      width: '3%'
+                    }}
+                    >
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+
+                  <Row>
+                    <Col xs={3} >
+
+                      {clarifications.map((clarification) => (
+                        <div>
+                          <h6>{clarification.title}</h6>
+                          <h10 className={expandedSection === clarification.id || !isMobile ? 'showTop' : 'hide'}>
+                            {clarification.content}
+                          </h10>
+                        </div>
+                      ))}
+                  </Col>
+                  <Col>
+                    <div  className="image-container">
+                          <img
+                            alt=""
+                            src= {require('../images/RSA_Visual1.png')}
+                            height="auto" width="100%"        
+                          />   
+                    </div>
+                  </Col>
+                  </Row>
+                 </Offcanvas.Body>
+              </Offcanvas>
+
+
+
+
+
                         
             </Nav>
            )}            

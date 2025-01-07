@@ -272,7 +272,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
 
     <div className="card">
       <div className="card-content">
-      <h2 className="card-title">RSA κρυπτογραφηση & αποκρυπτογράφιση</h2>
+      <h2 className="card-title">RSA κρυπτογράφηση & αποκρυπτογράφηση</h2>
           <p className="card-description">
                 Κρυπτογραφημένο μήνυμα: CT = M<sup>E</sup> mod n
                 <br/> 
@@ -302,9 +302,9 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
           </div>     
           
           <p className="card-description">
-                Κρυπτογραφηση του μηνύματος 2 : CT = 2<sup>7</sup>mod 33 = 29
+                Κρυπτογράφηση του μηνύματος 2 : CT = 2<sup>7</sup>mod 33 = 29
                 <br/> 
-                Αποκρυπτογραφηση: M = 29<sup>3</sup> mod 33 = 2
+                Αποκρυπτογράφηση: M = 29<sup>3</sup> mod 33 = 2
                 <br/>
                 </p>
        </div>
