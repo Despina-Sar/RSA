@@ -569,7 +569,7 @@ const handleButtonClick = () => {
     console.log("before 5sec");
     setTimeout(() => {
       setShowModalE(true);
-    }, 5000); // 5000ms = 5 seconds
+    }, 7000); // 5000ms = 5 seconds
     console.log("after 5sec");
     setLocked(true);
     console.log('CT sent to Bob'); // Placeholder for any additional functionality
@@ -775,7 +775,6 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 */}
 
 
-  <br/>
   
     <div className="Main">
 
@@ -1003,7 +1002,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         
        </Row>
        <Row  className="mb-4">
-        <Col style={{width: '300px'}}>
+        <Col>
            {placeholderE}  
         </Col>
         <Col style={{width: '300px'}}>
@@ -1024,6 +1023,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                            width: '200px',
+                            textAlign: 'center',
+                            display: 'block',  // Ensures it behaves like a block element
+                            margin: '0 auto'
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -1065,8 +1068,11 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                                 border: '2px solid rgb(255, 255, 255)', // Default border
                                 transition: 'box-shadow 0.3s ease-in-out', // Smooth animation for the glow
                                 boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
-                                 width:'100%',
-                                 textAlign:'center !important'
+                                textAlign:'center !important',
+                                 width: '200px',
+                                 textAlign: 'center',
+                                 display: 'block',  // Ensures it behaves like a block element
+                                 margin: '0 auto'
                               
                               }}                          
                              /> </div> 
@@ -1136,7 +1142,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-unlock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
+                    style={{ fontSize: '40px', color: 'rgb(4,145,141)' ,textShadow: '3px 3px 2px white'}}
                   ></i>
                   ({form.E},{form.n})
                 </span>
@@ -1152,7 +1158,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-unlock-fill"
-                  style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
+                  style={{ fontSize: '40px', color: 'rgb(4,145,141)' ,textShadow: '3px 3px 2px white'}}
                 ></i>
                 ({form.E},{form.n})
               </span>
@@ -1175,7 +1181,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-file-earmark-lock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(138,4,17)' }}
+                    style={{fontSize: '40px', color:'rgb(138,4,17)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                   ></i>
                  {form.CT}
                 </span>
@@ -1191,7 +1197,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-file-earmark-lock-fill"
-                  style={{fontSize: '40px', color:'rgb(138,4,17)'}}
+                  style={{fontSize: '40px', color:'rgb(138,4,17)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                 ></i>
                  CT : {form.CT}
               </span>
@@ -1297,6 +1303,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                            width: '200px',
+                            textAlign: 'center',
+                            display: 'block',  // Ensures it behaves like a block element
+                            margin: '0 auto'
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -1405,7 +1415,7 @@ const styles = {
     marginTop: '10px',
     fontSize: '14px',
     color:'rgb(255, 255, 255)',
-    backgroundColor: 'rgb(8, 6, 6)',
+    backgroundColor: 'rgb(0, 0, 0)',
    
   }
 };

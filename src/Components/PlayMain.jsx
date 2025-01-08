@@ -59,6 +59,7 @@ return (
   <RSAProvider>
         
         <NavBar/>      
+        <br/>
           <Play rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           
              <EndModal showModal={showModal} />

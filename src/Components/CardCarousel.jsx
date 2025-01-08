@@ -4,6 +4,8 @@ import NavBar from './NavBar'
 import RandomMessage from './RandomMessage.jsx'
 import {Button,Form,Modal} from 'react-bootstrap'
 import { findAllInRenderedTree } from 'react-dom/test-utils';
+import Pagination from 'react-bootstrap/Pagination';
+
 
 const CardCarousel = () => {
   const [currentCard, setCurrentCard] = useState(0);
@@ -12,13 +14,16 @@ const CardCarousel = () => {
   const [hints, setHints] = useState({});
   const [errors, setErrors] = useState({});
   const [showModalE, setShowModalE] = useState(false);
+  const [showModalF, setShowModalF] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(''); // State to store the selected message
   const [isMessageSet, setIsMessageSet] = useState(false);
   const [trueCount, setTrueCount] = useState(0);
+  const [emptyCount, setEmptyCount] = useState(0);
  
 
 
   const handleClose = () => setShowModalE(false);
+  const handleCloseF = () => setShowModalF(false);
 
   
   const updateSelectedMessage = (newMessage) => {
@@ -139,6 +144,7 @@ const CardCarousel = () => {
         [currentCard]: selectedMessage === encryptedMessage,
       }
     }));
+    setUserInputs((prev) => ({ ...prev, ['six']: true }));
   };
   
   const handleWrongSix = () => {
@@ -154,11 +160,12 @@ const CardCarousel = () => {
         [currentCard]: selectedMessage !== encryptedMessage,
       }
     }));
+    setUserInputs((prev) => ({ ...prev, ['six']: false }));
   };
   
 
 
- {/*
+
   const handleValidation = () => {
     const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
     const errors = {};
@@ -167,7 +174,7 @@ const CardCarousel = () => {
       if (currentCard === 0) {
        let validatenumE= validateE(phiN,userInputs.e);
        if (validatenumE == false) {
-         errors.keys = 'Λάθος δημόσιο κλειδί.Δοκίμασε ξανά.';
+         errors.keys = 'Λάθος δημόσιο κλειδί.';
                } else {
          validated.keys = true;
       }
@@ -175,13 +182,13 @@ const CardCarousel = () => {
 
     if (currentCard === 1) {
       if (parseInt(userInputs.d, 10) !== d) {
-        errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
+        errors.privateKey = 'Λάθος ιδιωτικό κλειδί.';
       } else {
         validated.privateKey = true;
       }
     } else if (currentCard === 2) {
       if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
-        errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα. Δοκίμασε ξανά.';
+        errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα.';
         validated.encryptedMessage = false;
       } else {
         validated.encryptedMessage = true;
@@ -189,16 +196,16 @@ const CardCarousel = () => {
     }
     else if (currentCard === 3) {
       if (parseInt(userInputs.message, 10) !== message) {
-        errors.message = 'Λάθος μήνυμα. Δοκίμασε ξανά.';
+        errors.message = 'Λάθος μήνυμα.';
       } else {
         validated.message = true;
       }
     } 
     else if (currentCard === 4) {
-      if (parseInt(userInputs.e, 10) !== e) {
-        errors.e = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
+      if (parseInt(userInputs.e1, 10) !== e) {
+        errors.e1 = 'Λάθος δημόσιο κλειδί.';
       } else {
-        validated.e = true;
+        validated.e1 = true;
       }
     } 
   
@@ -223,74 +230,56 @@ const CardCarousel = () => {
       }));
     }
   };
- */}
-  const handleValidation = () => {
-    const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
-    const errors = {};
-    const validated = {};
+
+
+  const CountCorrectNotValidation = (notValidated) => {
+        const invalid={};
+  
+
+    for (let i = 0; i < notValidated.length; i++) {
+       const currentCard = notValidated[i];
+       const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
   
     switch (currentCard) {
       case 0:
         let validatenumE = validateE(phiN, userInputs.e);
         if (!validatenumE) {
-          errors.keys = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
-        } else {
-          validated.keys = true;
+          invalid.keys = false;
         }
         break;
       case 1:
-        if (parseInt(userInputs.d, 10) !== d) {
-          errors.privateKey = 'Λάθος ιδιωτικό κλειδί. Δοκίμασε ξανά.';
-        } else {
-          validated.privateKey = true;
+          if (parseInt(userInputs.d, 10) !== d) {
+          invalid.privateKey = false;
         }
         break;
       case 2:
-        if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
-          errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα. Δοκίμασε ξανά.';
-        } else {
-          validated.encryptedMessage = true;
+          if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
+          invalid.encryptedMessage = false;
         }
         break;
       case 3:
         if (parseInt(userInputs.message, 10) !== message) {
-          errors.message = 'Λάθος μήνυμα. Δοκίμασε ξανά.';
-        } else {
-          validated.message = true;
+            invalid.message = false;
         }
         break;
       case 4:
         if (parseInt(userInputs.e, 10) !== e) {
-          errors.e = 'Λάθος δημόσιο κλειδί. Δοκίμασε ξανά.';
-        } else {
-          validated.e = true;
+           invalid.e = false;
         }
         break;
       default:
         break;
     }
-  
-    setErrors(errors);
-  
-    if (Object.keys(errors).length === 0) {
-      setUserInputs((prev) => ({
-        ...prev,
-        validated: {
-          ...prev.validated,
-          [currentCard]: true,
-        },
-      }));
-    } else {
-      setUserInputs((prev) => ({
-        ...prev,
-        validated: {
-          ...prev.validated,
-          [currentCard]: false,
-        },
-      }));
+
     }
-  };
+      const properties2 = ['keys', 'privateKey', 'encryptedMessage', 'message', 'e'];
+      const invalidArray = properties2.map(prop => invalid[prop]);
+      const invalidCount = invalidArray.filter(item => item === false).length;
+    
+    return invalidCount;
   
+  };
+
   
   const toggleHint = (key) => {
     setHints((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -361,33 +350,96 @@ const CardCarousel = () => {
 
   function finalization() {
 
-    
-    console.log("finalization");
-
-    console.log(userInputs);
+    console.log(userInputs);   
+   
+    {/*
     const valid0=userInputs.validated?.[0];
     const valid1=userInputs.validated?.[1];
     const valid2=userInputs.validated?.[2];
     const valid3=userInputs.validated?.[3];
     const valid4=userInputs.validated?.[4];
     const valid5= userInputs.validated?.[5];
-
     let validArray = [valid0, valid1, valid2, valid3, valid4, valid5];
-    const areAllUndefined = validArray.every(value => value !== undefined);
+    */}
 
-    if (areAllUndefined == true)
-      
-      {
-        const trueCount = validArray.filter(Boolean).length;
-        
-        console.log("Validation: "+trueCount);
-        setTimeout(() => {
-          setTrueCount(trueCount); // Set trueCount in state
-           setShowModalE(true); // Show the modal
+    const validArray = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+    console.log("validArray "+validArray);
+     const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1', 'six'];
+    const emptyArray = properties.map(prop => userInputs[prop]);
+    const emptyCount = emptyArray.filter(item => item === undefined).length;
+  
+
+    if (emptyCount == 0)      
+      { 
+        const emptyIndices = validArray
+        .map((item, index) => (item === undefined ? index : null))
+        .filter(index => index !== null);
+        const countNotValidated =CountCorrectNotValidation(emptyIndices);
+        const validArrayUpdated = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+        const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
+
+        let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+          setTimeout(() => {
+          setTrueCount(totalCorrect); // Set trueCount in state
+          setShowModalE(true); // Show the modal
         }, 1000);
+      }
+    
+      else
+      {
+
+        setTimeout(() => {
+          setEmptyCount(emptyCount); // Set trueCount in state
+           setShowModalF(true); // Show the modal
+        }, 1000);
+
       }
 
   }
+
+  function showFinalModal() {
+        let totalCorrect =null;
+        const validArray = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+        console.log("validArray "+validArray);
+        const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1', 'six'];
+        const emptyArray = properties.map(prop => userInputs[prop]);
+        const emptyCount = emptyArray.filter(item => item === undefined).length;
+        console.log("emptyCount "+emptyCount);
+
+        if(emptyCount == 6)
+        {
+          totalCorrect= 0;
+        }else{
+          const emptyIndices = validArray
+          .map((item, index) => (item === undefined ? index : null))
+          .filter(index => index !== null);
+  
+          const countNotValidated =CountCorrectNotValidation(emptyIndices);
+          const validArrayUpdated = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+          const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
+  
+          let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+
+        }
+     
+          setTimeout(() => {
+          setTrueCount(totalCorrect); // Set trueCount in state
+          handleCloseF();
+          setShowModalE(true); // Show the modal
+        }, 1000);
+
+
+     }
+
+
+     const [currentPage, setCurrentPage] = useState(1);
+     const totalPages = 10; // or any number of total pages
+   
+     const handlePageChange = (page) => {
+       setCurrentPage(page);
+     };
+  
+
 
   const renderCardContent = () => {
     const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
@@ -408,6 +460,7 @@ const CardCarousel = () => {
           <p>Δίνονται δύο πρώτοι αριθμοί:</p>
           <p>P = {p}, Q = {q}</p>
           <p>Υπολόγισε το δημόσιο κλειδί E:</p>
+          <p>Correct E = {e}</p>
    
       
 
@@ -495,6 +548,7 @@ const CardCarousel = () => {
           <p>Δίνονται οι ακόλουθοι αριθμοί:</p>
           <p>n = {n}, Φ(n) = {phiN}, E = {e}</p>
           <p>Υπολόγισε το ιδιωτικό κλειδί D:</p>
+          <p>Correct D = {d}</p>
      
           <input
                 className={isValidated ? styles.validInput : styles.Input}
@@ -538,6 +592,8 @@ const CardCarousel = () => {
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>n = {n}, E = {e}, μήνυμα = {message}</p>
           <p>Υπολόγισε τον κρυπτογραφημένο μήνυμα CT:</p>
+          <p>Correct  μήνυμα = {encryptedMessage}</p>
+
           <input
             type="number"
             placeholder="CT"
@@ -577,6 +633,9 @@ const CardCarousel = () => {
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>n = {n}, E = {e},  D = {d}, κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
           <p>Υπολόγισε τον αποκρυπτογραφημένο μήνυμα Μ:</p>
+
+          <p>Correct  μήνυμα = {message}</p>
+
           <input
             type="number"
             placeholder="Μ"
@@ -619,12 +678,15 @@ const CardCarousel = () => {
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>n = {n}, Φ(n) = {phiN}</p>
           <p>Υπολόγισε το δημόσιο κλειδί Ε:</p>
+
+          <p>Correct  E = {e}</p>
+
           <input
             type="number"
             placeholder="E"
             className={isValidated ? styles.validInput : styles.Input}
-            value={userInputs.e || ''}
-            onChange={(e) => handleInputChange('e', e.target.value)}
+            value={userInputs.e1 || ''}
+            onChange={(e) => handleInputChange('e1', e.target.value)}
             disabled={isValidated}
             style={{
               fontSize: '0.8rem', width: '30%'
@@ -634,13 +696,13 @@ const CardCarousel = () => {
          {hints.e && (
             <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
           )}
-         {!isValidated &&  errors.e &&(
+         {!isValidated &&  errors.e1 &&(
           <button
             className={styles.hintButton}
-            onClick={() => toggleHint('e')}
+            onClick={() => toggleHint('e1')}
             disabled={isValidated}
           >
-            {hints.e ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
+            {hints.e1 ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
           </button>
          )}
 
@@ -658,6 +720,8 @@ const CardCarousel = () => {
           </p>
           <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
           <p>P = {p}, Q = {q}, E = {e} , μήνυμα = {message}</p>
+
+          <p>Correct  encryptedMessage = {encryptedMessage}</p>
         
            <div className={styles['Hidden']}>
                 <RandomMessage 
@@ -686,6 +750,7 @@ const CardCarousel = () => {
      
       <div className={styles.card}>{renderCardContent()}</div>
       <div className={styles['button-container']}>
+
         <Button onClick={handleBack} 
                 style={{
                   display: currentCard === 0 ? 'none' : 'block' ,
@@ -713,6 +778,9 @@ const CardCarousel = () => {
                 }}>
                   <i class="bi bi-arrow-left"></i>
         </Button>
+    
+
+
         <Button onClick={handleCorrectSix} disabled={currentCard === 0}
                 style={{
                   display: currentCard !== 5 ? 'none' : 'block' ,
@@ -780,7 +848,7 @@ const CardCarousel = () => {
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  width:'60%'   
+                  width:'100%'   
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -794,6 +862,8 @@ const CardCarousel = () => {
                 }}
             >Έλεγχος
         </Button>
+
+     
        <Button onClick={handleNext} disabled={currentCard === 5} 
                 style={{
                   display: currentCard === 5 ? 'none' : 'block' ,
@@ -805,7 +875,7 @@ const CardCarousel = () => {
                   color: '#grey', // Ensure text color matches or complements the border
                   backgroundColor: 'rgb(8, 4, 4)', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                 
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
                   marginLeft: '5px' , marginRight: '5px' 
                 }}
@@ -821,8 +891,7 @@ const CardCarousel = () => {
                 }}>
                 <i class="bi bi-arrow-right"></i>
         </Button>
-
-        
+   
 
         {showModalE} {/* Blue and Black Confetti */}
               <Modal
@@ -846,6 +915,37 @@ const CardCarousel = () => {
                     className="modal-close-button"
                     onClick={refreshPage}>
                     Δοκίμασε ξανά
+                  </Button>
+
+                 
+
+                </Modal.Footer>
+              </Modal>
+
+              {showModalF} {/* Blue and Black Confetti */}
+              <Modal
+                show={showModalF}
+                centered
+              >
+              <Modal.Header className="modal-header-dark">
+                  <Modal.Title className="text-center w-100">
+                  <i class="bi bi-exclamation-triangle"></i>&nbsp;
+                   Προσοχή</Modal.Title>                
+                </Modal.Header>
+                <Modal.Body className="modal-body-dark">
+                  Δεν έχεις ολοκληρώσει το test. <br/> Απομένουν {emptyCount} ερωτήσεις.
+                 </Modal.Body>
+                <Modal.Footer className="modal-footer-dark">
+                <Button
+                    className="modal-close-button"
+                    onClick={handleCloseF}>
+                    Επιστροφή στο test
+                  </Button>
+                  
+                  <Button
+                    className="modal-close-button"
+                    onClick={showFinalModal}>
+                    Οριστική υποβολή
                   </Button>
 
                  
@@ -881,7 +981,24 @@ const CardCarousel = () => {
                 }}>
                 Οριστική υποβολή
         </Button>
-     
+
+
+{/*
+        <br/>
+        <br/>
+        <Pagination className="fancy-pagination" style={{color:'black'}}>
+          {rsaValues.map((_, index) => (
+            <Pagination.Item 
+              key={index} 
+              active={index === currentCard} 
+              onClick={() => setCurrentCard(index)}
+              >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+*/}
+       
     </div>
     </div>
   );

@@ -1,0 +1,32 @@
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .page-button {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .page-button:hover {
+    background-color: green;
+    color: black;
+  }
+  
+  .page-button.active {
+    background-color: green;
+    color: black;
+  }
+  
+  .page-button:disabled {
+    background-color: grey;
+    color: white;
+    cursor: not-allowed;
+  }
+  

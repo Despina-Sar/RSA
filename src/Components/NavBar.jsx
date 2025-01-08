@@ -28,6 +28,7 @@ function NavBar({ step, onNext }) {
   const handleCloseTop = () => setShowTop(false);
   const handleShowTop = () => setShowTop(true);
   const isMobile = useIsMobile();
+  
 
 
   const location = useLocation(); // Get the current location
@@ -181,7 +182,7 @@ function NavBar({ step, onNext }) {
                     onClick={onNext}                         
                     style={{
                       fontSize: '1rem', // Slightly larger font for better readability
-                      padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                      padding: '0.0rem 0.7rem', // Adjusted padding for a balanced look
                       fontWeight: 'bolder',
                       borderColor: '#c22748', // Custom border color
                       borderWidth: '2px', // Custom border thickness
@@ -191,6 +192,8 @@ function NavBar({ step, onNext }) {
                       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                       transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
                       marginLeft: '5px' , marginRight: '5px' 
+                      
+
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.backgroundColor = '#c22748'; // Change to border color on hover

@@ -1,94 +1,61 @@
 
 .PlayMain{
-  min-width: 100%;
-  top: 0 !important;
-  margin-right: 0 !important;
-
-}
-
-
-.card.customcardAliceHelp, .card.customcardBobHelp {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: rgb(0, 0, 0) !important;
-  border-radius: 12px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 80%; /* Full width on smaller screens */
-  max-width: 550px;
-  text-align: center;
-  font-size: 14px;
-  color: #ffffff;
-  border-width: 1px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  margin: 1px auto; /* Center the cards */
-}
-
-
-
-
-/* Desktop-specific Styles */
-@media (min-width: 1301px) {
-
-.Main{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-family: Arial, sans-serif; 
-  color: #ffffff;
-  width:100%;
-  min-height: 600px;
-}
-
-.PlayMain {
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  min-width: 100%;
-  min-height: 100vh; /* Full viewport height */
-  top: 0 !important;
-  margin: 0 !important;
-  position: relative;
-}
-
-.card.customcardAliceHelp, .card.customcardBobHelp {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: rgb(14, 14, 14) !important;
-  border-radius: 12px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 450px;
-  text-align: center;
-  font-size: 14px;
-  color: #ffffff;
-  border-width: 1px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  position: absolute;
-  /*transform: translateY(-50%) scaleY(0); /* Center vertically and collapse initially */
-  transform-origin: top; /* Set the origin to the top for downward expansion */
-  transition: transform 0.3s ease-in-out; /* Smooth expansion */
-}
-
-.card.customcardAliceHelp {
-  right: 10%; /* Position Alice's card slightly to the left */
-  top: 20%;
-  width: 30%;
-}
-
-.card.customcardBobHelp {
-  left: 10%; /* Position Bob's card slightly to the right */
-  top: 0px;
-  width: 35%;
-}
-
-/* Expanded state for the cards */
-.card.customcardAliceHelp.expanded, .card.customcardBobHelp.expanded {
-  transform: translateY(-50%) scaleY(1); /* Expand downward */
-}
-
-}
-
-
+    min-width: 100%;
+    top: 0 !important;
+    margin-right: 0 !important;
+  
+  }
+  
+  .receivedMessage{
+    background-color:rgb(0, 0, 0) !important;
+  }
+  
+  .image{
+    top: 10 !important;
+    margin: 10 !important;
+    margin-left: 20px !important;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(33, 37, 41);
+  
+  }
+  .card.customcardAlicePlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color:rgb(0, 0, 0) !important;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 30%;
+      max-width: 550px;
+      text-align: center;
+      font-size: 14px;
+      color: #ffffff;
+      border-width: 1px;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card.customcardBobPlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0px;
+      padding: 25px;
+      border-radius: 12px;
+      background-color: rgb(0, 0, 0) !important; 
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 35%;
+      max-width: 500px;
+      text-align: center;
+      color: #ffffff;
+      border-width: 1px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      }
+    
+  
+  
       .arrowRightPlay {
           color: #ffffff;
           display: flex;
@@ -138,8 +105,10 @@
           color: rgb(150, 13, 13) !important;
           font-Weight:bolder;
           font-Size: 1.5rem;
+        
         }
         
+    
         .my-play-btn {
           position: absolute;
           top: 280px;
@@ -156,10 +125,26 @@
           background-color: #ff758c;
         }
       
+  
+              /* Container for the entire row */
+        .right-buttons-container {
+          display: flex;
+          justify-content: space-between; /* Space between the image and buttons */
+          align-items: center; /* Align items vertically */
+          width: 100%; /* Ensure it takes full width */
+        }
+  
+        /* Image style */
+        .right-buttons-container .image {
+          width: 40px; /* Size of the image */
+          height: 40px; /* Size of the image */
+          margin-right: 15px; /* Space between image and buttons */
+        }
+  
         .right-buttons {
           display: flex; /* Align right buttons in a row */
           gap: 10px; /* Space between right buttons */
-          margin-left: 70% !important;
+         margin-left:  65% !important;
          }
   
   /**/
@@ -194,27 +179,34 @@
     top: 0; /* Ensure button follows the control’s movement */
   }
   
-  .receivedMessage{
-    background-color:rgb(14, 14, 14) !important;
-  }
   
   
   
   
   
   @media (max-width: 1300px) {
-
-    .card.customcardAliceHelp,
-    .card.customcardBobHelp {
-      width: 98% !important; /* Make cards take full width */
-      max-width: 500px; /* Optional: set a max width for better readability */
-      margin: 0 0 1rem 0; /* Add spacing between stacked cards */
-      padding-top:10;  /* Remove margin */
-      background-color: rgb(14, 14, 14) !important; 
-         
-    }
-
-
+  
+  .card.customcardAlicePlay,
+  .card.customcardBobPlay {
+    width: 90%; /* Make cards take full width */
+    max-width: 500px; /* Optional: set a max width for better readability */
+    margin: 0 0 1rem 0; /* Add spacing between stacked cards */
+    padding-top:10;  /* Remove margin */
+    background-color: rgb(0, 0, 0) !important; 
+       
+  }
+  .custom-placeholderFN::placeholder {
+    color: rgb(5, 2, 2) !important;
+    font-Weight:bold;
+    font-Size: 0.8rem;
+  } 
+  .custom-placeholderFN{
+    background-color: rgb(243, 219, 219);
+    padding: 0.5rem 0.5rem;
+    position: relative;
+    font-Size: 0.8rem;
+  }
+  
     .mobileValueLabel{
       color: #ffffff;
       font-size: 30px;
@@ -276,27 +268,28 @@
   
   
   
-  @keyframes slideRight {
-    from{
-      transform: translateX(0%);
-    }
-    to{
-      transform: translateX(25%);
-    }
-    
-  }
   
+  @keyframes slideRight {
+      from{
+        transform: translateX(-30%);
+      }
+      to{
+        transform: translateX(15%);
+      }
+      
+    }
   
     
   @keyframes slideLeft {
       from{
-        transform: translateX(25%);
+        transform: translateX(15%);
       }
       to{
-        transform: translateX(0%);
+        transform: translateX(-15%);
       }
       
     }
+    
     
     
     

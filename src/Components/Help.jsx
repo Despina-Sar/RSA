@@ -6,6 +6,7 @@ import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import Confetti from 'react-confetti';
 import './Play.css';
+import './Help.css';
 import Test from './Test.jsx';
 import NavigateButton from './NavigateButton.jsx';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
@@ -83,11 +84,11 @@ const Help = ({rsaValuess, updateRSAValues ,step }) => {
   
   
   useEffect(() => {
-    console.log("Entered useEffect");
+   // console.log("Entered useEffect");
 
     // Check if the page was reloaded
     const isPageReload = sessionStorage.getItem('isReload') === 'true';
-    console.log("Is Page Reload: " + isPageReload);
+   // console.log("Is Page Reload: " + isPageReload);
 
     // If it's a reload, set `isReload` to true and don't show modal
     if (isPageReload) {
@@ -900,7 +901,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                     </Modal>
 
       {/* Boy's card with inputs and z calculation */}
-      <Card style={{ borderColor: '#c22748' }}  className="customcardBobPlay">
+      <Card style={{ borderColor: '#c22748' }}  className="customcardBobHelp">
          
       
               
@@ -1037,7 +1038,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)' ,
-                            backgroundColor: 'rgb(4,145,141)',
+                            backgroundColor: 'rgb(42, 163, 159)',
                             fontWeight:'bolder',
                             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)'}}
                           />
@@ -1059,7 +1060,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             fontSize: '1.0rem', 
                             padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)',
-                            backgroundColor: 'rgb(138,4,17)',
+                            backgroundColor: 'rgb(139, 42, 52)',
                             fontWeight:'bolder' ,
                             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                             
@@ -1074,7 +1075,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         
        </Row>
        <Row  className="mb-4">
-        <Col style={{width: '300px'}}>
+        <Col>
            {placeholderE}  
         </Col>
         <Col style={{width: '300px'}}>
@@ -1093,10 +1094,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#c22748', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#c22748', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            backgroundColor: 'rgb(14, 14, 14)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                            width: '200px',
+                            textAlign: 'center',
+                            display: 'block',  // Ensures it behaves like a block element
+                            margin: '0 auto'
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -1132,16 +1137,16 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                               placeholder={`M = ${form.CT}${convertToSuperscript(form.D)} mod ${form.n} = ${form.M}`}
                               style={{
                                 fontSize: '1.2rem',
-                                padding: '0.5rem 0.5rem',
                                 color: 'rgb(255, 255, 255)',
                                 backgroundColor: 'rgb(33,37,41)',
                                 fontWeight: 'bolder',
                                 border: '2px solid rgb(255, 255, 255)', // Default border
                                 transition: 'box-shadow 0.3s ease-in-out', // Smooth animation for the glow
                                 boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
-                                 width:'100%',
-                                 textAlign:'center !important'
-                              
+                                width: '300px',
+                                textAlign: 'center',
+                                display: 'block',  // Ensures it behaves like a block element
+                                margin: '0 auto'                                                        
                               }}                          
                              /> </div> 
                           </>
@@ -1212,7 +1217,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-unlock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
+                    style={{ fontSize: '40px', color: 'rgb(30, 156, 152)' ,textShadow: '3px 3px 2px white'}}
                   ></i>
                   ({form.E},{form.n})
                 </span>
@@ -1228,7 +1233,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-unlock-fill"
-                  style={{ fontSize: '40px', color: 'rgb(4,145,141)' }}
+                  style={{ fontSize: '40px', color: 'rgb(30, 156, 152)' ,textShadow: '3px 3px 2px white'}}
                 ></i>
                 ({form.E},{form.n})
               </span>
@@ -1251,7 +1256,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-file-earmark-lock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(138,4,17)' }}
+                    style={{ fontSize: '40px', color: 'rgb(128, 25, 35)' , textShadow: '3px 3px 4px white', paddingRight: '5px'}}
                   ></i>
                  {form.CT}
                 </span>
@@ -1267,7 +1272,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-file-earmark-lock-fill"
-                  style={{fontSize: '40px', color:'rgb(138,4,17)'}}
+                  style={{fontSize: '40px', color:'rgb(128, 25, 35)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                 ></i>
                  CT : {form.CT}
               </span>
@@ -1284,7 +1289,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
        
       {/* Girl's card with inputs and f calculation */}
-      <Card style={{ borderColor: '#06c3c9' }}  className="customcardAlicePlay">
+      <Card style={{ borderColor: '#06c3c9' }}  className="customcardAliceHelp">
 
       <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#06c3c9',textAlign: 'center', }}>
            <i class="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
@@ -1367,10 +1372,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#06c3c9', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#06c3c9', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            backgroundColor: 'rgb(14, 14, 14)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                            width: '200px',
+                            textAlign: 'center',
+                            display: 'block',  // Ensures it behaves like a block element
+                            margin: '0 auto'
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -1431,7 +1440,7 @@ const styles = {
     marginBottom: '10px'
   },
   inputGroup: {
-    margin: '10px 0',
+
     width: '100%'
   },
   label: {
@@ -1470,7 +1479,7 @@ const styles = {
   },
  
   valueLabel: {
-    marginLeft: '10px',
+  
     fontSize: '20px',
     color: 'white',
     fontWeight:'bolder'
@@ -1479,7 +1488,7 @@ const styles = {
     marginTop: '10px',
     fontSize: '14px',
     color:'rgb(255, 255, 255)',
-    backgroundColor: 'rgb(8, 6, 6)',
+    backgroundColor: 'rgb(14, 14, 14)',
    
   }
 };

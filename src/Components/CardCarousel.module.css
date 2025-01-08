@@ -1,6 +1,9 @@
 .CarouselMain
 {
   width: 100% !important;
+  
+  
+
 }
 
 .test-container {
@@ -113,8 +116,57 @@ button:disabled {
   margin-left: 35%;
 }
 
+/* Reset Bootstrap default styles */
+.pagination .page-item .page-link {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+}
+
+/* Custom styles for pagination */
+.pagination .page-item .page-link {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid green !important;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: black !important;
+  color: white !important;
+}
+
+.pagination .page-item:hover .page-link {
+  background-color: green !important;
+  color: black !important;
+}
+
+/* Ensuring the same for disabled state if needed */
+.pagination .page-item.disabled .page-link {
+  background-color: black !important;
+  color: gray !important;
+}
+
+
+
 
 @media (max-width: 1300px) {
+
+  .test-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    height: 40%;
+    width: 50%;
+    background: linear-gradient(to bottom, #000000, #000000);
+    border-radius: 15px;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    padding: 20px;
+    max-width: 700px;
+    min-width: 350px;
+  }
 
   .card {
     background: rgba(24, 24, 24, 0.966);
@@ -125,11 +177,13 @@ button:disabled {
     width: 100%;
     text-align: center;
     transition: opacity 0.5s ease-in-out;
+    max-width: 600px;
+    min-width: 300px;
   }
 
   .CarouselMain
   {
-    width: 180% !important;
+    width: 100% !important;
   }
   
   .button-container {
@@ -142,3 +196,45 @@ button:disabled {
     
 
 }
+
+
+
+@media (max-width: 550px) {
+
+
+  .test-container {
+    
+    margin-right:35% !important; 
+  }
+
+
+  .card {
+    background: rgba(24, 24, 24, 0.966);
+    color: rgb(255, 255, 255);
+     border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+
+  .test-container {
+    margin-left:6% !important; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    height: 40%;
+    width: 50%;
+    background: linear-gradient(to bottom, #000000, #000000);
+    border-radius: 15px;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    padding: 20px;
+    max-width: 600px;
+  }
+}
+

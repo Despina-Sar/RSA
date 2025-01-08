@@ -248,7 +248,6 @@ p {
 }
 
 
-
 .customcardBlur.blurred {
   filter: blur(5px);
   pointer-events: none; /* Prevent interaction */
@@ -301,8 +300,28 @@ html, body {
   align-items: center; /* Vertically center the content */
   padding: 0; /* Remove padding to eliminate space on the left and right */
   box-sizing: border-box; /* Include padding and borders in the width calculation */
+  padding-right: 0px !important;
 }
 
+with-scrollbar{
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: bold;
+    height: 60px; /* Set the desired height */
+    width: 100%;
+   /*position: fixed; /* Fix the navbar at the top of the page */
+    margin-top: 0px !important; 
+    top: 0 !important; /* Align at the very top */
+    left: 0; /* Align at the left edge */
+    right: 0; /* Align at the right edge */
+    z-index: 1000; /* Ensure the navbar stays on top of other content */
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    padding: 0; /* Remove padding to eliminate space on the left and right */
+    box-sizing: border-box; /* Include padding and borders in the width calculation */
+    padding-right: 0px !important;
+  }
 
 
 
@@ -508,7 +527,7 @@ html, body {
 /* Ensuring the background container behaves correctly */
 .background-container {
   /*background-image: url('./backround_desktop.jpg'); /* Desktop background */
-  background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
+  background: linear-gradient(180deg,rgb(0, 0, 0) 0%,rgb(8, 8, 8) 30%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
   background-size: cover;
   min-height: 100vh;
   width: 100%; /* Ensure full width */
@@ -536,7 +555,7 @@ html, body {
 @media (max-width: 1300px) {
   .background-container {
     /*background-image: url('./backround_mobile.jpg'); /* Mobile background */
-    background: linear-gradient(180deg,rgb(0, 0, 0) 0%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
+    background: linear-gradient(180deg,rgb(0, 0, 0) 0%,rgb(22, 22, 22) 30%, rgb(73, 73, 73) 70%, rgb(255, 255, 255) 100%);
     background-size: cover;
     background-position: center center; /* Center image to avoid losing key details */
     background-repeat: no-repeat;
@@ -713,7 +732,7 @@ html, body {
 /* General Modal Styles */
 /* General Modal Styles */
 .modal-header-dark {
-  background-color: rgb(5, 2, 2); /* Dark background for header */
+  background-color: rgb(0, 0, 0); /* Dark background for header */
   color: #c22748; /* Vibrant text color for contrast */
   border-bottom: 2px solid #c22748; /* Subtle border */
   font-weight: bold;
@@ -721,7 +740,7 @@ html, body {
 }
 
 .modal-body-dark {
-  background-color:rgb(5, 2, 2); /* Dark background for body */
+  background-color:rgb(0, 0, 0); /* Dark background for body */
   color: #f7f0f1; /* Vibrant text color */
   font-size: 1.1rem;
   padding: 1.5rem;
@@ -731,7 +750,7 @@ html, body {
 
 
 .modal-footer-dark {
-  background-color: rgb(5, 2, 2);
+  background-color: rgb(0, 0, 0);
   border-top: 2px solid #c22748; 
   padding: 0.5rem;
   text-align: right; 
@@ -740,7 +759,7 @@ html, body {
 /* Button Styling */
 .modal-close-button {
   background-color: #c22748 !important; /* Vibrant button color */
-  color:rgb(5, 2, 2) !important; /* Dark text color for contrast */
+  color:rgb(0, 0, 0) !important; /* Dark text color for contrast */
   border: 2px solid #c22748 !important; /* Matching border */
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -751,7 +770,7 @@ html, body {
 }
 
 .modal-close-button:hover {
-  background-color: rgb(5, 2, 2)!important; /* Darker background on hover */
+  background-color: rgb(0, 0, 0)!important; /* Darker background on hover */
   color: #c22748 !important; /* Inverted text color */
   border: 2px solid #c22748 !important; /* Ensures border remains visible */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
@@ -764,7 +783,7 @@ html, body {
 
 .modal-footer {
 
-  background-color: rgb(5, 2, 2) !important ;
+  background-color: rgb(0, 0, 0) !important ;
 }
 
 
@@ -772,7 +791,7 @@ html, body {
 
 .modal-close-buttonB{
   background-color: #06c3c9 !important; /* Vibrant button color */
-  color:rgb(5, 2, 2) !important; /* Dark text color for contrast */
+  color:rgb(0, 0, 0) !important; /* Dark text color for contrast */
   border: 2px solid #06c3c9 !important; /* Matching border */
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -783,14 +802,14 @@ html, body {
 }
 
 .modal-close-buttonB:hover {
-  background-color: rgb(5, 2, 2)!important; /* Darker background on hover */
+  background-color: rgb(0, 0, 0)!important; /* Darker background on hover */
   color: #06c3c9 !important; /* Inverted text color */
   border: 2px solid #06c3c9 !important; /* Ensures border remains visible */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
 }
 
 .modal-header-darkB{
-  background-color: rgb(5, 2, 2); /* Dark background for header */
+  background-color: rgb(0, 0, 0); /* Dark background for header */
   color: #06c3c9; /* Vibrant text color for contrast */
   border-bottom: 2px solid #06c3c9; /* Subtle border */
   font-weight: bold;
