@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useContext,useRef,useEffect,useLayoutEffect} from 'react';
 import styles from './CardCarousel.module.css';
 import NavBar from './NavBar'
 import RandomMessage from './RandomMessage.jsx'
@@ -19,8 +19,8 @@ const CardCarousel = () => {
   const [isMessageSet, setIsMessageSet] = useState(false);
   const [trueCount, setTrueCount] = useState(0);
   const [emptyCount, setEmptyCount] = useState(0);
- 
 
+      
 
   const handleClose = () => setShowModalE(false);
   const handleCloseF = () => setShowModalF(false);
@@ -471,7 +471,7 @@ const CardCarousel = () => {
             value={userInputs.e || ''}
             onChange={(e) => handleInputChange('e', e.target.value)}
             style={{
-              fontSize: '0.8rem', width: '30%'
+            fontSize: '0.8rem', width: '30%', height: '40px'
              }}
           />
       <br />
@@ -558,7 +558,7 @@ const CardCarousel = () => {
                 value={userInputs.d || ''}
                 onChange={(e) => handleInputChange('d', e.target.value)}
                 style={{
-                  fontSize: '0.8rem', width: '30%'
+                    fontSize: '0.8rem', width: '30%', height: '40px'
                 }}
           />
              <br />
@@ -602,7 +602,7 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('encryptedMessage', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '30%'
+                fontSize: '0.8rem', width: '30%', height: '40px'
              }}
           />
           <br />
@@ -644,7 +644,7 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('message', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '30%'
+                 fontSize: '0.8rem', width: '30%', height: '40px'
              }}
           />
 
@@ -689,7 +689,7 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('e1', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '30%'
+              fontSize: '0.8rem', width: '30%', height: '40px'
              }}
           />
          <br />
@@ -731,6 +731,11 @@ const CardCarousel = () => {
                 />
               </div>
            <p>Το κρυπτογραφημένο μήνυμα είναι το {selectedMessage}.</p>
+           <br/>
+         <br/>
+      
+     
+    
     
          {errors.six && <p className={styles.error}>{errors.six}</p>}
          {isValidated && <p className={styles.success}>Σωστή απάντηση</p>}
@@ -744,23 +749,25 @@ const CardCarousel = () => {
   
 
   return (
+
     <div className={styles['CarouselMain']}>
-    <NavBar/>
+  
+    <NavBar where={"Test"}/>
     <div className={styles['test-container']}>
      
       <div className={styles.card}>{renderCardContent()}</div>
       <div className={styles['button-container']}>
 
-        <Button onClick={handleBack} 
+        <Button onClick={handleBack} disabled={currentCard === 0}
                 style={{
-                  display: currentCard === 0 ? 'none' : 'block' ,
+                //  display: currentCard === 0 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
                   borderColor: 'grey', // Custom border color
                   borderWidth: '2px', // Custom border thickness
                   color: '#grey', // Ensure text color matches or complements the border
-                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  backgroundColor: 'transparent', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -794,7 +801,8 @@ const CardCarousel = () => {
                   borderRadius: '5px', // Rounded corners for a modern look
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                  width:'60%'   
+                  width:'60%'  , 
+                  marginLeft: '5px' , marginRight: '5px' 
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -866,14 +874,14 @@ const CardCarousel = () => {
      
        <Button onClick={handleNext} disabled={currentCard === 5} 
                 style={{
-                  display: currentCard === 5 ? 'none' : 'block' ,
+                  //display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
                   borderColor: 'grey', // Custom border color
                   borderWidth: '2px', // Custom border thickness
                   color: '#grey', // Ensure text color matches or complements the border
-                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  backgroundColor:  'transparent', // Dark background
                   borderRadius: '5px', // Rounded corners for a modern look
                  
                   transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -1000,7 +1008,8 @@ const CardCarousel = () => {
 */}
        
     </div>
-    </div>
+      </div>
+
   );
 };
 

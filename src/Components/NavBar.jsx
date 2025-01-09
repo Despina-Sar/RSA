@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Modal,Form, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import React, { useState,useContext  } from 'react';
+import React, { useState,useContext ,useEffect, useLayoutEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 
@@ -15,20 +15,38 @@ import {
 
 
 
-function NavBar({ step, onNext }) {
+function NavBar({ step, onNext ,where  }) {
 
 
-    const [expandedSection, setExpandedSection] = useState(null);
-
+  const [expandedSection, setExpandedSection] = useState(null);
   const [show, setShow] = useState(false);
   const [showTop, setShowTop] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseTop = () => setShowTop(false);
   const handleShowTop = () => setShowTop(true);
   const isMobile = useIsMobile();
+
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+   
+   // console.log("modalOpen == false " + (modalOpen == false));
+    //let x=false;
+   
+    if(where === "Play"){setScroll(true);}
+    else if(where === "Help") {setScroll(true);}
+    else if(where === "Test") {setScroll(false);}
+    
+  }, []);
+
   
+  
+  const handleScroll = (event) => {
+    console.log('User scrolled:', event.target.scrollTop);
+  };
+
+
 
 
   const location = useLocation(); // Get the current location
@@ -135,7 +153,9 @@ function NavBar({ step, onNext }) {
     
   return (
     <>
-      <Navbar className = "navbar">
+   
+      <Navbar className = "navbar" style={{ marginLeft: scroll ? '14px' : '0' }}>
+     
         <Container>
      
            <Navbar.Brand as={Link} to="/" id="nav-menu">
@@ -147,10 +167,10 @@ function NavBar({ step, onNext }) {
                   className="d-inline-block align-top"
                   style={{ cursor: 'pointer' }}
                   marginTop= "10 px"
-                />
+                /> 
                 
            </Navbar.Brand>  
-
+     
            {/*
            {!isMobile && (
            <div style={{ 
@@ -164,8 +184,15 @@ function NavBar({ step, onNext }) {
            */}
            
 
+           <div style={{ 
+            fontWeight: 'lighter',
+            fontSize: '1.1rem' ,
+            color:'rgb(221, 221, 221)'
+             }}>
+                  {"modalOpen"}       
+           </div> 
 
-        
+  
 
            {location.pathname !== '/HomeGrid' && (    
             <Nav id = "menu">  
@@ -209,6 +236,8 @@ function NavBar({ step, onNext }) {
                     Επόμενο
                </Button>
            ) } 
+
+
 
 
 {
@@ -345,7 +374,10 @@ function NavBar({ step, onNext }) {
             </Nav>
            )}            
         </Container>
+        
       </Navbar>   
+ 
+
         </>
 
   );

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { RSAProvider } from './RSAContext.jsx';
 import Play from './Play';
 import EndModal from './EndModal';  // Import Component B
@@ -53,12 +53,16 @@ const handleAliceUnlockClick = () => {
   const refreshPage = () => {
     window.location.reload();
   };
-  
+
+
+
+
+
 
 return (
   <RSAProvider>
         
-        <NavBar/>      
+        <NavBar where={"Play"}/>      
         <br/>
           <Play rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           

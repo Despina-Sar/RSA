@@ -79,14 +79,15 @@ code {
 body {
   height: 100%;
   color:rgb(243, 219, 219)!important; 
-  font-size: smaller!important;
+  font-size: 14px !important;
+
 }
 
 h1,h5,h3,h4,h6,h6,h7
 p {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family:Segoe UI;
   color: #ffffff !important;
   margin-left: 60px;
   margin-bottom: 10px;
@@ -267,6 +268,7 @@ p {
 .dark-body {
   background-color: #343a40; /* Dark grey body */
   color: white; /* White text */
+  
 }
 .dark-footer {
   background-color: #495057; /* Darker footer */
@@ -282,6 +284,7 @@ html, body {
   height: 100%; /* Ensure full height */
 }
 
+
 /* Navbar styling */
 .navbar {
   color: #ffffff;
@@ -290,7 +293,7 @@ html, body {
   font-weight: bold;
   height: 60px; /* Set the desired height */
   width: 100%;
- /*position: fixed; /* Fix the navbar at the top of the page */
+ position: fixed; /* Fix the navbar at the top of the page */
   margin-top: 0px !important; 
   top: 0 !important; /* Align at the very top */
   left: 0; /* Align at the left edge */

@@ -1,10 +1,10 @@
 .CarouselMain
 {
   width: 100% !important;
-  
-  
 
 }
+
+
 
 .test-container {
   display: flex;
@@ -13,7 +13,7 @@
   justify-content: center;
   margin-top: 70px;
   margin-left: 25%;
-  height: 40%;
+  height: 50%;
   width: 50%;
   background: linear-gradient(to bottom, #000000, #000000);
   border-radius: 15px;
@@ -37,6 +37,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+ 
 }
 
 button {
@@ -84,7 +85,13 @@ button:disabled {
   background-color: #ffffff!important; 
   border-radius: 5px !important;
   padding: 5px;
+
+  font-Weight: bolder;
+  font-Size: 1.0rem !important;
+  color:rgb(108,117,125);
 }
+
+
 
 .Hidden {
   visibility: hidden;
@@ -146,10 +153,15 @@ button:disabled {
   color: gray !important;
 }
 
+.modal-open
+{
+  overflow-y: scroll !important;
+}
 
 
 
 @media (max-width: 1300px) {
+
 
   .test-container {
     display: flex;

@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState,useContext,useRef,useEffect,useLayoutEffect} from 'react';
 import { RSAProvider } from './RSAContext.jsx';
 import Help from './Help';
 import EndModal from './EndModal';  // Import Component B
@@ -14,6 +13,7 @@ const [isAliceBlurred, setIsAliceBlurred] = useState(true);
 const [isBobDecrBlurred, setIsBobDecrBlurred] = useState(true);
 
 const [step, setStep] = useState(-1);
+
 const handleNext = () => {
   setStep((prevStep) => prevStep + 1);
 };
@@ -60,15 +60,22 @@ const handleAliceUnlockClick = () => {
   };
   
 
+  const [modalOpen, setModalOpen] = useState(false);
+ 
+
 return (
+
   <RSAProvider>
-        
-        <NavBar step={step} onNext={handleNext}/>       
+       
+        <NavBar step={step} onNext={handleNext} where={"Help"} modalOpen={modalOpen}/>       
         <br/>
-          <Help rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}  step={step} />
+     
+          <Help rsaValuess={rsaValuess} updateRSAValues={updateRSAValues} step={step} />
           
              <EndModal showModal={showModal} />
+           
   </RSAProvider>
+
 );
 
 }

@@ -1,5 +1,5 @@
 
-import React, { useState,useContext,useRef,useEffect } from 'react';
+import React, { useState,useContext,useRef,useEffect,useLayoutEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import {Modal,Form,Button, Row, Col, Navbar } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
@@ -746,10 +746,15 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     
 
 
+
+
+  
+
   
   return (
 
    <div  className="PlayMain">
+        
   
 
 {/* Conditional rendering for mobile 
@@ -777,6 +782,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
   
     <div className="Main">
+
 
       {/* Boy's card with inputs and z calculation */}
       <Card style={{ borderColor: '#c22748' }}  className="customcardBobPlay">
@@ -1345,6 +1351,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     
     </div>
     </div>
+
+ 
   );
 };
 

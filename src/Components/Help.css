@@ -198,7 +198,10 @@
     background-color:rgb(14, 14, 14) !important;
   }
   
-  
+  .modal-open
+{
+  overflow-y: scroll !important;
+}
   
   
   

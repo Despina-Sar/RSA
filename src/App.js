@@ -19,6 +19,7 @@ import HowTo from './Components/HowTo';
 
 
 import HomeGrid from './Components/HomeGrid';
+import TestScroll from './Components/TestScroll';
 import HelpMain from './Components/HelpMain';
 import CardCarousel from './Components/CardCarousel';
 import PlayMain from './Components/PlayMain';

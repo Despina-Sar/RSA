@@ -1,5 +1,5 @@
 
-import React, { useState,useContext,useRef,useEffect } from 'react';
+import React, { useState,useContext,useRef,useEffect,useLayoutEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import {Modal,Form,Button, Row, Col, Navbar } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
@@ -16,7 +16,7 @@ import { useLocation,useNavigationType  } from 'react-router-dom'; // Import Rea
 
 
 
-const Help = ({rsaValuess, updateRSAValues ,step }) => {
+const Help = ({rsaValuess, updateRSAValues ,step  }) => {
   // Boy's state
   const [x, setX] = useState('');
   const [y, setY] = useState('');
@@ -97,6 +97,7 @@ const Help = ({rsaValuess, updateRSAValues ,step }) => {
     } else {
       setIsReload(false);
       setShowModalH(true); // Show modal on normal navigation
+     
     }
 
     // Listen for beforeunload event to detect page reloads
@@ -817,13 +818,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       }
 
    
-     
+
+  
 
 
   
   return (
 
-   <div  className="PlayMain">
+<div  className="PlayMain">
  {/*{!isMobile && (<NavigateButton to="/HomeGrid" label="How To" />)}*/}
 
 
@@ -874,9 +876,13 @@ const handleSubmitM = (field, value, form,newErrors) =>{
    )}
 */}
 
+
+
    
            
 </div>
+
+
 
     <div className="Main">
 
@@ -1418,6 +1424,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     
     </div>
     </div>
+  
   );
 };
 
