@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: rgb(14, 14, 14) !important;
+  background-color: rgb(35, 35, 35) !important;
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 450px;
@@ -195,7 +195,7 @@
   }
   
   .receivedMessage{
-    background-color:rgb(14, 14, 14) !important;
+    background-color:rgb(35, 35, 35) !important;
   }
   
   .modal-open
@@ -213,7 +213,7 @@
       max-width: 500px; /* Optional: set a max width for better readability */
       margin: 0 0 1rem 0; /* Add spacing between stacked cards */
       padding-top:10;  /* Remove margin */
-      background-color: rgb(14, 14, 14) !important; 
+      background-color:rgb(35, 35, 35) !important; 
          
     }
 

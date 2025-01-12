@@ -1,5 +1,5 @@
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useState} from 'react';
 import { RSAProvider } from './RSAContext.jsx';
 import Play from './Play';
 import EndModal from './EndModal';  // Import Component B
@@ -63,6 +63,7 @@ return (
   <RSAProvider>
         
         <NavBar where={"Play"}/>      
+        <br/>
         <br/>
           <Play rsaValuess={rsaValuess} updateRSAValues={updateRSAValues}/>
           

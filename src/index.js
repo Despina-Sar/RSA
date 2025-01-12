@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "../node_modules/react-bootstrap/dist/react-bootstrap.min";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
-
+import './i18n'; // Import the i18n configuration
 
 
 

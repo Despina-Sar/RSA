@@ -1,17 +1,14 @@
 
-import React, { useState,useContext,useRef,useEffect,useLayoutEffect} from 'react';
+import React, { useState,useContext,useRef,useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
-import {Modal,Form,Button, Row, Col, Navbar } from 'react-bootstrap';
+import {Modal,Form,Button, Row, Col } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
-import Confetti from 'react-confetti';
 import './Play.css';
 import './Help.css';
-import Test from './Test.jsx';
-import NavigateButton from './NavigateButton.jsx';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import { useLocation,useNavigationType  } from 'react-router-dom'; // Import React Router's useLocation hook
-
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -28,6 +25,8 @@ const Help = ({rsaValuess, updateRSAValues ,step  }) => {
   const [p, setP] = useState('');
   const [f, setF] = useState('');
   const [isFCorrect, setIsFCorrect] = useState(false);
+
+  const { t } = useTranslation();
 
   const refreshPage = () => {
     window.location.reload();
@@ -704,12 +703,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     : 'Φ(n) = (P-1) x (Q-1)';  // If p or q is empty, just show the base placeholder    
 
     const placeholderE = (!errors.E && form.E !== '')
-    ? `Δημόσιο κλειδί (Ε,n):(${form.E},${form.n})` 
+    ? `${t('publicKey')} (Ε,n):(${form.E},${form.n})` 
     : '';  // If p or q is empty, just show the base placeholder    
 
 
     const placeholderD = (!errors.D && form.D !== '')
-    ? `Ιδιωτικό κλειδί (D,n):(${form.D},${form.n})` 
+    ? `${t('privateKey')} (D,n):(${form.D},${form.n})` 
     : '';  // If p or q is empty, just show the base placeholder    
 
       const navigate = useNavigate(); // Initialize navigate function
@@ -889,19 +888,17 @@ const handleSubmitM = (field, value, form,newErrors) =>{
          {/* Bootstrap Modal for displaying empty field alert */}
                   <Modal show={showModalH} onHide={handleCloseModH} centered>
                       <Modal.Header className="modal-header-dark">
-                        <Modal.Title className="text-center w-100">Οδηγίες</Modal.Title>
+                        <Modal.Title className="text-center w-100">{t('HelpModalTitle')}</Modal.Title>
                       </Modal.Header>
                       <Modal.Body className="modal-body-dark">
-                      Αυτό το τμήμα είναι σχεδιασμένο για να σας καθοδηγήσει βήμα προς βήμα σχετικά 
-                      με το πως λειτουργεί η εφαρμογή. Πατήστε το κουμπί "Επόμενο" για να ξεκλειδώσετε το
-                     επόμενο βήμα.
+                      {t('HelpModalText')}
                       </Modal.Body>
                       <Modal.Footer className="modal-footer-dark">
                         <Button
                           className="modal-close-button"
                           onClick={handleCloseModH}
                         >
-                          Ξεκινήστε
+                         {t('HelpModalButton')}
                         </Button>
                       </Modal.Footer>
                     </Modal>
@@ -912,13 +909,13 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       
               
         
-            <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748',textAlign: 'left', }}>
+            <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748' }}>
                   <i class="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
                     Bob   
                </Card.Title><br /> 
     <Row className="mb-3">
             <Col>
-              Επίλεξε δύο πρώτους αριθμούς
+            {t('Bob1')}
            </Col>        
       
             <Col xs={4} className="form-container" style={{ position: 'relative' }}>
@@ -1012,7 +1009,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
         <Row className="mb-3">    
         <Col xs={5}>
-            Παράγοντες Φ(n) 
+        {t('Bob2')}
        </Col>  
        <Col xs={6}>         
         <Form.Control
@@ -1035,7 +1032,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                       <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
-                           placeholder="Επίλεξε το E"
+                           placeholder={t('Bob3')}
                            value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
@@ -1057,7 +1054,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         <Form.Control
                           className="custom-placeholder"
                           
-                           placeholder="Υπολόγισε το D"
+                           placeholder={t('Bob4')}
                            value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
                            isInvalid={!!errors.D}
@@ -1097,10 +1094,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             fontSize: '1rem', // Slightly larger font for better readability
                             padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                             fontWeight: 'bolder',
-                            borderColor: '#c22748', // Custom border color
+                            borderColor: '#ff5b7e', // Custom border color
                             borderWidth: '2px', // Custom border thickness
-                            color: '#c22748', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(14, 14, 14)', // Dark background
+                            color: '#ff5b7e', // Ensure text color matches or complements the border
+                            backgroundColor: 'rgb(35, 35, 35)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -1120,12 +1117,15 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
                         >
-                          Στείλε το κλειδί
+                          {t('BobButton')}
                         </Button>
 
                        <div style={styles.receivedMessage}>
                         {isZCorrect ? (
-                           <div>Περιμένει μήνυμα από την Alice</div>
+                          <>
+                           {t('BobWaitCT')} <br />
+                           
+                           </>
                         ) : (
                           <div></div>
                         )}
@@ -1134,7 +1134,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   <div style={styles.receivedMessage}>
                         {isFCorrect ? (
                           <>
-                            Έλαβε το κρυπτογραφημένο μήνυμα {form.CT}.  <br />
+                            {t('BobGetCT')}{form.CT}  <br />
                             <div>
                                 <br/>
                         <Form.Control                          
@@ -1165,17 +1165,17 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
                 <Modal.Header className="modal-header-dark">
-                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">{t('BobModalTitle')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
+                {t('BobModalText')}
                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                   <Button
                     className="modal-close-button"
                     onClick={handleCloseModB}
                   >
-                    Κλείσιμο
+                    {t('BobModalButton')}
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -1304,8 +1304,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 
            <div style={styles.receivedMessage}>
-               {isZCorrect ? `Έλαβε το δημόσιο κλειδί (${form.E},${form.n}) του Bob` :
-               ( <span dangerouslySetInnerHTML={{ __html: "Θέλει να στείλει μήνυμα στον Bob. <br/> Περιμένει το δημόσιο κλειδί του." }} />)}
+               {isZCorrect ? `${t('AliceGetKey')}(${form.E},${form.n})` :
+           (<span dangerouslySetInnerHTML={{ __html: t('AliceWaitKey') }} /> )}
            </div> <br /> <br />
                                  
 
@@ -1315,7 +1315,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             
             <Row className="mb-3">
                 <Col>
-                 Επίλεξε το μήνυμα που θέλεις να στείλεις
+                 {t('Alice1')}
                 </Col>
                  <Col xs={4}>
                    <Form.Control
@@ -1336,7 +1336,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
             <Row className="mb-3">
                 <Col>
-                 Υπολόγισε το κρυπτογραφημένο μήνυμα
+                {t('Alice2')}
                 </Col>
                  <Col xs={4}>                                
                  <Form.Control                          
@@ -1378,7 +1378,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#06c3c9', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#06c3c9', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(14, 14, 14)', // Dark background
+                            backgroundColor: 'rgb(35, 35, 35)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -1398,22 +1398,22 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
                         > 
-                Στείλε το μήνυμα
+                {t('AliceButton')}
             </Button>
 
           </>
         )}
                <Modal show={showModalA} onHide={handleCloseModA} centered>
                   <Modal.Header  className="modal-header-darkB">
-                    <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
+                    <Modal.Title className="text-center w-100">{t('AliceModalTitle')}</Modal.Title>
                   </Modal.Header>
                   <Modal.Body  className="modal-body-dark">
-                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.
+                  {t('AliceModalText')}
                   </Modal.Body>
                   <Modal.Footer className="modal-footer-dark">
                     <Button className="modal-close-buttonB"
                     onClick={handleCloseModA}>
-                      Κλείσιμο
+                      {t('AliceModalButton')}
                     </Button>
                   </Modal.Footer>
                 </Modal>
@@ -1495,7 +1495,7 @@ const styles = {
     marginTop: '10px',
     fontSize: '14px',
     color:'rgb(255, 255, 255)',
-    backgroundColor: 'rgb(14, 14, 14)',
+    backgroundColor: 'rgb(35, 35, 35)',
    
   }
 };

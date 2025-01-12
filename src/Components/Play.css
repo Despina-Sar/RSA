@@ -193,7 +193,7 @@
   position: absolute;
   right: 5px; /* Stick to the right edge of the input */
   top: 0; /* Align with the top of the input */
-  background-color: rgb(243, 219, 219);
+  background-color: rgb(255, 255, 255);
   color: white;
   border: none;
   border-radius: 5px;
@@ -205,7 +205,7 @@
 }
 
 .prime-calculator-btn:hover {
-  background-color: #c5abab;
+    background-color: #ffffff;
 }
 
 .is-invalid ~ .prime-calculator-btn {
@@ -228,6 +228,7 @@
       margin: 0 0 1rem 0; /* Add spacing between stacked cards */
       padding-top:10;  /* Remove margin */
       background-color: rgb(0, 0, 0) !important; 
+      text-align: center !important;
          
     }
 

@@ -4,13 +4,9 @@ import Card from 'react-bootstrap/Card';
 import {Modal,Form,Button, Row, Col, Navbar } from 'react-bootstrap';
 import { RSAContext } from './RSAContext';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
-import Confetti from 'react-confetti';
 import './Play.css';
-import Test from './Test.jsx';
-import NavigateButton from './NavigateButton.jsx';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import NavBar from './NavBar'
-
+import { useTranslation } from 'react-i18next';
 
 
 const Play = ({rsaValuess, updateRSAValues }) => {
@@ -24,6 +20,8 @@ const Play = ({rsaValuess, updateRSAValues }) => {
   const [p, setP] = useState('');
   const [f, setF] = useState('');
   const [isFCorrect, setIsFCorrect] = useState(false);
+
+  const { t } = useTranslation();
 
   const refreshPage = () => {
     window.location.reload();
@@ -224,18 +222,18 @@ const validateP = (field, value, form,newErrors) =>{
   const{p}= form
   console.log('P: '+p+' is prime: '+isPrime(p));
    //-validation for p == prime
-   if (p === undefined || p === '' ) {newErrors.p = 'Το πεδίο είναι κενό'}
+   if (p === undefined || p === '' ) {newErrors.p = t('validation.empty');}
    else{
     if (!(/^\d*$/.test(p))) { // Allows only digits
-       newErrors.p = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες'; }
+       newErrors.p = t('validation.character'); }
 
         else{
           const numericValue = Number(p);
           if (numericValue <= 0 || numericValue >= 100) {
-            newErrors.p = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+            newErrors.p = t('validation.limit');
            }
            else {
-                 if (!isPrime(p)) { newErrors.p = 'Το '+p+' δεν είναι πρώτος αριθμός';}   
+                 if (!isPrime(p)) { newErrors.p = t('validation.notPrime', { number: p }); }   
                 else {
                     delete newErrors.p; // Clear error if validation passes
                     console.log('tetttt' + (!form.q === undefined && !form.q === '') );
@@ -278,25 +276,25 @@ const validateP = (field, value, form,newErrors) =>{
   console.log(isPrime(q));
   
   //validation for q == prime
-    if (q === undefined || q === '') {newErrors.q = 'Το πεδίο είναι κενό'}
+    if (q === undefined || q === '') {newErrors.q = t('validation.empty');}
     else{ 
 
       if (/^\d*$/.test(q)) { // Allows only digits
         const numericValue = Number(q);
         if (numericValue >= 0 && numericValue <= 100) {
 
-           if (!isPrime(q)) { newErrors.q = 'Το '+q+' δεν είναι πρώτος αριθμός';}   
+           if (!isPrime(q)) { newErrors.q = t('validation.notPrime', { number: q });}   
            else {
             delete newErrors.q; // Clear error if validation passes
 
             if (form.p !== undefined && form.p !== '' ){ handleInputChange('fn',(form.p -1) * (form.q-1)); }      
         }  
         }else 
-          {  newErrors.q = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+          {  newErrors.q = t('validation.limit');
             }
       }
       else 
-          {  newErrors.q = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες';
+          {  newErrors.q = t('validation.character');
             }
   }          
 }
@@ -368,25 +366,22 @@ const validateE = (field, value, form, newErrors) => {
   // Μετατροπή των τιμών σε αριθμούς
   let Einput = Number(form.E);
   fn = Number(form.fn);
-
+console.log("Einput "+Einput );
   // Έλεγχος αν το πεδίο E είναι κενό
-  if (Einput === undefined || Einput === '') {
-    newErrors.E = 'Το πεδίο E είναι κενό. Παρακαλώ εισάγετε έναν αριθμό.';
-    console.log('Validation Error: Το πεδίο E είναι κενό.');
-    return;
+  if (Einput === undefined || Einput === '' || Einput === 0) {
+    newErrors.E = t('validation.emptyE');
+     return;
   }
 
   // Έλεγχος ότι E και fn είναι θετικοί ακέραιοι μεγαλύτεροι του 1
   if (!Number.isInteger(Einput) || Einput <= 1) {
-    newErrors.E = 'Το E πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
-    console.log('Validation Error: Το E δεν είναι θετικός ακέραιος μεγαλύτερος του 1. E:', Einput);
-    return;
+    newErrors.E = t('validation.integerE');
+     return;
   }
 
 
   if (!Number.isInteger(fn) || fn <= 1) {
-    newErrors.E = 'Το φ(n) (fn) πρέπει να είναι θετικός ακέραιος μεγαλύτερος του 1.';
-    console.log('Validation Error: Το φ(n) (fn) δεν είναι θετικός ακέραιος μεγαλύτερος του 1. fn:', fn);
+    newErrors.E = t('validation.fnErroronE');
     return;
   }
 
@@ -400,12 +395,11 @@ const validateE = (field, value, form, newErrors) => {
   console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
 
   if (a !== 1) {
-    newErrors.E = Number(E)+ ' δεν είναι "σχετικά πρώτο" με το '+ form.fn+' .Επιλέξτε αριθμό που να μην έχει κοινούς παράγοντες με το '+ fn+' εκτός από το 1.';
-    console.log('Validation Error: Το E δεν είναι κατάλληλο δημόσιο κλειδί, διότι έχει κοινούς διαιρέτες με το φ(n). GCD:', a);
+    newErrors.E = 'To '+Number(E)+t('validation.EmotCoprimeWithFn', { number:  form.fn });
+   
   } else {
     delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
-    console.log('Success: Το E είναι έγκυρο δημόσιο κλειδί.');
-  }
+     }
 };
 
 
@@ -414,16 +408,15 @@ const validateD = (field, value, form, newErrors) => {
   const E = Number(form.E);
   const fn = Number(form.fn);
 
-  if (D === undefined || D === '') {
-    newErrors.D = 'Το πεδίο D είναι κενό. Παρακαλούμε εισάγετε μια τιμή.';
-    console.log('Λάθος: Το πεδίο D είναι κενό.');
+  if (D === undefined || D === ''|| D === 0) {
+    newErrors.D = t('validation.emptyD');
   } else { 
     const expectedD = modInverse(E, fn);
-    if(expectedD == -1 ){ newErrors.D = D+' δεν έχει αντίστροφο mod του '+form.E;}
+    if(expectedD == -1 ){ newErrors.D = D+ t('validation.wrongD') +form.E;}
     if (D !== expectedD) {
          newErrors.D = '('+D+' * '+E+') mod '+fn+' ≠ 1';
     } else {
-       delete newErrors.D; // Καθαρισμός του λάθους αν είναι σωστό το D
+       delete newErrors.D; 
     }
   }
 };
@@ -475,7 +468,7 @@ const handleInputChange = (field, value) => {
     // If not a valid number, just set the input value and show error
     setForm({ ...form, fn: value });
     setFactors('');
-    setErrors({ ...errors, fn: 'Παρακαλώ εισάγετε το σωστό θετικό αριθμό.' });
+    setErrors({ ...errors, fn: t('validation.errorFn')});
   }
 };
 
@@ -570,9 +563,8 @@ const handleButtonClick = () => {
     setTimeout(() => {
       setShowModalE(true);
     }, 7000); // 5000ms = 5 seconds
-    console.log("after 5sec");
     setLocked(true);
-    console.log('CT sent to Bob'); // Placeholder for any additional functionality
+  
   }
 };
 
@@ -586,7 +578,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       //e.preventDefault()
       let{M}= form
       console.log("Inside M validation " +M);
-      if (M === undefined || M === '') {newErrors.M = 'Το πεδίο είναι κενό'}
+      if (M === undefined || M === '') {newErrors.M =  t('validation.empty');}
       else{ 
 
         if (/^\d*$/.test(M)) { // Allows only digits
@@ -595,44 +587,31 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             delete newErrors.M; // Clear error if validation passes          
 
           }else 
-          {  newErrors.M = 'Επιτρέπονται μόνο αριθμοί μεταξύ 0 - 100';
+          {  newErrors.M = t('validation.limit');
             }
         } else 
-        {  newErrors.M = 'Δεν επιτρέπονται αλφαριθμητικοί χαρακτήρες'; }
+        {  newErrors.M =t('validation.character'); }
         }     
       }
   
   //----------------------------------------handle submit only for CT---------------------------------------------
   const handleSubmitCT = (field, value, form,newErrors) =>{
     const { E, n } = rsaValues;
-    console.log('Soo lets check bob values ..E= '+ E+' N= '+n);
-  
-    console.log('rsaValues:', rsaValues);
     let{M,CT}= form
     console.log("Inside CT validation " +CT);
-     if (CT === undefined || CT === '') {newErrors.CT = 'Το πεδίο είναι κενό'}
+     if (CT === undefined || CT === '') {newErrors.CT = t('validation.empty');}
      
     else{ 
-        // Check if E and phi(N) are positive integers
-       /*E=Number(E);
-        M=Number(M);
-        n=Number(n);
-        */
-        const E = Number(form.E);
+       const E = Number(form.E);
         const n = Number(form.n);
-        console.log('M: '+ M )
-        console.log( 'E: '+E )
-        console.log('n: '+n)
-
-
+      
         let encryptedMessage = rsaEncrypt(Number(M) , E , n);
         console.log("Encrypted Message (C):", encryptedMessage);
-  
         if (encryptedMessage !== Number(CT)) 
           { console.log("x^y = xeʸ");
             newErrors.CT = CT + ' ≠ ' + M + ' ' + convertToSuperscript(E) + ' mod ' + n;}
         else {
-            delete newErrors.CT; // Clear error if validation passes
+            delete newErrors.CT; 
         }
      }
     }
@@ -678,12 +657,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
     : 'Φ(n) = (P-1) x (Q-1)';  // If p or q is empty, just show the base placeholder    
 
     const placeholderE = (!errors.E && form.E !== '')
-    ? `Δημόσιο κλειδί (Ε,n):(${form.E},${form.n})` 
+    ? `${t('publicKey')} (Ε,n):(${form.E},${form.n})` 
     : '';  // If p or q is empty, just show the base placeholder    
 
 
     const placeholderD = (!errors.D && form.D !== '')
-    ? `Ιδιωτικό κλειδί (D,n):(${form.D},${form.n})` 
+    ? `${t('privateKey')} (D,n):(${form.D},${form.n})` 
     : '';  // If p or q is empty, just show the base placeholder    
 
       const navigate = useNavigate(); // Initialize navigate function
@@ -790,13 +769,13 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       
               
         
-            <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748',textAlign: 'left', }}>
+            <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748' }}>
                   <i class="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
                     Bob   
                </Card.Title><br /> 
     <Row className="mb-3">
             <Col>
-              Επίλεξε δύο πρώτους αριθμούς
+             {t('Bob1')}
            </Col>        
            {/* <Col xs={4}>
                 <Form.Control
@@ -939,7 +918,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
         <Row className="mb-3">    
         <Col xs={5}>
-            Παράγοντες Φ(n) 
+          {t('Bob2')}
        </Col>  
        <Col xs={6}>         
         <Form.Control
@@ -962,7 +941,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                       <Col xs={6}>
                         <Form.Control
                           className="custom-placeholder"
-                           placeholder="Επίλεξε το E"
+                           placeholder={t('Bob3')}
                            value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
@@ -984,7 +963,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         <Form.Control
                           className="custom-placeholder"
                           
-                           placeholder="Υπολόγισε το D"
+                           placeholder={t('Bob4')}
                            value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
                            isInvalid={!!errors.D}
@@ -1045,12 +1024,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
                         >
-                          Στείλε το κλειδί
+                          {t('BobButton')}
                         </Button>
 
                        <div style={styles.receivedMessage}>
                         {isZCorrect ? (
-                           <div>Περιμένει μήνυμα από την Alice</div>
+                           <div>{t('BobWaitCT')}</div>
                         ) : (
                           <div></div>
                         )}
@@ -1059,7 +1038,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   <div style={styles.receivedMessage}>
                         {isFCorrect ? (
                           <>
-                            Έλαβε το κρυπτογραφημένο μήνυμα {form.CT}.  <br />
+                           {t('BobGetCT')} {form.CT}  <br />
                             <div>
                                 <br/>
                         <Form.Control                          
@@ -1092,17 +1071,17 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               {/* Bootstrap Modal for displaying empty field alert */}
               <Modal show={showModalB} onHide={handleCloseModB} centered>
                 <Modal.Header className="modal-header-dark">
-                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">{t('BobModalTitle')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.
+                {t('BobModalText')}
                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                   <Button
                     className="modal-close-button"
                     onClick={handleCloseModB}
                   >
-                    Κλείσιμο
+                   {t('BobModalButton')}
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -1116,18 +1095,18 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 centered
               >
               <Modal.Header className="modal-header-dark">
-                  <Modal.Title className="text-center w-100">Μπράβο</Modal.Title>                
+                  <Modal.Title className="text-center w-100">{t('EndModalTitle')}</Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                 Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφησης RSA
+                {t('EndModalText')}
                 </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                   <Button
                     className="modal-close-button"
                     onClick={refreshPage}
                   >
-                   Δοκίμασε ξανά
-                  </Button>
+                  {t('EndModalButton')} 
+                 </Button>
                 </Modal.Footer>
               </Modal>
 
@@ -1229,8 +1208,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
 
            <div style={styles.receivedMessage}>
-               {isZCorrect ? `Έλαβε το δημόσιο κλειδί (${form.E},${form.n}) του Bob` :
-               ( <span dangerouslySetInnerHTML={{ __html: "Θέλει να στείλει μήνυμα στον Bob. <br/> Περιμένει το δημόσιο κλειδί του." }} />)}
+               {isZCorrect ? `${t('AliceGetKey')}(${form.E},${form.n})` :
+               (<span dangerouslySetInnerHTML={{ __html: t('AliceWaitKey') }} /> )}
            </div> <br /> <br />
                                  
 
@@ -1240,7 +1219,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             
             <Row className="mb-3">
                 <Col>
-                 Επίλεξε το μήνυμα που θέλεις να στείλεις
+                {t('Alice1')} 
                 </Col>
                  <Col xs={4}>
                    <Form.Control
@@ -1265,7 +1244,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
             <Row className="mb-3">
                 <Col>
-                 Υπολόγισε το κρυπτογραφημένο μήνυμα
+                {t('Alice2')} 
                 </Col>
                  <Col xs={4}>                                
                  <Form.Control                          
@@ -1325,22 +1304,22 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
                         > 
-                Στείλε το μήνυμα
+                {t('AliceButton')}
             </Button>
 
           </>
         )}
                <Modal show={showModalA} onHide={handleCloseModA} centered>
                   <Modal.Header  className="modal-header-darkB">
-                  <Modal.Title className="text-center w-100">Μήνυμα λάθους</Modal.Title>
+                  <Modal.Title className="text-center w-100">{t('PlayAliceModalTitle')}</Modal.Title>
                   </Modal.Header>
                   <Modal.Body  className="modal-body-dark">
-                  Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το κρυπτογραφημένο μήνυμα στον Bob.
+                  {t('AliceModalText')}
                   </Modal.Body>
                   <Modal.Footer className="modal-footer-dark">
                     <Button className="modal-close-buttonB"
                     onClick={handleCloseModA}>
-                      Κλείσιμο
+                    {t('AliceModalButton')}  
                     </Button>
                   </Modal.Footer>
                 </Modal>

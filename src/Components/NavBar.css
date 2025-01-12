@@ -1,0 +1,70 @@
+/* Target the entire dropdown menu background */
+.nav-dropdown .dropdown-menu {
+    background-color: black !important; /* Ensure the menu has a black background */
+    border: none !important; /* Remove the border from the dropdown */
+  }
+  
+  /* Make sure dropdown items have transparent backgrounds by default */
+  .nav-dropdown .dropdown-item {
+    background-color: transparent !important; /* Make sure individual items have no background */
+    color: white !important; /* Set text color to white */
+    padding: 10px 15px; /* Add padding for spacing */
+    text-decoration: none !important; /* Remove any underlines */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and color */
+     border-radius: 5px;
+  }
+  
+  /* Hover effect for items - change background to red */
+  .nav-dropdown .dropdown-item:hover {
+    background-color: #c22748 !important; /* Red background on hover */
+    color: white !important; /* Ensure text stays white */
+    border-radius: 5px;
+  }
+  
+  /* Ensure active item maintains red background */
+  .nav-dropdown .dropdown-item.active {
+    background-color: #c22748 !important; /* Red background for active item */
+    color: white !important; /* White text for active item */
+    border-radius: 5px;
+  }
+  
+  /* Styling for the dropdown toggle button */
+  #nav-dropdown .dropdown-toggle {
+    background: none !important; /* No background for the dropdown button */
+    border: none !important; /* Remove the border */
+    color: white !important; /* Ensure icon color is white */
+    font-size: 20px !important; /* Adjust the size of the icon */
+    padding: 10px 15px !important; /* Add padding */
+  }
+  
+/* Optional: Remove Bootstrap's default blue background on focus */
+.nav-dropdown .dropdown-toggle:focus {
+    box-shadow: none !important; /* Remove focus outline */
+  }
+  
+  /* When the dropdown button is in a toggled (active) state, ensure it remains red */
+  .nav-dropdown .dropdown-toggle.show {
+    background-color: #000000  !important; /* Red background when dropdown is open */
+    color: white !important; /* White text */
+    border-radius: 5px;
+  }
+
+  #nav-dropdown .dropdown-toggle::after {
+    display: none !important; /* Remove the default dropdown caret icon */
+    color: white !important;
+    background: none !important;
+    border-radius: 5px;
+  }
+
+  /* When the dropdown toggle button is clicked (active) */
+
+.nav-link:focus,
+.nav-link:active,
+.nav-dropdown .dropdown-toggle:focus,
+.nav-dropdown .dropdown-toggle:active {
+  background-color:  #c22748  !important; /* Red background when button is clicked */
+  color: white !important; /* Ensure text remains white */
+  outline: none !important; /* Remove outline (blue border) */
+  border-radius: 5px;
+}
+  

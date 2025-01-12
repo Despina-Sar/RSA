@@ -1,37 +1,20 @@
 import React , { useEffect } from 'react';
- import './index.css';
-import NavBar from './Components/NavBar'
-//import Footer from './Components/Footer'
-
+import './index.css';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,Navigate,
-  useNavigate, useLocation 
+  Link,Navigate,useLocation
 } from "react-router-dom";
-import {HashRouter} from "react-router-dom";
-import Demo from './Components/Demo';
-import Training from './Components/Training';
-import Real from './Components/Real';
-import EducationalMain from './Components/EducationalMain';
-import HowTo from './Components/HowTo';
-
-
-import HomeGrid from './Components/HomeGrid';
-import TestScroll from './Components/TestScroll';
+import Info from './Components/Info';
 import HelpMain from './Components/HelpMain';
 import CardCarousel from './Components/CardCarousel';
 import PlayMain from './Components/PlayMain';
-import Test from './Components/Test';
 import { Row, Col, Container,Button } from 'react-bootstrap';
-
-import Test1 from "./Components/test1"; // Adjust the path as needed
-import FancyHome from "./Components/FancyHome"; 
-
-import { useRoutes } from "react-router-dom";
-
-
+import { useTranslation } from 'react-i18next';
+import NavBar from './Components/NavBar.jsx'
+import LanguageSwitcher from './Components/LanguageSwitcher.jsx';
+import LanguageSwitcherMobile from './Components/LanguageSwitcherMobile.jsx';
 
 {/*
 
@@ -98,16 +81,23 @@ export default App;
 
 
 function App() {
+  
+const { t } = useTranslation();
   return (
     <Router  basename="/RSA">
 
       <div className="background-container">
+  
+    
+     
+      
         <Routes>
           {/* Main Screen Route */}
           <Route
             path="/"
             element={
               <Container className="app-container">
+                
                 <Row className="align-items-center justify-content-center vh-100">
                   <Col md={6} className="text-center app-left">
                     <div>
@@ -121,17 +111,18 @@ function App() {
                       />
                       <br/>                      
                       <br/>
-                      <h3 className="app-name">Εκπαιδευτική εφαρμογή</h3>
+                      <h5 className="app-name"> {t('App')}</h5>
                     </div>
                   </Col>
+
                   <Col md={6} className="text-center app-right">
-                    <div>
+                     <div className="button-container">
                       <Row className="mb-3">
-                        <Link to="/HomeGrid">
+                        <Link to="/Info">
                         <Button
                    style={{
-                    fontSize: '1rem', // Slightly larger font for better readability
-                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontSize: '1.1rem', // Slightly larger font for better readability
+                   
                     fontWeight: 'bolder',
                     borderColor: '#06c3c9', // Custom border color
                     borderWidth: '2px', // Custom border thickness
@@ -140,7 +131,8 @@ function App() {
                     borderRadius: '5px', // Rounded corners for a modern look
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                     transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                    width:'60%'   
+                    width:'300px' ,
+                    height:'45px'     
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
@@ -153,15 +145,15 @@ function App() {
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}
                 > 
-                Σχετικά</Button>
+                 {t('AppButton1')}
+                </Button>
                         </Link>
                       </Row>
                       <Row>
                         <Link to="/PlayMain">
                         <Button 
                   style={{
-                    fontSize: '1rem', // Slightly larger font for better readability
-                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontSize: '1.1rem', // Slightly larger font for better readability
                     fontWeight: 'bolder',
                     borderColor: '#c22748', // Custom border color
                     borderWidth: '2px', // Custom border thickness
@@ -170,7 +162,9 @@ function App() {
                     borderRadius: '5px', // Rounded corners for a modern look
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                     transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                    width:'60%'   
+                    width:'300px',
+                    height:'45px'                      
+
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -183,8 +177,41 @@ function App() {
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}
                  >
-                  Έναρξη</Button>
+                  {t('AppButton2')}
+                       </Button>
                         </Link>
+                      </Row>
+                      <Row className="mb-3">
+                      
+                        <Button 
+                          style={{
+                            fontSize: '0.9rem', // Slightly larger font for better readability
+                            padding: '0.0rem ',  // Adjusted padding for a balanced look
+                            fontWeight: 'bolder',
+                            borderColor: 'grey', // Custom border color
+                            borderWidth: '2px', // Custom border thickness
+                            color: 'white', // Ensure text color matches or complements the border
+                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            borderRadius: '5px', // Rounded corners for a modern look
+                            transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                            width:'100%',
+                            marginTop:'10px'
+                                                      
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#grey'; // Change to border color on hover
+                            e.target.style.color = 'white'; // Make text white on hover
+                            e.target.style.boxShadow = '0 8px 12px grey'; // Highlight shadow
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.color = 'white'; // Reset text color
+                            e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                          }}
+                        >
+                           <LanguageSwitcherMobile />
+                       </Button>
+                       
                       </Row>
                     </div>
                   </Col>
@@ -202,7 +229,7 @@ function App() {
         </Routes>
         */}
     
-      <Route path="/HomeGrid" element={<HomeGrid />} />
+      <Route path="/Info" element={<Info />} />
       <Route path="/PlayMain" element={<PlayMain />} />
       <Route path="/HelpMain" element={<HelpMain />} />
       <Route path="/CardCarousel" element={<CardCarousel />} />

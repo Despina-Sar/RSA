@@ -1,0 +1,148 @@
+{
+  "App": "... made simple",
+  "AppButton1": "About",
+  "AppButton2": "Start",
+
+  "InfoCard1Title": "RSA",
+  "InfoCard1Description": "RSA is an asymmetric encryption algorithm commonly used for securing data and ensuring the confidentiality of communications. Named after its inventors, Ron Rivest, Adi Shamir, and Leonard Adleman, it was first introduced in 1977. The algorithm relies on the mathematical properties of prime numbers and the complexity of factoring large composite numbers, making it highly resistant to attacks. By employing a system of public and private keys, RSA is utilized not only for encrypting messages but also for implementing digital signatures, which provide data authentication and integrity. It is a cornerstone of modern cryptography and is applied in various domains, including HTTPS and secure email communications.",
+  
+  "InfoCard2Title": "RSA Algorithm: Stage I",
+  "InfoCard2Description": "Creation and sharing of the recipient's public key.",
+  
+  "InfoCard3Title": "Steps",
+
+  "AlgorithmStep1": "Choose two prime numbers",
+  "AlgorithmStep2": "n = P x Q",
+  "AlgorithmStep3": "Φ(n) = (P - 1) x (Q - 1)",
+  "AlgorithmStep4": "Public Key (E, n):",
+  "AlgorithmStep4a": "E has no common factors with Φ(n) other than 1.<br />E is not a multiple of the factors of Φ(n).",
+  "AlgorithmStep5": "Private Key (D, n):",
+  "AlgorithmStep5a": "(D x E) mod (Φ(n)) = 1",
+  "InfoCard3Button": "Example",
+
+  "InfoCard4Title": "Example",
+  "AlgorithmEx1": "Choose p = 3 and q = 11",
+  "AlgorithmEx2": "n = 3 x 11 = 33",
+  "AlgorithmEx3": "Φ(n) = (3 - 1) x (11 - 1) = 20",
+  "AlgorithmEx4": "Public Key (E, n):",
+  "AlgorithmEx4a": "Choose E = 7 because <br /> it has no common factors with 20 <br /> it is not a multiple of 2 & 5",
+  "AlgorithmEx5": "Private Key (3, 33):",
+  "AlgorithmEx5a": "Choose D = 3 as it satisfies the relation (3 x 7) mod 20 = 1",
+
+  "InfoCard5Title": "RSA Algorithm: Stage II",
+  "InfoCard5Description": "Encryption and sending of a message by the sender. <br />Decryption by the recipient.",
+  "InfoCard6Title": "RSA Encryption & Decryption",
+  "InfoCard6Description": "Encrypted message: CT = M<sup>E</sup> mod n<br/>Decrypted message: M = CT<sup>D</sup> mod n<br/>",
+  "InfoCard6Button": "Example",
+  "InfoCard7Title": "RSA Encryption & Decryption",
+  "InfoCard7Description": "Encryption of message 2: CT = 2<sup>7</sup> mod 33 = 29<br/>Decryption: M = 29<sup>3</sup> mod 33 = 2<br/>",
+
+  "Bob1": "Choose two prime numbers",
+  "Bob2": "Calculate Φ(n)",
+  "Bob3": "Choose E",
+  "Bob4": "Calculate D",
+  "BobButton": "Send the key",
+  "validation": {
+    "notPrime": "{{number}} is not a prime number",
+    "empty": "The field is empty",
+    "character": "Alphanumeric characters are not allowed",
+    "limit": "Only numbers between 0 - 100 are allowed",
+
+    "emptyE": "The E field is empty. Please enter a number",
+    "integerE": "E must be a positive integer greater than 1",
+    "fnErroronE": "Φ(n) (fn) must be a positive integer greater than 1",
+    "EmotCoprimeWithFn": "is not coprime with {{number}}. Choose a number that has no common factors with {{number}} other than 1",
+
+    "emptyD": "The D field is empty. Please enter a value",
+    "wrongD": "has no inverse mod of",
+
+    "errorFn": "Please enter the correct positive number"
+  },
+  "publicKey": "Public Key",
+  "privateKey": "Private Key",
+  "BobWaitCT": "Waiting for a message from Alice",
+  "BobGetCT": "Received the encrypted message ",
+
+  "BobModalTitle": "Error Message",
+  "BobModalText": "Please fill out all fields correctly to send the Public Key to Alice.",
+  "BobModalButton": "Close",
+
+  "EndModalTitle": "Congratulations",
+  "EndModalText": "You have successfully completed the RSA encryption algorithm.",
+  "EndModalButton": "Try Again",
+
+  "AliceGetKey": "Received Bob's public key ",
+  "AliceWaitKey": "Wants to send a message to Bob. <br/>Waiting for the public key.",
+  "Alice1": "Choose the message you want to send",
+  "Alice2": "Calculate the encrypted message",
+  "AliceButton": "Send the message",
+
+  "AliceModalTitle": "Error Message",
+  "AliceModalText": "Please fill out all fields correctly to send the encrypted message to Bob.",
+  "AliceModalButton": "Close",
+
+  "HelpModalTitle": "Instructions",
+  "HelpModalText": "This section is designed to guide you step by step on how the application works. Click the 'Next' button to unlock the next step.",
+  "HelpModalButton": "Start",
+
+  "TestCardGeneralDesc": "The following algorithm elements are given:",
+  "TestCardGeneralHintError": "Wrong answer", 
+  "TestCard_M": "message",
+  "TestCard_CT": "encrypted message",
+
+  "TestCard1Title": "1. Public Key Calculation",
+  "TestCard1Desc1": "Two prime numbers are given:",
+  "TestCard1Desc2": "Calculate the public key E:",
+
+  "TestCard2Title": "2. Private Key Calculation",
+  "TestCard2Desc1": "The following numbers are given:",
+  "TestCard2Desc2": "Calculate the private key D:",
+
+  "TestCard3Title": "3. Message Encryption",
+  "TestCard3Desc1": "Calculate the encrypted message CT:",
+
+  "TestCard4Title": "4. Message Decryption",
+  "TestCard4Desc1": "Calculate the decrypted message M:",
+
+  "TestCard5Title": "5. Public Key Calculation",
+  "TestCard5Desc1": "Calculate the public key E:",
+  "TestCard6Title": "6. Decryption Check",
+  "TestCard6Desc1": "Decrypted message is ", 
+
+  "TestCard7Title": "7. Public Key Check",
+  "TestCard7Desc1": "Public key is ", 
+
+  "TestCard8Title": "8. Private Key Check",
+  "TestCard8Desc1": "Private key is ", 
+
+  "TestCard9Title": "9. Encryption Check",
+  "TestCard9Desc1": "Encrypted message is ",
+
+  "TestButtonSubmit": "Submit",
+  "TestButtonCheck": "Check",
+  "TestButtonCorrect": "Correct",
+  "TestButtonWrong": "Wrong",
+
+  "TestModal": { 
+  "WarnTitle": "Warning", 
+  "WarnText": "You have not completed the test. <br/> There are {{number}} questions remaining.", 
+  "WarnButton1": "Return to Test",
+  "WarnButton2": "Final Submission",
+
+  "FinalTitle": "Test Completed", 
+  "FinalText": "You answered correctly {{number}} out of 9 questions.", 
+  "FinalButton1": "Check Results",
+  "FinalButton2": "Try Again"
+},
+
+  "NavEducational": "Education",
+  "NavTest": "Test",
+  "NavHelp": "Help",
+  "NavNext": "Next",
+
+  "OffcanvasTitle":"Key calculation",
+  "Language":"Language",
+
+   "CorrectAnswer":"Correct answer",
+    "WrongAnswer":"Wrong answer"
+}

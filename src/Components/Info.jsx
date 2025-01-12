@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import "./HomeGrid.css";
-import NavigateButton from './NavigateButton.jsx'; 
-import {Button} from 'react-bootstrap';
+import "./Info.css";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import NavBar from './NavBar'
-
+import NavBar from './NavBar.jsx'
+import { useTranslation } from 'react-i18next';
+import RSA_Visual1 from '../images/RSA_Visual1.png';
+import ceidlogo from '../images/ceidlogo.PNG';
+import AlgorithmEL from '../images/AlgorithmEL.PNG';
+import AlgorithmEN from '../images/AlgorithmEN.PNG';
 
 const HomeGrid = () => {
    const navigate = useNavigate(); 
 const [isCard2Visible, setIsCard2Visible] = useState(false);
 const [isCard3Visible, setIsCard3Visible] = useState(false);
+const { t,i18n  } = useTranslation();
+
+const imageSrc1 = i18n.language === 'en' ? RSA_Visual1 : ceidlogo;
+const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
+
   // Show Card 2
   const showCard2 = () => {
     setIsCard2Visible(true);
@@ -58,46 +65,41 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
  
        <div className="card full-width">
       <div className="card-content">
-       <h2 className="card-title">RSA</h2>
+       <h2 className="card-title">{t('InfoCard1Title')}</h2>
         <p className="card-description">
-        Ο RSA είναι ένας αλγόριθμος ασύμμετρης κρυπτογράφησης που χρησιμοποιείται ευρέως για την προστασία της ασφάλειας δεδομένων και την εξασφάλιση 
-        εμπιστευτικότητας στις επικοινωνίες. Το όνομά του προέρχεται από τους δημιουργούς του, Ron Rivest, Adi Shamir and Leonard Adleman, και παρουσιάστηκε
-        για πρώτη φορά το 1977. Ο αλγόριθμος βασίζεται στις μαθηματικές ιδιότητες των πρώτων αριθμών και στη δυσκολία παραγοντοποίησης μεγάλων σύνθετων αριθμών, 
-        καθιστώντας εξαιρετικά δύσκολη την παραβίαση του. Μέσω του συστήματος δημόσιου και ιδιωτικού κλειδιού, ο RSA χρησιμοποιείται όχι μόνο για την κρυπτογράφηση μηνυμάτων,
-         αλλά και για την υλοποίηση ψηφιακών υπογραφών, παρέχοντας ταυτοποίηση και ακεραιότητα δεδομένων. 
-        Αποτελεί ένα από τα θεμέλια της σύγχρονης κρυπτογραφίας και χρησιμοποιείται σε πλήθος εφαρμογών, όπως το HTTPS και η ασφαλής ανταλλαγή email.
+        {t('InfoCard1Description')}
        </p>  
       </div>
     </div>
     <div className="card full-width">
-        <div className="card-content">
+        
         <div  className="image-container">
         <img
             alt=""
-            src= {require('../images/RSA_Visual1.png')}
+            src= {imageSrc}
             height="auto" width="100%"        
         />   
-    </div>
+   
        
       </div>
     </div>
     
     <div className="card full-width">
       <div className="card-content">
-      <h2 className="card-title">Εφαρμογή RSA: Στάδιο Ι</h2>
+      <h2 className="card-title">{t('InfoCard2Title')}</h2>
       {/*
       <p className="card-description">
       Για να μπορέσει η Alice να στείλει ένα κρυπτογραφημένο μήνυμα στον Bob, ο Bob πρέπει πρώτα να δημιουργήσει το δημόσιο κλειδί του και να το κοινοποιήσει στην Alice.
         </p>
         */}
         <p className="card-description">
-      Δημιουργία και κοινοποίηση δημοσίου κλειδιού παραλήπτη.
+        {t('InfoCard2Description')}
         </p>
       </div>
     </div>
     <div className="card">
       <div className="card-content">
-      <h2 className="card-title">Βήματα</h2>
+      <h2 className="card-title">{t('InfoCard3Title')}</h2>
             <ol>
                 
                 <li>
@@ -108,7 +110,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                             borderRadius: '5px',
                             backgroundColor: 'rgb(243, 219, 219)',
                             color:'black'}}>
-                    Επιλέγουμε δύο πρώτους αριθμούς
+                     {t('AlgorithmStep1')}
                     </span></strong>
                 </li>
 
@@ -120,7 +122,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                             borderRadius: '5px',
                             backgroundColor: 'rgb(243, 219, 219)',
                             color:'black'}}>
-                    n= P x Q
+                       {t('AlgorithmStep2')}
                     </span></strong>
                 </li>
                 <li>
@@ -131,7 +133,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                             borderRadius: '5px',
                             backgroundColor: 'rgb(243, 219, 219)',
                             color:'black'}}>
-                    Φ(n): (P - 1) x (Q - 1)
+                        {t('AlgorithmStep3')}
                     </span></strong>
                 </li>
                 
@@ -144,10 +146,10 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                         boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                         borderRadius: '8px',
                         backgroundColor: 'rgb(4,145,141)'}}>
-                            Δημόσιο κλειδι (E,n):
-                    </span> </strong> <br />
-                    Ε δεν έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
-                    Ε δεν είναι πολλαπλάσιο των παραγόντων του Φ(n)
+                                {t('AlgorithmStep4')}
+                    </span> </strong> 
+                      <p dangerouslySetInnerHTML={{ __html: t('AlgorithmStep4a') }} />
+                    
                 </li>
                 <li>
 
@@ -157,9 +159,9 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                 borderRadius: '8px', 
                 boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                 backgroundColor: 'rgb(138,4,17)'}}>
-                    Ιδιωτικό κλειδι (D,n):
+                    {t('AlgorithmStep5')}
                     </span> </strong> <br />        
-                (D x E) mod (Φ(n)) = 1    
+                    {t('AlgorithmStep5a')}    
                 </li>                     
             </ol>   
         <button className="custombutton" onClick={showCard2}
@@ -173,14 +175,14 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
             e.target.style.color = '#c22748'; // Reset text color
             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
             }}
-            >Παράδειγμα</button>
+            > {t('InfoCard3Button')}</button>
       </div>
     </div>
 
   {isCard2Visible && (
     <div className="card">
       <div className="card-content">
-      <h2 className="card-title">Παράδειγμα</h2>
+      <h2 className="card-title">{t('InfoCard4Title')}</h2>
       
         <div className="my-close-btn" onClick={hideCard2}>
             X
@@ -196,7 +198,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                         borderRadius: '5px',
                         backgroundColor: 'rgb(243, 219, 219)',
                         color:'black'}}>
-                Επιλέγουμε p = 3 και q = 11
+             {t('AlgorithmEx1')}
                 </span></strong>
             </li>
 
@@ -208,7 +210,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                         borderRadius: '5px',
                         backgroundColor: 'rgb(243, 219, 219)',
                         color:'black'}}>
-                n= 3 x 11 = 33
+              {t('AlgorithmEx2')}
                 </span></strong>
             </li>
             <li>
@@ -219,7 +221,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                         borderRadius: '5px',
                         backgroundColor: 'rgb(243, 219, 219)',
                         color:'black'}}>
-                Φ(n): (3 - 1) x (11 - 1) = 20
+                 {t('AlgorithmEx3')}
                 </span></strong>
             </li>
             
@@ -232,9 +234,9 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
                     boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                     borderRadius: '8px',
                     backgroundColor: 'rgb(4,145,141)'}}>
-                        Δημόσιο κλειδι (7,33):
+                         {t('AlgorithmEx4')}
                 </span> </strong> <br />
-                    Επιλέγουμε Ε = 7 γιατί <br /> δεν έχει κοινούς παράγοντες με το 20 <br /> δεν είναι πολλαπλάσιου των 2 & 5<br /> 
+                <p dangerouslySetInnerHTML={{ __html: t('AlgorithmEx4a') }} />
                 
             </li>
             <li>
@@ -245,9 +247,9 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
             borderRadius: '8px', 
             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
             backgroundColor: 'rgb(138,4,17)'}}>
-                Ιδιωτικό κλειδι (3,33):
+                 {t('AlgorithmEx5')}
                 </span> </strong> <br />        
-            Επιλέγουμε D = 3 καθώς ικανοποιεί τη σχέση (3 x 7) mod 20 = 1    
+                {t('AlgorithmEx5a')}
             </li>                     
         </ol>
     </div>
@@ -255,7 +257,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
  )}
     <div className="card full-width">
       <div className="card-content">
-       <h2 className="card-title">Εφαρμογή RSA: Στάδιο ΙΙ</h2>
+       <h2 className="card-title">{t('InfoCard5Title')}</h2>
         
         {/* <p className="card-description">
          Η Alice λαμβάνει το δημόσιο κλειδί του Bob, το χρησιμοποιεί για να κρυπτογραφήσει το μήνυμά της 
@@ -264,7 +266,7 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
           </p>
           */}
           <p className="card-description">
-           Κρυπτογράφηση και αποστολή μηνύματος από τον αποστολέα και αποκρυπτογράφηση από τον παραλήπτη.
+               <p dangerouslySetInnerHTML={{ __html: t('InfoCard5Description') }} />
           </p>
        </div>
     </div>
@@ -272,12 +274,10 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
 
     <div className="card">
       <div className="card-content">
-      <h2 className="card-title">RSA κρυπτογράφηση & αποκρυπτογράφηση</h2>
+      <h2 className="card-title">{t('InfoCard6Title')}</h2>
           <p className="card-description">
-                Κρυπτογραφημένο μήνυμα: CT = M<sup>E</sup> mod n
-                <br/> 
-                Αποκρυπτογραφημένο μήνυμα: M = CT<sup>D</sup>mod n
-                <br/>
+          <p dangerouslySetInnerHTML={{ __html: t('InfoCard6Description') }} />
+              
            </p>
         <button className="custombutton"   onClick={showCard3} 
          onMouseEnter={(e) => {
@@ -290,22 +290,19 @@ const [isCard3Visible, setIsCard3Visible] = useState(false);
             e.target.style.color = '#c22748'; // Reset text color
             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
             }}>
-                Παράδειγμα</button>
+                 {t('InfoCard6Button')}</button>
       </div>
     </div>
     {isCard3Visible && (
     <div className="card">
       <div className="card-content">
-      <h2 className="card-title">Παράδειγμα</h2>
+      <h2 className="card-title">{t('InfoCard7Title')}</h2>
           <div className="my-close-btn" onClick={hideCard3}>
             X
           </div>     
           
           <p className="card-description">
-                Κρυπτογράφηση του μηνύματος 2 : CT = 2<sup>7</sup>mod 33 = 29
-                <br/> 
-                Αποκρυπτογράφηση: M = 29<sup>3</sup> mod 33 = 2
-                <br/>
+          <p dangerouslySetInnerHTML={{ __html: t('InfoCard7Description') }} />
                 </p>
        </div>
     </div>

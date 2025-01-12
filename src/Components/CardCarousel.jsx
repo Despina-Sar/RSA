@@ -1,10 +1,10 @@
-import React, { useState,useContext,useRef,useEffect,useLayoutEffect} from 'react';
+import React, { useState,useEffect} from 'react';
 import styles from './CardCarousel.module.css';
 import NavBar from './NavBar'
 import RandomMessage from './RandomMessage.jsx'
+import RandomTest from './RandomTest.jsx'
 import {Button,Form,Modal} from 'react-bootstrap'
-import { findAllInRenderedTree } from 'react-dom/test-utils';
-import Pagination from 'react-bootstrap/Pagination';
+import { useTranslation } from 'react-i18next';
 
 
 const CardCarousel = () => {
@@ -15,31 +15,55 @@ const CardCarousel = () => {
   const [errors, setErrors] = useState({});
   const [showModalE, setShowModalE] = useState(false);
   const [showModalF, setShowModalF] = useState(false);
-  const [selectedMessage, setSelectedMessage] = useState(''); // State to store the selected message
-  const [isMessageSet, setIsMessageSet] = useState(false);
+
+  //const [selectedMessage, setSelectedMessage] = useState(''); // State to store the selected message
+  //const [isMessageSet, setIsMessageSet] = useState(false);
+
+  const [selectedMessage, setSelectedMessage] = useState(['', '', '', '']);
+  const [isMessageSet, setIsMessageSet] = useState([false, false, false, false]);
+  
   const [trueCount, setTrueCount] = useState(0);
   const [emptyCount, setEmptyCount] = useState(0);
 
-      
+  const { t } = useTranslation(); 
 
   const handleClose = () => setShowModalE(false);
   const handleCloseF = () => setShowModalF(false);
 
-  
+  {/*
   const updateSelectedMessage = (newMessage) => {
     console.log("isMessageSet "+ isMessageSet    );
     if (!isMessageSet) { // Only update if the message hasn't been set
       setSelectedMessage(newMessage);
       setIsMessageSet(true); // Mark the message as set
     }
+  };*/}
+
+  
+  // Function to update the specific element in the selectedMessage and isMessageSet arrays
+  const updateSelectedMessage = (newMessage, index) => {
+    setSelectedMessage(prevSelectedMessage => {
+      const newSelectedMessage = [...prevSelectedMessage];
+      newSelectedMessage[index] = newMessage;
+      return newSelectedMessage;
+    });
+
+    setIsMessageSet(prevIsMessageSet => {
+      const newIsMessageSet = [...prevIsMessageSet];
+      newIsMessageSet[index] = true;
+      return newIsMessageSet;
+    });
   };
+
+
+
 
   useEffect(() => {
     generateNewTest();
   }, []);
 
   const generateNewTest = () => {
-    const newValues = Array(6)
+    const newValues = Array(9)
       .fill(null)
       .map(() => generateRSAQuestions());
     setRsaValues(newValues);
@@ -135,13 +159,13 @@ const CardCarousel = () => {
     const { encryptedMessage } = rsaValues[currentCard] || {};
     setErrors((prev) => ({
       ...prev,
-      six: selectedMessage === encryptedMessage ? null : 'Λάθος απάντηση',
+      six: selectedMessage[0] === encryptedMessage ? null : t('WrongAnswer'),
     }));
     setUserInputs((prev) => ({
       ...prev,
       validated: {
         ...prev.validated,
-        [currentCard]: selectedMessage === encryptedMessage,
+        [currentCard]: selectedMessage[0] === encryptedMessage,
       }
     }));
     setUserInputs((prev) => ({ ...prev, ['six']: true }));
@@ -151,16 +175,112 @@ const CardCarousel = () => {
     const { encryptedMessage } = rsaValues[currentCard] || {};
     setErrors((prev) => ({
       ...prev,
-      six: selectedMessage !== encryptedMessage ? null : 'Λάθος απάντηση',
+      six: selectedMessage[0] !== encryptedMessage ? null : t('WrongAnswer'),
     }));
     setUserInputs((prev) => ({
       ...prev,
       validated: {
         ...prev.validated,
-        [currentCard]: selectedMessage !== encryptedMessage,
+        [currentCard]: selectedMessage[0] !== encryptedMessage,
       }
     }));
     setUserInputs((prev) => ({ ...prev, ['six']: false }));
+  };
+  
+  const handleCorrectSeven = () => {
+    const { e } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      seven: selectedMessage[1] === e ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[1] === e,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['seven']: true }));
+  };
+
+  const handleCorrectEight = () => {
+    const { d } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      eight: selectedMessage[2] === d ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[2] === d,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['eight']: true }));
+  };
+
+  const handleCorrectNine = () => {
+    const { message } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      nine: selectedMessage[3] === message ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[3] === message,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['nine']: true }));
+  };
+  
+  const handleWrongSeven = () => {
+    const { e } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      seven: selectedMessage[1] !== e ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[1] !== e,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['seven']: false }));
+  };
+
+  const handleWrongEight = () => {
+    const { d } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      eight: selectedMessage[2] !== d ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[2] !== d,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['eight']: false }));
+  };
+
+  const handleWrongNine = () => {
+    const { message } = rsaValues[currentCard] || {};
+    setErrors((prev) => ({
+      ...prev,
+      nine: selectedMessage[3] !== message ? null : t('WrongAnswer'),
+    }));
+    setUserInputs((prev) => ({
+      ...prev,
+      validated: {
+        ...prev.validated,
+        [currentCard]: selectedMessage[3] !== message,
+      }
+    }));
+    setUserInputs((prev) => ({ ...prev, ['nine']: false }));
   };
   
 
@@ -172,41 +292,47 @@ const CardCarousel = () => {
     const validated = {};
   
       if (currentCard === 0) {
+       if(userInputs.e !== undefined){
        let validatenumE= validateE(phiN,userInputs.e);
-       if (validatenumE == false) {
-         errors.keys = 'Λάθος δημόσιο κλειδί.';
+      if (validatenumE == false) {
+         errors.keys = t('TestCardGeneralHintError');
                } else {
          validated.keys = true;
-      }
+      }} else{return;}
      }
 
     if (currentCard === 1) {
+      if(userInputs.d !== undefined){
       if (parseInt(userInputs.d, 10) !== d) {
-        errors.privateKey = 'Λάθος ιδιωτικό κλειδί.';
+        errors.privateKey =  t('TestCardGeneralHintError');
       } else {
         validated.privateKey = true;
-      }
+      }} else{return;}
+
     } else if (currentCard === 2) {
+      if(userInputs.encryptedMessage !== undefined){
       if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
-        errors.encryptedMessage = 'Λάθος κρυπτογραφημένο μήνυμα.';
+        errors.encryptedMessage =  t('TestCardGeneralHintError');
         validated.encryptedMessage = false;
       } else {
         validated.encryptedMessage = true;
-      }
+      }} else{return;}
     }
     else if (currentCard === 3) {
+      if(userInputs.message !== undefined){
       if (parseInt(userInputs.message, 10) !== message) {
-        errors.message = 'Λάθος μήνυμα.';
+        errors.message =  t('TestCardGeneralHintError');
       } else {
         validated.message = true;
-      }
+      }} else{return;}
     } 
     else if (currentCard === 4) {
+      if(userInputs.e1 !== undefined){
       if (parseInt(userInputs.e1, 10) !== e) {
-        errors.e1 = 'Λάθος δημόσιο κλειδί.';
+        errors.e1 = t('TestCardGeneralHintError');
       } else {
         validated.e1 = true;
-      }
+      }} else{return;}
     } 
   
     setErrors(errors);
@@ -286,7 +412,7 @@ const CardCarousel = () => {
   };
 
   const handleNext = () => {
-    if (currentCard < 5) setCurrentCard(currentCard + 1);
+    if (currentCard < 9) setCurrentCard(currentCard + 1);
   };
 
   const handleBack = () => {
@@ -362,21 +488,26 @@ const CardCarousel = () => {
     let validArray = [valid0, valid1, valid2, valid3, valid4, valid5];
     */}
 
-    const validArray = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+    const validArray = new Array(9).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
     console.log("validArray "+validArray);
-     const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1', 'six'];
+     const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1','six','seven','eight','nine'];
     const emptyArray = properties.map(prop => userInputs[prop]);
     const emptyCount = emptyArray.filter(item => item === undefined).length;
-  
+    console.log("emptyCount "+emptyCount);  
 
     if (emptyCount == 0)      
       { 
         const emptyIndices = validArray
         .map((item, index) => (item === undefined ? index : null))
         .filter(index => index !== null);
+
+        console.log("emptyIndices "+emptyIndices);  
         const countNotValidated =CountCorrectNotValidation(emptyIndices);
-        const validArrayUpdated = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+        console.log("countNotValidated "+countNotValidated);  
+        const validArrayUpdated = new Array(9).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+        console.log("validArrayUpdated "+validArrayUpdated);  
         const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
+        console.log("countAlreadyValidated "+countAlreadyValidated);  
 
         let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
           setTimeout(() => {
@@ -398,32 +529,38 @@ const CardCarousel = () => {
   }
 
   function showFinalModal() {
-        let totalCorrect =null;
-        const validArray = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+        let totalCorrect1 =null;
+        const validArray = new Array(9).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
         console.log("validArray "+validArray);
-        const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1', 'six'];
+        const properties = ['d', 'e', 'encryptedMessage', 'message', 'e1', 'six','seven','eight','nine'];
         const emptyArray = properties.map(prop => userInputs[prop]);
         const emptyCount = emptyArray.filter(item => item === undefined).length;
         console.log("emptyCount "+emptyCount);
 
-        if(emptyCount == 6)
+        if(emptyCount == 9)
         {
-          totalCorrect= 0;
+          totalCorrect1= 0;
         }else{
           const emptyIndices = validArray
           .map((item, index) => (item === undefined ? index : null))
           .filter(index => index !== null);
+
+          console.log("emptyIndices "+emptyIndices);
   
           const countNotValidated =CountCorrectNotValidation(emptyIndices);
-          const validArrayUpdated = new Array(6).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+          console.log("countNotValidated "+countNotValidated);
+          const validArrayUpdated = new Array(9).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
+          console.log("validArrayUpdated "+validArrayUpdated);
+          
           const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
+          console.log("countAlreadyValidated "+countAlreadyValidated);
   
-          let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
-
+          totalCorrect1= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+          console.log("totalCorrect1 "+totalCorrect1);
         }
      
           setTimeout(() => {
-          setTrueCount(totalCorrect); // Set trueCount in state
+          setTrueCount(totalCorrect1); // Set trueCount in state
           handleCloseF();
           setShowModalE(true); // Show the modal
         }, 1000);
@@ -433,7 +570,7 @@ const CardCarousel = () => {
 
 
      const [currentPage, setCurrentPage] = useState(1);
-     const totalPages = 10; // or any number of total pages
+     const totalPages = 9; // or any number of total pages
    
      const handlePageChange = (page) => {
        setCurrentPage(page);
@@ -454,12 +591,12 @@ const CardCarousel = () => {
       return (
         <>
           <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-              1. Υπολογισμός δημοσίου κλειδιού
+          {t('TestCard1Title')}
           </p>
           
-          <p>Δίνονται δύο πρώτοι αριθμοί:</p>
+          <p> {t('TestCard1Desc1')}</p>
           <p>P = {p}, Q = {q}</p>
-          <p>Υπολόγισε το δημόσιο κλειδί E:</p>
+          <p>{t('TestCard1Desc2')}</p>
           <p>Correct E = {e}</p>
    
       
@@ -471,7 +608,7 @@ const CardCarousel = () => {
             value={userInputs.e || ''}
             onChange={(e) => handleInputChange('e', e.target.value)}
             style={{
-            fontSize: '0.8rem', width: '30%', height: '40px'
+            fontSize: '1.8rem', width: '30%', height: '42px'
              }}
           />
       <br />
@@ -543,11 +680,11 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            2. Υπολογισμός ιδιωτικού κλειδιού
+           {t('TestCard2Title')}
             </p>
-          <p>Δίνονται οι ακόλουθοι αριθμοί:</p>
+          <p>{t('TestCard2Desc1')}</p>
           <p>n = {n}, Φ(n) = {phiN}, E = {e}</p>
-          <p>Υπολόγισε το ιδιωτικό κλειδί D:</p>
+          <p>{t('TestCard2Desc2')}</p>
           <p>Correct D = {d}</p>
      
           <input
@@ -558,7 +695,7 @@ const CardCarousel = () => {
                 value={userInputs.d || ''}
                 onChange={(e) => handleInputChange('d', e.target.value)}
                 style={{
-                    fontSize: '0.8rem', width: '30%', height: '40px'
+                    fontSize: '0.8rem', width: '30%', height: '42px'
                 }}
           />
              <br />
@@ -587,11 +724,10 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            3. Κρυπτογράφηση μηνύματος
-          </p>
-          <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
-          <p>n = {n}, E = {e}, μήνυμα = {message}</p>
-          <p>Υπολόγισε τον κρυπτογραφημένο μήνυμα CT:</p>
+           {t('TestCard3Title')}</p>
+          <p>{t('TestCardGeneralDesc')}</p>
+          <p>n = {n}, E = {e}, {t('TestCard_M')} = {message}</p>
+          <p>{t('TestCard3Desc1')}</p>
           <p>Correct  μήνυμα = {encryptedMessage}</p>
 
           <input
@@ -602,7 +738,7 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('encryptedMessage', e.target.value)}
             disabled={isValidated}
             style={{
-                fontSize: '0.8rem', width: '30%', height: '40px'
+                fontSize: '0.8rem', width: '30%', height: '42px'
              }}
           />
           <br />
@@ -628,11 +764,11 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            4. Αποκρυπτογράφηση μηνύματος
+           {t('TestCard4Title')}
           </p>
-          <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
-          <p>n = {n}, E = {e},  D = {d}, κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
-          <p>Υπολόγισε τον αποκρυπτογραφημένο μήνυμα Μ:</p>
+          <p> {t('TestCardGeneralDesc')}</p>
+          <p>n = {n}, E = {e},  D = {d}, {t('TestCard_CT')} = {encryptedMessage}</p>
+          <p> {t('TestCard4Desc1')}</p>
 
           <p>Correct  μήνυμα = {message}</p>
 
@@ -644,7 +780,7 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('message', e.target.value)}
             disabled={isValidated}
             style={{
-                 fontSize: '0.8rem', width: '30%', height: '40px'
+                 fontSize: '0.8rem', width: '30%', height: '42px'
              }}
           />
 
@@ -673,11 +809,11 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            5. Υπολογισμός δημόσιου κλειδιού
+           {t('TestCard5Title')}
           </p>
-          <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
+          <p> {t('TestCardGeneralDesc')}</p>
           <p>n = {n}, Φ(n) = {phiN}</p>
-          <p>Υπολόγισε το δημόσιο κλειδί Ε:</p>
+          <p> {t('TestCard5Desc1')}</p>
 
           <p>Correct  E = {e}</p>
 
@@ -689,11 +825,11 @@ const CardCarousel = () => {
             onChange={(e) => handleInputChange('e1', e.target.value)}
             disabled={isValidated}
             style={{
-              fontSize: '0.8rem', width: '30%', height: '40px'
+              fontSize: '0.8rem', width: '30%', height: '42px'
              }}
           />
          <br />
-         {hints.e && (
+         {hints.e1 && (
             <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
           )}
          {!isValidated &&  errors.e1 &&(
@@ -716,21 +852,31 @@ const CardCarousel = () => {
       return (
         <>
            <p style={{ fontSize: '16px', fontWeight:'bold'}}>
-            6. Έλεγχος κρυπτογράφησης
+           {t('TestCard6Title')}
           </p>
-          <p>Δίνονται τα ακόλουθα στοιχεία του αλγορίθμου:</p>
-          <p>P = {p}, Q = {q}, E = {e} , μήνυμα = {message}</p>
+          <p>{t('TestCardGeneralDesc')}</p>
+          <p>P = {p}, Q = {q}, E = {e} , {t('TestCard_M')} = {message}</p>
 
           <p>Correct  encryptedMessage = {encryptedMessage}</p>
+               
         
-           <div className={styles['Hidden']}>
-                <RandomMessage 
+          <div className={styles['Hidden']} style={{ display: 'none' }}>
+
+                {/*<RandomMessage 
                   encryptedMessage={encryptedMessage} 
                   updateSelectedMessage={updateSelectedMessage}
                   isMessageSet={isMessageSet}
-                />
+                />*/}
+                  <RandomTest
+                key={0}
+                encryptedMessage={encryptedMessage}
+                updateSelectedMessage={(newMessage) => updateSelectedMessage(newMessage, 0)}
+                isMessageSet={isMessageSet[0]}
+                index={0}
+              />
               </div>
-           <p>Το κρυπτογραφημένο μήνυμα είναι το {selectedMessage}.</p>
+              
+           <p>{t('TestCard6Desc1')} {selectedMessage[0]}.</p>
            <br/>
          <br/>
       
@@ -738,11 +884,117 @@ const CardCarousel = () => {
     
     
          {errors.six && <p className={styles.error}>{errors.six}</p>}
-         {isValidated && <p className={styles.success}>Σωστή απάντηση</p>}
+         {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
           
         </>
       );
     }
+    if (currentCard === 6) {
+      return (
+        <>
+           <p style={{ fontSize: '16px', fontWeight:'bold'}}>
+           {t('TestCard7Title')}
+          </p>
+          <p>{t('TestCardGeneralDesc')}</p>
+          <p>P = {p}, Q = {q}</p>
+
+          <p>Correct  E = {e}</p>
+        
+        
+          <div className={styles['Hidden']} style={{ display: 'none' }}>
+            <RandomTest
+                key={1}
+                encryptedMessage={e}
+                updateSelectedMessage={(newMessage) => updateSelectedMessage(newMessage, 1)}
+                isMessageSet={isMessageSet[1]}
+                index={1}
+              />
+              </div>
+              
+           <p>{t('TestCard7Desc1')} {selectedMessage[1]}.</p>
+           <br/>
+         <br/>
+      
+     
+    
+    
+         {errors.seven && <p className={styles.error}>{errors.seven}</p>}
+         {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
+          
+        </>
+      );
+    }
+    if (currentCard === 7) {
+      return (
+        <>
+           <p style={{ fontSize: '16px', fontWeight:'bold'}}>
+           {t('TestCard8Title')}
+          </p>
+          <p>{t('TestCardGeneralDesc')}</p>
+          <p>P = {p}, Q = {q}, E = {e} </p>
+
+          <p>Correct  D = {d}</p>
+        
+        
+          <div className={styles['Hidden']} style={{ display: 'none' }}>
+          <RandomTest
+                key={2}
+                encryptedMessage={d}
+                updateSelectedMessage={(newMessage) => updateSelectedMessage(newMessage, 2)}
+                isMessageSet={isMessageSet[2]}
+                index={2}
+              />
+              </div>
+              
+           <p>{t('TestCard8Desc1')} {selectedMessage[2]}.</p>
+           <br/>
+         <br/>
+      
+     
+    
+    
+         {errors.eight && <p className={styles.error}>{errors.eight}</p>}
+         {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
+          
+        </>
+      );
+    }
+    if (currentCard === 8) {
+      return (
+        <>
+           <p style={{ fontSize: '16px', fontWeight:'bold'}}>
+           {t('TestCard9Title')}
+          </p>
+          <p>{t('TestCardGeneralDesc')}</p>
+          <p>P = {p}, Q = {q}, D = {d} </p>
+
+          <p>Correct  message = {message}</p>
+        
+        
+          <div className={styles['Hidden']} style={{ display: 'none' }}>
+          <RandomTest
+                key={3}
+                encryptedMessage={message}
+                updateSelectedMessage={(newMessage) => updateSelectedMessage(newMessage, 3)}
+                isMessageSet={isMessageSet[3]}
+                index={3}
+              />
+              </div>
+              
+           <p>{t('TestCard9Desc1')} {selectedMessage[3]}.</p>
+           <br/>
+         <br/>
+      
+     
+    
+    
+         {errors.nine && <p className={styles.error}>{errors.nine}</p>}
+         {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
+          
+        </>
+      );
+    }
+  
 
   };
   
@@ -814,7 +1066,91 @@ const CardCarousel = () => {
                   e.target.style.color = '#06c3c9'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
-                 Σωστό
+                 {t('TestButtonCorrect')}  
+        </Button>
+        <Button onClick={handleCorrectSeven} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 6 ? 'none' : 'block' ,
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#06c3c9', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#06c3c9', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'60%'  , 
+                  marginLeft: '5px' , marginRight: '5px' 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#06c3c9'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                 {t('TestButtonCorrect')}  
+        </Button>
+        <Button onClick={handleCorrectEight} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 7 ? 'none' : 'block' ,
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#06c3c9', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#06c3c9', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'60%'  , 
+                  marginLeft: '5px' , marginRight: '5px' 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#06c3c9'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                 {t('TestButtonCorrect')}  
+        </Button>
+        <Button onClick={handleCorrectNine} disabled={currentCard === 0}
+                style={{
+                  display: currentCard !== 8 ? 'none' : 'block' ,
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor: '#06c3c9', // Custom border color
+                  borderWidth: '2px', // Custom border thickness
+                  color: '#06c3c9', // Ensure text color matches or complements the border
+                  backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width:'60%'  , 
+                  marginLeft: '5px' , marginRight: '5px' 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                  e.target.style.color = '#fff'; // Make text white on hover
+                  e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                  e.target.style.color = '#06c3c9'; // Reset text color
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                }}>
+                 {t('TestButtonCorrect')}  
         </Button>
         <Button onClick={handleWrongSix} disabled={currentCard === 0}
               style={{
@@ -841,11 +1177,92 @@ const CardCarousel = () => {
                     e.target.style.color = '#06c3c9'; // Reset text color
                     e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                   }}>
-                Λάθος      
+                {t('TestButtonWrong')}      
+         </Button>
+         <Button onClick={handleWrongSeven} disabled={currentCard === 0}
+              style={{
+                    display: currentCard !== 6 ? 'none' : 'block' ,
+                    fontSize: '1rem', // Slightly larger font for better readability
+                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontWeight: 'bolder',
+                    borderColor: '#06c3c9', // Custom border color
+                    borderWidth: '2px', // Custom border thickness
+                    color: '#06c3c9', // Ensure text color matches or complements the border
+                    backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                    borderRadius: '5px', // Rounded corners for a modern look
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                    transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                    width:'60%'   
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                    e.target.style.color = '#fff'; // Make text white on hover
+                    e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                    e.target.style.color = '#06c3c9'; // Reset text color
+                    e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                  }}>
+                {t('TestButtonWrong')}      
+         </Button>
+         <Button onClick={handleWrongEight} disabled={currentCard === 0}
+              style={{
+                    display: currentCard !== 7 ? 'none' : 'block' ,
+                    fontSize: '1rem', // Slightly larger font for better readability
+                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontWeight: 'bolder',
+                    borderColor: '#06c3c9', // Custom border color
+                    borderWidth: '2px', // Custom border thickness
+                    color: '#06c3c9', // Ensure text color matches or complements the border
+                    backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                    borderRadius: '5px', // Rounded corners for a modern look
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                    transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                    width:'60%'   
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                    e.target.style.color = '#fff'; // Make text white on hover
+                    e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                    e.target.style.color = '#06c3c9'; // Reset text color
+                    e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                  }}>
+                {t('TestButtonWrong')}      
+         </Button>
+         <Button onClick={handleWrongNine} disabled={currentCard === 0}
+              style={{
+                    display: currentCard !== 8 ? 'none' : 'block' ,
+                    fontSize: '1rem', // Slightly larger font for better readability
+                    padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                    fontWeight: 'bolder',
+                    borderColor: '#06c3c9', // Custom border color
+                    borderWidth: '2px', // Custom border thickness
+                    color: '#06c3c9', // Ensure text color matches or complements the border
+                    backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                    borderRadius: '5px', // Rounded corners for a modern look
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                    transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                    width:'60%'   
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#06c3c9'; // Change to border color on hover
+                    e.target.style.color = '#fff'; // Make text white on hover
+                    e.target.style.boxShadow = '0 8px 12px rgba(32, 179, 179, 0.5)'; // Highlight shadow
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                    e.target.style.color = '#06c3c9'; // Reset text color
+                    e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                  }}>
+                {t('TestButtonWrong')}      
          </Button>
         <Button onClick={handleValidation}
                  style={{
-                  display: currentCard === 5 ? 'none' : 'block' ,
+                  display: [5, 6, 7, 8, 9].includes(currentCard) ? 'none' : 'block',
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
@@ -868,11 +1285,11 @@ const CardCarousel = () => {
                   e.target.style.color = '#06c3c9'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}
-            >Έλεγχος
+            >{t('TestButtonCheck')}
         </Button>
 
      
-       <Button onClick={handleNext} disabled={currentCard === 5} 
+       <Button onClick={handleNext} disabled={currentCard === 8} 
                 style={{
                   //display: currentCard === 5 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
@@ -907,22 +1324,22 @@ const CardCarousel = () => {
                 centered
               >
               <Modal.Header className="modal-header-dark">
-                  <Modal.Title className="text-center w-100">Το test ολοκληρώθηκε</Modal.Title>                
+                  <Modal.Title className="text-center w-100"> {t('TestModal.FinalTitle')}</Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                  Απάντησες σωστά σε {trueCount} από τις 6 ερωτήσεις.
+                 {t('TestModal.FinalText', { number: trueCount })}
                  </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                 <Button
                     className="modal-close-button"
                     onClick={handleClose}>
-                    Έλεγχος αποτελεσμάτων
+                     {t('TestModal.FinalButton1')}
                   </Button>
                   
                   <Button
                     className="modal-close-button"
                     onClick={refreshPage}>
-                    Δοκίμασε ξανά
+                     {t('TestModal.FinalButton2')}
                   </Button>
 
                  
@@ -938,22 +1355,23 @@ const CardCarousel = () => {
               <Modal.Header className="modal-header-dark">
                   <Modal.Title className="text-center w-100">
                   <i class="bi bi-exclamation-triangle"></i>&nbsp;
-                   Προσοχή</Modal.Title>                
+                     {t('TestModal.WarnTitle')}
+                  </Modal.Title>                
                 </Modal.Header>
                 <Modal.Body className="modal-body-dark">
-                  Δεν έχεις ολοκληρώσει το test. <br/> Απομένουν {emptyCount} ερωτήσεις.
+                <p dangerouslySetInnerHTML={{ __html: t('TestModal.WarnText', { number: emptyCount }) }} /> 
                  </Modal.Body>
                 <Modal.Footer className="modal-footer-dark">
                 <Button
                     className="modal-close-button"
                     onClick={handleCloseF}>
-                    Επιστροφή στο test
+                      {t('TestModal.WarnButton1')}
                   </Button>
                   
                   <Button
                     className="modal-close-button"
                     onClick={showFinalModal}>
-                    Οριστική υποβολή
+                     {t('TestModal.WarnButton2')}
                   </Button>
 
                  
@@ -961,9 +1379,9 @@ const CardCarousel = () => {
                 </Modal.Footer>
               </Modal>
       </div>
-      <Button onClick={finalization} disabled={currentCard !== 5} 
+      <Button onClick={finalization} disabled={currentCard !== 8} 
                 style={{
-                  display: currentCard !== 5 ? 'none' : 'block' ,
+                  display: currentCard !== 8 ? 'none' : 'block' ,
                   fontSize: '1rem', // Slightly larger font for better readability
                   padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
                   fontWeight: 'bolder',
@@ -987,7 +1405,7 @@ const CardCarousel = () => {
                   e.target.style.color = '#c22748'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
-                Οριστική υποβολή
+              {t('TestButtonSubmit')}
         </Button>
 
 

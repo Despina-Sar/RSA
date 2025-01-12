@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const RandomMessage = ({ encryptedMessage, updateSelectedMessage, isMessageSet }) => {
+const RandomTest = ({ encryptedMessage, updateSelectedMessage, isMessageSet, index }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Check if message has already been set
-    
+    // Only generate a random message if it hasn't been set already
     if (!isMessageSet) {
-      // Generate a random number between 0 and 1
       const randomValue = Math.random();
-
       let selectedMessage;
+
       if (randomValue < 0.5) {
         selectedMessage = encryptedMessage;
       } else {
@@ -19,11 +17,10 @@ const RandomMessage = ({ encryptedMessage, updateSelectedMessage, isMessageSet }
 
       setMessage(selectedMessage);
       updateSelectedMessage(selectedMessage); // Update the parent component with the selected message
-    } 
-   
-  }, [encryptedMessage, updateSelectedMessage, isMessageSet]);
+    }
+  }, [encryptedMessage, updateSelectedMessage, isMessageSet, index]);
 
   return <div>{message}</div>;
 };
 
-export default RandomMessage;
+export default RandomTest;

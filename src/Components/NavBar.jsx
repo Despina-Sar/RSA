@@ -1,11 +1,26 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import { NavDropdown,Dropdown  } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import {Modal,Form, Row, Col } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import React, { useState,useContext ,useEffect, useLayoutEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
+import LanguageSwitcher from './LanguageSwitcher.jsx';
+import LanguageSwitcherMobile from './LanguageSwitcherMobile.jsx';
+import { useTranslation } from 'react-i18next';
+import "./NavBar.css";
+import RSA_Visual1 from '../images/RSA_Visual1.png';
+import RSA_VisualVertical from '../images/RSA_VisualVertical.png';
+import ceidlogo from '../images/ceidlogo.PNG';
+import favicon from '../images/favicon.png';
+import AlgorithmEL from '../images/AlgorithmEL.PNG';
+import AlgorithmEN from '../images/AlgorithmEN.PNG';
+import AlgorithmVerticalEL from '../images/AlgorithmVerticalEL.PNG';
+import AlgorithmVerticalEN from '../images/AlgorithmVerticalEN.PNG';
+
+
 
 
 
@@ -17,6 +32,7 @@ import {
 
 function NavBar({ step, onNext ,where  }) {
 
+  const [isSmallScreen, setSmallScreen] = useState(window.innerWidth < 800);
 
   const [expandedSection, setExpandedSection] = useState(null);
   const [show, setShow] = useState(false);
@@ -27,7 +43,28 @@ function NavBar({ step, onNext ,where  }) {
   const handleShowTop = () => setShowTop(true);
   const isMobile = useIsMobile();
 
+  const { t,i18n  } = useTranslation();
+  const imageSrc1 = i18n.language === 'en' ? RSA_Visual1 : ceidlogo;
+  const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
+  const imageSrcVertical1 = i18n.language === 'en' ? RSA_VisualVertical : favicon;
+  const imageSrcVertical = i18n.language === 'en' ? AlgorithmVerticalEN : AlgorithmVerticalEL;
+
   const [scroll, setScroll] = useState(false);
+
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSmallScreen(window.innerWidth < 850);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
    
@@ -60,73 +97,73 @@ function NavBar({ step, onNext ,where  }) {
     const clarifications = [
       { 
         id: 1, 
-        title: "Υπολογισμός κλειδιών", 
+        title:   t('OffcanvasTitle'), 
         content:
   
         <ol>
-          
-            <li>
-              <strong><span  
-                style={{ border:' 0px',
-                         padding:'2px 5px',
-                         width:'55%',
-                         borderRadius: '5px',
-                         backgroundColor: 'rgb(243, 219, 219)',
-                         color:'black'}}>
-                Επιλέγουμε δύο πρώτους αριθμούς
-                </span></strong>
-            </li>
-  
-            <li>
-              <strong><span  
-                style={{ border:' 0px',
-                         padding:'2px 5px',
-                         width:'16%',
-                         borderRadius: '5px',
-                         backgroundColor: 'rgb(243, 219, 219)',
-                         color:'black'}}>
-                n= P x Q
-                </span></strong>
-            </li>
-            <li>
-              <strong> <span  
-                style={{ border:' 0px',
-                         padding:'2px 5px',
-                         width:'35%',
-                         borderRadius: '5px',
-                         backgroundColor: 'rgb(243, 219, 219)',
-                         color:'black'}}>
-                Φ(n): (P - 1) x (Q - 1)
-                </span></strong>
-            </li>
+                
+        <li>
+        <strong><span  
+            style={{ border:' 0px',
+                    padding:'2px 5px',
+                    width:'55%',
+                    borderRadius: '5px',
+                    backgroundColor: 'rgb(243, 219, 219)',
+                    color:'black'}}>
+             {t('AlgorithmStep1')}
+            </span></strong>
+        </li>
+
+        <li>
+        <strong><span  
+            style={{ border:' 0px',
+                    padding:'2px 5px',
+                    width:'16%',
+                    borderRadius: '5px',
+                    backgroundColor: 'rgb(243, 219, 219)',
+                    color:'black'}}>
+               {t('AlgorithmStep2')}
+            </span></strong>
+        </li>
+        <li>
+        <strong> <span  
+            style={{ border:' 0px',
+                    padding:'2px 5px',
+                    width:'35%',
+                    borderRadius: '5px',
+                    backgroundColor: 'rgb(243, 219, 219)',
+                    color:'black'}}>
+                {t('AlgorithmStep3')}
+            </span></strong>
+        </li>
+        
+
+        <li>
+        <strong><span  
+            style={{ 
+                border:' 0px',
+                padding:'2px 5px',
+                boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+                borderRadius: '8px',
+                backgroundColor: 'rgb(4,145,141)'}}>
+                        {t('AlgorithmStep4')}
+            </span> </strong> 
+              <p dangerouslySetInnerHTML={{ __html: t('AlgorithmStep4a') }} />
             
-      
-            <li>
-               <strong><span  
-                  style={{ 
-                     border:' 0px',
-                     padding:'2px 5px',
-                     boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
-                     borderRadius: '8px',
-                     backgroundColor: 'rgb(4,145,141)'}}>
-                        Δημόσιο κλειδι (E,n):
-                  </span> </strong> <br />
-                Ε δεν έχει κοινούς παράγοντες με το Φ(n), εκτός από το 1 <br /> 
-                Ε δεν είναι πολλαπλάσιο των παραγόντων του Φ(n).
-            </li>
-            <li>
-  
-           <strong><span  style={{
-             border:' 0px',
-             padding:'2px 5px',
-             borderRadius: '8px', 
-             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
-             backgroundColor: 'rgb(138,4,17)'}}>
-                 Ιδιωτικό κλειδι (D,n):
-                 </span> </strong> <br />        
-            (D x E) mod (Φ(n)) = 1    
-            </li>                     
-        </ol> 
+        </li>
+        <li>
+
+    <strong><span  style={{
+        border:' 0px',
+        padding:'2px 5px',
+        borderRadius: '8px', 
+        boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgb(138,4,17)'}}>
+            {t('AlgorithmStep5')}
+            </span> </strong> <br />        
+            {t('AlgorithmStep5a')}    
+        </li>                     
+    </ol> 
       }
   
     ];
@@ -184,17 +221,10 @@ function NavBar({ step, onNext ,where  }) {
            */}
            
 
-           <div style={{ 
-            fontWeight: 'lighter',
-            fontSize: '1.1rem' ,
-            color:'rgb(221, 221, 221)'
-             }}>
-                  {"modalOpen"}       
-           </div> 
+         
 
-  
 
-           {location.pathname !== '/HomeGrid' && (    
+           {location.pathname !== '/HomeGrid' &&(    
             <Nav id = "menu">  
         
          
@@ -233,32 +263,37 @@ function NavBar({ step, onNext ,where  }) {
                       e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                     }}
                   >
-                    Επόμενο
+                     {t('NavNext')}
                </Button>
            ) } 
+              <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
 
+            {isSmallScreen && (
+                  <NavDropdown title= {<i class="bi bi-list"></i>} className="nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/PlayMain">{t('NavEducational')}</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/HelpMain">{t('NavHelp')}</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/CardCarousel">{t('NavTest')}</NavDropdown.Item>
+                    <NavDropdown.Item onClick={(e) => e.stopPropagation()}>
+                    <LanguageSwitcherMobile />
+                    </NavDropdown.Item>
+                  </NavDropdown>
+            )}
 
-
-
-{
-        //(location.pathname === '/HelpMain' ||location.pathname === '/CardCarousel' )&& ( 
-                      <Nav.Link as={Link} to="/PlayMain">Εκπαίδευση</Nav.Link>
-          //  )
-            }
+              {!isSmallScreen && (
+                      <Nav.Link as={Link} to="/PlayMain">{t('NavEducational')}</Nav.Link>
+            )}
         
-        {
-           //location.pathname === '/PlayMain' && ( 
-                      <Nav.Link as={Link} to="/HelpMain">Βοήθεια</Nav.Link>
-          //  )
-          }
+               {!isSmallScreen && (
+                      <Nav.Link as={Link} to="/HelpMain">{t('NavHelp')}</Nav.Link>
+                    )}
 
     
 
-         {
+      {!isSmallScreen && (
           //location.pathname === '/PlayMain' && ( 
-          <Nav.Link as={Link} to="/CardCarousel">Test</Nav.Link>
+          <Nav.Link as={Link} to="/CardCarousel">{t('NavTest')}</Nav.Link>
         // )
-        }
+        )}
 
           {
           //location.pathname !== '/HomeGrid' && (
@@ -280,6 +315,10 @@ function NavBar({ step, onNext ,where  }) {
                  <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
               </Button>
                   )}
+
+        {!isSmallScreen && (
+                <LanguageSwitcher/>
+              )}
 
          
 
@@ -313,8 +352,8 @@ function NavBar({ step, onNext ,where  }) {
                   <div  className="image-container">
                         <img
                           alt=""
-                          src= {require('../images/RSA_VisualVertical.png')}
-                          height="auto" width="107%"        
+                          src= {imageSrcVertical}
+                          height="auto" width="80%"        
                         />   
                   </div>
                  </Offcanvas.Body>
@@ -322,7 +361,7 @@ function NavBar({ step, onNext ,where  }) {
 
 
 
-              <Offcanvas show={showTop} onHide={handleCloseTop}  placement="top"  style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' ,height: '50%'}}>
+              <Offcanvas show={showTop} onHide={handleCloseTop}  placement="top"  style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' ,height: '56%'}}>
                 <Offcanvas.Header closeButton 
                 
                 style={{
@@ -356,9 +395,9 @@ function NavBar({ step, onNext ,where  }) {
                   <Col>
                     <div  className="image-container">
                           <img
-                            alt=""
-                            src= {require('../images/RSA_Visual1.png')}
-                            height="auto" width="100%"        
+                           alt=""
+                           src= {imageSrc}
+                           height="auto" width="95%"        
                           />   
                     </div>
                   </Col>

@@ -17,7 +17,6 @@
   width: 50%;
   background: linear-gradient(to bottom, #000000, #000000);
   border-radius: 15px;
-  font-family: 'Arial', sans-serif;
   color: white;
   padding: 20px;
 }
@@ -38,6 +37,12 @@
   justify-content: center;
   margin-top: 20px;
  
+}
+
+.success
+{
+  color: rgb(11, 197, 11);
+  font-size: 0.9rem;
 }
 
 button {
@@ -78,6 +83,9 @@ button:disabled {
   pointer-events: none; /* Prevent further user interaction */
   border-radius: 5px !important;
   padding: 5px;
+  font-Weight: bolder;
+  font-Size: 1.0rem !important;
+  color:rgb(35, 58, 43);
 }
 
 .Input {
@@ -86,7 +94,7 @@ button:disabled {
   border-radius: 5px !important;
   padding: 5px;
 
-  font-Weight: bolder;
+  font-Weight: bold;
   font-Size: 1.0rem !important;
   color:rgb(108,117,125);
 }
@@ -94,7 +102,7 @@ button:disabled {
 
 
 .Hidden {
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
 .error {
@@ -173,7 +181,6 @@ button:disabled {
     width: 50%;
     background: linear-gradient(to bottom, #000000, #000000);
     border-radius: 15px;
-    font-family: 'Arial', sans-serif;
     color: white;
     padding: 20px;
     max-width: 700px;
@@ -243,7 +250,6 @@ button:disabled {
     width: 50%;
     background: linear-gradient(to bottom, #000000, #000000);
     border-radius: 15px;
-    font-family: 'Arial', sans-serif;
     color: white;
     padding: 20px;
     max-width: 600px;
