@@ -230,7 +230,7 @@ function NavBar({ step, onNext ,where  }) {
          
 
 
-           {location.pathname !== '/HomeGrid' &&(    
+           {location.pathname !== '/Info' &&(    
             <Nav id = "menu">  
         
          
@@ -240,38 +240,7 @@ function NavBar({ step, onNext ,where  }) {
           
             </Navbar.Brand>  
       
-            { location.pathname === '/HelpMain' && ( 
-             <Button 
-                    onClick={onNext}                         
-                    style={{
-                      fontSize: '1rem', // Slightly larger font for better readability
-                      padding: '0.0rem 0.7rem', // Adjusted padding for a balanced look
-                      fontWeight: 'bolder',
-                      borderColor: '#c22748', // Custom border color
-                      borderWidth: '2px', // Custom border thickness
-                      color: '#c22748', // Ensure text color matches or complements the border
-                      backgroundColor: 'rgb(8, 4, 4)', // Dark background
-                      borderRadius: '5px', // Rounded corners for a modern look
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
-                      transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
-                      marginLeft: '5px' , marginRight: '5px' 
-                      
-
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
-                      e.target.style.color = '#fff'; // Make text white on hover
-                      e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
-                      e.target.style.color = '#c22748'; // Reset text color
-                      e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
-                    }}
-                  >
-                     {t('NavNext')}
-               </Button>
-           ) } 
+         
               <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
 
               {isSmallScreen && (
@@ -284,6 +253,7 @@ function NavBar({ step, onNext ,where  }) {
                     </NavDropdown.Item>
                   </NavDropdown>
             )}
+
 
 
               {!isSmallScreen && (
