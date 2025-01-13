@@ -8,6 +8,7 @@ import React, { useState,useContext ,useEffect, useLayoutEffect, useRef } from '
 import Button from 'react-bootstrap/Button';
 import useIsMobile from './TestuseIsMobile'; // Import the custom hook
 import LanguageSwitcher from './LanguageSwitcher.jsx';
+import Calculator from './Calculator.jsx';
 import LanguageSwitcherMobile from './LanguageSwitcherMobile.jsx';
 import { useTranslation } from 'react-i18next';
 import "./NavBar.css";
@@ -27,6 +28,7 @@ import AlgorithmVerticalEN from '../images/AlgorithmVerticalEN.PNG';
 import {
   Link,useLocation
 } from "react-router-dom";
+import PlayMain from './PlayMain.jsx';
 
 
 
@@ -37,10 +39,14 @@ function NavBar({ step, onNext ,where  }) {
   const [expandedSection, setExpandedSection] = useState(null);
   const [show, setShow] = useState(false);
   const [showTop, setShowTop] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseTop = () => setShowTop(false);
   const handleShowTop = () => setShowTop(true);
+  const handleShowCalculator = () => setShowCalculator(true);
+  const handleCloseCalculator = () => setShowCalculator(false);
+ 
   const isMobile = useIsMobile();
 
   const { t,i18n  } = useTranslation();
@@ -268,7 +274,7 @@ function NavBar({ step, onNext ,where  }) {
            ) } 
               <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
 
-            {isSmallScreen && (
+              {isSmallScreen && (
                   <NavDropdown title= {<i class="bi bi-list"></i>} className="nav-dropdown">
                     <NavDropdown.Item as={Link} to="/PlayMain">{t('NavEducational')}</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/HelpMain">{t('NavHelp')}</NavDropdown.Item>
@@ -278,6 +284,7 @@ function NavBar({ step, onNext ,where  }) {
                     </NavDropdown.Item>
                   </NavDropdown>
             )}
+
 
               {!isSmallScreen && (
                       <Nav.Link as={Link} to="/PlayMain">{t('NavEducational')}</Nav.Link>
@@ -289,19 +296,18 @@ function NavBar({ step, onNext ,where  }) {
 
     
 
-      {!isSmallScreen && (
-          //location.pathname === '/PlayMain' && ( 
-          <Nav.Link as={Link} to="/CardCarousel">{t('NavTest')}</Nav.Link>
-        // )
-        )}
+                {!isSmallScreen && (
+                    //location.pathname === '/PlayMain' && ( 
+                    <Nav.Link as={Link} to="/CardCarousel">{t('NavTest')}</Nav.Link>
+                  // )
+                  )}
 
-          {
-          //location.pathname !== '/HomeGrid' && (
-            <Button variant="dark" onClick={refreshPage} style={{ fontSize: '1.0rem',fontWeight: 'bolder' }}>
-                    <i class="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
-                 </Button>
-            //    )
-            }
+                <Button variant="dark" onClick={handleShowCalculator} style={{ fontSize: '1.0rem',fontWeight: 'bolder'   }}>
+                          <i class="bi bi-calculator-fill" style={{fontSize: '20px'}}></i>
+                        </Button>
+                        
+
+                
             
             { isMobile && (
               <Button variant="dark" onClick={handleShow} style={{ fontSize: '1.0rem',fontWeight: 'bolder' ,marginLeft: '5px' , marginRight: '5px'   }}>
@@ -315,6 +321,18 @@ function NavBar({ step, onNext ,where  }) {
                  <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
               </Button>
                   )}
+
+{
+          //location.pathname !== '/HomeGrid' && (
+            <Button variant="dark" onClick={refreshPage} style={{ fontSize: '1.0rem',fontWeight: 'bolder'  , marginRight: '5px'  }}>
+                    <i class="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
+                 </Button>
+            //    )
+            }
+
+       
+    
+           
 
         {!isSmallScreen && (
                 <LanguageSwitcher/>
@@ -379,10 +397,8 @@ function NavBar({ step, onNext ,where  }) {
                     >
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-
-                  <Row>
+                   <Row>
                     <Col xs={3} >
-
                       {clarifications.map((clarification) => (
                         <div>
                           <h6>{clarification.title}</h6>
@@ -401,6 +417,32 @@ function NavBar({ step, onNext ,where  }) {
                           />   
                     </div>
                   </Col>
+                  </Row>
+                 </Offcanvas.Body>
+              </Offcanvas>
+
+
+
+              <Offcanvas show={showCalculator} onHide={handleCloseCalculator} style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' }}>
+                <Offcanvas.Header closeButton 
+                
+                style={{
+                      fontSize: '1rem', // Slightly larger font for better readability
+                      padding: '0.4rem 0.3rem', // Adjusted padding for a balanced look
+                      fontWeight: 'bolder',
+                      borderColor: '#c22748', // Custom border color
+                      borderWidth: '2px', // Custom border thickness
+                      color: 'white', // Ensure text color matches or complements the border
+                      backgroundColor: '#c22748', // Dark background
+                      borderRadius: '5px', // Rounded corners for a modern look
+                      marginLeft: '5px' , marginRight: '5px' , marginTop: '5px',
+                      width: '10%'
+                    }}
+                    >
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                   <Row>
+                      <Calculator/>
                   </Row>
                  </Offcanvas.Body>
               </Offcanvas>

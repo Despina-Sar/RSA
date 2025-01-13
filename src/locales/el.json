@@ -147,8 +147,15 @@
     "Language":"Γλώσσα",
 
     "CorrectAnswer":"Σωστή απάντηση",
-    "WrongAnswer":"Λάθος απάντηση"
+    "WrongAnswer":"Λάθος απάντηση",
 
+    "CalculatorTitle1": "Υπολογισμός modulo",
+    "CalculatorTitle2": "Υπολογισμός δύναμης",
+    "CalculatorText1": "Εισάγετε το a",
+    "CalculatorText2": "Εισάγετε το b",
+    "CalculatorResult1": "Αποτέλεσμα modulo: ",
+    "CalculatorResult2": "Αποτέλεσμα δύναμης: ",
+    "CalculatorButton": "Υπολογισμός"
 
   
   }

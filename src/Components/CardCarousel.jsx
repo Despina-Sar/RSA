@@ -843,7 +843,7 @@ const CardCarousel = () => {
          )}
 
          
-           {errors.e && <p className={styles.error}>{errors.e}</p>}
+           {errors.e1 && <p className={styles.error}>{errors.e1}</p>}
         </>
       );
     }
@@ -966,7 +966,7 @@ const CardCarousel = () => {
            {t('TestCard9Title')}
           </p>
           <p>{t('TestCardGeneralDesc')}</p>
-          <p>P = {p}, Q = {q}, D = {d} </p>
+          <p>P = {p}, Q = {q}, D = {d}, {t('TestCard_CT')}= {encryptedMessage} </p>
 
           <p>Correct  message = {message}</p>
         
