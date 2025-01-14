@@ -55,7 +55,7 @@
   flex-direction: column;
   padding: 20px;
   background-color: rgb(0, 0, 0) !important;
-  border-radius: 12px;
+  border-radius: 12px !important;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 450px;
   text-align: center;
@@ -123,12 +123,12 @@
       }   
 
       .custom-placeholderFN{
-        background-color: rgb(243, 219, 219);
+        background-color: rgb(255, 255, 255);
         padding: 0.5rem 0.5rem;
         position: relative;
       }
       .custom-placeholderPQ{
-        background-color: rgb(243, 219, 219);
+        background-color: rgb(255, 255, 255);
         padding: 0.5rem 0.5rem;
         position: relative;
         width: 120%  !important;
@@ -229,6 +229,7 @@
       padding-top:10;  /* Remove margin */
       background-color: rgb(0, 0, 0) !important; 
       text-align: center !important;
+      border-radius: 12px !important;
          
     }
 
@@ -239,16 +240,18 @@
   font-Size: 0.8rem;
 } 
 .custom-placeholderFN{
-  background-color: rgb(243, 219, 219);
+  background-color: rgb(255, 255, 255);
   padding: 0.5rem 0.5rem;
   position: relative;
   font-Size: 0.8rem;
 }
 
-  .mobileValueLabel{
-    color: #ffffff;
-    font-size: 30px;
-  }
+.mobileValueLabel{
+  font-Size: 20px;
+  color: white;
+  font-Weight:bolder;
+}
+
 
   .arrowDownPlay {
     display: flex;
@@ -292,8 +295,7 @@
     flex-direction: column; /* Stack the arrow and text vertically */
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    color: #ffffff;
+     color: #ffffff;
   }
 
   .mobileArrowContainer .row {
@@ -352,3 +354,23 @@
   
   
   
+
+      .input-icon-placeholder {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .input-icon-placeholder .form-control {
+        padding-left: 30px; /* Space for the icon on the left */
+      }
+      
+      .input-icon-placeholder i {
+        position: absolute;
+        left: 8px; /* Adjust as needed for icon positioning */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ffffff;
+        pointer-events: none; /* Prevent interaction with the icon */
+        font-size: 20px;
+      }
+      

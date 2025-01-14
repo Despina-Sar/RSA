@@ -114,7 +114,7 @@ function NavBar({ step, onNext ,where  }) {
                     padding:'2px 5px',
                     width:'55%',
                     borderRadius: '5px',
-                    backgroundColor: 'rgb(243, 219, 219)',
+                    backgroundColor: 'rgb(255, 255, 255)',
                     color:'black'}}>
              {t('AlgorithmStep1')}
             </span></strong>
@@ -126,7 +126,7 @@ function NavBar({ step, onNext ,where  }) {
                     padding:'2px 5px',
                     width:'16%',
                     borderRadius: '5px',
-                    backgroundColor: 'rgb(243, 219, 219)',
+                    backgroundColor: 'rgb(255, 255, 255)',
                     color:'black'}}>
                {t('AlgorithmStep2')}
             </span></strong>
@@ -137,7 +137,7 @@ function NavBar({ step, onNext ,where  }) {
                     padding:'2px 5px',
                     width:'35%',
                     borderRadius: '5px',
-                    backgroundColor: 'rgb(243, 219, 219)',
+                    backgroundColor: 'rgb(255, 255, 255)',
                     color:'black'}}>
                 {t('AlgorithmStep3')}
             </span></strong>
@@ -145,15 +145,17 @@ function NavBar({ step, onNext ,where  }) {
         
 
         <li>
-        <strong><span  
+        <strong>
+          <span  
             style={{ 
                 border:' 0px',
                 padding:'2px 5px',
                 boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                 borderRadius: '8px',
-                backgroundColor: 'rgb(4,145,141)'}}>
+                backgroundColor: 'rgb(138,4,17)'}}>
                         {t('AlgorithmStep4')}
             </span> </strong> 
+         
               <p dangerouslySetInnerHTML={{ __html: t('AlgorithmStep4a') }} />
             
         </li>
@@ -240,7 +242,40 @@ function NavBar({ step, onNext ,where  }) {
           
             </Navbar.Brand>  
       
-         
+            {/* location.pathname === '/HelpMain' && ( 
+             <Button 
+                    onClick={onNext}                         
+                    style={{
+                      fontSize: '1rem', // Slightly larger font for better readability
+                      padding: '0.0rem 0.7rem', // Adjusted padding for a balanced look
+                      fontWeight: 'bolder',
+                      borderColor: '#c22748', // Custom border color
+                      borderWidth: '2px', // Custom border thickness
+                      color: '#c22748', // Ensure text color matches or complements the border
+                      backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                      borderRadius: '5px', // Rounded corners for a modern look
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                      transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                      marginLeft: '5px' , marginRight: '5px' 
+                      
+
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
+                      e.target.style.color = '#fff'; // Make text white on hover
+                      e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                      e.target.style.color = '#c22748'; // Reset text color
+                      e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
+                    }}
+                  >
+                     {t('NavNext')}
+               </Button>
+           ) */} 
+
+
               <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
 
               {isSmallScreen && (
@@ -253,7 +288,6 @@ function NavBar({ step, onNext ,where  }) {
                     </NavDropdown.Item>
                   </NavDropdown>
             )}
-
 
 
               {!isSmallScreen && (
@@ -272,7 +306,7 @@ function NavBar({ step, onNext ,where  }) {
                   // )
                   )}
 
-                <Button variant="dark" onClick={handleShowCalculator} style={{ fontSize: '1.0rem',fontWeight: 'bolder'   }}>
+                <Button variant="dark" onClick={handleShowCalculator} style={{ fontSize: '1.0rem',fontWeight: 'bolder',marginLeft: '5px'    }}>
                           <i class="bi bi-calculator-fill" style={{fontSize: '20px'}}></i>
                         </Button>
                         
@@ -393,7 +427,7 @@ function NavBar({ step, onNext ,where  }) {
 
 
 
-              <Offcanvas show={showCalculator} onHide={handleCloseCalculator} style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white' }}>
+              <Offcanvas show={showCalculator} onHide={handleCloseCalculator} style={{  backgroundColor: 'rgb(0, 0, 0)' ,color: 'white', width: '35%', minWidth: '390px' }}>
                 <Offcanvas.Header closeButton 
                 
                 style={{

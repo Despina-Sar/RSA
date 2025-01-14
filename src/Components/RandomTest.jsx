@@ -12,7 +12,7 @@ const RandomTest = ({ encryptedMessage, updateSelectedMessage, isMessageSet, ind
       if (randomValue < 0.5) {
         selectedMessage = encryptedMessage;
       } else {
-        selectedMessage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
+        selectedMessage = Math.floor(Math.random() * (50 - 10 + 1)) + 10;
       }
 
       setMessage(selectedMessage);

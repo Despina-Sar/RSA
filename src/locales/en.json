@@ -7,7 +7,7 @@
   "InfoCard1Description": "RSA is an asymmetric encryption algorithm commonly used for securing data and ensuring the confidentiality of communications. Named after its inventors, Ron Rivest, Adi Shamir, and Leonard Adleman, it was first introduced in 1977. The algorithm relies on the mathematical properties of prime numbers and the complexity of factoring large composite numbers, making it highly resistant to attacks. By employing a system of public and private keys, RSA is utilized not only for encrypting messages but also for implementing digital signatures, which provide data authentication and integrity. It is a cornerstone of modern cryptography and is applied in various domains, including HTTPS and secure email communications.",
   
   "InfoCard2Title": "RSA Algorithm: Stage I",
-  "InfoCard2Description": "Creation and sharing of the recipient's public key.",
+  "InfoCard2Description": "Creation and sharing of the recipient's public key",
   
   "InfoCard3Title": "Steps",
 
@@ -15,7 +15,7 @@
   "AlgorithmStep2": "n = P x Q",
   "AlgorithmStep3": "Φ(n) = (P - 1) x (Q - 1)",
   "AlgorithmStep4": "Public Key (E, n):",
-  "AlgorithmStep4a": "E has no common factors with Φ(n) other than 1.<br />E is not a multiple of the factors of Φ(n).",
+  "AlgorithmStep4a": "E has no common factors with Φ(n) other than 1<br />E is not a multiple of the factors of Φ(n)",
   "AlgorithmStep5": "Private Key (D, n):",
   "AlgorithmStep5a": "(D x E) mod (Φ(n)) = 1",
   "InfoCard3Button": "Example",
@@ -30,7 +30,7 @@
   "AlgorithmEx5a": "Choose D = 3 as it satisfies the relation (3 x 7) mod 20 = 1",
 
   "InfoCard5Title": "RSA Algorithm: Stage II",
-  "InfoCard5Description": "Encryption and sending of a message by the sender. <br />Decryption by the recipient.",
+  "InfoCard5Description": "Encryption and sending of a message by the sender <br />Decryption by the recipient",
   "InfoCard6Title": "RSA Encryption & Decryption",
   "InfoCard6Description": "Encrypted message: CT = M<sup>E</sup> mod n<br/>Decrypted message: M = CT<sup>D</sup> mod n<br/>",
   "InfoCard6Button": "Example",
@@ -72,7 +72,7 @@
   "EndModalButton": "Try Again",
 
   "AliceGetKey": "Received Bob's public key ",
-  "AliceWaitKey": "Wants to send a message to Bob. <br/>Waiting for the public key.",
+  "AliceWaitKey": "Wishes to send a message to Bob. <br/>Waiting for the public key.",
   "Alice1": "Choose the message you want to send",
   "Alice2": "Calculate the encrypted message",
   "AliceButton": "Send the message",
@@ -90,38 +90,38 @@
   "TestCard_M": "message",
   "TestCard_CT": "encrypted message",
 
-  "TestCard1Title": "1. Public Key Calculation",
+  "TestCard1Title": "1. Public key calculation",
   "TestCard1Desc1": "Two prime numbers are given:",
   "TestCard1Desc2": "Calculate the public key E:",
 
-  "TestCard2Title": "2. Private Key Calculation",
+  "TestCard2Title": "2. Private key calculation",
   "TestCard2Desc1": "The following numbers are given:",
   "TestCard2Desc2": "Calculate the private key D:",
 
-  "TestCard3Title": "3. Message Encryption",
+  "TestCard3Title": "3. Message encryption",
   "TestCard3Desc1": "Calculate the encrypted message CT:",
 
-  "TestCard4Title": "4. Message Decryption",
+  "TestCard4Title": "4. Message decryption",
   "TestCard4Desc1": "Calculate the decrypted message M:",
 
-  "TestCard5Title": "5. Public Key Calculation",
+  "TestCard5Title": "5. Public key calculation",
   "TestCard5Desc1": "Calculate the public key E:",
-  "TestCard6Title": "6. Decryption Check",
+  "TestCard6Title": "6. Decryption check",
   "TestCard6Desc1": "Decrypted message is ", 
 
-  "TestCard7Title": "7. Public Key Check",
+  "TestCard7Title": "7. Public key check",
   "TestCard7Desc1": "Public key is ", 
 
-  "TestCard8Title": "8. Private Key Check",
+  "TestCard8Title": "8. Private key check",
   "TestCard8Desc1": "Private key is ", 
 
-  "TestCard9Title": "9. Encryption Check",
+  "TestCard9Title": "9. Encryption check",
   "TestCard9Desc1": "Encrypted message is ",
 
   "TestButtonSubmit": "Submit",
   "TestButtonCheck": "Check",
-  "TestButtonCorrect": "Correct",
-  "TestButtonWrong": "Wrong",
+  "TestButtonCorrect": "True",
+  "TestButtonWrong": "False",
 
   "TestModal": { 
   "WarnTitle": "Warning", 
@@ -135,7 +135,7 @@
   "FinalButton2": "Try Again"
 },
 
-  "NavEducational": "Education",
+  "NavEducational": "Training",
   "NavTest": "Test",
   "NavHelp": "Help",
   "NavNext": "Next",
@@ -146,8 +146,8 @@
    "CorrectAnswer":"Correct answer",
     "WrongAnswer":"Wrong answer",
    
-   "CalculatorTitle1": "Modulo Calculation",
-    "CalculatorTitle2": "Power Calculation",
+   "CalculatorTitle1": " Modulo Calculation",
+    "CalculatorTitle2": " Power Calculation",
     "CalculatorText1": "Enter a",
     "CalculatorText2": "Enter b",
      "CalculatorResult1": "Modulo result: ",

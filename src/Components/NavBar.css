@@ -2,6 +2,7 @@
 .nav-dropdown .dropdown-menu {
     background-color: black !important; /* Ensure the menu has a black background */
     border: none !important; /* Remove the border from the dropdown */
+    padding: 0px;
   }
   
   /* Make sure dropdown items have transparent backgrounds by default */

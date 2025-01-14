@@ -13,13 +13,13 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const Help = ({rsaValuess, updateRSAValues ,step  }) => {
+const Help = ({rsaValuess, updateRSAValues }) => {
   // Boy's state
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
   const isMobile = useIsMobile();
-  //const [step, setStep] = useState(0); // to track the step
+  const [step, setStep] = useState(0); // to track the step
 
   // Girl's state
   const [p, setP] = useState('');
@@ -179,7 +179,7 @@ const Help = ({rsaValuess, updateRSAValues ,step  }) => {
     }
 };
 
-
+{/*
 React.useEffect(() => {
   if (step === 0) {
     handleCalculatePrimeP(); // Set random value for x
@@ -210,8 +210,8 @@ else if (step === 6){
   // Add other steps as needed
 }, [step]);
 
+*/}
 
-{/*
 const handleNext = () => {
     if (step === 0) {
         handleCalculatePrimeP(); // Set random value for x
@@ -242,7 +242,7 @@ const handleNext = () => {
     
     setStep(step + 1); // Move to the next step
   };
-*/}
+
 
 
 const validateField = (field, value, updatedForm) => {
@@ -839,7 +839,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#c22748', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#c22748', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            backgroundColor: 'rgb(0, 0, 0)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -850,7 +850,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.backgroundColor = 'rgb(0, 0, 0)'; // Reset to original background
                             e.target.style.color = '#c22748'; // Reset text color
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
@@ -881,9 +881,34 @@ const handleSubmitM = (field, value, form,newErrors) =>{
            
 </div>
 
+   <div className="helpButton">
 
+          <Button   onClick={handleNext}
+                  style={{
+                  fontSize: '1rem', // Slightly larger font for better readability
+                  padding: '0.4rem 0.7rem', // Adjusted padding for a balanced look
+                  fontWeight: 'bolder',
+                  borderColor:'rgba(194, 39, 72, 0.5)', // Custom border color
+                  borderWidth: '3px', // Custom border thickness
+                  color: '#fff', // Ensure text color matches or complements the border
+                  backgroundColor: '#c22748', // Dark background
+                  borderRadius: '5px', // Rounded corners for a modern look
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+                  transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
+                  width: '100px',
+                  textAlign: 'center',
+                  display: 'block',  // Ensures it behaves like a block element
+                  margin: '0 auto',
+                  boxshadow: '0 8px 10px rgba(255, 255, 255)' // Highlight shadow
+                }}
+
+                > 
+                        {t('NavNext')} 
+                </Button>
+          </div>
 
     <div className="Main">
+   
 
          {/* Bootstrap Modal for displaying empty field alert */}
                   <Modal show={showModalH} onHide={handleCloseModH} centered>
@@ -902,6 +927,10 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                         </Button>
                       </Modal.Footer>
                     </Modal>
+
+
+                   
+
 
       {/* Boy's card with inputs and z calculation */}
       <Card style={{ borderColor: '#c22748' }}  className="customcardBobHelp">
@@ -925,7 +954,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 placeholder="P"
                 readOnly
                 style={{
-                    backgroundColor: 'rgb(243, 219, 219)',
+                    backgroundColor: 'rgb(255, 255, 255)',
                     fontWeight: 'bold',
                     fontSize: '1.0rem',
                     color: 'rgb(108,117,125)',
@@ -954,7 +983,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 placeholder="Q"
                 readOnly
                 style={{
-                    backgroundColor: 'rgb(243, 219, 219)',
+                    backgroundColor: 'rgb(255, 255, 255)',
                     fontWeight: 'bold',
                     fontSize: '1.0rem',
                     color: 'rgb(108,117,125)',
@@ -983,7 +1012,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  className="custom-placeholderNF"
                //  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder={placeholderN} 
-                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
+                style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold',fontSize: '0.83rem'}}
                 isInvalid={!!errors.n}
                 readOnly
              />
@@ -997,7 +1026,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               className="custom-placeholderNF"
               placeholder= {placeholderFn}
               //value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', fontSize: '0.83rem'}}
+              style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold', fontSize: '0.83rem'}}
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               readOnly
             />
@@ -1021,7 +1050,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             style={{ 
                                
                 textAlign: 'center', 
-                backgroundColor: 'rgb(243, 219, 219)',
+                backgroundColor: 'rgb(255, 255, 255)',
                 fontWeight: 'bold'
             }} 
             />   
@@ -1030,6 +1059,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
    
                  <Row className="mb-3"  style={{ alignItems: 'center'}} > 
                       <Col xs={6}>
+                      <div className="input-icon-placeholder">
                         <Form.Control
                           className="custom-placeholder"
                            placeholder={t('Bob3')}
@@ -1039,18 +1069,21 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            readOnly
                            style={{ 
                             fontSize: '1.0rem', 
-                            padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)' ,
-                            backgroundColor: 'rgb(42, 163, 159)',
+                            backgroundColor: 'rgb(139, 42, 52)',
                             fontWeight:'bolder',
                             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)'}}
                           />
+                            
+                            <i class="bi bi-unlock-fill"></i>
+                            </div>
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.E}
                         </Form.Control.Feedback>
                         
                       </Col>      
                       <Col xs={6}>
+                      <div className="input-icon-placeholder">
                         <Form.Control
                           className="custom-placeholder"
                           
@@ -1061,7 +1094,6 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            readOnly                          
                            style={{ 
                             fontSize: '1.0rem', 
-                            padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)',
                             backgroundColor: 'rgb(139, 42, 52)',
                             fontWeight:'bolder' ,
@@ -1070,6 +1102,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             '::placeholder': {color:'rgb(255, 255, 255)'}
                           }}
                           />
+                             <i class="bi bi-key-fill"></i>
+                             </div>
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.D}
                         </Form.Control.Feedback>
@@ -1112,7 +1146,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.backgroundColor = 'rgb(0, 0, 0)'; // Reset to original background
                             e.target.style.color = '#c22748'; // Reset text color
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
@@ -1223,7 +1257,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-unlock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(30, 156, 152)' ,textShadow: '3px 3px 2px white'}}
+                    style={{ fontSize: '40px', color: 'rgb(128, 25, 35)' ,textShadow: '3px 3px 2px white'}}
                   ></i>
                   ({form.E},{form.n})
                 </span>
@@ -1232,14 +1266,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
           ) : (
             // Mobile layout
             <div className="mobileArrowContainer">
-              <Row>
+              <Row  style={{ margin: '0px'}}>
               <div className="arrowDownPlay">
                 <i className="bi bi-arrow-down" style={{ fontSize: '60px', color: 'white' }}></i>
               
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-unlock-fill"
-                  style={{ fontSize: '40px', color: 'rgb(30, 156, 152)' ,textShadow: '3px 3px 2px white'}}
+                  style={{ fontSize: '40px', color:  'rgb(128, 25, 35)' ,textShadow: '3px 3px 2px white'}}
                 ></i>
                 ({form.E},{form.n})
               </span>
@@ -1262,7 +1296,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-file-earmark-lock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(128, 25, 35)' , textShadow: '3px 3px 4px white', paddingRight: '5px'}}
+                    style={{ fontSize: '40px', color: 'rgb(30, 156, 152)' , textShadow: '3px 3px 4px white', paddingRight: '5px'}}
                   ></i>
                  {form.CT}
                 </span>
@@ -1278,9 +1312,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-file-earmark-lock-fill"
-                  style={{fontSize: '40px', color:'rgb(128, 25, 35)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
+                  style={{fontSize: '40px', color:'rgb(30, 156, 152)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                 ></i>
-                 CT : {form.CT}
+                 {form.CT}
               </span>
               </div>
               </Row>
@@ -1293,7 +1327,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
      
       </div>
 
-       
+      
+
+
       {/* Girl's card with inputs and f calculation */}
       <Card style={{ borderColor: '#06c3c9' }}  className="customcardAliceHelp">
 
@@ -1326,7 +1362,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                        onChange={(e) => setField('M', e.target.value)}
                        isInvalid={!!errors.M}
                       // disabled={locked}
-                       style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
+                       style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
                      {errors.M}
@@ -1393,7 +1429,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.backgroundColor = 'rgb(0, 0, 0)'; // Reset to original background
                             e.target.style.color = '#06c3c9'; // Reset text color
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
@@ -1420,7 +1456,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
 
       </Card>
      
-
+      
     
     </div>
     </div>
@@ -1482,7 +1518,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     fontSize: '50px',
-    marginTop: '20px'
+ 
   },
  
   valueLabel: {

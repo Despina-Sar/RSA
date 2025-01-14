@@ -7,6 +7,11 @@
 }
 
 
+.helpButton{
+  margin-left: 70%;
+  margin-bottom: 10px;
+}
+
 .card.customcardAliceHelp, .card.customcardBobHelp {
   display: flex;
   flex-direction: column;
@@ -123,12 +128,12 @@
         }   
   
         .custom-placeholderFN{
-          background-color: rgb(243, 219, 219);
+          background-color: rgb(255, 255, 255);
           padding: 0.5rem 0.5rem;
           position: relative;
         }
         .custom-placeholderPQ{
-          background-color: rgb(243, 219, 219);
+          background-color: rgb(255, 255, 255);
           padding: 0.5rem 0.5rem;
           position: relative;
           width: 120%  !important;
@@ -175,7 +180,7 @@
     position: absolute;
     right: 5px; /* Stick to the right edge of the input */
     top: 0; /* Align with the top of the input */
-    background-color: rgb(243, 219, 219);
+    background-color: rgb(255, 255, 255);
     color: white;
     border: none;
     border-radius: 5px;
@@ -219,8 +224,9 @@
 
 
     .mobileValueLabel{
-      color: #ffffff;
-      font-size: 30px;
+      font-Size: 20px;
+      color: white;
+      font-Weight:bolder;
     }
   
     .arrowDownPlay {
@@ -265,7 +271,6 @@
       flex-direction: column; /* Stack the arrow and text vertically */
       align-items: center;
       justify-content: center;
-      padding: 10px;
       color: #ffffff;
     }
   
@@ -323,4 +328,32 @@
         }
     
     
-    
+        @media (min-width: 850px) and (max-width: 1299px) {
+          
+          .helpButton{
+            margin-left: 30%;
+            margin-bottom: 10px;
+          }
+      
+        }
+
+        @media (min-width: 850px) and (max-width: 1299px) {
+          
+          .helpButton{
+            margin-left: 40%;
+            margin-bottom: 10px;
+          }
+      
+        }
+
+        @media (max-width:  849px) {
+          .helpButton{
+            margin-left: 50%;
+            margin-bottom: 10px;
+          }
+        
+        
+        }
+        
+        
+        

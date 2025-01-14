@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import NavBar from './Components/NavBar.jsx'
 import LanguageSwitcher from './Components/LanguageSwitcher.jsx';
 import LanguageSwitcherMobile from './Components/LanguageSwitcherMobile.jsx';
+import AccessibilityMenu from './Components//AccessibilityMenu';
 
 {/*
 
@@ -84,11 +85,14 @@ function App() {
   
 const { t } = useTranslation();
   return (
+
+  
+
     <Router  basename="/RSA">
 
       <div className="background-container">
   
-    
+     
      
       
         <Routes>
@@ -238,6 +242,7 @@ const { t } = useTranslation();
     </Routes>
       </div>
     </Router>
+ 
   );
 }
 

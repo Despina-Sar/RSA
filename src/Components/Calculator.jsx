@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Form } from 'react-bootstrap';
 import './Calculator.css';
 import { useTranslation } from 'react-i18next';
+import {Modal, Row, Col } from 'react-bootstrap';
 
 function ModuloCalculator() {
   const [a, setA] = useState('');
@@ -13,30 +14,44 @@ function ModuloCalculator() {
     if (b !== 0 && b !== '') {
       setModResult(a % b);
     } else {
-      setModResult('Error');
+      setModResult(<i class="bi bi-exclamation-triangle"></i>);
     }
   };
 
   return (
     <Card className="calculator-card">
-      <Card.Body>
-        <Card.Title style={{ textAlign: 'center'}}>{t('CalculatorTitle1')}</Card.Title>
+      <Card.Body className="calculator-body">
+        <Card.Title style={{ textAlign: 'center'}}> <i class="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>{t('CalculatorTitle1')}</Card.Title>
+        <br/>
         <Form.Group>
+         <Row>
+        <Col  xs={3} style={{padding : '0px', marginLeft: '10px', marginRight: '0px'}}>
           <Form.Control
             type="number"
             value={a}
             onChange={(e) => setA(parseInt(e.target.value, 10))}
-            placeholder={t('CalculatorText1')}
+            placeholder="a"
             className="input-field"
           />
+          </Col>
+          <Col xs={3}  style={{textAlign: 'center'}}>
+              <div className="text-group"> mod </div>
+          </Col>
+          <Col  xs={3} style={{padding : '0px', marginLeft: '0px', marginRight: '0px'}}>
           <Form.Control
             type="number"
             value={b}
             onChange={(e) => setB(parseInt(e.target.value, 10))}
-            placeholder={t('CalculatorText2')}
+            placeholder="b"
             className="input-field"
-            style={{ marginTop: '10px' }}
+           
           />
+            </Col>
+
+            <Col>
+               {modResult !== null && <div className="result-group"> = {modResult}</div>}
+            </Col>
+          </Row>
         </Form.Group>
         <Button onClick={handleCalculateModulo} className="calculate-button" 
                 style={{
@@ -67,7 +82,7 @@ function ModuloCalculator() {
                 }}>
         {t('CalculatorButton')}
         </Button>
-        {modResult !== null && <div className="result-group">{t('CalculatorResult1')} {modResult}</div>}
+        
       </Card.Body>
     </Card>
   );
@@ -83,37 +98,54 @@ function PowerCalculator() {
     console.log(a+b);
     if(a !== '' && b !== ''){
     setPowerResult(Math.pow(a, b));}
-    else{setPowerResult('Error');}
+    else{setPowerResult(<i class="bi bi-exclamation-triangle"></i>);}
   };
 
   return (
-    <Card className="calculator-card">
-    <Card.Body>
-      <Card.Title style={{ textAlign: 'center'}}>{t('CalculatorTitle2')}</Card.Title>
+    <Card  className="calculator-card">
+          <br/>
+          <br/>
+    <Card.Body  className="calculator-body">
+      <Card.Title style={{ textAlign: 'center'}}> <i class="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>  {t('CalculatorTitle2')}</Card.Title>
+      <br/>
       <Form.Group>
+
+      <Row>
+      <Col  xs={3} style={{padding : '0px', marginLeft: '10px', marginRight: '0px'}}>
         <Form.Control
           type="number"
           value={a}
           onChange={(e) => setA(parseInt(e.target.value, 10))}
-          placeholder={t('CalculatorText1')}
+          placeholder="a"
           className="input-field"
+          style={{ marginTop: '30px', marginRight: '20px' }}
         />
+ </Col>
+    <Col  xs={3} style={{padding : '0px', marginLeft: '0px', marginRight: '0px'}}> 
         <Form.Control
           type="number"
           value={b}
           onChange={(e) => setB(parseInt(e.target.value, 10))}
-          placeholder={t('CalculatorText2')}
+          placeholder="b"
           className="input-field"
-          style={{ marginTop: '10px' }}
+          style={{ marginTop: '0px', marginRight: '20px' , marginLeft: '5px',}}
         />
-      </Form.Group>
 
+         </Col>
+         <Col>
+         {powerResult !== null && <div className="result-group" style={{ marginTop: '30px' }}>  = {powerResult}</div>}
+         </Col>
+      </Row>
+
+      </Form.Group>
+     
+     {/*
        {a && b && (
           <div className="power-preview">
             Preview: {a}<sup>{b}</sup>
           </div>
        )}
-
+*/}
       <Button 
         onClick={handleCalculatePower} 
         style={{
@@ -145,7 +177,7 @@ function PowerCalculator() {
       >
         {t('CalculatorButton')}
       </Button>
-      {powerResult !== null && <div className="result-group">  {t('CalculatorResult2')} {powerResult}</div>}
+    
     </Card.Body>
   </Card>
   );

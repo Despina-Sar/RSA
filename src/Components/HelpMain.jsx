@@ -67,7 +67,7 @@ return (
 
   <RSAProvider>
        
-        <NavBar step={step} onNext={handleNext} where={"Help"} modalOpen={modalOpen}/>       
+        <NavBar  where={"Help"} modalOpen={modalOpen}/>       
         <br/>
         <br/>
      

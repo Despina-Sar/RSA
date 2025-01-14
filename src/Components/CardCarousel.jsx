@@ -597,9 +597,7 @@ const CardCarousel = () => {
           <p> {t('TestCard1Desc1')}</p>
           <p>P = {p}, Q = {q}</p>
           <p>{t('TestCard1Desc2')}</p>
-          <p>Correct E = {e}</p>
-   
-      
+           
 
           <input
             type="number"
@@ -685,7 +683,6 @@ const CardCarousel = () => {
           <p>{t('TestCard2Desc1')}</p>
           <p>n = {n}, Φ(n) = {phiN}, E = {e}</p>
           <p>{t('TestCard2Desc2')}</p>
-          <p>Correct D = {d}</p>
      
           <input
                 className={isValidated ? styles.validInput : styles.Input}
@@ -728,8 +725,7 @@ const CardCarousel = () => {
           <p>{t('TestCardGeneralDesc')}</p>
           <p>n = {n}, E = {e}, {t('TestCard_M')} = {message}</p>
           <p>{t('TestCard3Desc1')}</p>
-          <p>Correct  μήνυμα = {encryptedMessage}</p>
-
+    
           <input
             type="number"
             placeholder="CT"
@@ -769,8 +765,6 @@ const CardCarousel = () => {
           <p> {t('TestCardGeneralDesc')}</p>
           <p>n = {n}, E = {e},  D = {d}, {t('TestCard_CT')} = {encryptedMessage}</p>
           <p> {t('TestCard4Desc1')}</p>
-
-          <p>Correct  μήνυμα = {message}</p>
 
           <input
             type="number"
@@ -815,8 +809,6 @@ const CardCarousel = () => {
           <p>n = {n}, Φ(n) = {phiN}</p>
           <p> {t('TestCard5Desc1')}</p>
 
-          <p>Correct  E = {e}</p>
-
           <input
             type="number"
             placeholder="E"
@@ -856,8 +848,6 @@ const CardCarousel = () => {
           </p>
           <p>{t('TestCardGeneralDesc')}</p>
           <p>P = {p}, Q = {q}, E = {e} , {t('TestCard_M')} = {message}</p>
-
-          <p>Correct  encryptedMessage = {encryptedMessage}</p>
                
         
           <div className={styles['Hidden']} style={{ display: 'none' }}>
@@ -897,9 +887,7 @@ const CardCarousel = () => {
           </p>
           <p>{t('TestCardGeneralDesc')}</p>
           <p>P = {p}, Q = {q}</p>
-
-          <p>Correct  E = {e}</p>
-        
+       
         
           <div className={styles['Hidden']} style={{ display: 'none' }}>
             <RandomTest
@@ -932,9 +920,7 @@ const CardCarousel = () => {
           </p>
           <p>{t('TestCardGeneralDesc')}</p>
           <p>P = {p}, Q = {q}, E = {e} </p>
-
-          <p>Correct  D = {d}</p>
-        
+       
         
           <div className={styles['Hidden']} style={{ display: 'none' }}>
           <RandomTest
@@ -967,9 +953,6 @@ const CardCarousel = () => {
           </p>
           <p>{t('TestCardGeneralDesc')}</p>
           <p>P = {p}, Q = {q}, D = {d}, {t('TestCard_CT')}= {encryptedMessage} </p>
-
-          <p>Correct  message = {message}</p>
-        
         
           <div className={styles['Hidden']} style={{ display: 'none' }}>
           <RandomTest

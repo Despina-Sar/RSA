@@ -108,7 +108,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                             padding:'2px 5px',
                             width:'55%',
                             borderRadius: '5px',
-                            backgroundColor: 'rgb(243, 219, 219)',
+                            backgroundColor: 'rgb(255, 255, 255)',
                             color:'black'}}>
                      {t('AlgorithmStep1')}
                     </span></strong>
@@ -120,7 +120,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                             padding:'2px 5px',
                             width:'16%',
                             borderRadius: '5px',
-                            backgroundColor: 'rgb(243, 219, 219)',
+                            backgroundColor: 'rgb(255, 255, 255)',
                             color:'black'}}>
                        {t('AlgorithmStep2')}
                     </span></strong>
@@ -131,7 +131,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                             padding:'2px 5px',
                             width:'35%',
                             borderRadius: '5px',
-                            backgroundColor: 'rgb(243, 219, 219)',
+                            backgroundColor: 'rgb(255, 255, 255)',
                             color:'black'}}>
                         {t('AlgorithmStep3')}
                     </span></strong>
@@ -196,7 +196,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                         padding:'2px 5px',
                         width:'55%',
                         borderRadius: '5px',
-                        backgroundColor: 'rgb(243, 219, 219)',
+                        backgroundColor: 'rgb(255, 255, 255)',
                         color:'black'}}>
              {t('AlgorithmEx1')}
                 </span></strong>
@@ -208,7 +208,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                         padding:'2px 5px',
                         width:'16%',
                         borderRadius: '5px',
-                        backgroundColor: 'rgb(243, 219, 219)',
+                        backgroundColor: 'rgb(255, 255, 255)',
                         color:'black'}}>
               {t('AlgorithmEx2')}
                 </span></strong>
@@ -219,7 +219,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                         padding:'2px 5px',
                         width:'35%',
                         borderRadius: '5px',
-                        backgroundColor: 'rgb(243, 219, 219)',
+                        backgroundColor: 'rgb(255, 255, 255)',
                         color:'black'}}>
                  {t('AlgorithmEx3')}
                 </span></strong>
@@ -233,7 +233,7 @@ const imageSrc = i18n.language === 'en' ? AlgorithmEN : AlgorithmEL;
                     padding:'2px 5px',
                     boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                     borderRadius: '8px',
-                    backgroundColor: 'rgb(4,145,141)'}}>
+                    backgroundColor: 'rgb(138,4,17)'}}>
                          {t('AlgorithmEx4')}
                 </span> </strong> <br />
                 <p dangerouslySetInnerHTML={{ __html: t('AlgorithmEx4a') }} />

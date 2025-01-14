@@ -781,7 +781,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <Form.Control
                     className="custom-placeholderPQPlay"
                     placeholder="P"
-                    style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
+                    style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                    value={form.p ? `${PREFIX_MAP['p']}=${form.p}` : ''}
                     onChange={(e) => setField('p', e.target.value)} // Update without the prefix
                     isInvalid={!!errors.p} // Keep the visual invalid state
@@ -798,7 +798,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       className="custom-placeholderPQPlay"
       placeholder="P"
       style={{
-        backgroundColor: 'rgb(243, 219, 219)',
+        backgroundColor: 'rgb(255, 255, 255)',
         fontWeight: 'bold',
         fontSize: '1.0rem',
         color: 'rgb(108,117,125)',
@@ -822,7 +822,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       onClick={handleCalculatePrimeP}
       title="Select a random prime number"
     >
-    <i class="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    <i class="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
     </button>
   </div>
 </Col>
@@ -835,7 +835,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <Form.Control
                 className="custom-placeholderPQPlay"
                     placeholder="Q"
-                    style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
+                    style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold',fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                     value={form.q ? `${PREFIX_MAP['q']}=${form.q}` : ''}
                     onChange={(e) => setField('q', e.target.value)}
                     isInvalid={!!errors.q}
@@ -854,7 +854,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       className="custom-placeholderPQPlay"
       placeholder="Q"
       style={{
-        backgroundColor: 'rgb(243, 219, 219)',
+        backgroundColor: 'rgb(255, 255, 255)',
         fontWeight: 'bold',
         fontSize: '1.0rem',
         color: 'rgb(108,117,125)',
@@ -878,7 +878,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       onClick={handleCalculatePrimeQ}
       title="Select a random prime number"
     >
-    <i class="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(8, 4, 4)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    <i class="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
     </button>
   </div>
 </Col>
@@ -892,7 +892,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                  className="custom-placeholderNF"
                //  value={form.n ? `${PREFIX_MAP['n']}=${form.n}` : ''} // Add "=" only if form.p has a value
                 placeholder={placeholderN} 
-                style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
+                style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold',fontSize: '0.83rem'}}
                 isInvalid={!!errors.n}
                 readOnly
              />
@@ -906,7 +906,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               className="custom-placeholderNF"
               placeholder= {placeholderFn}
               //value={form.fn ? `${PREFIX_MAP['fn']}=${form.fn}` : ''}  // Only show the prefix if form.fn is set
-              style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold',fontSize: '0.83rem'}}
+              style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold',fontSize: '0.83rem'}}
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               readOnly
             />
@@ -930,7 +930,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
             style={{ 
                                
                 textAlign: 'center', 
-                backgroundColor: 'rgb(243, 219, 219)',
+                backgroundColor: 'rgb(255, 255, 255)',
                 fontWeight: 'bold'
             }} 
             />   
@@ -939,27 +939,35 @@ const handleSubmitM = (field, value, form,newErrors) =>{
    
                  <Row className="mb-3"  style={{ alignItems: 'center'}} > 
                       <Col xs={6}>
+                      <div className="input-icon-placeholder">
                         <Form.Control
                           className="custom-placeholder"
-                           placeholder={t('Bob3')}
+                           placeholder= {t('Bob3')}
                            value={form.E ? `${PREFIX_MAP['E']}=${form.E}` : ''}
                            onChange={(e) => setField('E', e.target.value)}
                            isInvalid={!!errors.E}
                            disabled={locked}                           
                            style={{ 
                             fontSize: '1.0rem', 
-                            padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)' ,
-                            backgroundColor: 'rgb(4,145,141)',
+                            backgroundColor: 'rgb(138,4,17)',
                             fontWeight:'bolder',
                             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)'}}
+                         
                           />
+                          
+                           <i class="bi bi-unlock-fill"></i>
+                           </div>
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.E}
                         </Form.Control.Feedback>
                         
+
+   
+
                       </Col>      
                       <Col xs={6}>
+                      <div className="input-icon-placeholder">
                         <Form.Control
                           className="custom-placeholder"
                           
@@ -970,15 +978,16 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            disabled={locked}                           
                            style={{ 
                             fontSize: '1.0rem', 
-                            padding: '0.5rem 0.5rem',
                             color:'rgb(255, 255, 255)',
                             backgroundColor: 'rgb(138,4,17)',
                             fontWeight:'bolder' ,
                             boxShadow : '0 0 8px rgba(255, 255, 255, 0.8)',
                             
-                            '::placeholder': {color:'rgb(255, 255, 255)'}
+                          
                           }}
                           />
+                              <i class="bi bi-key-fill"></i>
+                          </div>
                         <Form.Control.Feedback type= 'invalid'>
                           {errors.D}
                         </Form.Control.Feedback>
@@ -1004,7 +1013,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#c22748', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#c22748', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            backgroundColor: 'rgb(0, 0, 0)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -1019,7 +1028,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.backgroundColor = 'rgb(0, 0, 0)'; // Reset to original background
                             e.target.style.color = '#c22748'; // Reset text color
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
@@ -1127,7 +1136,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-unlock-fill"
-                    style={{ fontSize: '40px', color: 'rgb(4,145,141)' ,textShadow: '3px 3px 2px white'}}
+                    style={{ fontSize: '40px', color: 'rgb(138,4,17)' ,textShadow: '3px 3px 2px white'}}
                   ></i>
                   ({form.E},{form.n})
                 </span>
@@ -1143,7 +1152,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-unlock-fill"
-                  style={{ fontSize: '40px', color: 'rgb(4,145,141)' ,textShadow: '3px 3px 2px white'}}
+                  style={{ fontSize: '40px', color: 'rgb(138,4,17)' ,textShadow: '3px 3px 2px white'}}
                 ></i>
                 ({form.E},{form.n})
               </span>
@@ -1166,7 +1175,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 <span style={styles.valueLabel}>
                   <i
                     className="bi bi-file-earmark-lock-fill"
-                    style={{fontSize: '40px', color:'rgb(138,4,17)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
+                    style={{fontSize: '40px', color:'rgb(4,145,141)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                   ></i>
                  {form.CT}
                 </span>
@@ -1182,9 +1191,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               <span className="mobileValueLabel">
                 <i
                   className="bi bi-file-earmark-lock-fill"
-                  style={{fontSize: '40px', color:'rgb(138,4,17)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
+                  style={{fontSize: '40px', color:'rgb(4,145,141)', textShadow: '3px 3px 4px white',paddingRight: '5px'}}
                 ></i>
-                 CT : {form.CT}
+                 {form.CT}
               </span>
               </div>
               </Row>
@@ -1234,7 +1243,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                       }}
                       
                        isInvalid={!!errors.M}
-                       style={{ backgroundColor: 'rgb(243, 219, 219)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
+                       style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />
                    <Form.Control.Feedback type= 'invalid'>
                      {errors.M}
@@ -1284,7 +1293,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             borderColor: '#06c3c9', // Custom border color
                             borderWidth: '2px', // Custom border thickness
                             color: '#06c3c9', // Ensure text color matches or complements the border
-                            backgroundColor: 'rgb(8, 4, 4)', // Dark background
+                            backgroundColor: 'rgb(0, 0, 0)', // Dark background
                             borderRadius: '5px', // Rounded corners for a modern look
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
                             transition: 'all 0.3s ease-in-out', // Smooth animation for hover effects
@@ -1299,7 +1308,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             e.target.style.boxShadow = '0 8px 12px rgba(194, 39, 72, 0.5)'; // Highlight shadow
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgb(8, 4, 4)'; // Reset to original background
+                            e.target.style.backgroundColor = 'rgb(0, 0, 0)'; // Reset to original background
                             e.target.style.color = '#06c3c9'; // Reset text color
                             e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                           }}
@@ -1389,7 +1398,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     fontSize: '50px',
-    marginTop: '20px'
+  
   },
  
   valueLabel: {
