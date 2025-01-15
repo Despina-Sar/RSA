@@ -4,7 +4,7 @@
   "AppButton2": "Start",
 
   "InfoCard1Title": "RSA",
-  "InfoCard1Description": "RSA is an asymmetric encryption algorithm commonly used for securing data and ensuring the confidentiality of communications. Named after its inventors, Ron Rivest, Adi Shamir, and Leonard Adleman, it was first introduced in 1977. The algorithm relies on the mathematical properties of prime numbers and the complexity of factoring large composite numbers, making it highly resistant to attacks. By employing a system of public and private keys, RSA is utilized not only for encrypting messages but also for implementing digital signatures, which provide data authentication and integrity. It is a cornerstone of modern cryptography and is applied in various domains, including HTTPS and secure email communications.",
+  "InfoCard1Description": "RSA is an asymmetric encryption algorithm commonly used for securing data and ensuring the confidentiality of communications. Named after its inventors, Ron Rivest, Adi Shamir, and Leonard Adleman, it was first introduced in 1978. The algorithm relies on the mathematical properties of prime numbers and the complexity of factoring large composite numbers, making it highly resistant to attacks. By employing a system of public and private keys, RSA is utilized not only for encrypting messages but also for implementing digital signatures, which provide data authentication and integrity. It is a cornerstone of modern cryptography and is applied in various domains, including HTTPS and secure email communications.",
   
   "InfoCard2Title": "RSA Algorithm: Stage I",
   "InfoCard2Description": "Creation and sharing of the recipient's public key",
