@@ -87,6 +87,18 @@ const CardCarousel = () => {
     const d = findModInverse(e, phiN);
     const message = Math.floor(Math.random() * 20) + 1;
     const encryptedMessage = modExp(message, e, n);
+   
+    console.log(JSON.stringify({
+      P: p,
+      Q: q,
+      n: n,
+      phiN: phiN,
+      e: e,
+      d: d,
+      message: message,
+      encryptedMessage: encryptedMessage
+    }, null, 2)); // 'null' and '2' are used for pretty-printing the JSON
+    
 
     return {
       p,
@@ -710,7 +722,7 @@ const CardCarousel = () => {
           </button>
      )}
 
-       
+ 
           {errors.privateKey && <p className={styles.error}>{errors.privateKey}</p>}
 
         </>
@@ -793,7 +805,7 @@ const CardCarousel = () => {
           </button>
           )}
 
-          
+         
            {errors.message && <p className={styles.error}>{errors.message}</p>}
         </>
       );
@@ -834,7 +846,7 @@ const CardCarousel = () => {
           </button>
          )}
 
-         
+   
            {errors.e1 && <p className={styles.error}>{errors.e1}</p>}
         </>
       );
@@ -872,7 +884,6 @@ const CardCarousel = () => {
       
      
     
-    
          {errors.six && <p className={styles.error}>{errors.six}</p>}
          {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
           
@@ -905,7 +916,7 @@ const CardCarousel = () => {
       
      
     
-    
+       
          {errors.seven && <p className={styles.error}>{errors.seven}</p>}
          {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
           
@@ -937,7 +948,7 @@ const CardCarousel = () => {
          <br/>
       
      
-    
+       
     
          {errors.eight && <p className={styles.error}>{errors.eight}</p>}
          {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}
@@ -969,7 +980,7 @@ const CardCarousel = () => {
          <br/>
       
      
-    
+       
     
          {errors.nine && <p className={styles.error}>{errors.nine}</p>}
          {isValidated && <p className={styles.success}>{t('CorrectAnswer')}</p>}

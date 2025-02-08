@@ -64,6 +64,7 @@
     "BobModalTitle": "Μήνυμα λάθους", 
     "BobModalText": "Παρακαλώ συμπληρώσε σωστά όλα τα πεδία ώστε να μπορέσεις να στείλεις το Public Key στην Alice.", 
     "BobModalButton": "Κλείσιμο",
+    "PlayAliceModalTitle": "Μήνυμα λάθους", 
     
     "EndModalTitle": "Μπράβο", 
     "EndModalText": "Ολοκλήρωσες επιτυχώς τον αλγόριθμο κρυπτογράφησης RSA.", 

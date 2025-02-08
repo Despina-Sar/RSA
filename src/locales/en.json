@@ -63,6 +63,7 @@
   "BobWaitCT": "Waiting for a message from Alice",
   "BobGetCT": "Received the encrypted message ",
 
+  "PlayAliceModalTitle": "Error Message", 
   "BobModalTitle": "Error Message",
   "BobModalText": "Please fill out all fields correctly to send the Public Key to Alice.",
   "BobModalButton": "Close",
