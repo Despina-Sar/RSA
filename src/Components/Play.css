@@ -27,6 +27,7 @@
 
 
 
+
 /* Desktop-specific Styles */
 @media (min-width: 1301px) {
 
@@ -374,3 +375,23 @@
         font-size: 20px;
       }
       
+
+      
+      .input-icon-placeholder .invalid-feedback {
+        position: absolute;
+        bottom: -30px; /* Adjust as needed */
+        left: 0;
+        width: 100%;
+        font-size: 0.875rem;
+      }
+      .input-icon-placeholder .invalid-feedbackE {
+        bottom: -30px; /* Adjust as needed */ 
+        position: absolute;
+        left: 0;
+        width: 100%;
+        font-size: 0.875rem;
+      }
+
+      .custom-error-message {
+        font-size: 0.9rem !important;  /* Προσαρμόζεις το μέγεθος όπως θέλεις */
+      }

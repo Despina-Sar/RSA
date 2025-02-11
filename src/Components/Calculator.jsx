@@ -14,14 +14,14 @@ function ModuloCalculator() {
     if (b !== 0 && b !== '') {
       setModResult(a % b);
     } else {
-      setModResult(<i class="bi bi-exclamation-triangle"></i>);
+      setModResult(<i className="bi bi-exclamation-triangle"></i>);
     }
   };
 
   return (
     <Card className="calculator-card">
       <Card.Body className="calculator-body">
-        <Card.Title style={{ textAlign: 'center'}}> <i class="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>{t('CalculatorTitle1')}</Card.Title>
+        <Card.Title style={{ textAlign: 'center'}}> <i className="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>{t('CalculatorTitle1')}</Card.Title>
         <br/>
         <Form.Group>
          <Row>
@@ -98,7 +98,7 @@ function PowerCalculator() {
     console.log(a+b);
     if(a !== '' && b !== ''){
     setPowerResult(Math.pow(a, b));}
-    else{setPowerResult(<i class="bi bi-exclamation-triangle"></i>);}
+    else{setPowerResult(<i className="bi bi-exclamation-triangle"></i>);}
   };
 
   return (
@@ -106,7 +106,7 @@ function PowerCalculator() {
           <br/>
           <br/>
     <Card.Body  className="calculator-body">
-      <Card.Title style={{ textAlign: 'center'}}> <i class="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>  {t('CalculatorTitle2')}</Card.Title>
+      <Card.Title style={{ textAlign: 'center'}}> <i className="bi bi-calculator-fill" style={{fontSize: '18px'}}></i>  {t('CalculatorTitle2')}</Card.Title>
       <br/>
       <Form.Group>
 

@@ -129,6 +129,8 @@ button:disabled {
   width: 30%;
   align-self: center;
   margin-left: 35%;
+  min-width: 30%;
+
 }
 
 /* Reset Bootstrap default styles */
@@ -253,6 +255,14 @@ button:disabled {
     color: white;
     padding: 20px;
     max-width: 600px;
+  }
+
+
+
+  .hint {
+    margin-left: 30%;
+    min-width: 40%;
+    
   }
 }
 

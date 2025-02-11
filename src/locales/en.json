@@ -48,12 +48,12 @@
     "character": "Alphanumeric characters are not allowed",
     "limit": "Only numbers between 0 - 100 are allowed",
 
-    "emptyE": "The E field is empty. Please enter a number",
-    "integerE": "E must be a positive integer greater than 1",
-    "fnErroronE": "Φ(n) (fn) must be a positive integer greater than 1",
-    "EmotCoprimeWithFn": "is not coprime with {{number}}. Choose a number that has no common factors with {{number}} other than 1",
+    "emptyE": "The field is empty",
+    "integerE": "Only numbers are allowed",
+    "fnErroronE": "Check Φ(n)",
+    "EmotCoprimeWithFn": " is not coprime with {{number}}",
 
-    "emptyD": "The D field is empty. Please enter a value",
+    "emptyD": "The field is empty",
     "wrongD": "has no inverse mod of",
 
     "errorFn": "Please enter the correct positive number"
@@ -71,6 +71,7 @@
   "EndModalTitle": "Congratulations",
   "EndModalText": "You have successfully completed the RSA encryption algorithm.",
   "EndModalButton": "Try Again",
+ "EndModalButtonClose": "Close",
 
   "AliceGetKey": "Received Bob's public key ",
   "AliceWaitKey": "Wishes to send a message to Bob. <br/>Waiting for the public key.",

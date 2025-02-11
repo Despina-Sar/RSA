@@ -279,7 +279,7 @@ function NavBar({ step, onNext ,where  }) {
               <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
 
               {isSmallScreen && (
-                  <NavDropdown title= {<i class="bi bi-list"></i>} className="nav-dropdown">
+                  <NavDropdown title= {<i className="bi bi-list"></i>} className="nav-dropdown">
                     <NavDropdown.Item as={Link} to="/PlayMain">{t('NavEducational')}</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/HelpMain">{t('NavHelp')}</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/CardCarousel">{t('NavTest')}</NavDropdown.Item>
@@ -307,7 +307,7 @@ function NavBar({ step, onNext ,where  }) {
                   )}
 
                 <Button variant="dark" onClick={handleShowCalculator} style={{ fontSize: '1.0rem',fontWeight: 'bolder',marginLeft: '5px'    }}>
-                          <i class="bi bi-calculator-fill" style={{fontSize: '20px'}}></i>
+                          <i className="bi bi-calculator-fill" style={{fontSize: '20px'}}></i>
                         </Button>
                         
 
@@ -315,21 +315,21 @@ function NavBar({ step, onNext ,where  }) {
             
             { isMobile && (
               <Button variant="dark" onClick={handleShow} style={{ fontSize: '1.0rem',fontWeight: 'bolder' ,marginLeft: '5px' , marginRight: '5px'   }}>
-                 <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
+                 <i className="bi bi-question-lg" style={{fontSize: '20px'}}></i>
               </Button>
           )}
 
 
          {!isMobile && (
             <Button variant="dark" onClick={handleShowTop} style={{ fontSize: '1.0rem',fontWeight: 'bolder' ,marginLeft: '5px' , marginRight: '5px'   }}>
-                 <i class="bi bi-question-lg" style={{fontSize: '20px'}}></i>
+                 <i className="bi bi-question-lg" style={{fontSize: '20px'}}></i>
               </Button>
                   )}
 
 {
           //location.pathname !== '/HomeGrid' && (
             <Button variant="dark" onClick={refreshPage} style={{ fontSize: '1.0rem',fontWeight: 'bolder'  , marginRight: '5px'  }}>
-                    <i class="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
+                    <i className="bi bi-arrow-clockwise" style={{fontSize: '20px'}}></i>
                  </Button>
             //    )
             }

@@ -58,7 +58,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
   const [factors, setFactors] = useState('');
   const [isZCorrect, setIsZCorrect] = useState(false);                              //from 7.11
 
-
+ 
 
   const [error, setError] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
@@ -70,6 +70,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
   // Function to close the modal
   const handleCloseModB = () => setShowModalB(false);
   const handleCloseModA = () => setShowModalA(false);
+  const handleClose = () => setShowModalE(false);
 
     // Handle input changes for the bobs's inputs                                   //from 7.11
     const handleInputChange2 = (e, setter) => {
@@ -102,8 +103,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 
 
     // Remove the prefix from the value if it exists to avoid duplicate prefixes
-      console.log(value);
-      console.log(typeof value);
+
 
       const  rawValue = value.startsWith(prefix) ? value.slice(prefix.length + 1) : value;  // Account for the '=' character
 
@@ -123,7 +123,7 @@ const Play = ({rsaValuess, updateRSAValues }) => {
         [field]: rawValue,
         
     }));
-    console.log(rawValue);
+ 
     
     // Clear errors for the field if valid
     if (!!errors[field]) {
@@ -138,20 +138,23 @@ const Play = ({rsaValuess, updateRSAValues }) => {
 const validateField = (field, value, updatedForm) => {
   const{p,q,n,fn,E,D,CT,M}= updatedForm;
   let newErrors = { ...errors }; // Start with current errors
-  console.log(newErrors);
+ // console.log(newErrors);
   switch (field) {
     case 'p':
-      console.log("before revalidation of P: "+p);
+   
       validateP(field, value,updatedForm,newErrors);
+      setNFn(p,q);
       if(q !== undefined && q !== ''){setNFn(p,q);}
       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
       setErrors(newErrors);
+      console.log(newErrors);
        break;
     case 'q':
       validateQ(field, value,updatedForm,newErrors);
+      setNFn(p,q);
       if(p !== undefined && p !== ''){setNFn(p,q);}
       if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
       if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
@@ -159,6 +162,7 @@ const validateField = (field, value, updatedForm) => {
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
     // Finally, update the errors state once with all accumulated errors
      setErrors(newErrors);
+     console.log(newErrors);
         break;
     {/*
         case 'n':
@@ -186,14 +190,17 @@ const validateField = (field, value, updatedForm) => {
        if (D !== undefined && D !== '') { console.log("Entered ValidateD");validateD('D', D, updatedForm,newErrors);}
        if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
        if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-      setErrors(newErrors);
+      
+       setErrors(newErrors);
+       console.log(newErrors);
       break;
     case 'D':
       validateD(field, value, updatedForm,newErrors);
        if (E !== undefined && E !== '') { console.log("Entered ValidateE");validateE('E', E, updatedForm,newErrors);}
       if (CT !== undefined && CT !== '') { console.log("Entered ValidateCT");handleSubmitCT('CT', CT, updatedForm,newErrors);}
       if (M !== undefined && M !== '') { console.log("Entered ValidateM");handleSubmitM('M', M, updatedForm,newErrors);}
-      setErrors(newErrors);
+      setErrors({ ...newErrors });
+      setErrors(newErrors);  console.log(newErrors);
       break;
     case 'M':
       console.log("Entered M");
@@ -220,7 +227,7 @@ const validateField = (field, value, updatedForm) => {
 
 const validateP = (field, value, form,newErrors) =>{
   const{p}= form
-  console.log('P: '+p+' is prime: '+isPrime(p));
+ // console.log('P: '+p+' is prime: '+isPrime(p));
    //-validation for p == prime
    if (p === undefined || p === '' ) {newErrors.p = t('validation.empty');}
    else{
@@ -236,11 +243,11 @@ const validateP = (field, value, form,newErrors) =>{
                  if (!isPrime(p)) { newErrors.p = t('validation.notPrime', { number: p }); }   
                 else {
                     delete newErrors.p; // Clear error if validation passes
-                    console.log('tetttt' + (!form.q === undefined && !form.q === '') );
-                    console.log(form.q);
+                   // console.log('tetttt' + (!form.q === undefined && !form.q === '') );
+                   // console.log(form.q);
                     if (form.q !== undefined && form.q !== '' ){ handleInputChange('fn',(form.p -1) * (form.q-1)); }
                    
-                    console.log('deleted error');  
+                  //  console.log('deleted error');  
                     setErrors(newErrors);      
                  }  
             }
@@ -272,8 +279,8 @@ const validateP = (field, value, form,newErrors) =>{
  //---------------------------------handle submit only for Q --------------------------------------------
  const validateQ = (field, value, form,newErrors) =>{
   const{ q }= form
-  console.log("Entered Q "+q);
-  console.log(isPrime(q));
+  //console.log("Entered Q "+q);
+  //console.log(isPrime(q));
   
   //validation for q == prime
     if (q === undefined || q === '') {newErrors.q = t('validation.empty');}
@@ -348,13 +355,14 @@ const setNFn = (valueP,valueQ) => {
     console.log('Entered setnfnf');
     let valueN,valueFn;
 
-    if (valueP !== undefined && valueP !== '' && valueQ !== undefined && valueQ !== '')
+   // if (valueP !== undefined && valueP !== '' && valueQ !== undefined && valueQ !== '')
     {
         valueN = valueP * valueQ;
         valueFn = (valueP-1) *(valueQ-1);
         setField('n', String(valueN));
         setField('fn', String(valueFn));
         console.log('N: '+form.n+" fn: "+form.fn);
+        
     }
    
     return ;
@@ -366,6 +374,7 @@ const validateE = (field, value, form, newErrors) => {
   // Μετατροπή των τιμών σε αριθμούς
   let Einput = Number(form.E);
   fn = Number(form.fn);
+  console.log("Inside E, fn = "+fn);
 console.log("Einput "+Einput );
   // Έλεγχος αν το πεδίο E είναι κενό
   if (Einput === undefined || Einput === '' || Einput === 0) {
@@ -395,8 +404,8 @@ console.log("Einput "+Einput );
   console.log('Αποτέλεσμα του GCD για το E και το φ(n):', a);
 
   if (a !== 1) {
-    newErrors.E = 'To '+Number(E)+t('validation.EmotCoprimeWithFn', { number:  form.fn });
-   
+   // newErrors.E = Number(E)+t('validation.EmotCoprimeWithFn', { number:  form.fn });
+    newErrors.E = 'gcd ('+Number(E)+','+ form.fn+') ≠ 1';
   } else {
     delete newErrors.E; // Αφαίρεση του μηνύματος λάθους εάν όλα είναι σωστά
      }
@@ -410,15 +419,22 @@ const validateD = (field, value, form, newErrors) => {
 
   if (D === undefined || D === ''|| D === 0) {
     newErrors.D = t('validation.emptyD');
+
   } else { 
     const expectedD = modInverse(E, fn);
-    if(expectedD == -1 ){ newErrors.D = D+ t('validation.wrongD') +form.E;}
+    if(expectedD == -1 ){ 
+      newErrors.D = D+ t('validation.wrongD') +form.E;
+     
+    }
+      
     if (D !== expectedD) {
          newErrors.D = '('+D+' * '+E+') mod '+fn+' ≠ 1';
+
     } else {
        delete newErrors.D; 
     }
   }
+
 };
 
 
@@ -770,7 +786,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               
         
             <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748' }}>
-                  <i class="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
+                  <i className="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
                     Bob   
                </Card.Title><br /> 
     <Row className="mb-3">
@@ -812,7 +828,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       isInvalid={!!errors.p}
       disabled={locked}
     />
-    <Form.Control.Feedback type="invalid">
+    <Form.Control.Feedback type="invalid"  className="custom-error-message">
       {errors.p}
     </Form.Control.Feedback>
 
@@ -822,7 +838,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       onClick={handleCalculatePrimeP}
       title="Select a random prime number"
     >
-    <i class="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    <i className="bi bi-pencil-fill" style={{fontSize: '18px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
     </button>
   </div>
 </Col>
@@ -868,7 +884,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       isInvalid={!!errors.q}
       disabled={locked}
     />
-    <Form.Control.Feedback type="invalid">
+    <Form.Control.Feedback type="invalid" className="custom-error-message">
       {errors.q}
     </Form.Control.Feedback>
 
@@ -878,7 +894,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       onClick={handleCalculatePrimeQ}
       title="Select a random prime number"
     >
-    <i class="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
+    <i className="bi bi-pencil-fill" style={{fontSize: '20px',color:'rgb(0, 0, 0)',fontWeight: 'bolder'}}></i> {/* Calculator icon */}
     </button>
   </div>
 </Col>
@@ -910,7 +926,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
               isInvalid={!!errors.fn} // Show invalid feedback if there's an error
               readOnly
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback type="invalid" >
               {errors.fn}
             </Form.Control.Feedback>
            </Col>
@@ -956,14 +972,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                          
                           />
                           
-                           <i class="bi bi-unlock-fill"></i>
-                           </div>
-                        <Form.Control.Feedback type= 'invalid'>
-                          {errors.E}
-                        </Form.Control.Feedback>
-                        
-
-   
+                           <i className="bi bi-unlock-fill"></i>
+                            {/* Custom error message inside div */}
+                            {errors.E && (
+                            <div className="invalid-feedbackE" style={{ display: 'block',color:'rgb(220, 53, 69)'  }}>
+                              {errors.E}
+                            </div>
+                          )}
+                        </div>
 
                       </Col>      
                       <Col xs={6}>
@@ -974,7 +990,9 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                            placeholder={t('Bob4')}
                            value={form.D ? `${PREFIX_MAP['D']}=${form.D}` : ''}
                            onChange={(e) => setField('D', e.target.value)}
-                           isInvalid={!!errors.D}
+                          // isInvalid={!!errors.D}
+                           isInvalid={errors.D ? true : false}
+
                            disabled={locked}                           
                            style={{ 
                             fontSize: '1.0rem', 
@@ -986,12 +1004,14 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                           
                           }}
                           />
-                              <i class="bi bi-key-fill"></i>
-                          </div>
-                        <Form.Control.Feedback type= 'invalid'>
-                          {errors.D}
-                        </Form.Control.Feedback>
-                        
+                              <i className="bi bi-key-fill"></i>
+                       {/* Custom error message inside div */}
+                          {errors.D && (
+                            <div className="invalid-feedback" style={{ display: 'block' }}>
+                              {errors.D}
+                            </div>
+                          )}
+                        </div>
                       </Col>                            
                         
        </Row>
@@ -1020,7 +1040,8 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                             width: '200px',
                             textAlign: 'center',
                             display: 'block',  // Ensures it behaves like a block element
-                            margin: '0 auto'
+                            margin: '0 auto',
+                            marginTop:'10px'
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = '#c22748'; // Change to border color on hover
@@ -1116,6 +1137,12 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                   >
                   {t('EndModalButton')} 
                  </Button>
+
+                  <Button
+                    className="modal-close-button"
+                    onClick={handleClose}>
+                      {t('EndModalButtonClose')}
+                  </Button>
                 </Modal.Footer>
               </Modal>
 
@@ -1211,7 +1238,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       <Card style={{ borderColor: '#06c3c9' }}  className="customcardAlicePlay">
 
       <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#06c3c9',textAlign: 'center', }}>
-           <i class="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
+           <i className="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
            Alice 
            </Card.Title>
 
@@ -1245,7 +1272,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                        isInvalid={!!errors.M}
                        style={{ backgroundColor: 'rgb(255, 255, 255)',fontWeight: 'bold', padding: '0.5rem 0.5rem' ,fontSize: '1.0rem',color: 'rgb(108,117,125)'}}
                      />
-                   <Form.Control.Feedback type= 'invalid'>
+                   <Form.Control.Feedback type= 'invalid'className="custom-error-message">
                      {errors.M}
                    </Form.Control.Feedback>
                  </Col>    
@@ -1277,7 +1304,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                    
                   
                    />   
-                    <Form.Control.Feedback type= 'invalid'>
+                    <Form.Control.Feedback type= 'invalid' className="custom-error-message">
                      {errors.CT}
                    </Form.Control.Feedback> 
                 </Col>                

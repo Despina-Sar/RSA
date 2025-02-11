@@ -81,11 +81,18 @@ const CardCarousel = () => {
         console.log(p);
  
       }
+      if(p==q)
+        { 
+          p = getPrime();
+          console.log(p);
+   
+        }
     const n = p * q;
     const phiN = (p - 1) * (q - 1);
     const e = findValidE(phiN);
     const d = findModInverse(e, phiN);
-    const message = Math.floor(Math.random() * 20) + 1;
+   // const message = Math.floor(Math.random() * 20) + 1;           ------------------------------------11-2---------------------------
+   const message = Math.floor(Math.random() * (20 - 5 + 1)) + 5;
     const encryptedMessage = modExp(message, e, n);
    
     console.log(JSON.stringify({
@@ -113,7 +120,8 @@ const CardCarousel = () => {
   };
 
   const getPrime = () => {
-    const primes = [2, 3, 5, 7, 11, 13, 17, 19];
+   // const primes = [2, 3, 5, 7, 11, 13, 17, 19];          ------------------------------------11-2---------------------------
+   const primes = [2, 3, 5, 7, 11, 13]; 
     return primes[Math.floor(Math.random() * primes.length)];
   };
 
@@ -339,12 +347,20 @@ const CardCarousel = () => {
       }} else{return;}
     } 
     else if (currentCard === 4) {
-      if(userInputs.e1 !== undefined){
+     {/* if(userInputs.e1 !== undefined){
       if (parseInt(userInputs.e1, 10) !== e) {
         errors.e1 = t('TestCardGeneralHintError');
       } else {
         validated.e1 = true;
       }} else{return;}
+       */}
+       if(userInputs.e1 !== undefined){
+        let validatenumE1= validateE(phiN,userInputs.e1);
+       if (validatenumE1 == false) {
+          errors.e1 = t('TestCardGeneralHintError');
+                } else {
+          validated.e1 = true;
+       }} else{return;}
     } 
   
     setErrors(errors);
@@ -373,47 +389,63 @@ const CardCarousel = () => {
   const CountCorrectNotValidation = (notValidated) => {
         const invalid={};
   
-
+        console.log("inside  CountCorrectNotValidation ");
     for (let i = 0; i < notValidated.length; i++) {
        const currentCard = notValidated[i];
        const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
-  
+     console.log("currentCard "+currentCard);
     switch (currentCard) {
       case 0:
-        let validatenumE = validateE(phiN, userInputs.e);
+     if(  userInputs.e === undefined || userInputs.e === '' ) {invalid.keys = false;}
+     else{
+        const validatenumE = validateE(phiN, userInputs.e);
         if (!validatenumE) {
           invalid.keys = false;
         }
+      }
+       
         break;
       case 1:
           if (parseInt(userInputs.d, 10) !== d) {
           invalid.privateKey = false;
         }
+        console.log("currentCard2 "+parseInt(userInputs.d, 10) !== d);
         break;
       case 2:
           if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
           invalid.encryptedMessage = false;
         }
+        console.log("currentCard3 ");
         break;
       case 3:
         if (parseInt(userInputs.message, 10) !== message) {
             invalid.message = false;
         }
+        console.log("currentCard4 ");
         break;
       case 4:
-        if (parseInt(userInputs.e, 10) !== e) {
-           invalid.e = false;
-        }
+        //if (parseInt(userInputs.e, 10) !== e) {----------------------------------------------11.2
+       //    invalid.e = false;
+       // }
+       if(  userInputs.e === undefined || userInputs.e === '' ) {invalid.keys = false;}
+       else{
+        let validatenumE1 = validateE(phiN, userInputs.e1);
+        if (!validatenumE1) {
+          invalid.e1 = false;
+        }}
+ 
         break;
       default:
         break;
     }
 
     }
-      const properties2 = ['keys', 'privateKey', 'encryptedMessage', 'message', 'e'];
+      const properties2 = ['keys', 'privateKey', 'encryptedMessage', 'message', 'e1'];
       const invalidArray = properties2.map(prop => invalid[prop]);
+      console.log("ReValidation invalidArray"+invalidArray);
       const invalidCount = invalidArray.filter(item => item === false).length;
-    
+      console.log("ReValidation invalidCount"+invalidCount);
+
     return invalidCount;
   
   };
@@ -499,6 +531,12 @@ const CardCarousel = () => {
     const valid5= userInputs.validated?.[5];
     let validArray = [valid0, valid1, valid2, valid3, valid4, valid5];
     */}
+    const filteredInputs = Object.fromEntries(
+      Object.entries(userInputs).filter(([key]) => key !== "validated")
+    );
+
+    console.log("filteredInputs:", filteredInputs); // Proper way to log an object
+    console.log(filteredInputs); // This will show the actual object
 
     const validArray = new Array(9).fill(undefined).map((_, i) => userInputs.validated?.[i] ?? undefined);
     console.log("validArray "+validArray);
@@ -522,6 +560,7 @@ const CardCarousel = () => {
         console.log("countAlreadyValidated "+countAlreadyValidated);  
 
         let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+        //let totalCorrect= countAlreadyValidated; 
           setTimeout(() => {
           setTrueCount(totalCorrect); // Set trueCount in state
           setShowModalE(true); // Show the modal
@@ -549,10 +588,10 @@ const CardCarousel = () => {
         const emptyCount = emptyArray.filter(item => item === undefined).length;
         console.log("emptyCount "+emptyCount);
 
-        if(emptyCount == 9)
+       if(emptyCount == 9)
         {
           totalCorrect1= 0;
-        }else{
+      }else{
           const emptyIndices = validArray
           .map((item, index) => (item === undefined ? index : null))
           .filter(index => index !== null);
@@ -567,9 +606,12 @@ const CardCarousel = () => {
           const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
           console.log("countAlreadyValidated "+countAlreadyValidated);
   
-          totalCorrect1= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+        // totalCorrect1= countAlreadyValidated + ((emptyIndices.length)- countNotValidated);  
+        totalCorrect1= countAlreadyValidated + (5- countNotValidated); 
+         console.log("countAlreadyValidated + ((emptyIndices.length)- countNotValidated ---> "+countAlreadyValidated+"+ (("+emptyIndices.length+")-"+countNotValidated);
+         // totalCorrect1= countAlreadyValidated; ------------------------------------11-2-----------------------------
           console.log("totalCorrect1 "+totalCorrect1);
-        }
+       }
      
           setTimeout(() => {
           setTrueCount(totalCorrect1); // Set trueCount in state
@@ -709,7 +751,7 @@ const CardCarousel = () => {
           />
              <br />
              {hints.privateKey && (
-            <p className={styles.hint}>Ιδιωτικό κλειδί D = {d}</p>
+            <p className={styles.hint}> D = {d}</p>
           )}
 
      {!isValidated &&  errors.privateKey &&(
@@ -718,7 +760,7 @@ const CardCarousel = () => {
             onClick={() => toggleHint('privateKey')}
             disabled={isValidated}
           >
-            {hints.privateKey ? <i class="bi bi-lightbulb-off"></i>: <i class="bi bi-lightbulb"></i>}
+            {hints.privateKey ? <i className="bi bi-lightbulb-off"></i>: <i className="bi bi-lightbulb"></i>}
           </button>
      )}
 
@@ -751,7 +793,7 @@ const CardCarousel = () => {
           />
           <br />
           {hints.encryptedMessage && (
-            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {encryptedMessage}</p>
+            <p className={styles.hint}>CT = {encryptedMessage}</p>
           )}
          {!isValidated &&  errors.encryptedMessage &&(
           <button
@@ -759,7 +801,7 @@ const CardCarousel = () => {
             onClick={() => toggleHint('encryptedMessage')}
             disabled={isValidated}
           >
-            {hints.encryptedMessage ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
+            {hints.encryptedMessage ? <i className="bi bi-lightbulb-off"></i> : <i className="bi bi-lightbulb"></i>}
           </button>
          )}
          
@@ -792,7 +834,7 @@ const CardCarousel = () => {
 
          <br />
          {hints.message && (
-            <p className={styles.hint}>Κρυπτογραφημένο μήνυμα = {message}</p>
+            <p className={styles.hint}>M = {message}</p>
           )}
          
          {!isValidated &&  errors.message &&(
@@ -801,7 +843,7 @@ const CardCarousel = () => {
             onClick={() => toggleHint('message')}
             disabled={isValidated}
           >
-            {hints.message ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
+            {hints.message ? <i className="bi bi-lightbulb-off"></i> : <i className="bi bi-lightbulb"></i>}
           </button>
           )}
 
@@ -834,7 +876,7 @@ const CardCarousel = () => {
           />
          <br />
          {hints.e1 && (
-            <p className={styles.hint}>Δημόσιο κλειδί E = {e}</p>
+            <p className={styles.hint}> E = {e}</p>
           )}
          {!isValidated &&  errors.e1 &&(
           <button
@@ -842,7 +884,7 @@ const CardCarousel = () => {
             onClick={() => toggleHint('e1')}
             disabled={isValidated}
           >
-            {hints.e1 ? <i class="bi bi-lightbulb-off"></i> : <i class="bi bi-lightbulb"></i>}
+            {hints.e1 ? <i className="bi bi-lightbulb-off"></i> : <i className="bi bi-lightbulb"></i>}
           </button>
          )}
 
@@ -1029,7 +1071,7 @@ const CardCarousel = () => {
                   e.target.style.color = '#grey'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
-                  <i class="bi bi-arrow-left"></i>
+                  <i className="bi bi-arrow-left"></i>
         </Button>
     
 
@@ -1308,7 +1350,7 @@ const CardCarousel = () => {
                   e.target.style.color = '#grey'; // Reset text color
                   e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)'; // Reset shadow
                 }}>
-                <i class="bi bi-arrow-right"></i>
+                <i className="bi bi-arrow-right"></i>
         </Button>
    
 
@@ -1348,7 +1390,7 @@ const CardCarousel = () => {
               >
               <Modal.Header className="modal-header-dark">
                   <Modal.Title className="text-center w-100">
-                  <i class="bi bi-exclamation-triangle"></i>&nbsp;
+                  <i className="bi bi-exclamation-triangle"></i>&nbsp;
                      {t('TestModal.WarnTitle')}
                   </Modal.Title>                
                 </Modal.Header>

@@ -711,7 +711,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
                 </div>
         */}
           <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#c22748',textAlign: 'left', }}>
-                  <i class="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
+                  <i className="bi bi-person-square"style={{fontSize: '40px', color:'#c22748'}} ></i> &nbsp;
                     Bob   
                </Card.Title><br /> 
 
@@ -1150,7 +1150,7 @@ const handleSubmitM = (field, value, form,newErrors) =>{
       <Card style={{ borderColor: '#06c3c9' }}  className="customcardAlice1">
 
       <Card.Title style={{ fontWeight: 'bold' ,fontSize: '1.4rem' ,color:'#06c3c9',textAlign: 'center', }}>
-           <i class="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
+           <i className="bi bi-person-square"style={{fontSize: '40px', color:'#06c3c9'}} ></i> &nbsp;
            Alice 
            </Card.Title>
 
