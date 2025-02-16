@@ -390,12 +390,17 @@ const CardCarousel = () => {
         const invalid={};
   
         console.log("inside  CountCorrectNotValidation ");
+
+        const countSL = notValidated.filter(num => [5, 6, 7, 8].includes(num)).length;
+        console.log("countSL "+countSL);
+
     for (let i = 0; i < notValidated.length; i++) {
        const currentCard = notValidated[i];
        const { p, q, n, phiN, e, d, message, encryptedMessage } = rsaValues[currentCard] || {};
      console.log("currentCard "+currentCard);
     switch (currentCard) {
       case 0:
+        console.log("Case0");
      if(  userInputs.e === undefined || userInputs.e === '' ) {invalid.keys = false;}
      else{
         const validatenumE = validateE(phiN, userInputs.e);
@@ -406,24 +411,28 @@ const CardCarousel = () => {
        
         break;
       case 1:
+        console.log("Case1");
           if (parseInt(userInputs.d, 10) !== d) {
           invalid.privateKey = false;
         }
         console.log("currentCard2 "+parseInt(userInputs.d, 10) !== d);
         break;
       case 2:
+        console.log("Case2");
           if (parseInt(userInputs.encryptedMessage, 10) !== encryptedMessage) {
           invalid.encryptedMessage = false;
         }
         console.log("currentCard3 ");
         break;
       case 3:
+        console.log("Case3");
         if (parseInt(userInputs.message, 10) !== message) {
             invalid.message = false;
         }
         console.log("currentCard4 ");
         break;
       case 4:
+        console.log("Case4");
         //if (parseInt(userInputs.e, 10) !== e) {----------------------------------------------11.2
        //    invalid.e = false;
        // }
@@ -440,12 +449,14 @@ const CardCarousel = () => {
     }
 
     }
+    //κενες τιμες απο ΣΛ
+    
       const properties2 = ['keys', 'privateKey', 'encryptedMessage', 'message', 'e1'];
       const invalidArray = properties2.map(prop => invalid[prop]);
       console.log("ReValidation invalidArray"+invalidArray);
       const invalidCount = invalidArray.filter(item => item === false).length;
       console.log("ReValidation invalidCount"+invalidCount);
-
+    //  const notvalidated= countSL+invalidCount;
     return invalidCount;
   
   };
@@ -559,8 +570,13 @@ const CardCarousel = () => {
         const countAlreadyValidated = validArrayUpdated.filter(item => item === true).length;
         console.log("countAlreadyValidated "+countAlreadyValidated);  
 
-        let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
-        //let totalCorrect= countAlreadyValidated; 
+        //let totalCorrect= countAlreadyValidated + ((emptyIndices.length)- countNotValidated); 
+        //let totalCorrect= countAlreadyValidated;
+
+        const aftervalidateduserinput = emptyIndices.filter(num => [0, 1, 2, 3,4].includes(num)).length;
+        let totalCorrect= countAlreadyValidated + (aftervalidateduserinput- countNotValidated); 
+          console.log("finalization");  
+        console.log("countAlreadyValidated + ((aftervalidateduserinput)- countNotValidated ---> "+countAlreadyValidated+"+ (("+aftervalidateduserinput+")-"+countNotValidated); 
           setTimeout(() => {
           setTrueCount(totalCorrect); // Set trueCount in state
           setShowModalE(true); // Show the modal
@@ -607,10 +623,14 @@ const CardCarousel = () => {
           console.log("countAlreadyValidated "+countAlreadyValidated);
   
         // totalCorrect1= countAlreadyValidated + ((emptyIndices.length)- countNotValidated);  
-        totalCorrect1= countAlreadyValidated + (5- countNotValidated); 
-         console.log("countAlreadyValidated + ((emptyIndices.length)- countNotValidated ---> "+countAlreadyValidated+"+ (("+emptyIndices.length+")-"+countNotValidated);
+       //2 totalCorrect1= countAlreadyValidated + (9- countNotValidated); 
+        //2 console.log("countAlreadyValidated + ((emptyIndices.length)- countNotValidated ---> "+countAlreadyValidated+"+ (("+emptyIndices.length+")-"+countNotValidated);
          // totalCorrect1= countAlreadyValidated; ------------------------------------11-2-----------------------------
-          console.log("totalCorrect1 "+totalCorrect1);
+       //2   console.log("totalCorrect1 "+totalCorrect1);
+       const aftervalidateduserinput = emptyIndices.filter(num => [0, 1, 2, 3,4].includes(num)).length;
+        totalCorrect1 = countAlreadyValidated + (aftervalidateduserinput- countNotValidated); 
+       console.log("showFinalModal");  
+       console.log("countAlreadyValidated + ((aftervalidateduserinput)- countNotValidated ---> "+countAlreadyValidated+"+ (("+aftervalidateduserinput+")-"+countNotValidated); 
        }
      
           setTimeout(() => {
